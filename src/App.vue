@@ -28,6 +28,7 @@ export default class App extends Vue {}
   background: url("./assets/images/wish-background.png") center/cover no-repeat
       fixed,
     black;
+  cursor: url("./assets/images/cursor.png"), auto;
 }
 
 /* reset css TODO: the wish bg is animated :/ */
