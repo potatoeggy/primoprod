@@ -1,27 +1,38 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
+  <media-test></media-test>
 </template>
 
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
-import HelloWorld from "./components/HelloWorld.vue";
+import MediaTest from "./components/MediaTest.vue";
 
 @Options({
   components: {
-    HelloWorld,
+    MediaTest,
   },
 })
 export default class App extends Vue {}
 </script>
 
 <style>
+@font-face {
+  font-family: "Genshin";
+  src: local("Genshin"), url(./assets/fonts/Genshin.ttf) format("truetype");
+}
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: Genshin, Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  background: url("./assets/images/wish-background.png") center/cover no-repeat
+      fixed,
+    black;
+}
+
+/* reset css TODO: the wish bg is animated :/ */
+* {
+  margin: 0;
+  padding: 0;
 }
 </style>
