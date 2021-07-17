@@ -43,7 +43,8 @@ export default defineComponent({
   margin: 0.5rem;
   border-radius: 1rem;
   border-width: 0px;
-  box-shadow: 0 2px 2px 0 rgba(100, 100, 100, 0.2), 0 2px 2px 0 rgba(100, 100, 100, 0.19);
+  box-shadow: 0 2px 2px 0 rgba(100, 100, 100, 0.2),
+    0 2px 2px 0 rgba(100, 100, 100, 0.19);
   font-size: 11pt;
   color: white;
   text-align: start;
