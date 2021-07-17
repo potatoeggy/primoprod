@@ -2,12 +2,12 @@
   <div id="header">
     <p id="wish-label" class="white">Wish</p>
     <gem-counter icon="primogem.webp" text="112399"></gem-counter>
-    <text-button text="Shop"></text-button>
-    <text-button text="Details"></text-button>
-    <text-button text="History"></text-button>
   </div>
   <div id="banner"></div>
   <div id="bottom-row">
+    <text-button text="Shop"></text-button>
+    <text-button text="Details"></text-button>
+    <text-button text="History"></text-button>
     <wish-button wishes="1"></wish-button>
     <wish-button wishes="10"></wish-button>
   </div>

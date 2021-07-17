@@ -67,6 +67,6 @@ img {
   margin-top: auto;
   margin-bottom: auto;
   margin-left: auto;
-  margin-right: 1rem;
+  margin-right: 0.75rem;
 }
 </style>

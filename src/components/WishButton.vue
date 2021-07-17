@@ -30,10 +30,6 @@ export default defineComponent({
 </script>
 
 <style scoped>
-img {
-  display: block;
-}
-
 .wish-container {
   position: relative;
   display: inline-block;
