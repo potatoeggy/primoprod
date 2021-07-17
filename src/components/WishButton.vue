@@ -1,0 +1,67 @@
+<template>
+  <div class="wish-container">
+    <img class="wish-button" src="../assets/images/wish-button.png" />
+    <div class="wish-text">
+      <p>Wish ×{{ wishes }}</p>
+      <p class="red">
+        <img
+          class="fate-image"
+          src="../assets/images/intertwined-fate.webp"
+          alt="intertwined_fate"
+          width="35"
+        />x {{ wishes }}
+      </p>
+    </div>
+  </div>
+</template>
+
+<script lang="ts">
+import { defineComponent } from "vue";
+
+export default defineComponent({
+  props: {
+    wishes: {
+      type: Number,
+      required: true,
+    },
+  },
+});
+</script>
+
+<style scoped>
+img {
+  display: block;
+}
+
+.wish-container {
+  position: relative;
+  display: inline-block;
+  color: #b3a08c;
+}
+
+.wish-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+p {
+  font-size: 1.3rem;
+  user-select: none;
+}
+
+.pink-fate {
+  background: url("../assets/images/intertwined-fate.webp");
+}
+
+.fate-image {
+  vertical-align: middle;
+  display: inline;
+}
+
+.red {
+  color: red;
+}
+</style>
