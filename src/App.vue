@@ -1,7 +1,7 @@
 <template>
   <div id="header">
     <p id="wish-label" class="white">Wish</p>
-    <gem-counter icon="primogem.webp" text="19"></gem-counter>
+    <gem-counter icon="primogem.webp" text="112399"></gem-counter>
     <text-button text="Shop"></text-button>
     <text-button text="Details"></text-button>
     <text-button text="History"></text-button>

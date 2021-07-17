@@ -1,9 +1,11 @@
 <template>
   <button class="gem-counter">
-    <span class="left">
-      <img :src="require(`../assets/images/${icon}`)" width="25" />
-    </span>
-    <span class="center">{{ text }}</span>
+    <div class="flex">
+      <div class="left">
+        <img :src="require(`../assets/images/${icon}`)" width="25" />
+      </div>
+      <div class="text">{{ text }}</div>
+    </div>
   </button>
 </template>
 
@@ -39,7 +41,7 @@ export default defineComponent({
 .gem-counter {
   background-color: rgba(0, 0, 0, 0.5);
   height: 1.5rem;
-  width: 5rem;
+  width: 6rem;
   margin: 0.5rem;
   border-radius: 1rem;
   border-width: 0px;
@@ -47,21 +49,24 @@ export default defineComponent({
     0 2px 2px 0 rgba(100, 100, 100, 0.19);
   font-size: 11pt;
   color: white;
-  text-align: start;
   padding-left: 5px;
   /* the text must be right aligned while the icon left-aligned */
+  justify-content: space-between;
 }
 
-.gem-counter img {
-  display: inline;
+.flex {
+  display: flex;
+}
+
+img {
   vertical-align: middle;
 }
 
-.left {
-  text-align: left;
-}
-
-.center {
+.text {
   text-align: right;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: auto;
+  margin-right: 1rem;
 }
 </style>
