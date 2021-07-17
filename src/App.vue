@@ -5,11 +5,15 @@
   </div>
   <div id="banner"></div>
   <div id="bottom-row">
-    <text-button text="Shop"></text-button>
-    <text-button text="Details"></text-button>
-    <text-button text="History"></text-button>
-    <wish-button wishes="1"></wish-button>
-    <wish-button wishes="10"></wish-button>
+    <div id="shop-buttons" class="center">
+      <text-button text="Shop"></text-button>
+      <text-button text="Details"></text-button>
+      <text-button text="History"></text-button>
+    </div>
+    <div id="wish-buttons" class="center space-between-elements">
+      <wish-button wishes="1"></wish-button>
+      <wish-button wishes="10"></wish-button>
+    </div>
   </div>
   <media-test></media-test>
 </template>
@@ -46,6 +50,22 @@ export default class App extends Vue {}
       fixed,
     black;
   min-height: max-content;
+}
+
+#bottom-row {
+  display: flex;
+  justify-content: space-between;
+  margin: 2rem;
+}
+
+.center {
+  text-align: center;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.wish-container + .wish-container {
+  padding: 1rem;
 }
 
 .white {
