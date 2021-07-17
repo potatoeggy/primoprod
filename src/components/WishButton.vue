@@ -9,7 +9,8 @@
           src="../assets/images/intertwined-fate.webp"
           alt="intertwined_fate"
           width="35"
-        />x {{ wishes }}
+        />
+        <span>x {{ wishes }}</span>
       </p>
     </div>
   </div>
