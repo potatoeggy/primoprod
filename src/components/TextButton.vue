@@ -17,7 +17,7 @@ export default defineComponent({
 
 <style scoped>
 .menu-button {
-  background-color: #dfdcd3;
+  background-color: #e0ddd4;
   height: 2rem;
   width: 7rem;
   margin: 0.5rem;

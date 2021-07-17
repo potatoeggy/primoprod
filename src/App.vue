@@ -1,10 +1,12 @@
 <template>
-  <div id="header">
+  <div id="header" class="flex center">
     <p id="wish-label" class="white">Wish</p>
     <gem-counter icon="primogem.webp" text="112399"></gem-counter>
   </div>
-  <div id="banner"></div>
-  <div id="bottom-row">
+  <div id="div-banner">
+    <img id="banner" src="./assets/images/wanderlust-banner.png" />
+  </div>
+  <div id="bottom-row" class="flex">
     <div id="shop-buttons" class="center">
       <text-button text="Shop"></text-button>
       <text-button text="Details"></text-button>
@@ -15,7 +17,6 @@
       <wish-button wishes="10"></wish-button>
     </div>
   </div>
-  <media-test></media-test>
 </template>
 
 <script lang="ts">
@@ -52,7 +53,19 @@ export default class App extends Vue {}
   min-height: max-content;
 }
 
+#header {
+  margin: 2rem;
+}
+
+#banner {
+  width: 75%;
+}
+
 #bottom-row {
+  margin: 2rem;
+}
+
+.flex {
   display: flex;
   justify-content: space-between;
   margin: 2rem;
@@ -79,5 +92,12 @@ export default class App extends Vue {}
   padding: 0;
   font-family: Genshin, serif;
   cursor: url("./assets/images/cursor.png"), auto;
+}
+
+html,
+body,
+#app {
+  height: 100%;
+  overflow: hidden;
 }
 </style>
