@@ -1,5 +1,7 @@
 # primoprod
 
+A Genshin Impact wish simulator to push a to-do list with gacha as motivation
+
 ## Project setup
 ```
 yarn install
