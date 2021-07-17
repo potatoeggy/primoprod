@@ -51,9 +51,4 @@ export default class MediaTest extends Vue {
 video {
   width: 500px;
 }
-
-/* THIS IS THE STUPID WHITE BORDER REMOVE ONCE YOU HAVE ACTUAL CSS */
-p:first-of-type {
-  margin-top: 0;
-}
 </style>
