@@ -1,22 +1,22 @@
 <template>
-  <div id="header" class="flex center">
+  <div id="header" class="flex">
     <p id="wish-label" class="white">Wish</p>
     <gem-counter icon="primogem.webp" text="112399"></gem-counter>
   </div>
   <div id="div-banner">
     <img id="banner" src="./assets/images/wanderlust-banner.png" />
   </div>
-  <div id="bottom-row" class="flex">
-    <div id="shop-buttons" class="center">
+  <nav id="footer" class="flex">
+    <div id="shop-buttons">
       <text-button text="Shop"></text-button>
       <text-button text="Details"></text-button>
       <text-button text="History"></text-button>
     </div>
-    <div id="wish-buttons" class="center space-between-elements">
+    <div id="wish-buttons">
       <wish-button wishes="1"></wish-button>
       <wish-button wishes="10"></wish-button>
     </div>
-  </div>
+  </nav>
 </template>
 
 <script lang="ts">
@@ -44,6 +44,9 @@ export default class App extends Vue {}
 }
 
 #app {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   -webkit-font-smoothing: antialiased;
   text-align: center;
   color: #2c3e50;
@@ -53,32 +56,34 @@ export default class App extends Vue {}
   min-height: max-content;
 }
 
-#header {
-  margin: 2rem;
-}
-
 #banner {
-  width: 75%;
+  width: 70%;
 }
 
-#bottom-row {
-  margin: 2rem;
+#shop-buttons,
+#wish-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  flex-wrap: wrap;
 }
 
 .flex {
   display: flex;
   justify-content: space-between;
   margin: 2rem;
+  /*flex-wrap: wrap;*/
 }
 
-.center {
+.center > * {
   text-align: center;
   margin-top: auto;
   margin-bottom: auto;
 }
 
 .wish-container + .wish-container {
-  padding: 1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 .white {
