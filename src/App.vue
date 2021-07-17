@@ -1,6 +1,10 @@
 <template>
   <div id="header">
-    <p class="white">Wish</p>
+    <p id="wish-label" class="white">Wish</p>
+    <gem-counter icon="primogem.webp" text=19></gem-counter>
+    <text-button text="Shop"></text-button>
+    <text-button text="Details"></text-button>
+    <text-button text="History"></text-button>
   </div>
   <div id="banner">
   </div>
@@ -15,11 +19,15 @@
 import { Options, Vue } from "vue-class-component";
 import MediaTest from "./components/MediaTest.vue";
 import WishButton from "./components/WishButton.vue";
+import TextButton from "./components/TextButton.vue";
+import GemCounter from "./components/GemCounter.vue";
 
 @Options({
   components: {
     MediaTest,
     WishButton,
+    TextButton,
+    GemCounter,
   },
 })
 export default class App extends Vue {}
@@ -32,25 +40,25 @@ export default class App extends Vue {}
 }
 
 #app {
-  font-family: Genshin, Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
   background: url("./assets/images/wish-background.png") center/cover no-repeat
       fixed,
     black;
-  cursor: url("./assets/images/cursor.png"), auto;
   min-height: max-content;
 }
 
 .white {
-  color: white;
+  color: #f6f2ee;
+  text-shadow: 1px 0px black;
 }
 
-/* reset css TODO: the wish bg is animated :/ */
+/* reset css */
 * {
   margin: 0;
   padding: 0;
+  font-family: Genshin, serif;
+  cursor: url("./assets/images/cursor.png"), auto;
 }
 </style>

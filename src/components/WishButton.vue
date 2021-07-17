@@ -21,7 +21,7 @@ import { defineComponent } from "vue";
 export default defineComponent({
   props: {
     wishes: {
-      type: Number,
+      type: String,
       required: true,
     },
   },
