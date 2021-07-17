@@ -72,7 +72,8 @@ export default class App extends Vue {}
   display: flex;
   justify-content: space-between;
   margin: 2rem;
-  /*flex-wrap: wrap;*/
+  /* the below aligns the text buttons above the wish buttons */
+  /* flex-wrap: wrap; */
 }
 
 .center > * {
