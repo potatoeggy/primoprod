@@ -1,6 +1,6 @@
 <template>
-  <div id="header" class="space-between">
-    <div id="wish-label" class="space-between">
+  <div id="header" class="space-between center">
+    <div id="wish-label" class="space-between center">
       <img src="./assets/images/ui-wish-edited.png" />
       <p id="wish-label">Wish</p>
     </div>
@@ -98,16 +98,6 @@ export default class App extends Vue {}
 
 .left-align-flex {
   justify-content: left;
-}
-
-#wish-label {
-  margin-top: auto;
-  margin-bottom: auto;
-}
-
-#wish-label > p {
-  margin-top: auto;
-  margin-bottom: auto;
 }
 
 #wish-label > img {
