@@ -18,7 +18,11 @@ export default defineComponent({});
   background-color: #ece5d8;
   font-size: 22pt;
   text-align: center;
+  transition: 0.1s;
+}
 
+.plus-button:active {
+  opacity: 0.3;
 }
 
 .plus-button > p {
