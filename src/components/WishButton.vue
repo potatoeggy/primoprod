@@ -6,7 +6,7 @@
       <p class="red">
         <img
           class="fate-image"
-          src="../assets/images/intertwined-fate.webp"
+          src="../assets/images/intertwined-fate.png"
           alt="intertwined_fate"
           width="35"
         />
@@ -47,10 +47,6 @@ export default defineComponent({
 p {
   font-size: 1.3rem;
   user-select: none;
-}
-
-.pink-fate {
-  background: url("../assets/images/intertwined-fate.webp");
 }
 
 .fate-image {

@@ -33,24 +33,28 @@ export default defineComponent({
       required: false,
       default: false,
     },
+    alignRight: {
+      type: Boolean,
+      required: false,
+      default: true,
+    },
   },
 });
 </script>
 
 <style scoped>
 .gem-counter {
-  background-color: rgba(0, 0, 0, 0.4);
-  height: 1.5rem;
-  width: 6rem;
-  border-radius: 1rem;
+  background-color: rgba(0, 0, 0, 0.35);
+  height: 2.2rem;
+  width: auto;
+  border-radius: 2rem;
   border-width: 0px;
-  box-shadow: 0 2px 2px 0 rgba(100, 100, 100, 0.2),
-    0 2px 2px 0 rgba(100, 100, 100, 0.19);
-  font-size: 100%;
+  font-size: 140%;
   color: white;
-  padding-left: 5px;
+  padding-left: 0.25rem;
   /* the text must be right aligned while the icon left-aligned */
   justify-content: space-between;
+  margin: 0.5rem;
 }
 
 .flex-gem > div {
@@ -63,14 +67,15 @@ export default defineComponent({
 
 img {
   vertical-align: middle;
-  height: 1.75rem;
+  height: 2.2rem;
+  margin-left: 0.3rem;
 }
 
 .text {
   text-align: right;
   margin-top: auto;
   margin-bottom: auto;
-  margin-left: auto;
-  margin-right: 0.75rem;
+  margin-left: 0.5rem;
+  margin-right: 1.3rem;
 }
 </style>

@@ -1,12 +1,15 @@
 <template>
-  <div id="header" class="flex">
-    <p id="wish-label" class="white">Wish</p>
-    <gem-counter icon="primogem.webp" text="112399"></gem-counter>
+  <div id="header" class="space-between">
+    <p id="wish-label">Wish</p>
+    <div id="gems">
+      <gem-counter icon="primogem.png" text="112399"></gem-counter>
+      <gem-counter icon="intertwined-fate.png" text="0"></gem-counter>
+    </div>
   </div>
   <div id="div-banner">
     <img id="banner" src="./assets/images/wanderlust-banner.png" />
   </div>
-  <nav id="footer" class="flex">
+  <div id="footer" class="space-between">
     <div id="shop-buttons">
       <text-button text="Shop"></text-button>
       <text-button text="Details"></text-button>
@@ -16,7 +19,7 @@
       <wish-button wishes="1"></wish-button>
       <wish-button wishes="10"></wish-button>
     </div>
-  </nav>
+  </div>
 </template>
 
 <script lang="ts">
@@ -56,8 +59,25 @@ export default class App extends Vue {}
   min-height: max-content;
 }
 
+#app > div {
+  display: flex;
+  min-height: 0;
+}
+
+#div-banner {
+  align-items: center;
+  justify-content: center;
+}
+
 #banner {
-  width: 70%;
+  max-width: 80%;
+  max-height: 90%;
+  width: auto;
+  height: auto;
+}
+
+#footer {
+  margin-bottom: 0.5rem;
 }
 
 #shop-buttons,
@@ -68,10 +88,11 @@ export default class App extends Vue {}
   flex-wrap: wrap;
 }
 
-.flex {
+.space-between {
   display: flex;
   justify-content: space-between;
   margin: 2rem;
+  margin-bottom: 0;
   /* the below aligns the text buttons above the wish buttons */
   /* flex-wrap: wrap; */
 }
@@ -87,9 +108,11 @@ export default class App extends Vue {}
   padding-right: 1rem;
 }
 
-.white {
+#wish-label {
   color: #f6f2ee;
   text-shadow: 1px 0px black;
+  user-select: none;
+  font-size: 16pt;
 }
 
 /* reset css */
@@ -104,6 +127,6 @@ html,
 body,
 #app {
   height: 100%;
-  overflow: hidden;
+  overflow: auto;
 }
 </style>
