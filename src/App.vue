@@ -79,8 +79,8 @@ export default class App extends Vue {}
 }
 
 #banner {
-  max-width: 80%;
-  max-height: 90%;
+  max-width: 90%;
+  max-height: 100%;
   width: auto;
   height: auto;
 }
