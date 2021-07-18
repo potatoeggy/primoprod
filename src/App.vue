@@ -88,6 +88,11 @@ export default class App extends Vue {}
   flex-wrap: wrap;
 }
 
+#wish-label {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
 .space-between {
   display: flex;
   justify-content: space-between;
