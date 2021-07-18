@@ -8,7 +8,6 @@
           class="fate-image"
           src="../assets/images/intertwined-fate.png"
           alt="intertwined_fate"
-          width="35"
         />
         <span>x {{ wishes }}</span>
       </p>
@@ -52,6 +51,8 @@ p {
 .fate-image {
   vertical-align: middle;
   display: inline;
+  filter: drop-shadow(0px 1px 1px #222);
+  width: 2.25rem;
 }
 
 .red {

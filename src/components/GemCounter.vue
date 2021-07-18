@@ -73,6 +73,7 @@ img {
   vertical-align: middle;
   height: 2.2rem;
   margin-left: 0.3rem;
+  filter: drop-shadow(0px 1px 1px #222)
 }
 
 .text {
