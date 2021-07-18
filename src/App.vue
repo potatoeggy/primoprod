@@ -13,12 +13,18 @@
     <img id="banner" src="./assets/images/wanderlust-banner.png" />
   </div>
   <div id="footer" class="space-between">
-    <div id="shop-buttons">
-      <text-button text="Shop"></text-button>
-      <text-button text="Details"></text-button>
-      <text-button text="History"></text-button>
+    <div>
+      <div id="masterless-home" class="footer-align-flex left-align-flex">
+        <gem-counter icon="starglitter.png" text="4" nobackground></gem-counter>
+        <gem-counter icon="stardust.png" text="700" nobackground></gem-counter>
+      </div>
+      <div id="shop-buttons" class="footer-align-flex">
+        <text-button text="Shop"></text-button>
+        <text-button text="Details"></text-button>
+        <text-button text="History"></text-button>
+      </div>
     </div>
-    <div id="wish-buttons">
+    <div id="wish-buttons" class="footer-align-flex">
       <wish-button wishes="1"></wish-button>
       <wish-button wishes="10"></wish-button>
     </div>
@@ -83,12 +89,15 @@ export default class App extends Vue {}
   margin-bottom: 0.5rem;
 }
 
-#shop-buttons,
-#wish-buttons {
+.footer-align-flex {
   display: flex;
   justify-content: center;
   align-items: flex-end;
   flex-wrap: wrap;
+}
+
+.left-align-flex {
+  justify-content: left;
 }
 
 #wish-label {

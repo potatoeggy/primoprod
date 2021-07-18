@@ -1,5 +1,10 @@
 <template>
-  <button class="gem-counter">
+  <button
+    v-bind:class="{
+      'gem-counter': true,
+      'gem-counter-background': !nobackground,
+    }"
+  >
     <div class="flex-gem">
       <div class="left">
         <img :src="require(`../assets/images/${icon}`)" />
@@ -26,10 +31,10 @@ export default defineComponent({
       type: String,
       required: true,
     },
-    background: {
+    nobackground: {
       type: Boolean,
       required: false,
-      default: true,
+      default: false,
     },
     plusSign: {
       type: Boolean,
@@ -47,7 +52,8 @@ export default defineComponent({
 
 <style scoped>
 .gem-counter {
-  background-color: rgba(0, 0, 0, 0.35);
+  background-color: unset;
+  text-shadow: 1px 1px rgba(0, 0, 0, 0.5);
   height: 2.2rem;
   width: auto;
   border-radius: 2rem;
@@ -58,6 +64,10 @@ export default defineComponent({
   /* the text must be right aligned while the icon left-aligned */
   justify-content: space-between;
   margin: 0.5rem;
+}
+
+.gem-counter-background {
+  background-color: rgba(0, 0, 0, 0.35);
 }
 
 .flex-gem > div {
