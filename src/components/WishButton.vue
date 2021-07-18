@@ -33,6 +33,11 @@ export default defineComponent({
   position: relative;
   display: inline-block;
   color: #b3a08c;
+  transition-duration: 0.3s;
+}
+
+.wish-container:active {
+  filter: brightness(85%);
 }
 
 .wish-text {
