@@ -19,9 +19,11 @@ export default defineComponent({});
   font-size: 22pt;
   text-align: center;
   transition: 0.1s;
+  outline: none;
 }
 
-.plus-button:active {
+.plus-button:active,
+.plus-button:focus {
   opacity: 0.3;
 }
 

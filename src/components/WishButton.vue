@@ -1,6 +1,9 @@
 <template>
-  <div class="wish-container">
-    <img class="wish-button" src="../assets/images/wish-button.png" />
+  <div class="wish-container" tabindex="0">
+    <img
+      class="wish-button"
+      src="../assets/images/wish-button.png"
+    />
     <div class="wish-text">
       <p>Wish ×{{ wishes }}</p>
       <p class="red">
