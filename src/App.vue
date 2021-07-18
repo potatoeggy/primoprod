@@ -1,8 +1,11 @@
 <template>
   <div id="header" class="space-between">
-    <p id="wish-label">Wish</p>
+    <div id="wish-label" class="space-between">
+      <img src="./assets/images/ui-wish-edited.png" />
+      <p id="wish-label">Wish</p>
+    </div>
     <div id="gems">
-      <gem-counter icon="primogem.png" text="112399"></gem-counter>
+      <gem-counter icon="primogem.png" text="112399" plusSign></gem-counter>
       <gem-counter icon="intertwined-fate.png" text="0"></gem-counter>
     </div>
   </div>
@@ -91,6 +94,16 @@ export default class App extends Vue {}
 #wish-label {
   margin-top: auto;
   margin-bottom: auto;
+}
+
+#wish-label > p {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+#wish-label > img {
+  width: 3rem;
+  margin-right: 3rem;
 }
 
 .space-between {

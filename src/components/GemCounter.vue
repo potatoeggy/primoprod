@@ -5,14 +5,17 @@
         <img :src="require(`../assets/images/${icon}`)" />
       </div>
       <div class="text">{{ text }}</div>
+      <plus-button v-if="plusSign"></plus-button>
     </div>
   </button>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import PlusButton from "./PlusButton.vue";
 
 export default defineComponent({
+  components: { PlusButton },
   props: {
     text: {
       type: String,
@@ -63,6 +66,7 @@ export default defineComponent({
 
 .flex-gem {
   display: flex;
+  text-align: center;
 }
 
 img {
@@ -77,5 +81,11 @@ img {
   margin-bottom: auto;
   margin-left: 0.5rem;
   margin-right: 1.3rem;
+}
+
+.plus-button {
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-right: 0.25rem;
 }
 </style>
