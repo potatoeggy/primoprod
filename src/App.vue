@@ -110,7 +110,7 @@ export default class App extends Vue {}
 
 #wish-label {
   color: #f6f2ee;
-  text-shadow: 1px 0px black;
+  text-shadow: 1px 1px rgba(2, 2, 2, 0.3);
   user-select: none;
   font-size: 16pt;
 }
