@@ -4,6 +4,7 @@
       'gem-counter': true,
       'gem-counter-background': !nobackground,
     }"
+    tabindex="-1"
   >
     <div class="flex-gem">
       <div class="left">
