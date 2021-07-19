@@ -40,7 +40,7 @@ export default defineComponent({
 
 .menu-button:active {
   animation-name: colourchange;
-  animation-duration: 0.25s;
+  animation-duration: 0.2s;
   animation-fill-mode: forwards;
 }
 

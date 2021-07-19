@@ -22,8 +22,7 @@ export default defineComponent({});
   outline: none;
 }
 
-.plus-button:active,
-.plus-button:focus {
+.plus-button:active {
   opacity: 0.3;
 }
 

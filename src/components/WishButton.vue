@@ -39,8 +39,7 @@ export default defineComponent({
   transition-duration: 0.3s;
 }
 
-.wish-container:active,
-.wish-container:focus {
+.wish-container:active {
   filter: brightness(85%);
 }
 
