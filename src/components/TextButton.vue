@@ -15,9 +15,9 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
+<style>
 .menu-button {
-  background-color: #e0ddd4;
+  background: #e0ddd4;
   height: 2.5rem;
   width: 10rem;
   margin: 0.5rem;
@@ -34,7 +34,28 @@ export default defineComponent({
 
 .menu-button:hover,
 .menu-button:focus {
-  border: 4px solid white;
+  border: 3px solid white;
   transition: none;
+}
+
+.menu-button:active {
+  animation-name: colourchange;
+  animation-duration: 0.25s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes colourchange {
+  0% {
+  }
+  50% {
+    color: #ffffda;
+    background: #ede9cc;
+  }
+  100% {
+    border: 3px solid darkgray;
+    color: white;
+    background: linear-gradient(rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.05)),
+      #e0ddd4;
+  }
 }
 </style>
