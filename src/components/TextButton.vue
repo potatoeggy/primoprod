@@ -1,5 +1,10 @@
 <template>
-  <button class="menu-button">{{ text }}</button>
+  <audio ref="textClickAudio" preload>
+    <source src="../assets/audio/text-click.mp3" type="audio/mpeg" />
+  </audio>
+  <button class="menu-button" v-on:click="play" type="button">
+    {{ text }}
+  </button>
 </template>
 
 <script lang="ts">
@@ -10,6 +15,11 @@ export default defineComponent({
     text: {
       type: String,
       required: true,
+    },
+  },
+  methods: {
+    play() {
+      (this.$refs.textClickAudio as HTMLAudioElement).play();
     },
   },
 });
