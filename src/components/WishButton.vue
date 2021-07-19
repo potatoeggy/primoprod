@@ -6,7 +6,9 @@
     <img class="wish-button" src="../assets/images/wish-button.png" />
     <div class="wish-text">
       <p>Wish ×{{ wishes }}</p>
-      <p class="red">
+      <p :class="{
+        'red': fates < wishes,
+        }">
         <img
           class="fate-image"
           src="../assets/images/intertwined-fate.png"
@@ -24,9 +26,13 @@ import { defineComponent } from "vue";
 export default defineComponent({
   props: {
     wishes: {
-      type: String,
+      type: Number,
       required: true,
     },
+    fates: {
+      type: Number,
+      required: true,
+    }
   },
   methods: {
     play() {

@@ -8,8 +8,8 @@
       <p id="wish-label">Wish</p>
     </div>
     <div id="gems">
-      <gem-counter icon="primogem.png" text="112399" plusSign></gem-counter>
-      <gem-counter icon="intertwined-fate.png" text="0"></gem-counter>
+      <gem-counter icon="primogem.png" :text="primos" plusSign></gem-counter>
+      <gem-counter icon="intertwined-fate.png" :text="fates"></gem-counter>
     </div>
   </div>
   <div id="div-banner">
@@ -18,8 +18,16 @@
   <div id="footer" class="space-between">
     <div>
       <div id="masterless-home" class="footer-align-flex left-align-flex">
-        <gem-counter icon="starglitter.png" text="4" nobackground></gem-counter>
-        <gem-counter icon="stardust.png" text="700" nobackground></gem-counter>
+        <gem-counter
+          icon="starglitter.png"
+          :text="starglitter"
+          nobackground
+        ></gem-counter>
+        <gem-counter
+          icon="stardust.png"
+          :text="stardust"
+          nobackground
+        ></gem-counter>
       </div>
       <div id="shop-buttons" class="footer-align-flex">
         <text-button text="Shop"></text-button>
@@ -28,8 +36,8 @@
       </div>
     </div>
     <div id="wish-buttons" class="footer-align-flex">
-      <wish-button wishes="1"></wish-button>
-      <wish-button wishes="10"></wish-button>
+      <wish-button :wishes="1" :fates="fates"></wish-button>
+      <wish-button :wishes="10" :fates="fates"></wish-button>
     </div>
   </div>
 </template>
@@ -50,6 +58,10 @@ import GemCounter from "./components/GemCounter.vue";
   },
 })
 export default class App extends Vue {
+  fates = 3;
+  primos = 111337;
+  starglitter = 4;
+  stardust = 700;
   mounted(): void {
     const bgm: HTMLAudioElement = this.$refs.audioBgm as HTMLAudioElement;
     bgm.volume = 0.1;

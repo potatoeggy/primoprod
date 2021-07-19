@@ -24,9 +24,9 @@ export default defineComponent({
   components: { PlusButton },
   props: {
     text: {
-      type: String,
+      type: Number,
       required: false,
-      default: "0",
+      default: 0,
     },
     icon: {
       type: String,
