@@ -1,4 +1,7 @@
 <template>
+  <audio ref="audioBgm" preload autoplay loop>
+    <source src="./assets/audio/bgm-wish.mp3" />
+  </audio>
   <div id="header" class="space-between center">
     <div id="wish-label" class="space-between center">
       <img src="./assets/images/ui-wish-edited.png" />
@@ -46,7 +49,12 @@ import GemCounter from "./components/GemCounter.vue";
     GemCounter,
   },
 })
-export default class App extends Vue {}
+export default class App extends Vue {
+  mounted(): void {
+    const bgm: HTMLAudioElement = this.$refs.audioBgm as HTMLAudioElement;
+    bgm.volume = 0.1;
+  }
+}
 </script>
 
 <style>
