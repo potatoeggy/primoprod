@@ -2,6 +2,15 @@
   <audio ref="audioBgm" preload autoplay loop>
     <source src="./assets/audio/bgm-wish.mp3" />
   </audio>
+  <audio ref="audioExitDialog" preload>
+    <source src="./assets/audio/exit-dialog.mp3" />
+  </audio>
+  <fate-purchase-dialog
+    :fatesToPurchase="fatesToPurchase"
+    v-if="pullNumber > fates"
+    v-on:cancelWish="playDialogSfx(cancelWish)"
+    v-on:wish="playDialogSfx(goWish, $event)"
+  ></fate-purchase-dialog>
   <div id="header" class="space-between center">
     <div id="wish-label" class="space-between center">
       <img src="./assets/images/ui-wish-edited.png" />
@@ -36,8 +45,12 @@
       </div>
     </div>
     <div id="wish-buttons" class="footer-align-flex">
-      <wish-button :wishes="1" :fates="fates"></wish-button>
-      <wish-button :wishes="10" :fates="fates"></wish-button>
+      <wish-button :wishes="1" :fates="fates" v-on:tryWish="wish"></wish-button>
+      <wish-button
+        :wishes="10"
+        :fates="fates"
+        v-on:tryWish="wish"
+      ></wish-button>
     </div>
   </div>
 </template>
@@ -48,6 +61,7 @@ import MediaTest from "./components/MediaTest.vue";
 import WishButton from "./components/WishButton.vue";
 import TextButton from "./components/TextButton.vue";
 import GemCounter from "./components/GemCounter.vue";
+import FatePurchaseDialog from "./components/FatePurchaseDialog.vue";
 
 @Options({
   components: {
@@ -55,6 +69,7 @@ import GemCounter from "./components/GemCounter.vue";
     WishButton,
     TextButton,
     GemCounter,
+    FatePurchaseDialog,
   },
 })
 export default class App extends Vue {
@@ -62,9 +77,48 @@ export default class App extends Vue {
   primos = 111337;
   starglitter = 4;
   stardust = 700;
+
+  pullNumber = 1;
   mounted(): void {
     const bgm: HTMLAudioElement = this.$refs.audioBgm as HTMLAudioElement;
     bgm.volume = 0.1;
+  }
+
+  wish(pulls: number): void {
+    this.pullNumber = pulls;
+    if (pulls <= this.fates) {
+      this.goWish();
+    }
+  }
+
+  goWish(): void {
+    console.log("Wishing");
+    this.fates -= this.pullNumber;
+    this.pullNumber = 0;
+  }
+
+  cancelWish(): void {
+    this.pullNumber = 0;
+  }
+
+  // hacky :/ but the audio element is unfortunately unmounted
+  // before the audio fully plays
+  playDialogSfx(fn: () => void, fatesNeeded: number): void {
+    (this.$refs.audioExitDialog as HTMLAudioElement).play();
+    if (fatesNeeded) {
+      // if we need to pay for primos (if we hit confirm instead of cancel)
+
+      // TODO: yikes you have to do primochecks here, consider renaming the func
+      // to be something like endPrimoDialog
+      this.primos -= fatesNeeded * 160;
+      this.fates += fatesNeeded;
+      // TODO: remake all events to be in kebab case because it's case sensitive
+    }
+    fn();
+  }
+
+  get fatesToPurchase(): number {
+    return this.pullNumber - this.fates;
   }
 }
 </script>

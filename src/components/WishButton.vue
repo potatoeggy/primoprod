@@ -1,14 +1,16 @@
 <template>
   <audio ref="textClickAudio" preload>
-    <source src="../assets/audio/text-click.mp3" type="audio/mpeg" />
+    <source src="../assets/audio/wish-button.mp3" type="audio/mpeg" />
   </audio>
   <div class="wish-container" tabindex="0" v-on:click="play">
     <img class="wish-button" src="../assets/images/wish-button.png" />
     <div class="wish-text">
       <p>Wish ×{{ wishes }}</p>
-      <p :class="{
-        'red': fates < wishes,
-        }">
+      <p
+        :class="{
+          red: fates < wishes,
+        }"
+      >
         <img
           class="fate-image"
           src="../assets/images/intertwined-fate.png"
@@ -32,13 +34,15 @@ export default defineComponent({
     fates: {
       type: Number,
       required: true,
-    }
+    },
   },
   methods: {
     play() {
       (this.$refs.textClickAudio as HTMLAudioElement).play();
+      this.$emit(`tryWish`, this.wishes);
     },
   },
+  emits: ["tryWish"],
 });
 </script>
 
