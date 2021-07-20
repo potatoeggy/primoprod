@@ -1,13 +1,17 @@
 <template>
-  <button type="button" class="cancel-confirm-button" v-on:click="onclick">
-    <span class="icon">
-      <span :class="{ icon_x: text === 'Cancel', icon_o: text === 'Confirm' }">
-        <div></div>
-        <div></div>
+  <div class="cancel-confirm-selector">
+    <button type="button" class="cancel-confirm-button" v-on:click="onclick">
+      <span class="icon">
+        <span
+          :class="{ icon_x: text === 'Cancel', icon_o: text === 'Confirm' }"
+        >
+          <div></div>
+          <div></div>
+        </span>
       </span>
-    </span>
-    {{ text }}
-  </button>
+      {{ text }}
+    </button>
+  </div>
 </template>
 
 <script lang="ts">
@@ -37,11 +41,13 @@ export default defineComponent({
   background-color: rgb(74, 83, 101);
   margin: 1rem 1rem;
   padding: 0.5rem 2rem 1rem 2.5rem;
-  border-radius: 1.25rem;
+  border-radius: 1.5rem;
   border: 0px solid transparent;
-  width: 15rem;
-  height: 2.5rem;
-  font-size: 75%;
+  width: 18rem;
+  height: 3rem;
+  font-size: 70%;
+  transition: box-shadow 0.3s;
+  letter-spacing: -0.1rem;
 }
 
 .icon {
@@ -51,14 +57,20 @@ export default defineComponent({
   background-color: rgb(49, 49, 49);
   margin: 0.75rem;
   border-radius: 50%;
-  width: 1.5rem;
-  height: 1.5rem;
+  width: 2rem;
+  height: 2rem;
   left: -0.3rem;
   top: -0.3rem;
 }
 
-.cancel-confirm-button:hover {
-  box-shadow: rgb(244, 156, 0) 0px 0px 0px 0.2rem;
+.cancel-confirm-button:hover,
+.cancel-confirm-button:active {
+  box-shadow: #ffe8b3 0px 0px 0px 0.3rem;
+  transition: none;
+}
+
+.cancel-confirm-selector:active {
+  /* HALP */
 }
 
 .icon_x {
@@ -71,8 +83,8 @@ export default defineComponent({
 .icon_x div {
   position: absolute;
   background-color: rgb(55, 161, 227);
-  width: 0.8rem;
-  height: 0.15rem;
+  width: 1.25rem;
+  height: 0.2rem;
   transform: rotate(45deg);
   border-radius: 0.5rem;
 }
@@ -82,9 +94,9 @@ export default defineComponent({
 }
 
 .icon_o {
-  border: 0.15rem solid rgb(226, 182, 50);
-  width: 0.45rem;
-  height: 0.45rem;
+  border: 0.2rem solid rgb(226, 182, 50);
+  width: 0.75rem;
+  height: 0.75rem;
   border-radius: 50%;
 }
 </style>

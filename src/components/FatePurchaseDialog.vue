@@ -66,11 +66,11 @@ export default defineComponent({
 
 #dialog {
   position: absolute;
-  min-height: 30%;
-  min-width: 40%;
+  min-height: 50%;
+  min-width: 50%;
   top: 50%;
   left: 50%;
-  font-size: 1.5rem;
+  font-size: 2rem;
   color: #4a5365;
   transform: translate(-50%, -50%);
   padding: 1.5rem 3rem;
@@ -78,7 +78,10 @@ export default defineComponent({
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  letter-spacing: -1px;
+}
+
+#dialog > div > * {
+  letter-spacing: -0.1rem;
 }
 
 #dialog-paimon-bargain {
