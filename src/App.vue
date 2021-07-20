@@ -147,7 +147,7 @@ export default class App extends Vue {
   get pullRarity(): number {
     // TODO: make a pull handler object handling pity and all that then
     // pass the function directly to videoplayer
-    return 5;
+    return 4;
   }
 }
 </script>

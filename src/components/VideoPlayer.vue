@@ -111,6 +111,7 @@ video {
   z-index: 3;
   border: none;
   background-color: transparent;
+  letter-spacing: -2px;
 }
 
 .caret {
