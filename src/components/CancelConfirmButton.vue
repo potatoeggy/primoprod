@@ -69,8 +69,24 @@ export default defineComponent({
   transition: none;
 }
 
-.cancel-confirm-selector:active {
-  /* HALP */
+.cancel-confirm-button:active {
+  animation-name: colourchangedialog;
+  animation-duration: 0.2s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes colourchangedialog {
+  0% {
+  }
+  50% {
+    color: #ffffda;
+    background: #ede9cc;
+  }
+  100% {
+    box-shadow: rgb(74, 83, 101) 0px 0px 0px 0.1rem;
+    background-color: #ffe8b3;
+    color: rgb(74, 83, 101);
+  }
 }
 
 .icon_x {
