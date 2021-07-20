@@ -10,6 +10,7 @@
   <!-- overlay -->
   <fate-purchase-dialog
     :fatesToPurchase="fatesToPurchase"
+    :primoBalance="primos"
     v-if="pullNumber > fates && checkPullDialog"
     v-on:cancel-wish="exitConfirmCancelDialog(cancelWish)"
     v-on:wish="exitConfirmCancelDialog(goWish, $event)"
@@ -89,10 +90,14 @@ import VideoPlayer from "./components/VideoPlayer.vue";
   },
 })
 export default class App extends Vue {
+  // save vars
+  // TODO: implement localStorage json storage
   fates = 3;
-  primos = 111337;
+  primos = 5337;
   starglitter = 4;
   stardust = 700;
+
+  // state vars
   checkPullDialog = false;
   playWishVideo = false;
   pullNumber = 1;

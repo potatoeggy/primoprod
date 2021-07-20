@@ -5,15 +5,16 @@
         <p>Paimon's Bargains</p>
       </div>
       <div id="dialog-text">
-        <p>
+        <p v-if="primoBalance >= primogemsNeeded">
           An additional
           <span class="fate-coloured">{{ fatesToPurchase }}</span> Intertwined
           Fate are needed.
         </p>
-        <p>
+        <p v-if="primoBalance >= primogemsNeeded">
           Purchase with
           <span class="fate-coloured">{{ primogemsNeeded }}</span> Primogem?
         </p>
+        <p v-else>Not enough Primogems or Fates!</p>
       </div>
       <div id="dialog-cancel-confirm">
         <cancel-confirm-button
@@ -23,6 +24,7 @@
         <cancel-confirm-button
           text="Confirm"
           v-on:pressed="$emit('wish', fatesToPurchase)"
+          v-if="primoBalance >= primogemsNeeded"
         ></cancel-confirm-button>
       </div>
     </div>
@@ -42,6 +44,10 @@ export default defineComponent({
       type: Number,
       required: true,
     },
+    primoBalance: {
+      type: Number,
+      required: true,
+    }
   },
   computed: {
     primogemsNeeded(): number {
