@@ -1,16 +1,28 @@
 <template>
+  <!-- audio -->
   <audio ref="audioBgm" preload autoplay loop>
     <source src="./assets/audio/bgm-wish.mp3" />
   </audio>
   <audio ref="audioExitDialog" preload>
     <source src="./assets/audio/exit-dialog.mp3" />
   </audio>
+
+  <!-- overlay -->
   <fate-purchase-dialog
     :fatesToPurchase="fatesToPurchase"
-    v-if="pullNumber > fates"
+    v-if="pullNumber > fates && checkPullDialog"
     v-on:cancel-wish="exitConfirmCancelDialog(cancelWish)"
     v-on:wish="exitConfirmCancelDialog(goWish, $event)"
   ></fate-purchase-dialog>
+  <video-player
+    v-if="playWishVideo"
+    :pulls="pullNumber"
+    :stars="pullRarity"
+    v-on:video-ended="showResults"
+    v-on:video-skipped="showResultsEnd"
+  ></video-player>
+
+  <!-- main -->
   <div id="header" class="space-between center">
     <div id="wish-label" class="space-between center">
       <img src="./assets/images/ui-wish-edited.png" />
@@ -61,19 +73,19 @@
 
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
-import MediaTest from "./components/MediaTest.vue";
 import WishButton from "./components/WishButton.vue";
 import TextButton from "./components/TextButton.vue";
 import GemCounter from "./components/GemCounter.vue";
 import FatePurchaseDialog from "./components/FatePurchaseDialog.vue";
+import VideoPlayer from "./components/VideoPlayer.vue";
 
 @Options({
   components: {
-    MediaTest,
     WishButton,
     TextButton,
     GemCounter,
     FatePurchaseDialog,
+    VideoPlayer,
   },
 })
 export default class App extends Vue {
@@ -81,8 +93,10 @@ export default class App extends Vue {
   primos = 111337;
   starglitter = 4;
   stardust = 700;
-
+  checkPullDialog = false;
+  playWishVideo = false;
   pullNumber = 1;
+
   mounted(): void {
     const bgm: HTMLAudioElement = this.$refs.audioBgm as HTMLAudioElement;
     bgm.volume = 0.1;
@@ -92,17 +106,19 @@ export default class App extends Vue {
     this.pullNumber = pulls;
     if (pulls <= this.fates) {
       this.goWish();
+    } else {
+      this.checkPullDialog = true;
     }
   }
 
   goWish(): void {
-    console.log("Wishing");
     this.fates -= this.pullNumber;
-    this.pullNumber = 0;
+    this.checkPullDialog = false;
+    this.playWishVideo = true;
   }
 
   cancelWish(): void {
-    this.pullNumber = 0;
+    this.checkPullDialog = false;
   }
 
   // hacky :/ but the audio element is unfortunately unmounted
@@ -110,18 +126,28 @@ export default class App extends Vue {
   exitConfirmCancelDialog(fn: () => void, fatesNeeded: number): void {
     (this.$refs.audioExitDialog as HTMLAudioElement).play();
     if (fatesNeeded) {
-      // if we need to pay for primos (if we hit confirm instead of cancel)
-
-      // TODO: yikes you have to do primochecks here, consider renaming the func
-      // to be something like endPrimoDialog
       this.primos -= fatesNeeded * 160;
       this.fates += fatesNeeded;
     }
     fn();
   }
 
+  showResults(): void {
+    this.playWishVideo = false;
+  }
+
+  showResultsEnd(): void {
+    this.playWishVideo = false;
+  }
+
   get fatesToPurchase(): number {
     return this.pullNumber - this.fates;
+  }
+
+  get pullRarity(): number {
+    // TODO: make a pull handler object handling pity and all that then
+    // pass the function directly to videoplayer
+    return 5;
   }
 }
 </script>
