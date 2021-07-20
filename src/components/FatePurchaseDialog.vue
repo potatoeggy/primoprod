@@ -18,7 +18,7 @@
       <div id="dialog-cancel-confirm">
         <cancel-confirm-button
           text="Cancel"
-          v-on:pressed="$emit('cancelWish')"
+          v-on:pressed="$emit('cancel-wish')"
         ></cancel-confirm-button>
         <cancel-confirm-button
           text="Confirm"
@@ -48,7 +48,7 @@ export default defineComponent({
       return this.fatesToPurchase * 160;
     },
   },
-  emits: ["cancelWish", "wish"],
+  emits: ["cancel-wish", "wish"],
 });
 </script>
 

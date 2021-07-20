@@ -8,8 +8,8 @@
   <fate-purchase-dialog
     :fatesToPurchase="fatesToPurchase"
     v-if="pullNumber > fates"
-    v-on:cancelWish="playDialogSfx(cancelWish)"
-    v-on:wish="playDialogSfx(goWish, $event)"
+    v-on:cancel-wish="exitConfirmCancelDialog(cancelWish)"
+    v-on:wish="exitConfirmCancelDialog(goWish, $event)"
   ></fate-purchase-dialog>
   <div id="header" class="space-between center">
     <div id="wish-label" class="space-between center">
@@ -45,11 +45,15 @@
       </div>
     </div>
     <div id="wish-buttons" class="footer-align-flex">
-      <wish-button :wishes="1" :fates="fates" v-on:tryWish="wish"></wish-button>
+      <wish-button
+        :wishes="1"
+        :fates="fates"
+        v-on:try-wish="wish"
+      ></wish-button>
       <wish-button
         :wishes="10"
         :fates="fates"
-        v-on:tryWish="wish"
+        v-on:try-wish="wish"
       ></wish-button>
     </div>
   </div>
@@ -103,7 +107,7 @@ export default class App extends Vue {
 
   // hacky :/ but the audio element is unfortunately unmounted
   // before the audio fully plays
-  playDialogSfx(fn: () => void, fatesNeeded: number): void {
+  exitConfirmCancelDialog(fn: () => void, fatesNeeded: number): void {
     (this.$refs.audioExitDialog as HTMLAudioElement).play();
     if (fatesNeeded) {
       // if we need to pay for primos (if we hit confirm instead of cancel)
@@ -112,7 +116,6 @@ export default class App extends Vue {
       // to be something like endPrimoDialog
       this.primos -= fatesNeeded * 160;
       this.fates += fatesNeeded;
-      // TODO: remake all events to be in kebab case because it's case sensitive
     }
     fn();
   }

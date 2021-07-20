@@ -39,10 +39,10 @@ export default defineComponent({
   methods: {
     play() {
       (this.$refs.textClickAudio as HTMLAudioElement).play();
-      this.$emit(`tryWish`, this.wishes);
+      this.$emit(`try-wish`, this.wishes);
     },
   },
-  emits: ["tryWish"],
+  emits: ["try-wish"],
 });
 </script>
 
