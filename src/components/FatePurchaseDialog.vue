@@ -47,7 +47,7 @@ export default defineComponent({
     primoBalance: {
       type: Number,
       required: true,
-    }
+    },
   },
   computed: {
     primogemsNeeded(): number {
