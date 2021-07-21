@@ -1,6 +1,6 @@
 <template>
-  <div id="overlay">
-    <div id="dialog">
+  <div id="overlay-fate-purchase" @click="clickOutside">
+    <div id="dialog-fate-purchase">
       <div id="dialog-paimon-bargain">
         <p>Paimon's Bargains</p>
       </div>
@@ -54,12 +54,19 @@ export default defineComponent({
       return this.fatesToPurchase * 160;
     },
   },
+  methods: {
+    clickOutside(e: Event): void {
+      if (e.target === document.getElementById("overlay-fate-purchase")) {
+        this.$emit("cancel-wish");
+      }
+    }
+  },
   emits: ["cancel-wish", "wish"],
 });
 </script>
 
 <style scoped>
-#overlay {
+#overlay-fate-purchase {
   position: fixed;
   width: 100%;
   height: 100%;
@@ -69,7 +76,7 @@ export default defineComponent({
   animation: fadein 0.1s forwards;
 }
 
-#dialog {
+#dialog-fate-purchase {
   position: absolute;
   min-height: 50%;
   min-width: 50%;
@@ -94,7 +101,7 @@ export default defineComponent({
   }
 }
 
-#dialog > div > * {
+#dialog-fate-purchase > div > * {
   letter-spacing: -0.1rem;
 }
 
