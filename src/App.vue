@@ -24,67 +24,24 @@
   ></video-player>
 
   <!-- main -->
-  <div id="header" class="space-between center">
-    <div id="wish-label" class="space-between center">
-      <img src="./assets/images/ui-wish-edited.png" />
-      <p id="wish-label">Wish</p>
-    </div>
-    <div id="gems">
-      <gem-counter icon="primogem.png" :text="primos" plusSign></gem-counter>
-      <gem-counter icon="intertwined-fate.png" :text="fates"></gem-counter>
-    </div>
-  </div>
-  <div id="div-banner">
-    <img id="banner" src="./assets/images/wanderlust-banner.png" />
-  </div>
-  <div id="footer" class="space-between">
-    <div>
-      <div id="masterless-home" class="footer-align-flex left-align-flex">
-        <gem-counter
-          icon="starglitter.png"
-          :text="starglitter"
-          nobackground
-        ></gem-counter>
-        <gem-counter
-          icon="stardust.png"
-          :text="stardust"
-          nobackground
-        ></gem-counter>
-      </div>
-      <div id="shop-buttons" class="footer-align-flex">
-        <text-button text="Shop"></text-button>
-        <text-button text="Details"></text-button>
-        <text-button text="History"></text-button>
-      </div>
-    </div>
-    <div id="wish-buttons" class="footer-align-flex">
-      <wish-button
-        :wishes="1"
-        :fates="fates"
-        v-on:try-wish="wish"
-      ></wish-button>
-      <wish-button
-        :wishes="10"
-        :fates="fates"
-        v-on:try-wish="wish"
-      ></wish-button>
-    </div>
-  </div>
+  <wish-banners
+    :primos="primos"
+    :fates="fates"
+    :starglitter="starglitter"
+    :stardust="stardust"
+    @wish="wish"
+  ></wish-banners>
 </template>
 
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
-import WishButton from "./components/WishButton.vue";
-import TextButton from "./components/TextButton.vue";
-import GemCounter from "./components/GemCounter.vue";
+import WishBanners from "./components/WishBanners.vue";
 import FatePurchaseDialog from "./components/FatePurchaseDialog.vue";
 import VideoPlayer from "./components/VideoPlayer.vue";
 
 @Options({
   components: {
-    WishButton,
-    TextButton,
-    GemCounter,
+    WishBanners,
     FatePurchaseDialog,
     VideoPlayer,
   },
