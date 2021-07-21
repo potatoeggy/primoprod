@@ -66,6 +66,7 @@ export default defineComponent({
   inset: 0px;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 2;
+  animation: fadein 0.1s forwards;
 }
 
 #dialog {
