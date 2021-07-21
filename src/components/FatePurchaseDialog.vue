@@ -66,8 +66,6 @@ export default defineComponent({
   inset: 0px;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 2;
-  display: grid;
-  place-items: center;
 }
 
 #dialog {
@@ -78,12 +76,21 @@ export default defineComponent({
   left: 50%;
   font-size: 2rem;
   color: #4a5365;
-  transform: translate(-50%, -50%);
   padding: 1.5rem 3rem;
   background-color: rgb(228, 226, 220);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  animation: open-dialog 0.1s forwards;
+}
+
+@keyframes open-dialog {
+  from {
+    transform: scale(0.95) translate(-50%, -50%);
+  }
+  to {
+    transform: translate(-50%, -50%);
+  }
 }
 
 #dialog > div > * {

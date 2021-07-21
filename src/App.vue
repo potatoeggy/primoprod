@@ -181,9 +181,16 @@ export default class App extends Vue {
   min-height: 0;
 }
 
+#header {
+  animation: fadein 0.75s forwards, slide-from-top 0.75s forwards ease-out;
+  animation-delay: 0.25s;
+}
+
 #div-banner {
   align-items: center;
   justify-content: center;
+  animation: fadein 0.75s forwards, slide-from-left 0.75s forwards ease-out;
+  animation-delay: 0.25s;
 }
 
 #banner {
@@ -195,6 +202,44 @@ export default class App extends Vue {
 
 #footer {
   margin-bottom: 0.5rem;
+  animation: fadein 0.75s forwards, slide-from-bottom 0.75s forwards ease-out;
+  animation-delay: 0.25s;
+}
+
+@keyframes slide-from-top {
+  from {
+    transform: translateY(-2rem);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-from-left {
+  from {
+    transform: translateX(2rem);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-from-bottom {
+  from {
+    transform: translateY(2rem);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0.5;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .footer-align-flex {
@@ -252,6 +297,6 @@ html,
 body,
 #app {
   height: 100%;
-  overflow: auto;
+  overflow: hidden;
 }
 </style>
