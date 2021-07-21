@@ -1,6 +1,6 @@
 <template>
   <div class="cancel-confirm-selector">
-    <button type="button" class="cancel-confirm-button" v-on:click="onclick">
+    <button type="button" class="cancel-confirm-button" @click="onclick">
       <span class="icon">
         <span
           :class="{ icon_x: text === 'Cancel', icon_o: text === 'Confirm' }"

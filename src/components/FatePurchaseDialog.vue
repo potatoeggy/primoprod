@@ -19,11 +19,11 @@
       <div id="dialog-cancel-confirm">
         <cancel-confirm-button
           text="Cancel"
-          v-on:pressed="$emit('cancel-wish')"
+          @pressed="$emit('cancel-wish')"
         ></cancel-confirm-button>
         <cancel-confirm-button
           text="Confirm"
-          v-on:pressed="$emit('wish', fatesToPurchase)"
+          @pressed="$emit('wish', fatesToPurchase)"
           v-if="primoBalance >= primogemsNeeded"
         ></cancel-confirm-button>
       </div>
@@ -59,7 +59,7 @@ export default defineComponent({
       if (e.target === document.getElementById("overlay-fate-purchase")) {
         this.$emit("cancel-wish");
       }
-    }
+    },
   },
   emits: ["cancel-wish", "wish"],
 });

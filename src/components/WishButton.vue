@@ -2,7 +2,7 @@
   <audio ref="textClickAudio" preload>
     <source src="../assets/audio/wish-button.mp3" type="audio/mpeg" />
   </audio>
-  <div class="wish-container" tabindex="0" v-on:click="play">
+  <div class="wish-container" tabindex="0" @click="play">
     <img class="wish-button" src="../assets/images/wish-button.png" />
     <div class="wish-text">
       <p>Wish ×{{ wishes }}</p>
