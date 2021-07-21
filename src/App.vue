@@ -16,7 +16,7 @@
     v-on:wish="exitConfirmCancelDialog(goWish, $event)"
   ></fate-purchase-dialog>
   <video-player
-    v-if="playWishVideo"
+    v-if="screen === 'video-player'"
     :pulls="pullNumber"
     :stars="pullRarity"
     v-on:video-ended="showResults"
@@ -30,6 +30,7 @@
     :starglitter="starglitter"
     :stardust="stardust"
     @wish="wish"
+    v-if="screen === 'wish-banner'"
   ></wish-banners>
 </template>
 
@@ -56,8 +57,11 @@ export default class App extends Vue {
 
   // state vars
   checkPullDialog = false;
-  playWishVideo = false;
   pullNumber = 1;
+
+  // the element names of a top-level element (like video-player)
+  // don't put overlays here!
+  screen = "wish-banner";
 
   mounted(): void {
     const bgm: HTMLAudioElement = this.$refs.audioBgm as HTMLAudioElement;
@@ -76,7 +80,7 @@ export default class App extends Vue {
   goWish(): void {
     this.fates -= this.pullNumber;
     this.checkPullDialog = false;
-    this.playWishVideo = true;
+    this.screen = "video-player";
   }
 
   cancelWish(): void {
@@ -95,11 +99,11 @@ export default class App extends Vue {
   }
 
   showResults(): void {
-    this.playWishVideo = false;
+    this.screen = "wish-banner";
   }
 
   showResultsEnd(): void {
-    this.playWishVideo = false;
+    this.screen = "wish-banner";
   }
 
   get fatesToPurchase(): number {
