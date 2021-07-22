@@ -36,9 +36,12 @@
 
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
+import { defineAsyncComponent } from "vue"; // TODO: migrate entirely to normal vue
 import WishBanners from "./components/WishBanners.vue";
 import FatePurchaseDialog from "./components/FatePurchaseDialog.vue";
-import VideoPlayer from "./components/VideoPlayer.vue";
+const VideoPlayer = defineAsyncComponent(
+  () => import("./components/VideoPlayer.vue")
+);
 
 // gacha
 import Gacha from "./banners/Gacha";
