@@ -40,6 +40,10 @@ import WishBanners from "./components/WishBanners.vue";
 import FatePurchaseDialog from "./components/FatePurchaseDialog.vue";
 import VideoPlayer from "./components/VideoPlayer.vue";
 
+// gacha
+import Gacha from "./banners/Gacha";
+import eventDrops from "./banners/wanderlust-invocation.json";
+
 @Options({
   components: {
     WishBanners,
@@ -54,6 +58,7 @@ export default class App extends Vue {
   primos = 5337;
   starglitter = 4;
   stardust = 700;
+  standardBanner = new Gacha(eventDrops);
 
   // state vars
   checkPullDialog = false;

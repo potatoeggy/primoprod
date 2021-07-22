@@ -103,6 +103,7 @@ export default class Gacha {
   get3StarItem(): Drop {
     this.state.pityCounter4 += 1;
     this.state.pityCounter5 += 1;
+    return this.drops[3][this.rng(this.drops[3].length)];
   }
 
   get4StarItem(): Drop {

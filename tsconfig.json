@@ -13,6 +13,7 @@
     "sourceMap": true,
     "useDefineForClassFields": true,
     "strictPropertyInitialization": false,
+    "resolveJsonModule": true,
     "baseUrl": ".",
     "types": [
       "webpack-env"
