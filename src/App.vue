@@ -40,7 +40,7 @@ import WishBanners from "./components/WishBanners.vue";
 import FatePurchaseDialog from "./components/FatePurchaseDialog.vue";
 
 // gacha
-import Gacha from "./banners/Gacha";
+import Gacha, { State } from "./banners/Gacha";
 import standardDrops from "./banners/wanderlust-invocation.json";
 
 export default defineComponent({
@@ -58,10 +58,11 @@ export default defineComponent({
       primos: 5337,
       starglitter: 4,
       stardust: 700,
-      standardBanner: new Gacha(standardDrops),
+      standardGacha: new Gacha(standardDrops),
       // state vars
       checkPullDialog: false,
       pullNumber: 1,
+      pullRarity: 0,
       screen: "wish-banner",
     };
   },
@@ -79,11 +80,19 @@ export default defineComponent({
       this.fates -= this.pullNumber;
       this.checkPullDialog = false;
       this.screen = "video-player";
+
+      const roll =
+        this.pullNumber === 1
+          ? [this.standardGacha.rollOne()]
+          : this.standardGacha.rollTen();
+      roll.sort((a, b) => b.rarity - a.rarity); // highest rarity to lowest
+      console.log("Rolled:", roll);
+      this.pullRarity = roll[0].rarity;
       // TODO: set rarity variable here
       // also calc current pull here
       // note our safety is guaranteed because
       // the gacha class automatically stores on roll
-      // shit now we have to store primos/fates *separately*??
+      // now we have to store primos/fates *separately*??
     },
 
     cancelWish(): void {
@@ -115,9 +124,6 @@ export default defineComponent({
   computed: {
     fatesToPurchase(): number {
       return this.pullNumber - this.fates;
-    },
-    pullRarity(): number {
-      return 4;
     },
   },
   mounted() {

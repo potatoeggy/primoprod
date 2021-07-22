@@ -7,7 +7,13 @@ interface Drop {
   featured?: boolean;
 }
 
-interface State {
+interface Banner {
+  name: string;
+  storage: string;
+  drops: Drop[];
+}
+
+export interface State {
   pullAttempts: number;
   pityCounter4: number;
   pityCounter5: number;
@@ -17,12 +23,15 @@ interface State {
 
 export default class Gacha {
   // loaded vars
-  drops: Array<Array<Drop>>;
+  drops: Drop[][];
+  name: string;
+  storage: string;
 
   // constant vars
-  readonly softPity5Start = 75;
-  readonly hardPity5Limit = 90;
-  readonly hardPity4Limit = 10;
+  // pities are -1 because numbers are zero indexed :/
+  readonly softPity5Start = 75 - 1;
+  readonly hardPity5Limit = 90 - 1;
+  readonly hardPity4Limit = 10 - 1;
   readonly standardRange = this.generateProbabilityRange(943, 51, 6); // % 94.3, 5.1, 0.6
   readonly softPityRange = this.generateProbabilityRange(629, 51, 320); // % 62.9, 5.1, 32
 
@@ -35,16 +44,17 @@ export default class Gacha {
     pityCounter5: 0,
   };
 
-  constructor(drops: Array<Drop>, state?: State) {
-    // consider accepting a string as parameter for json
-    // so that the heavy lefting happens here instead
-    // of in main
-    this.drops = Array.from({ length: 3 }, (i) =>
-      drops.filter((item) => item.rarity === i)
+  constructor(banner: Banner, state?: State) {
+    this.name = banner.name;
+    this.storage = banner.storage;
+    this.drops = Array.from([0, 1, 2, 3, 4, 5], (i) =>
+      banner.drops.filter((item) => item.rarity === i)
     );
-    if (state) this.state = state;
-    console.log(this.drops);
-    this.state = localStorage.gacha || this.state;
+    this.state =
+      state ||
+      JSON.parse(
+        localStorage.getItem(this.storage) || JSON.stringify(this.state)
+      );
   }
 
   generateProbabilityRange(
@@ -78,6 +88,7 @@ export default class Gacha {
       this.state.pityCounter5 >= this.softPity5Start
         ? this.softPityRange
         : this.standardRange;
+    this.state.pullAttempts += 1;
 
     // guarantees and specials
     if (this.state.pityCounter5 >= this.hardPity5Limit) {
@@ -103,7 +114,7 @@ export default class Gacha {
   }
 
   saveState(): void {
-    localStorage.gacha = this.state;
+    localStorage.setItem(this.storage, JSON.stringify(this.state));
   }
 
   get3StarItem(): Drop {
@@ -120,7 +131,7 @@ export default class Gacha {
     if (this.state.guaranteedFeatured4Star) {
       this.state.guaranteedFeatured4Star = false;
       const filtered = this.drops[4].filter((drop) => drop.featured);
-      return filtered[this.rng(filtered.length)];
+      if (filtered.length > 0) return filtered[this.rng(filtered.length)];
     }
     this.state.guaranteedFeatured4Star = true;
     this.saveState();
@@ -134,7 +145,7 @@ export default class Gacha {
     if (this.state.guaranteedFeatured5Star) {
       this.state.guaranteedFeatured5Star = false;
       const filtered = this.drops[4].filter((drop) => drop.featured);
-      return filtered[this.rng(filtered.length)];
+      if (filtered.length > 0) return filtered[this.rng(filtered.length)];
     }
     this.state.guaranteedFeatured5Star = true;
     this.saveState();

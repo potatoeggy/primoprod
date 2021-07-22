@@ -1,23 +1,27 @@
-[
-  {
-    "name": "Keqing",
-    "element": "Electro",
-    "featured": true,
-    "rarity": 5
-  },
-  {
-    "name": "Mona",
-    "element": "Hydro",
-    "rarity": 5
-  },
-  {
-    "name": "Diona",
-    "element": "Cryo",
-    "rarity": 4
-  },
-  {
-    "name": "Cool Steel",
-    "element": "Sword",
-    "rarity": 3
-  }
-]
+{
+  "name": "Wanderlust Invocation",
+  "storage": "gachaWanderlustInvocation",
+  "drops": [
+    {
+      "name": "Keqing",
+      "element": "Electro",
+      "featured": true,
+      "rarity": 5
+    },
+    {
+      "name": "Mona",
+      "element": "Hydro",
+      "rarity": 5
+    },
+    {
+      "name": "Diona",
+      "element": "Cryo",
+      "rarity": 4
+    },
+    {
+      "name": "Cool Steel",
+      "element": "Sword",
+      "rarity": 3
+    }
+  ]
+}
