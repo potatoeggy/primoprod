@@ -12,6 +12,7 @@
       id="video-3star-1"
       :class="{ playing: pulls === 1 && stars === 3 }"
       @ended="ended"
+      preload
     >
       <source src="../assets/video/3starwish-1.mp4" />
     </video>
@@ -19,6 +20,7 @@
       id="video-4star-1"
       :class="{ playing: pulls === 1 && stars === 4 }"
       @ended="ended"
+      preload
     >
       <source src="../assets/video/4starwish-1.mp4" />
     </video>
@@ -26,6 +28,7 @@
       id="video-4star-10"
       :class="{ playing: pulls === 10 && stars === 4 }"
       @ended="ended"
+      preload
     >
       <source src="../assets/video/4starwish-10.mp4" />
     </video>
@@ -33,6 +36,7 @@
       id="video-5star-1"
       :class="{ playing: pulls === 1 && stars === 5 }"
       @ended="ended"
+      preload
     >
       <source src="../assets/video/5starwish-1.mp4" />
     </video>
@@ -40,6 +44,7 @@
       id="video-5star-10"
       :class="{ playing: pulls === 10 && stars === 5 }"
       @ended="ended"
+      preload
     >
       <source src="../assets/video/5starwish-10.mp4" />
     </video>
