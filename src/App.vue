@@ -45,7 +45,7 @@ const VideoPlayer = defineAsyncComponent(
 
 // gacha
 import Gacha from "./banners/Gacha";
-import eventDrops from "./banners/wanderlust-invocation.json";
+import standardDrops from "./banners/wanderlust-invocation.json";
 
 @Options({
   components: {
@@ -61,7 +61,7 @@ export default class App extends Vue {
   primos = 5337;
   starglitter = 4;
   stardust = 700;
-  standardBanner = new Gacha(eventDrops);
+  standardBanner = new Gacha(standardDrops);
 
   // state vars
   checkPullDialog = false;

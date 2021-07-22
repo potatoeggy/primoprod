@@ -44,15 +44,7 @@ export default class Gacha {
     );
     if (state) this.state = state;
     console.log(this.drops);
-  }
-
-  getState(): State {
-    // these variables must be saved to local storage
-    return this.state;
-  }
-
-  setState(state: State): void {
-    this.state = state;
+    this.state = localStorage.gacha || this.state;
   }
 
   generateProbabilityRange(
@@ -110,9 +102,14 @@ export default class Gacha {
     return this.get3StarItem();
   }
 
+  saveState(): void {
+    localStorage.gacha = this.state;
+  }
+
   get3StarItem(): Drop {
     this.state.pityCounter4 += 1;
     this.state.pityCounter5 += 1;
+    this.saveState();
     return this.drops[3][this.rng(this.drops[3].length)];
   }
 
@@ -126,6 +123,7 @@ export default class Gacha {
       return filtered[this.rng(filtered.length)];
     }
     this.state.guaranteedFeatured4Star = true;
+    this.saveState();
     return this.drops[4][this.rng(this.drops[4].length)];
   }
 
@@ -139,6 +137,7 @@ export default class Gacha {
       return filtered[this.rng(filtered.length)];
     }
     this.state.guaranteedFeatured5Star = true;
+    this.saveState();
     return this.drops[5][this.rng(this.drops[5].length)];
   }
 }
