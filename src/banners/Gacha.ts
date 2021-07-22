@@ -32,14 +32,16 @@ export default class Gacha {
     guaranteedFeatured5Star: false,
     pullAttempts: 0,
     pityCounter4: 0,
-    pityCounter5: 0
-  }
+    pityCounter5: 0,
+  };
 
   constructor(drops: Array<Drop>, state?: State) {
     // consider accepting a string as parameter for json
     // so that the heavy lefting happens here instead
     // of in main
-    this.drops = Array.from({length: 3}, i => drops.filter(item => item.rarity === i));
+    this.drops = Array.from({ length: 3 }, (i) =>
+      drops.filter((item) => item.rarity === i)
+    );
     if (state) this.state = state;
     console.log(this.drops);
   }
@@ -53,11 +55,15 @@ export default class Gacha {
     this.state = state;
   }
 
-  generateProbabilityRange(threeOdds: number, fourOdds: number, fiveOdds: number): Array<number> {
+  generateProbabilityRange(
+    threeOdds: number,
+    fourOdds: number,
+    fiveOdds: number
+  ): Array<number> {
     console.assert(threeOdds + fourOdds + fiveOdds === 1000);
     const range: Array<number> = [];
-    [threeOdds, fourOdds, fiveOdds].forEach(
-      (odds, i) => range.push(...Array.from({length: odds}, _ => i+3))
+    [threeOdds, fourOdds, fiveOdds].forEach((odds, i) =>
+      range.push(...Array.from({ length: odds }, (_) => i + 3))
     );
     return range;
   }
@@ -72,11 +78,14 @@ export default class Gacha {
       result.push(this.rollOne());
     }
     return result;
-  };
+  }
 
   rollOne(): Drop {
     console.assert(this.state.pityCounter5 <= 90);
-    const probabilityRange = this.state.pityCounter5 >= this.softPity5Start ? this.softPityRange : this.standardRange;
+    const probabilityRange =
+      this.state.pityCounter5 >= this.softPity5Start
+        ? this.softPityRange
+        : this.standardRange;
 
     // guarantees and specials
     if (this.state.pityCounter5 >= this.hardPity5Limit) {
@@ -99,7 +108,7 @@ export default class Gacha {
       return this.get5StarItem();
     }
     return this.get3StarItem();
-  };
+  }
 
   get3StarItem(): Drop {
     this.state.pityCounter4 += 1;
@@ -113,7 +122,7 @@ export default class Gacha {
 
     if (this.state.guaranteedFeatured4Star) {
       this.state.guaranteedFeatured4Star = false;
-      const filtered = this.drops[4].filter(drop => drop.featured);
+      const filtered = this.drops[4].filter((drop) => drop.featured);
       return filtered[this.rng(filtered.length)];
     }
     this.state.guaranteedFeatured4Star = true;
@@ -126,7 +135,7 @@ export default class Gacha {
 
     if (this.state.guaranteedFeatured5Star) {
       this.state.guaranteedFeatured5Star = false;
-      const filtered = this.drops[4].filter(drop => drop.featured);
+      const filtered = this.drops[4].filter((drop) => drop.featured);
       return filtered[this.rng(filtered.length)];
     }
     this.state.guaranteedFeatured5Star = true;
