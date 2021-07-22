@@ -99,7 +99,7 @@ export default class Gacha {
       return this.get4StarItem();
     }
 
-    let rarity = probabilityRange[this.rng(probabilityRange.length)];
+    const rarity = probabilityRange[this.rng(probabilityRange.length)];
     console.assert(rarity >= 3 && rarity <= 5);
 
     if (rarity === 4) {
