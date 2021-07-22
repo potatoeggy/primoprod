@@ -95,23 +95,24 @@ export default defineComponent({
 
 #header {
   animation: fadein 0.75s forwards, slide-from-top 0.75s forwards ease-out;
+  margin-bottom: 0;
 }
 
 #div-banner {
+  display: flex;
   align-items: center;
   justify-content: center;
   animation: fadein 0.75s forwards, slide-from-left 0.75s forwards ease-out;
+  max-height: 70%;
 }
 
 #banner {
   max-width: 90%;
   max-height: 100%;
-  width: auto;
-  height: auto;
 }
 
 #footer {
-  margin-bottom: 0.5rem;
+  min-height: 4rem;
   animation: fadein 0.75s forwards, slide-from-bottom 0.75s forwards ease-out;
 }
 
@@ -169,9 +170,10 @@ export default defineComponent({
 
 .space-between {
   display: flex;
+  margin: 1rem;
+  margin-right: 2rem;
+  margin-left: 2rem;
   justify-content: space-between;
-  margin: 2rem;
-  margin-bottom: 0;
   /* the below aligns the text buttons above the wish buttons */
   /* flex-wrap: wrap; */
 }
