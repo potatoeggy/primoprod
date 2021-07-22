@@ -35,11 +35,12 @@ export default class Gacha {
     pityCounter5: 0
   }
 
-  constructor(drops: Array<Drop>) {
+  constructor(drops: Array<Drop>, state?: State) {
     // consider accepting a string as parameter for json
     // so that the heavy lefting happens here instead
     // of in main
     this.drops = Array.from({length: 3}, i => drops.filter(item => item.rarity === i));
+    if (state) this.state = state;
     console.log(this.drops);
   }
 
