@@ -87,6 +87,12 @@ export default defineComponent({
           ? [this.standardGacha.rollOne()]
           : this.standardGacha.rollTen();
       this.lastRoll.sort((a, b) => b.rarity - a.rarity); // highest rarity to lowest
+      // be aware that sorting the above means that you don't get
+      // the pulls in proper order if you're showing it off
+      // consider a temporary (non-in place) sort to get the below
+      // results/send it to inv but leave lastRoll the
+      // state variable unsorted until the final results screen
+
       console.log("Rolled:", this.lastRoll);
       this.pullRarity = this.lastRoll[0].rarity;
       this.inv.addItems(this.lastRoll.map((e) => e.id));

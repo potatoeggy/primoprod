@@ -5,6 +5,7 @@ export interface Item {
   name: string;
   id: string;
   rarity: number;
+  type: string;
   element: string;
   featured?: boolean;
 }

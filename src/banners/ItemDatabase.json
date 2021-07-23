@@ -2,30 +2,35 @@
   "keqing": {
     "name": "Keqing",
     "id": "keqing",
+    "type": "character",
     "element": "Electro",
     "rarity": 5
   },
   "mona": {
     "name": "Mona",
     "id": "mona",
+    "type": "character",
     "element": "Hydro",
     "rarity": 5
   },
   "diona": {
     "name": "Diona",
     "id": "diona",
+    "type": "character",
     "element": "Cryo",
     "rarity": 4
   },
   "yanfei": {
     "name": "Yanfei",
     "id": "yanfei",
+    "type": "character",
     "element": "Pyro",
     "rarity": 4
   },
   "cool_steel": {
     "name": "Cool Steel",
     "id": "cool_steel",
+    "type": "weapon",
     "element": "Sword",
     "rarity": 3
   }
