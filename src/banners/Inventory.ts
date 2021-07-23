@@ -10,7 +10,9 @@ export default class Inventory {
 
   constructor() {
     this.inventory = JSON.parse(localStorage.getItem("inventory") || "[]");
-    this.currency = JSON.parse(localStorage.getItem("currency") || JSON.stringify(this.currency));
+    this.currency = JSON.parse(
+      localStorage.getItem("currency") || JSON.stringify(this.currency)
+    );
   }
 
   saveState(): void {
