@@ -1,6 +1,6 @@
 <template>
   <audio ref="textClickAudio" preload>
-    <source src="../assets/audio/text-click.mp3" type="audio/mpeg" />
+    <source src="@/assets/audio/text-click.mp3" type="audio/mpeg" />
   </audio>
   <button class="menu-button" @click="play" type="button">
     {{ text }}

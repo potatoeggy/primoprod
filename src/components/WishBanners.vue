@@ -84,7 +84,7 @@ export default defineComponent({
   color: #2c3e50;
   background: url("../assets/images/wish-background.png") center/cover no-repeat
       fixed,
-    black;
+    white;
   min-height: max-content;
 }
 

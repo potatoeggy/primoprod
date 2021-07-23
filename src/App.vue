@@ -36,22 +36,22 @@
 
 <script lang="ts">
 import { defineAsyncComponent, defineComponent } from "vue";
-import WishBanners from "./components/WishBanners.vue";
-import FatePurchaseDialog from "./components/FatePurchaseDialog.vue";
+import WishBanners from "@/components/WishBanners.vue";
+import FatePurchaseDialog from "@/components/FatePurchaseDialog.vue";
 
 // gacha
-import Gacha, { Item } from "./banners/Gacha";
-import standardDrops from "./banners/wanderlust-invocation.json";
+import Gacha, { Item } from "@/banners/Gacha";
+import standardDrops from "@/banners/wanderlust-invocation.json";
 
 // inventory
-import Inventory from "./banners/Inventory";
+import Inventory from "@/banners/Inventory";
 
 export default defineComponent({
   components: {
     WishBanners,
     FatePurchaseDialog,
     VideoPlayer: defineAsyncComponent(
-      () => import("./components/VideoPlayer.vue")
+      () => import("@/components/VideoPlayer.vue")
     ),
   },
   data() {
