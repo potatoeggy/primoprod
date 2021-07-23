@@ -69,6 +69,7 @@ export default class Gacha {
       JSON.parse(
         localStorage.getItem(this.storage) || JSON.stringify(this.state)
       );
+    console.log(this.state);
   }
 
   generateProbabilityRange(
@@ -146,27 +147,36 @@ export default class Gacha {
     this.state.pityCounter5 += 1;
     this.state.pityCounter4 = 0;
 
-    if (this.state.guaranteedFeatured4Star) {
+    let drop = this.drops[4][this.rng(this.drops[4].length)];
+    if (this.state.guaranteedFeatured4Star || drop.featured) {
       this.state.guaranteedFeatured4Star = false;
       const filtered = this.drops[4].filter((drop) => drop.featured);
-      if (filtered.length > 0) return filtered[this.rng(filtered.length)];
+      // it's okay to recalculate here since it's featured and less copied code :P
+      if (filtered.length > 0) {
+        drop = filtered[this.rng(filtered.length)];
+      }
+    } else {
+      this.state.guaranteedFeatured4Star = true;
     }
-    this.state.guaranteedFeatured4Star = true;
     this.saveState();
-    return this.drops[4][this.rng(this.drops[4].length)];
+    return drop;
   }
 
   get5StarItem(): Item {
     this.state.pityCounter4 = 0;
     this.state.pityCounter5 = 0;
 
-    if (this.state.guaranteedFeatured5Star) {
+    let drop = this.drops[5][this.rng(this.drops[5].length)];
+    if (this.state.guaranteedFeatured5Star || drop.featured) {
       this.state.guaranteedFeatured5Star = false;
       const filtered = this.drops[4].filter((drop) => drop.featured);
-      if (filtered.length > 0) return filtered[this.rng(filtered.length)];
+      if (filtered.length > 0) {
+        drop = filtered[this.rng(filtered.length)];
+      }
+    } else {
+      this.state.guaranteedFeatured5Star = true;
     }
-    this.state.guaranteedFeatured5Star = true;
     this.saveState();
-    return this.drops[5][this.rng(this.drops[5].length)];
+    return drop;
   }
 }
