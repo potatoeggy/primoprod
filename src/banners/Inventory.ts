@@ -1,20 +1,21 @@
 export default class Inventory {
   private currency = {
-    primos: 5337,
-    fates: 3,
-    starglitter: 4,
-    stardust: 700,
+    primos: 1600,
+    fates: 10,
+    starglitter: 0,
+    stardust: 0,
   };
 
   inventory: { [name: string]: number } = {};
 
   constructor() {
     this.inventory = JSON.parse(localStorage.getItem("inventory") || "[]");
+    this.currency = JSON.parse(localStorage.getItem("currency") || JSON.stringify(this.currency));
   }
 
   saveState(): void {
     localStorage.currency = JSON.stringify(this.currency);
-    localStorage.inventory = JSON.stringify(this.inventory);
+    localStorage.inventory = JSON.stringify(Object.assign({}, this.inventory)); // typescript why
   }
 
   addItems(items: string[]): void {

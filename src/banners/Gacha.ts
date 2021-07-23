@@ -169,7 +169,7 @@ export default class Gacha {
     let drop = this.drops[5][this.rng(this.drops[5].length)];
     if (this.state.guaranteedFeatured5Star || drop.featured) {
       this.state.guaranteedFeatured5Star = false;
-      const filtered = this.drops[4].filter((drop) => drop.featured);
+      const filtered = this.drops[5].filter((drop) => drop.featured);
       if (filtered.length > 0) {
         drop = filtered[this.rng(filtered.length)];
       }
