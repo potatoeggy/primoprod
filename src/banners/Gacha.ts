@@ -57,7 +57,7 @@ export default class Gacha {
         .map((item) => (ItemDatabase as { [name: string]: Item })[item])
         .filter((item) => item.rarity === i)
     );
-    for (let item of banner.featuredDrops.map(
+    for (const item of banner.featuredDrops.map(
       (item) => (ItemDatabase as { [name: string]: Item })[item]
     )) {
       this.drops[item.rarity].push({ ...item, featured: true });

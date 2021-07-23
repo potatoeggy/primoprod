@@ -3,23 +3,23 @@ export default class Inventory {
     primos: 5337,
     fates: 3,
     starglitter: 4,
-    stardust: 700
-  }
+    stardust: 700,
+  };
 
   inventory: { [name: string]: number } = {};
 
   constructor() {
-    this.inventory = JSON.parse(localStorage.getItem("inventory") || "[]")
+    this.inventory = JSON.parse(localStorage.getItem("inventory") || "[]");
   }
 
-  saveState() {
+  saveState(): void {
     localStorage.currency = JSON.stringify(this.currency);
     localStorage.inventory = JSON.stringify(this.inventory);
   }
 
   addItems(items: string[]): void {
     // default to auto-save
-    for (let item of items) {
+    for (const item of items) {
       if (this.inventory[item]) {
         this.inventory[item] += 1;
       } else {
@@ -31,7 +31,7 @@ export default class Inventory {
 
   removeItems(items: string[]): void {
     // use a dict/object instead with a json db
-    for (let item of items) {
+    for (const item of items) {
       if (this.inventory[item]) {
         this.inventory[item] -= 1;
         if (this.inventory[item] <= 0) {
@@ -54,20 +54,20 @@ export default class Inventory {
       fates: 0,
       starglitter: 0,
       stardust: 0,
-    }
+    };
     this.saveState();
   }
 
-  public get primos() {
+  public get primos(): number {
     return this.currency.primos;
   }
 
   public set primos(num: number) {
     this.currency.primos = num;
-    this.saveState()
+    this.saveState();
   }
 
-  public get fates() {
+  public get fates(): number {
     return this.currency.fates;
   }
 
@@ -76,7 +76,7 @@ export default class Inventory {
     this.saveState();
   }
 
-  public get starglitter() {
+  public get starglitter(): number {
     return this.currency.starglitter;
   }
 
@@ -85,7 +85,7 @@ export default class Inventory {
     this.saveState();
   }
 
-  public get stardust() {
+  public get stardust(): number {
     return this.currency.stardust;
   }
 
