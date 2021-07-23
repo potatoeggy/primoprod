@@ -10,8 +10,8 @@
   <!-- overlay -->
   <fate-purchase-dialog
     :fatesToPurchase="fatesToPurchase"
-    :primoBalance="primos"
-    v-if="pullNumber > fates && checkPullDialog"
+    :primoBalance="inv.primos"
+    v-if="pullNumber > inv.fates && checkPullDialog"
     v-on:cancel-wish="exitConfirmCancelDialog(cancelWish)"
     v-on:wish="exitConfirmCancelDialog(goWish, $event)"
   ></fate-purchase-dialog>
@@ -25,10 +25,10 @@
 
   <!-- main -->
   <wish-banners
-    :primos="primos"
-    :fates="fates"
-    :starglitter="starglitter"
-    :stardust="stardust"
+    :primos="inv.primos"
+    :fates="inv.fates"
+    :starglitter="inv.starglitter"
+    :stardust="inv.stardust"
     @wish="wish"
     v-if="screen === 'wish-banner'"
   ></wish-banners>
@@ -40,8 +40,11 @@ import WishBanners from "./components/WishBanners.vue";
 import FatePurchaseDialog from "./components/FatePurchaseDialog.vue";
 
 // gacha
-import Gacha, { State } from "./banners/Gacha";
+import Gacha, { Item } from "./banners/Gacha";
 import standardDrops from "./banners/wanderlust-invocation.json";
+
+// inventory
+import Inventory from "./banners/Inventory";
 
 export default defineComponent({
   components: {
@@ -54,22 +57,20 @@ export default defineComponent({
   data() {
     return {
       // storage vars
-      fates: 3,
-      primos: 5337,
-      starglitter: 4,
-      stardust: 700,
+      inv: new Inventory(),
       standardGacha: new Gacha(standardDrops),
       // state vars
       checkPullDialog: false,
       pullNumber: 1,
       pullRarity: 0,
       screen: "wish-banner",
+      lastRoll: [] as Item[],
     };
   },
   methods: {
     wish(pulls: number): void {
       this.pullNumber = pulls;
-      if (pulls <= this.fates) {
+      if (pulls <= this.inv.fates) {
         this.goWish();
       } else {
         this.checkPullDialog = true;
@@ -77,22 +78,18 @@ export default defineComponent({
     },
 
     goWish(): void {
-      this.fates -= this.pullNumber;
+      this.inv.fates -= this.pullNumber;
       this.checkPullDialog = false;
       this.screen = "video-player";
 
-      const roll =
+      this.lastRoll =
         this.pullNumber === 1
           ? [this.standardGacha.rollOne()]
           : this.standardGacha.rollTen();
-      roll.sort((a, b) => b.rarity - a.rarity); // highest rarity to lowest
-      console.log("Rolled:", roll);
-      this.pullRarity = roll[0].rarity;
-      // TODO: set rarity variable here
-      // also calc current pull here
-      // note our safety is guaranteed because
-      // the gacha class automatically stores on roll
-      // now we have to store primos/fates *separately*??
+      this.lastRoll.sort((a, b) => b.rarity - a.rarity); // highest rarity to lowest
+      console.log("Rolled:", this.lastRoll);
+      this.pullRarity = this.lastRoll[0].rarity;
+      this.inv.addItems(this.lastRoll.map((e) => e.id));
     },
 
     cancelWish(): void {
@@ -104,8 +101,8 @@ export default defineComponent({
     exitConfirmCancelDialog(fn: () => void, fatesNeeded: number): void {
       (this.$refs.audioExitDialog as HTMLAudioElement).play();
       if (fatesNeeded) {
-        this.primos -= fatesNeeded * 160;
-        this.fates += fatesNeeded;
+        this.inv.primos -= fatesNeeded * 160;
+        this.inv.fates += fatesNeeded;
       }
       fn();
     },
@@ -123,7 +120,7 @@ export default defineComponent({
   },
   computed: {
     fatesToPurchase(): number {
-      return this.pullNumber - this.fates;
+      return this.pullNumber - this.inv.fates;
     },
   },
   mounted() {

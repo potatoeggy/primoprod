@@ -1,0 +1,32 @@
+{
+  "keqing": {
+    "name": "Keqing",
+    "id": "keqing",
+    "element": "Electro",
+    "rarity": 5
+  },
+  "mona": {
+    "name": "Mona",
+    "id": "mona",
+    "element": "Hydro",
+    "rarity": 5
+  },
+  "diona": {
+    "name": "Diona",
+    "id": "diona",
+    "element": "Cryo",
+    "rarity": 4
+  },
+  "yanfei": {
+    "name": "Yanfei",
+    "id": "yanfei",
+    "element": "Pyro",
+    "rarity": 4
+  },
+  "cool_steel": {
+    "name": "Cool Steel",
+    "id": "cool_steel",
+    "element": "Sword",
+    "rarity": 3
+  }
+}

@@ -1,7 +1,9 @@
 // Some code taken from https://github.com/uzair-ashraf/genshin-impact-wish-simulator
+import ItemDatabase from "./ItemDatabase.json";
 
-interface Drop {
+export interface Item {
   name: string;
+  id: string;
   rarity: number;
   element: string;
   featured?: boolean;
@@ -10,7 +12,8 @@ interface Drop {
 interface Banner {
   name: string;
   storage: string;
-  drops: Drop[];
+  drops: string[];
+  featuredDrops: string[];
 }
 
 export interface State {
@@ -23,7 +26,7 @@ export interface State {
 
 export default class Gacha {
   // loaded vars
-  drops: Drop[][];
+  drops: Item[][];
   name: string;
   storage: string;
 
@@ -47,9 +50,20 @@ export default class Gacha {
   constructor(banner: Banner, state?: State) {
     this.name = banner.name;
     this.storage = banner.storage;
+
+    // combined featured and non-featured drops
     this.drops = Array.from([0, 1, 2, 3, 4, 5], (i) =>
-      banner.drops.filter((item) => item.rarity === i)
+      banner.drops
+        .map((item) => (ItemDatabase as { [name: string]: Item })[item])
+        .filter((item) => item.rarity === i)
     );
+    for (let item of banner.featuredDrops.map(
+      (item) => (ItemDatabase as { [name: string]: Item })[item]
+    )) {
+      this.drops[item.rarity].push({ ...item, featured: true });
+    }
+
+    // create this older structure and reconstruct it from ItemDatabase
     this.state =
       state ||
       JSON.parse(
@@ -74,7 +88,7 @@ export default class Gacha {
     return Math.floor(Math.random() * max);
   }
 
-  rollTen(): Drop[] {
+  rollTen(): Item[] {
     const result = [];
     for (let i = 0; i < 10; i++) {
       result.push(this.rollOne());
@@ -82,7 +96,11 @@ export default class Gacha {
     return result;
   }
 
-  rollOne(): Drop {
+  rollOne(): Item {
+    return this.roll();
+  }
+
+  roll(): Item {
     console.assert(this.state.pityCounter5 <= 90);
     const probabilityRange =
       this.state.pityCounter5 >= this.softPity5Start
@@ -117,14 +135,14 @@ export default class Gacha {
     localStorage.setItem(this.storage, JSON.stringify(this.state));
   }
 
-  get3StarItem(): Drop {
+  get3StarItem(): Item {
     this.state.pityCounter4 += 1;
     this.state.pityCounter5 += 1;
     this.saveState();
     return this.drops[3][this.rng(this.drops[3].length)];
   }
 
-  get4StarItem(): Drop {
+  get4StarItem(): Item {
     this.state.pityCounter5 += 1;
     this.state.pityCounter4 = 0;
 
@@ -138,7 +156,7 @@ export default class Gacha {
     return this.drops[4][this.rng(this.drops[4].length)];
   }
 
-  get5StarItem(): Drop {
+  get5StarItem(): Item {
     this.state.pityCounter4 = 0;
     this.state.pityCounter5 = 0;
 
