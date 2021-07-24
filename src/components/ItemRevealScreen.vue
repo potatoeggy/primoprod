@@ -1,4 +1,5 @@
 <template>
+  <!-- TODO: manually crop images and stick them into proper divs -->
   <div class="item-picture" @click="nextItem">
     <img :src="currentItemImage" />
   </div>
@@ -66,7 +67,7 @@ export default defineComponent({
         /\.png$/
       );
       return images(`./${this.currentItem.id}.png`);
-    }
+    },
   },
   emits: ["exit"],
 });

@@ -96,7 +96,7 @@ export default defineComponent({
         this.pullNumber === 1
           ? [this.standardGacha.rollOne()]
           : this.standardGacha.rollTen();
-      this.lastRollSorted = this.lastRoll;
+      this.lastRollSorted = [...this.lastRoll];
       this.lastRollSorted.sort((a, b) => b.rarity - a.rarity); // highest rarity to lowest
 
       console.log("Rolled:", this.lastRoll);
