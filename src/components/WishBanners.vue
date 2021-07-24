@@ -1,40 +1,42 @@
 <template>
-  <div id="header" class="space-between center">
-    <div id="wish-label" class="space-between center">
-      <img src="../assets/images/ui-wish-edited.png" />
-      <p id="wish-label">Wish</p>
-    </div>
-    <div id="gems">
-      <gem-counter icon="primogem.png" :text="primos" plusSign></gem-counter>
-      <gem-counter icon="intertwined-fate.png" :text="fates"></gem-counter>
-    </div>
-  </div>
-  <div id="div-banner">
-    <img id="banner" src="../assets/images/wanderlust-banner.png" />
-  </div>
-  <div id="footer" class="space-between">
-    <div>
-      <div id="masterless-home" class="footer-align-flex left-align-flex">
-        <gem-counter
-          icon="starglitter.png"
-          :text="starglitter"
-          nobackground
-        ></gem-counter>
-        <gem-counter
-          icon="stardust.png"
-          :text="stardust"
-          nobackground
-        ></gem-counter>
+  <div class="banner">
+    <div id="header" class="space-between center">
+      <div id="wish-label" class="space-between center">
+        <img src="../assets/images/ui-wish-edited.png" />
+        <p id="wish-label">Wish</p>
       </div>
-      <div id="shop-buttons" class="footer-align-flex">
-        <text-button text="Shop"></text-button>
-        <text-button text="Details"></text-button>
-        <text-button text="History"></text-button>
+      <div id="gems">
+        <gem-counter icon="primogem.png" :text="primos" plusSign></gem-counter>
+        <gem-counter icon="intertwined-fate.png" :text="fates"></gem-counter>
       </div>
     </div>
-    <div id="wish-buttons" class="footer-align-flex">
-      <wish-button :wishes="1" :fates="fates" @try-wish="wish"></wish-button>
-      <wish-button :wishes="10" :fates="fates" @try-wish="wish"></wish-button>
+    <div id="div-banner">
+      <img id="banner" src="../assets/images/wanderlust-banner.png" />
+    </div>
+    <div id="footer" class="space-between">
+      <div>
+        <div id="masterless-home" class="footer-align-flex left-align-flex">
+          <gem-counter
+            icon="starglitter.png"
+            :text="starglitter"
+            nobackground
+          ></gem-counter>
+          <gem-counter
+            icon="stardust.png"
+            :text="stardust"
+            nobackground
+          ></gem-counter>
+        </div>
+        <div id="shop-buttons" class="footer-align-flex">
+          <text-button text="Shop"></text-button>
+          <text-button text="Details"></text-button>
+          <text-button text="History"></text-button>
+        </div>
+      </div>
+      <div id="wish-buttons" class="footer-align-flex">
+        <wish-button :wishes="1" :fates="fates" @try-wish="wish"></wish-button>
+        <wish-button :wishes="10" :fates="fates" @try-wish="wish"></wish-button>
+      </div>
     </div>
   </div>
 </template>
@@ -75,17 +77,14 @@ export default defineComponent({
 </script>
 
 <style scoped>
-#wish-banners {
+.banner {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   -webkit-font-smoothing: antialiased;
   text-align: center;
   color: #2c3e50;
-  background: url("../assets/images/wish-background.png") center/cover no-repeat
-      fixed,
-    white;
-  min-height: max-content;
+  height: 100%;
 }
 
 #wish-banners > div {

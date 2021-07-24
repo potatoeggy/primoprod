@@ -1,0 +1,150 @@
+<template>
+  <div class="item-picture" @click="nextItem">
+    <img :src="currentItemImage" />
+  </div>
+  <div class="item" @click="nextItem">
+    <div class="name-rarity flex-start">
+      <p class="name-text">{{ currentItem.name }}</p>
+      <div class="stars">
+        <img
+          src="@/assets/images/star.svg"
+          v-for="n in currentItem.rarity"
+          v-bind:key="n"
+        />
+      </div>
+    </div>
+    <div class="extra-dust-glitter flex-start">
+      <p>Extra</p>
+      <div class="extra-text flex-start">
+        <p>Masterless Stardust</p>
+        <p>x15</p>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script lang="ts">
+import Inventory from "@/banners/Inventory";
+import { Item } from "@/banners/Gacha";
+import { defineComponent } from "vue";
+
+export default defineComponent({
+  props: {
+    lastRoll: {
+      type: Object as () => Item[],
+      required: true,
+    },
+    inventory: {
+      type: Object as () => Inventory,
+      required: true,
+    },
+  },
+  data() {
+    return {
+      currentIndex: 0,
+    };
+  },
+  methods: {
+    nextItem() {
+      this.currentIndex += 1;
+      if (this.currentIndex >= this.lastRoll.length) {
+        this.exit();
+      }
+    },
+    exit() {
+      this.$emit("exit");
+    },
+  },
+  computed: {
+    currentItem(): Item {
+      return this.lastRoll[this.currentIndex];
+    },
+    currentItemImage(): string {
+      const images = require.context(
+        "../assets/images/drops/",
+        false,
+        /\.png$/
+      );
+      return images(`./${this.currentItem.id}.png`);
+    }
+  },
+  emits: ["exit"],
+});
+</script>
+
+<style scoped>
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: url("../assets/images/wish-reveal-background.jpg") center/cover
+      no-repeat fixed,
+    white;
+  height: 100%;
+  width: 100%;
+  /* once a certain screen size is hit change to align-items center I guess */
+}
+.item > div {
+  /* I would prefer using > div but that makes its selector specificity too high */
+  display: flex;
+  flex-direction: column;
+  z-index: 1;
+}
+
+.stars > img {
+  width: 1.25rem;
+  padding-right: 0.3rem;
+}
+
+.item-picture {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  z-index: 0;
+}
+
+.item-picture > img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.flex-start {
+  align-items: flex-start;
+}
+
+.name-rarity {
+  color: white;
+  margin-top: 10%;
+  margin-left: 5rem;
+  font-size: 2.25rem;
+  word-wrap: break-word;
+  letter-spacing: -0.125rem;
+}
+
+.extra-dust-glitter {
+  margin-top: 7.5%;
+  color: #e3e3e9;
+}
+
+.extra-text {
+  margin-top: 0.75rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0;
+  padding-right: 1rem;
+  padding-left: 1rem;
+  font-size: 1.25rem;
+  color: #f7b7ff;
+  letter-spacing: -0.06rem;
+  line-height: 2rem;
+  background: linear-gradient(to right, #6f3aabaa, #6f3aab11);
+}
+
+.name-text {
+  padding-bottom: 0.75rem;
+  text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
+}
+</style>

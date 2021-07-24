@@ -32,12 +32,20 @@
     @wish="wish"
     v-if="screen === 'wish-banner'"
   ></wish-banners>
+  <item-reveal-screen
+    :lastRoll="lastRoll"
+    :inventory="inv"
+    v-if="screen === 'item-reveal'"
+    @exit="screen = 'wish-banner'"
+  ></item-reveal-screen>
 </template>
 
 <script lang="ts">
 import { defineAsyncComponent, defineComponent } from "vue";
 import WishBanners from "@/components/WishBanners.vue";
 import FatePurchaseDialog from "@/components/FatePurchaseDialog.vue";
+import ItemRevealScreen from "@/components/ItemRevealScreen.vue";
+import ItemAllRevealScreen from "@/components/ItemAllRevealScreen.vue";
 
 // gacha
 import Gacha, { Item } from "@/banners/Gacha";
@@ -53,6 +61,7 @@ export default defineComponent({
     VideoPlayer: defineAsyncComponent(
       () => import("@/components/VideoPlayer.vue")
     ),
+    ItemRevealScreen,
   },
   data() {
     return {
@@ -65,6 +74,7 @@ export default defineComponent({
       pullRarity: 0,
       screen: "wish-banner",
       lastRoll: [] as Item[],
+      lastRollSorted: [] as Item[],
     };
   },
   methods: {
@@ -86,16 +96,12 @@ export default defineComponent({
         this.pullNumber === 1
           ? [this.standardGacha.rollOne()]
           : this.standardGacha.rollTen();
-      this.lastRoll.sort((a, b) => b.rarity - a.rarity); // highest rarity to lowest
-      // be aware that sorting the above means that you don't get
-      // the pulls in proper order if you're showing it off
-      // consider a temporary (non-in place) sort to get the below
-      // results/send it to inv but leave lastRoll the
-      // state variable unsorted until the final results screen
+      this.lastRollSorted = this.lastRoll;
+      this.lastRollSorted.sort((a, b) => b.rarity - a.rarity); // highest rarity to lowest
 
       console.log("Rolled:", this.lastRoll);
-      this.pullRarity = this.lastRoll[0].rarity;
-      this.inv.addItems(this.lastRoll.map((e) => e.id));
+      this.pullRarity = this.lastRollSorted[0].rarity;
+      this.inv.addItems(this.lastRollSorted.map((e) => e.id));
     },
 
     cancelWish(): void {
@@ -114,12 +120,12 @@ export default defineComponent({
     },
 
     showResults(): void {
-      this.screen = "wish-banner";
+      this.screen = "item-reveal";
       // TODO: state variable for current pull?
     },
 
     showResultsEnd(): void {
-      this.screen = "wish-banner";
+      this.screen = "item-reveal";
       // TODO: yikes you have to check if it's 10 or not since i
       // think they have different uis
     },
@@ -143,9 +149,6 @@ export default defineComponent({
 }
 
 #app {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
   -webkit-font-smoothing: antialiased;
   text-align: center;
   color: #2c3e50;
@@ -161,6 +164,7 @@ export default defineComponent({
   padding: 0;
   font-family: Genshin, serif;
   cursor: url("./assets/images/cursor.png"), auto;
+  user-select: none;
 }
 
 html,
