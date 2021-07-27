@@ -100,10 +100,6 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.invisible {
-  display: none;
-}
-
 .banner {
   display: flex;
   flex-direction: column;
@@ -112,6 +108,10 @@ export default defineComponent({
   text-align: center;
   color: #2c3e50;
   height: 100%;
+}
+
+.invisible {
+  display: none;
 }
 
 #wish-banners > div {
