@@ -67,7 +67,11 @@ export default defineComponent({
         false,
         /\.png$/
       );
-      return images(`./${this.currentItem.id}.png`);
+      try {
+        return images(`./${this.currentItem.id}.png`);
+      } catch (error) {
+        return "error.png";
+      }
     },
   },
   emits: ["exit"],
