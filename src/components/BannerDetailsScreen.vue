@@ -41,7 +41,7 @@
       </p>
       <br />
       <p>
-        In most cases, the base probability of all characters and weapons is
+        ※In most cases, the base probability of all characters and weapons is
         evenly distributed. If there is a boost or guarantee in effect, please
         refer to the corresponding rules.
       </p>
