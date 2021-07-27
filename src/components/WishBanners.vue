@@ -1,8 +1,7 @@
 <template>
   <!-- overlay use json? -->
   <banner-details-screen
-    bannerName="Wanderlust Invocation"
-    :isFeaturedBanner="false"
+    :banner="require('../banners/wanderlust-invocation.json')"
     v-if="showDetails"
     @exit="exitDetailsScreen"
   ></banner-details-screen>
@@ -111,6 +110,9 @@ export default defineComponent({
 }
 
 .invisible {
+  /* TODO: display: none also triggers the entry animation so:
+   * use v-if for simplicity or make it an actual overlay using position: fixed
+   */
   display: none;
 }
 

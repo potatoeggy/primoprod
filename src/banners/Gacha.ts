@@ -10,7 +10,7 @@ export interface Item {
   featured?: boolean;
 }
 
-interface Banner {
+export interface Banner {
   name: string;
   storage: string;
   drops: string[];

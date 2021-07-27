@@ -21,7 +21,7 @@
     <div class="body">
       <h1>
         <span v-if="isFeaturedBanner">Event Wish</span
-        ><span v-else>Standard Wish</span> "{{ bannerName }}"
+        ><span v-else>Standard Wish</span> "{{ banner.name }}"
       </h1>
       <br />
       <br />
@@ -32,7 +32,7 @@
       <wish-details-h-2 text="Wish Details"></wish-details-h-2>
       <p v-if="!isFeaturedBanner" class="permanent big-margin">Permanent</p>
       <p v-if="!isFeaturedBanner">
-        Standard Wish "{{ bannerName }}" is a standard wish with no time limit.
+        Standard Wish "{{ banner.name }}" is a standard wish with no time limit.
         Non-event-exclusive characters and weapons are available.
       </p>
       <p>
@@ -98,6 +98,13 @@
         ></span>
         Base Probability for 5-Star Item Drops: 0.600% (Incl. guarantee: 1.600%)
       </p>
+      <!-- too lazy to use flex -->
+      <br />
+      <banner-details-drop-table
+        :banner="banner"
+        :rarity="5"
+      ></banner-details-drop-table>
+      <br />
       <p class="four-star star-text big-margin">
         <span class="star-holder"
           ><span class="star-img" v-for="index in 4" :key="index"></span
@@ -105,6 +112,24 @@
         Base Probability for 4-Star Item Drops: 5.100% (Incl. guarantee:
         13.000%)
       </p>
+      <br />
+      <banner-details-drop-table
+        :banner="banner"
+        :rarity="4"
+      ></banner-details-drop-table>
+      <br />
+      <p class="three-star star-text big-margin">
+        <span class="star-holder"
+          ><span class="star-img" v-for="index in 3" :key="index"></span
+        ></span>
+        Base Probability for 3-Star Item Drops: 94.300% (Incl. guarantee:
+        85.400%)
+      </p>
+      <br />
+      <banner-details-drop-table
+        :banner="banner"
+        :rarity="3"
+      ></banner-details-drop-table>
     </div>
   </div>
 </template>
@@ -112,24 +137,34 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import WishDetailsH2 from "./WishDetailsH2.vue";
-// TODO: pass json instead of text and then grab drops from there
+import BannerDetailsDropTable from "./BannerDetailsDropTable.vue";
+import { Banner, Item } from "../banners/Gacha";
+import ItemDatabase from "../banners/ItemDatabase.json";
+// TODO: problem: ItemDatabase is being passed around everywhere
+// which is causing memory buildup
+// or it might be something else but ram usage is suspiciously high
 
 export default defineComponent({
-  components: { WishDetailsH2 },
+  components: { WishDetailsH2, BannerDetailsDropTable },
   props: {
-    bannerName: {
-      type: String,
+    banner: {
+      type: Object as () => Banner,
       required: true,
     },
-    isFeaturedBanner: {
-      type: Boolean,
-      default: true,
+  },
+  computed: {
+    isFeaturedBanner(): boolean {
+      return this.banner.featuredDrops.length > 0;
     },
-    featured5Star: {
-      default: "",
+    featured5Star(): string[] {
+      return this.banner.featuredDrops.filter(
+        (item) => (ItemDatabase as { [name: string]: Item })[item].rarity === 5
+      );
     },
-    featured4Stars: {
-      default: () => [],
+    featured4Stars(): string[] {
+      return this.banner.featuredDrops.filter(
+        (item) => (ItemDatabase as { [name: string]: Item })[item].rarity === 4
+      );
     },
   },
   methods: {
@@ -223,8 +258,12 @@ h1::before {
   background-color: #b6abbf;
 }
 
+.three-star {
+  background-color: #a5bacc;
+}
+
 .star-text {
-  color: black;
+  color: #545758;
   font-size: 1rem;
   display: flex;
   flex-direction: row;
