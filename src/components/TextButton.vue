@@ -23,7 +23,7 @@ export default defineComponent({
       this.$emit("clicked");
     },
   },
-  emits: ["clicked"]
+  emits: ["clicked"],
 });
 </script>
 

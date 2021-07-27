@@ -135,9 +135,9 @@ export default defineComponent({
   methods: {
     exit() {
       this.$emit("exit");
-    }
+    },
   },
-  emits: ["exit"]
+  emits: ["exit"],
 });
 </script>
 
@@ -263,7 +263,9 @@ h1::before {
 </style>
 
 <style>
-html, body, #app {
+html,
+body,
+#app {
   overflow: auto;
 }
 </style>

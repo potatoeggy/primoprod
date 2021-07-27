@@ -4,10 +4,10 @@
     bannerName="Wanderlust Invocation"
     :isFeaturedBanner="false"
     v-if="showDetails"
-    @exit="showDetails = false"
+    @exit="exitDetailsScreen"
   ></banner-details-screen>
 
-  <div class="banner" v-else>
+  <div :class="{banner: true, invisible: showDetails}">
     <div id="header" class="space-between center">
       <div id="wish-label" class="space-between center">
         <img src="../assets/images/ui-wish-edited.png" />
@@ -88,12 +88,22 @@ export default defineComponent({
     wish(number: number): void {
       this.$emit("wish", number);
     },
+    exitDetailsScreen(): void {
+      (
+        document.getElementById("audioExitDialogDEPRECATED") as HTMLAudioElement
+      ).play();
+      this.showDetails = false;
+    },
   },
   emits: ["wish"],
 });
 </script>
 
 <style scoped>
+.invisible {
+  display: none;
+}
+
 .banner {
   display: flex;
   flex-direction: column;
