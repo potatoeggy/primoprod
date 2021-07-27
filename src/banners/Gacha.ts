@@ -26,6 +26,8 @@ export interface State {
 }
 
 export default class Gacha {
+  // TODO: since weapons are being added now their pity is actually slightly different I believe
+  
   // loaded vars
   drops: Item[][];
   name: string;

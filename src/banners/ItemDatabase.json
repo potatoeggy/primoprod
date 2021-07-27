@@ -1,4 +1,18 @@
 {
+  "diluc": {
+    "name": "Diluc",
+    "id": "diluc",
+    "type": "character",
+    "element": "Pyro",
+    "rarity": 5
+  },
+  "jean": {
+    "name": "Jean",
+    "id": "jean",
+    "type": "character",
+    "element": "Anemo",
+    "rarity": 5
+  },
   "keqing": {
     "name": "Keqing",
     "id": "keqing",
@@ -13,11 +27,130 @@
     "element": "Hydro",
     "rarity": 5
   },
+  "qiqi": {
+    "name": "Qiqi",
+    "id": "qiqi",
+    "type": "character",
+    "element": "Cryo",
+    "rarity": 5
+  },
+  "amber": {
+    "name": "Amber",
+    "id": "amber",
+    "type": "character",
+    "element": "Pyro",
+    "rarity": 4
+  },
+  "barbara": {
+    "name": "Barbara",
+    "id": "barbara",
+    "type": "character",
+    "element": "Hydro",
+    "rarity": 4
+  },
+  "beidou": {
+    "name": "Beidou",
+    "id": "beidou",
+    "type": "character",
+    "element": "Electro",
+    "rarity": 4
+  },
+  "bennett": {
+    "name": "Bennett",
+    "id": "bennett",
+    "type": "character",
+    "element": "Pyro",
+    "rarity": 4
+  },
+  "chongyun": {
+    "name": "Chongyun",
+    "id": "chongyun",
+    "type": "character",
+    "element": "Cryo",
+    "rarity": 4
+  },
   "diona": {
     "name": "Diona",
     "id": "diona",
     "type": "character",
     "element": "Cryo",
+    "rarity": 4
+  },
+  "fischl": {
+    "name": "Fischl",
+    "id": "fischl",
+    "type": "character",
+    "element": "Electro",
+    "rarity": 4
+  },
+  "kaeya": {
+    "name": "Kaeya",
+    "id": "kaeya",
+    "type": "character",
+    "element": "Cryo",
+    "rarity": 4
+  },
+  "lisa": {
+    "name": "Lisa",
+    "id": "lisa",
+    "type": "character",
+    "element": "Electro",
+    "rarity": 4
+  },
+  "ningguang": {
+    "name": "Ningguang",
+    "id": "ningguang",
+    "type": "character",
+    "element": "Geo",
+    "rarity": 4
+  },
+  "noelle": {
+    "name": "Noelle",
+    "id": "noelle",
+    "type": "character",
+    "element": "Geo",
+    "rarity": 4
+  },
+  "razor": {
+    "name": "Razor",
+    "id": "razor",
+    "type": "character",
+    "element": "Electro",
+    "rarity": 4
+  },
+  "rosaria": {
+    "name": "Rosaria",
+    "id": "rosaria",
+    "type": "character",
+    "element": "Cryo",
+    "rarity": 4
+  },
+  "sucrose": {
+    "name": "Sucrose",
+    "id": "sucrose",
+    "type": "character",
+    "element": "Anemo",
+    "rarity": 4
+  },
+  "xiangling": {
+    "name": "Xiangling",
+    "id": "xiangling",
+    "type": "character",
+    "element": "Pyro",
+    "rarity": 4
+  },
+  "xingqiu": {
+    "name": "Xingqiu",
+    "id": "xingqiu",
+    "type": "character",
+    "element": "Hydro",
+    "rarity": 4
+  },
+  "xinyan": {
+    "name": "Xinyan",
+    "id": "xinyan",
+    "type": "character",
+    "element": "Pyro",
     "rarity": 4
   },
   "yanfei": {
@@ -27,11 +160,291 @@
     "element": "Pyro",
     "rarity": 4
   },
-  "cool_steel": {
-    "name": "Cool Steel",
-    "id": "cool_steel",
+  "amos-bow": {
+    "name": "Amos' Bow",
+    "id": "amos-bow",
+    "type": "weapon",
+    "element": "Bow",
+    "rarity": 5
+  },
+  "aquila-favonia": {
+    "name": "Aquila Favonia",
+    "id": "aquila-favonia",
+    "type": "weapon",
+    "element": "Polearm",
+    "rarity": 5
+  },
+  "lost-prayer-to-the-sacred-winds": {
+    "name": "Lost Prayer to the Sacred Winds",
+    "id": "lost-prayer-to-the-sacred-winds",
+    "type": "weapon",
+    "element": "Catalyst",
+    "rarity": 5
+  },
+  "primordial-jade-winged-spear": {
+    "name": "Primordial Jade-Winged Spear",
+    "id": "primordial-jade-winged-spear",
+    "type": "weapon",
+    "element": "Polearm",
+    "rarity": 5
+  },
+  "skyward-atlas": {
+    "name": "Skyward Atlas",
+    "id": "skyward-atlas",
+    "type": "weapon",
+    "element": "Catalyst",
+    "rarity": 5
+  },
+  "skyward-blade": {
+    "name": "Skyward Blade",
+    "id": "skyward-blade",
     "type": "weapon",
     "element": "Sword",
+    "rarity": 5
+  },
+  "skyward-harp": {
+    "name": "Skyward Harp",
+    "id": "skyward-harp",
+    "type": "weapon",
+    "element": "Bow",
+    "rarity": 5
+  },
+  "skyward-pride": {
+    "name": "Skyward Pride",
+    "id": "skyward-pride",
+    "type": "weapon",
+    "element": "Claymore",
+    "rarity": 5
+  },
+  "skyward-spine": {
+    "name": "Skyward Spine",
+    "id": "skyward-spine",
+    "type": "weapon",
+    "element": "Polearm",
+    "rarity": 5
+  },
+  "wolfs-gravestone": {
+    "name": "Wolf's Gravestone",
+    "id": "wolfs-gravestone",
+    "type": "weapon",
+    "element": "Claymore",
+    "rarity": 5
+  },
+  "dragons-bane": {
+    "name": "Dragon's Bane",
+    "id": "dragons-bane",
+    "type": "weapon",
+    "element": "Polearm",
+    "rarity": 4
+  },
+  "eye-of-perception": {
+    "name": "Eye of Perception",
+    "id": "eye-of-perception",
+    "type": "weapon",
+    "element": "Catalyst",
+    "rarity": 4
+  },
+  "favonius-codex": {
+    "name": "Favonius Codex",
+    "id": "favonius-codex",
+    "type": "weapon",
+    "element": "Catalyst",
+    "rarity": 4
+  },
+  "favonius-greatsword": {
+    "name": "Favonius Greatsword",
+    "id": "favonius-greatsword",
+    "type": "weapon",
+    "element": "Claymore",
+    "rarity": 4
+  },
+  "favonius-lance": {
+    "name": "Favonius Lance",
+    "id": "favonius-lance",
+    "type": "weapon",
+    "element": "Polearm",
+    "rarity": 4
+  },
+  "favonius-sword": {
+    "name": "Favonius Sword",
+    "id": "favonius-sword",
+    "type": "weapon",
+    "element": "Sword",
+    "rarity": 4
+  },
+  "favonius-warbow": {
+    "name": "Favonius Warbow",
+    "id": "favonius-warbow",
+    "type": "weapon",
+    "element": "Bow",
+    "rarity": 4
+  },
+  "lions-roar": {
+    "name": "Lion's Roar",
+    "id": "lions-roar",
+    "type": "weapon",
+    "element": "Sword",
+    "rarity": 4
+  },
+  "rainslasher": {
+    "name": "Rainslasher",
+    "id": "rainslasher",
+    "type": "weapon",
+    "element": "Claymore",
+    "rarity": 4
+  },
+  "rust": {
+    "name": "Rust",
+    "id": "rust",
+    "type": "weapon",
+    "element": "Bow",
+    "rarity": 4
+  },
+  "sacrificial-bow": {
+    "name": "Sacrificial Bow",
+    "id": "sacrificial-bow",
+    "type": "weapon",
+    "element": "Bow",
+    "rarity": 4
+  },
+  "sacrificial-fragments": {
+    "name": "Sacrificial Fragments",
+    "id": "sacrificial-fragments",
+    "type": "weapon",
+    "element": "Catalyst",
+    "rarity": 4
+  },
+  "sacrificial-greatsword": {
+    "name": "Sacrificial Greatsword",
+    "id": "sacrificial-greatsword",
+    "type": "weapon",
+    "element": "Claymore",
+    "rarity": 4
+  },
+  "sacrificial-sword": {
+    "name": "Sacrificial Sword",
+    "id": "sacrificial-sword",
+    "type": "weapon",
+    "element": "Sword",
+    "rarity": 4
+  },
+  "the-bell": {
+    "name": "the-bell",
+    "id": "the-bell",
+    "type": "weapon",
+    "element": "Claymore",
+    "rarity": 4
+  },
+  "the-flute": {
+    "name": "The Flute",
+    "id": "the-flute",
+    "type": "weapon",
+    "element": "Sword",
+    "rarity": 4
+  },
+  "the-stringless": {
+    "name": "The Stringless",
+    "id": "the-stringless",
+    "type": "weapon",
+    "element": "Bow",
+    "rarity": 4
+  },
+  "the-widsith": {
+    "name": "The Widsith",
+    "id": "the-widsith",
+    "type": "weapon",
+    "element": "Catalyst",
+    "rarity": 4
+  },
+  "black-tassel": {
+    "name": "Black Tassel",
+    "id": "black-tassel",
+    "type": "weapon",
+    "element": "Polearm",
+    "rarity": 3
+  },
+  "bloodtainted-greatsword": {
+    "name": "Bloodtainted Greatsword",
+    "id": "bloodtainted-greatsword",
+    "type": "weapon",
+    "element": "Claymore",
+    "rarity": 3
+  },
+  "cool-steel": {
+    "name": "Cool Steel",
+    "id": "cool-steel",
+    "type": "weapon",
+    "element": "Sword",
+    "rarity": 3
+  },
+  "debate-club": {
+    "name": "Debate Club",
+    "id": "debate-club",
+    "type": "weapon",
+    "element": "Claymore",
+    "rarity": 3
+  },
+  "emerald-orb": {
+    "name": "Emerald Orb",
+    "id": "emerald-orb",
+    "type": "weapon",
+    "element": "Catalyst",
+    "rarity": 3
+  },
+  "ferrous-shadow": {
+    "name": "Ferrous Shadow",
+    "id": "ferrous-shadow",
+    "type": "weapon",
+    "element": "Claymore",
+    "rarity": 3
+  },
+  "harbinger-of-dawn": {
+    "name": "Harbinger of Dawn",
+    "id": "harbinger-of-dawn",
+    "type": "weapon",
+    "element": "Sword",
+    "rarity": 3
+  },
+  "magic-guide": {
+    "name": "Magic Guide",
+    "id": "magic-guide",
+    "type": "weapon",
+    "element": "Catalyst",
+    "rarity": 3
+  },
+  "raven-bow": {
+    "name": "Raven Bow",
+    "id": "raven-bow",
+    "type": "weapon",
+    "element": "Bow",
+    "rarity": 3
+  },
+  "sharpshooters-oath": {
+    "name": "Sharpshooter's Oath",
+    "id": "sharpshooters-oath",
+    "type": "weapon",
+    "element": "Bow",
+    "rarity": 3
+  },
+  "slingshot": {
+    "name": "Slingshot",
+    "id": "slingshot",
+    "type": "weapon",
+    "element": "Bow",
+    "rarity": 3
+  },
+  "skyrider-sword": {
+    "name": "Skyrider Sword",
+    "id": "skyrider-sword",
+    "type": "weapon",
+    "element": "Sword",
+    "rarity": 3
+  },
+  "thrilling-tales-of-dragon-slayers": {
+    "name": "Thrilling Tales of Dragon Slayers",
+    "id": "thrilling-tales-of-dragon-slayers",
+    "type": "weapon",
+    "element": "Catalyst",
     "rarity": 3
   }
 }
