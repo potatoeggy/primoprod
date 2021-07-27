@@ -232,7 +232,7 @@ h1 {
 }
 
 h1::before {
-  content: "|||";
+  content: "|||||";
   font-size: 2.5rem;
   letter-spacing: -0.6rem;
   padding-right: 3rem;
