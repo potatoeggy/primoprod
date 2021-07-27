@@ -7,7 +7,7 @@
     @exit="exitDetailsScreen"
   ></banner-details-screen>
 
-  <div :class="{banner: true, invisible: showDetails}">
+  <div :class="{ banner: true, invisible: showDetails }">
     <div id="header" class="space-between center">
       <div id="wish-label" class="space-between center">
         <img src="../assets/images/ui-wish-edited.png" />
