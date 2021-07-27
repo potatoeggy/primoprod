@@ -27,6 +27,8 @@ export interface State {
 
 export default class Gacha {
   // TODO: since weapons are being added now their pity is actually slightly different I believe
+  // TODO: consider adding an inherit tag to banners
+  // since all genshin banners actually inherit from wanderlust
   
   // loaded vars
   drops: Item[][];

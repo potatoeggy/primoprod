@@ -1,4 +1,11 @@
 {
+  "ayaka": {
+    "name": "Kamisato Ayaka",
+    "id": "ayaka",
+    "type": "Character",
+    "element": "Cryo",
+    "rarity": 5
+  },
   "diluc": {
     "name": "Diluc",
     "id": "diluc",

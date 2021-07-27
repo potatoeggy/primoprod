@@ -26,7 +26,7 @@
   <!-- main -->
   <wish-banners
     :inventory="inv"
-    :banner="require('./banners/wanderlust-invocation.json')"
+    :banner="require('./banners/the-herons-court.json')"
     @wish="wish"
     v-if="screen === 'wish-banner'"
   ></wish-banners>
@@ -86,6 +86,8 @@ export default defineComponent({
     },
 
     goWish(): void {
+      // TODO: seriously consider moving wish and video logic
+      // to WishBanners so that gachas are linked together
       this.inv.fates -= this.pullNumber;
       this.checkPullDialog = false;
       this.screen = "video-player";
