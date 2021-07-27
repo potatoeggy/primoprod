@@ -71,10 +71,6 @@ export default defineComponent({
   background-color: rgba(0, 0, 0, 0.35);
 }
 
-.flex-gem > div {
-  /* TODO: make all sizes relative to viewport? (set em initially with root and then use em for the rest)*/
-}
-
 .flex-gem {
   display: flex;
   text-align: center;
@@ -84,7 +80,7 @@ img {
   vertical-align: middle;
   height: 2.2rem;
   margin-left: 0.3rem;
-  filter: drop-shadow(0px 1px 1px #222)
+  filter: drop-shadow(0px 1px 1px #222);
 }
 
 .text {
