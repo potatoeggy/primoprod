@@ -3,9 +3,11 @@
   <banner-details-screen
     bannerName="Wanderlust Invocation"
     :isFeaturedBanner="false"
+    v-if="showDetails"
+    @exit="showDetails = false"
   ></banner-details-screen>
 
-  <div class="banner">
+  <div class="banner" v-else>
     <div id="header" class="space-between center">
       <div id="wish-label" class="space-between center">
         <img src="../assets/images/ui-wish-edited.png" />
@@ -35,7 +37,10 @@
         </div>
         <div id="shop-buttons" class="footer-align-flex">
           <text-button text="Shop"></text-button>
-          <text-button text="Details" @clicked="details"></text-button>
+          <text-button
+            text="Details"
+            @clicked="showDetails = true"
+          ></text-button>
           <text-button text="History"></text-button>
         </div>
       </div>
@@ -74,13 +79,15 @@ export default defineComponent({
       required: true,
     },
   },
+  data() {
+    return {
+      showDetails: false,
+    };
+  },
   methods: {
     wish(number: number): void {
       this.$emit("wish", number);
     },
-    details(): void {
-      return;
-    }
   },
   emits: ["wish"],
 });

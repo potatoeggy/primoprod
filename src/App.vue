@@ -167,9 +167,14 @@ export default defineComponent({
   user-select: none;
 }
 
+body {
+  overflow: hidden;
+}
+
+html,
 body,
 #app {
   height: 100%;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 </style>
