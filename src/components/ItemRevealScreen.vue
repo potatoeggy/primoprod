@@ -1,5 +1,6 @@
 <template>
   <!-- TODO: manually crop images and stick them into proper divs -->
+  <!-- TODO: add loading screen for videos/images (the alt tag) -->
   <div class="item-picture" @click="nextItem">
     <img :src="currentItemImage" />
   </div>

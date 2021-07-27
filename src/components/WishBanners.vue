@@ -1,4 +1,10 @@
 <template>
+  <!-- overlay use json? -->
+  <banner-details-screen
+    bannerName="Wanderlust Invocation"
+    :isFeaturedBanner="false"
+  ></banner-details-screen>
+
   <div class="banner">
     <div id="header" class="space-between center">
       <div id="wish-label" class="space-between center">
@@ -29,7 +35,7 @@
         </div>
         <div id="shop-buttons" class="footer-align-flex">
           <text-button text="Shop"></text-button>
-          <text-button text="Details"></text-button>
+          <text-button text="Details" @clicked="details"></text-button>
           <text-button text="History"></text-button>
         </div>
       </div>
@@ -46,9 +52,10 @@ import { defineComponent } from "vue";
 import WishButton from "./WishButton.vue";
 import TextButton from "./TextButton.vue";
 import GemCounter from "./GemCounter.vue";
+import BannerDetailsScreen from "@/components/BannerDetailsScreen.vue";
 
 export default defineComponent({
-  components: { WishButton, TextButton, GemCounter },
+  components: { WishButton, TextButton, GemCounter, BannerDetailsScreen },
   props: {
     fates: {
       type: Number,
@@ -71,6 +78,9 @@ export default defineComponent({
     wish(number: number): void {
       this.$emit("wish", number);
     },
+    details(): void {
+      return;
+    }
   },
   emits: ["wish"],
 });

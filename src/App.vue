@@ -167,7 +167,6 @@ export default defineComponent({
   user-select: none;
 }
 
-html,
 body,
 #app {
   height: 100%;

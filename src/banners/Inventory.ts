@@ -1,3 +1,5 @@
+import { Item } from "./Gacha";
+
 export default class Inventory {
   private currency = {
     primos: 1600,

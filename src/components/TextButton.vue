@@ -20,8 +20,10 @@ export default defineComponent({
   methods: {
     play() {
       (this.$refs.textClickAudio as HTMLAudioElement).play();
+      this.$emit("clicked");
     },
   },
+  emits: ["clicked"]
 });
 </script>
 
