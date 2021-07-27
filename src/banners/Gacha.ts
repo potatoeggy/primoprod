@@ -52,7 +52,7 @@ export default class Gacha {
 
   constructor(banner: Banner, state?: State) {
     this.name = banner.name;
-    this.storage = banner.storage;
+    this.storage = "gacha-" + banner.storage;
 
     // combined featured and non-featured drops
     this.drops = Array.from([0, 1, 2, 3, 4, 5], (i) =>

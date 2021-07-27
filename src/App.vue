@@ -25,10 +25,8 @@
 
   <!-- main -->
   <wish-banners
-    :primos="inv.primos"
-    :fates="inv.fates"
-    :starglitter="inv.starglitter"
-    :stardust="inv.stardust"
+    :inventory="inv"
+    :banner="require('./banners/wanderlust-invocation.json')"
     @wish="wish"
     v-if="screen === 'wish-banner'"
   ></wish-banners>

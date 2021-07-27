@@ -1,7 +1,7 @@
 <template>
   <!-- overlay use json? -->
   <banner-details-screen
-    :banner="require('../banners/wanderlust-invocation.json')"
+    :banner="banner"
     v-if="showDetails"
     @exit="exitDetailsScreen"
   ></banner-details-screen>
@@ -18,7 +18,7 @@
       </div>
     </div>
     <div id="div-banner">
-      <img id="banner" src="../assets/images/wanderlust-banner.png" />
+      <img id="banner" :src="getBannerImage" />
     </div>
     <div id="footer" class="space-between">
       <div>
@@ -57,31 +57,43 @@ import WishButton from "./WishButton.vue";
 import TextButton from "./TextButton.vue";
 import GemCounter from "./GemCounter.vue";
 import BannerDetailsScreen from "@/components/BannerDetailsScreen.vue";
+import { Banner } from "@/banners/Gacha";
+import Inventory from "@/banners/Inventory";
 
 export default defineComponent({
   components: { WishButton, TextButton, GemCounter, BannerDetailsScreen },
   props: {
-    fates: {
-      type: Number,
+    banner: {
+      type: Object as () => Banner,
       required: true,
     },
-    primos: {
-      type: Number,
-      required: true,
-    },
-    starglitter: {
-      type: Number,
-      required: true,
-    },
-    stardust: {
-      type: Number,
+    inventory: {
+      type: Inventory,
       required: true,
     },
   },
   data() {
     return {
       showDetails: false,
+      fates: this.inventory.fates,
+      primos: this.inventory.primos,
+      starglitter: this.inventory.starglitter,
+      stardust: this.inventory.stardust,
     };
+  },
+  computed: {
+    getBannerImage(): string {
+      const images = require.context(
+        "../assets/images/banners/",
+        false,
+        /\.png$/
+      );
+      try {
+        return images(`./${this.banner.storage}.png`);
+      } catch (error) {
+        return "error.png";
+      }
+    },
   },
   methods: {
     wish(number: number): void {
