@@ -89,7 +89,7 @@ export default defineComponent({
         /\.png$/
       );
       try {
-        return images(`./${this.banner.storage}.png`);
+        return images(`./${this.banner.id}.png`);
       } catch (error) {
         return "error.png";
       }

@@ -12,6 +12,7 @@ export interface Item {
 
 export interface Banner {
   name: string;
+  id: string;
   storage: string;
   drops: string[];
   featuredDrops: string[];

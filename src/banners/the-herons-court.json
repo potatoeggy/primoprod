@@ -1,6 +1,7 @@
 {
   "name": "The Heron's Court",
-  "storage": "the-herons-court",
+  "id": "the-herons-court",
+  "storage": "event",
   "featuredDrops": [
     "ayaka",
     "yanfei",
