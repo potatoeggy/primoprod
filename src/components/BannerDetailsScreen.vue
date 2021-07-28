@@ -126,7 +126,7 @@
           <span class="red">10</span> attempts; probability of winning 4-star
           item through the guarantee = <span class="red">99.400%</span>, and
           probability of winning 5-star item through the guarantee =
-          <span class="red">0.600%</span>
+          <span class="red">0.600%</span>.
         </p>
         <p>
           The first time you win a 4-star item in this event wish, there is a
