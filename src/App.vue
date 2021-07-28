@@ -47,7 +47,6 @@ import ItemAllRevealScreen from "@/components/ItemAllRevealScreen.vue";
 
 // gacha
 import Gacha, { Item } from "@/banners/Gacha";
-import standardDrops from "@/banners/wanderlust-invocation.json";
 
 // inventory
 import Inventory from "@/banners/Inventory";
@@ -65,7 +64,7 @@ export default defineComponent({
     return {
       // storage vars
       inv: new Inventory(),
-      standardGacha: new Gacha(standardDrops),
+      standardGacha: new Gacha(require("@/banners/the-herons-court.json")),
       // state vars
       checkPullDialog: false,
       pullNumber: 1,
