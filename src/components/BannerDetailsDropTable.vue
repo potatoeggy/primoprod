@@ -6,14 +6,25 @@
       <th>Item Type</th>
       <th>Item Name</th>
     </tr>
-    <tr v-for="row in Math.floor((table[rarity].length - 1) / 2)" :key="row">
-      <td>{{ table[rarity][row * 2].type }}</td>
-      <td>{{ table[rarity][row * 2].name }}</td>
-      <td v-if="table[rarity][row * 2 + 1]">
-        {{ table[rarity][row * 2 + 1].type }}
+    <tr v-for="row in Math.ceil((table[rarity].length - 1) / 2)" :key="row">
+      <!-- Vue is one-indexed for whatever so we subtract one
+           and then multiply by two to get to current row index -->
+      <!-- TODO: consider using v-for over these two -->
+      <td>{{ table[rarity][(row - 1) * 2].type }}</td>
+      <td>
+        <span v-if="table[rarity][(row - 1) * 2].featured">
+          <img src="@/assets/images/rate-up-check.png" />
+        </span>
+        {{ table[rarity][(row - 1) * 2].name }}
       </td>
-      <td v-if="table[rarity][row * 2 + 1]">
-        {{ table[rarity][row * 2 + 1].name }}
+      <td v-if="table[rarity][(row - 1) * 2 + 1]">
+        {{ table[rarity][(row - 1) * 2 + 1].type }}
+      </td>
+      <td v-if="table[rarity][(row - 1) * 2 + 1]">
+        <span v-if="table[rarity][(row - 1) * 2].featured">
+          <img src="@/assets/images/rate-up-check.png" />
+        </span>
+        {{ table[rarity][(row - 1) * 2 + 1].name }}
       </td>
     </tr>
   </table>
@@ -39,14 +50,28 @@ export default defineComponent({
     return {
       table: (() => {
         const drops: Item[][] = [[], [], [], [], [], []];
-        for (const i of this.banner.drops) {
-          const item = (ItemDatabase as { [name: string]: Item })[i];
-          // aiya ram go boom
-          drops[item.rarity].push(item);
-        }
         for (const i of this.banner.featuredDrops) {
           const item = (ItemDatabase as { [name: string]: Item })[i];
           drops[item.rarity].push({ featured: true, ...item });
+        }
+        for (const i of this.banner.drops) {
+          const item = (ItemDatabase as { [name: string]: Item })[i];
+          // TODO: aiya cpu go boom
+          // luckily the details screen is pretty light
+          // and we're only searching through same rarity
+          if (
+            ((it: Item) => {
+              for (const i of drops[it.rarity]) {
+                if (it.id === i.id) {
+                  return false;
+                }
+              }
+              return true;
+            })(item)
+          ) {
+            // aiya ram go boom
+            drops[item.rarity].push(item);
+          }
         }
         return drops;
       })(),
@@ -82,5 +107,9 @@ th {
   font-weight: bolder;
   background-color: #dbd7d3;
   color: #4d4d4d;
+}
+
+img {
+  width: 1rem;
 }
 </style>

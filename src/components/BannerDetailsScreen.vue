@@ -27,18 +27,50 @@
       <br />
       <br />
       <div class="featured-characters" v-if="isFeaturedBanner">
-        <div class="h2">Increased Drop Rates!</div>
+        <wish-details-h-2 text="Increased Drop Rates!"></wish-details-h-2>
+        <p class="five-star star-text big-margin">
+          <span class="star-holder"
+            ><span class="star-img" v-for="index in 5" :key="index"></span
+          ></span>
+          Percentage of 5-Star Item Drops: 50.000%
+        </p>
+        <p class="four-star star-text big-margin">
+          <span class="star-holder"
+            ><span class="star-img" v-for="index in 4" :key="index"></span
+          ></span>
+          Percentage of 4-Star Item Drops: 50.000%
+        </p>
+        <br />
       </div>
       <wish-details-h-2 text="Wish Details"></wish-details-h-2>
       <p v-if="!isFeaturedBanner" class="permanent big-margin">Permanent</p>
-      <p v-if="!isFeaturedBanner">
-        Standard Wish "{{ banner.name }}" is a standard wish with no time limit.
-        Non-event-exclusive characters and weapons are available.
-      </p>
-      <p>
-        In this wish, <span class="red">guaranteed</span> to win 4-star or above
-        item at least once per 10 attempts.
-      </p>
+      <p v-else class="permanent big-margin">Limited-Time Event</p>
+      <div v-if="!isFeaturedBanner">
+        <p>
+          Standard Wish "{{ banner.name }}" is a standard wish with no time
+          limit. Non-event-exclusive characters and weapons are available.
+        </p>
+        <p>
+          In this wish, <span class="red">guaranteed</span> to win 4-star or
+          above item at least once per 10 attempts.
+        </p>
+      </div>
+      <div v-else>
+        <p>
+          Event Wish "{{ banner.name }}" is now available. During this event
+          wish, the <span class="red">event-exclusive</span> 5-star character
+          {{ featured5Star[0].name }} ({{ featured5Star[0].element }}) as well
+          as 4-star characters
+          <span v-for="(char, index) in featured4Stars" :key="index">
+            {{ char.name }} ({{ char.element }}),
+          </span>
+          will receive a <span class="red">huge drop-rate boost</span>!
+        </p>
+        <p class="red">
+          ※ Of the above characters, the event-exclusive character will not be
+          available in the standard wish "Wanderlust Invocation."
+        </p>
+      </div>
       <br />
       <p>
         ※In most cases, the base probability of all characters and weapons is
@@ -47,7 +79,7 @@
       </p>
       <br />
       <p>〓Rules〓</p>
-      <p>
+      <p v-if="!isFeaturedBanner">
         Base probability of winning 5-star item =
         <span class="red">0.600%</span>; base probability of winning 5-star
         character = <span class="red">0.300%</span>, and base probability of
@@ -65,11 +97,58 @@
         <span class="red">99.400%</span>, and probability of winning 5-star item
         through the guarantee = <span class="red">0.600%</span>.
       </p>
+      <div v-else>
+        <p>5-Star Items</p>
+        <p>
+          For Event Wish "{{ banner.name }}": Base probability of winning 5-star
+          character = <span class="red">0.600%</span>; consolidated probability
+          (incl. guarantee) = <span class="red">1.600%</span>; guaranteed to win
+          5-star character at least once per
+          <span class="red">90</span> attempts.
+        </p>
+        <p>
+          The first time you win a 5-star item in this event wish, there is a
+          <span class="red">50.000%</span> chance it will be the promotional
+          character "{{ featured5Star.name }}". If the first 5-star character
+          you win in this event wish is not the promotional character, then the
+          next 5-star character you win is
+          <span class="red">guaranteed</span> to be the promotional character.
+        </p>
+        <p>4-Star Items</p>
+        <p>
+          For Event Wish "{{ banner.name }}": Base probability of winning 4-star
+          item = <span class="red">5.100%</span>; base probability of winning
+          4-star character = <span class="red">2.550%</span>, and base
+          probability of winning 4-star weapon =
+          <span class="red">2.500%</span>; consolidated probability (incl.
+          guarantee) of winning 4-star item = <span class="red">13.000%</span>;
+          guaranteed to win 4-star or above item at least once per
+          <span class="red">10</span> attempts; probability of winning 4-star
+          item through the guarantee = <span class="red">99.400%</span>, and
+          probability of winning 5-star item through the guarantee =
+          <span class="red">0.600%</span>
+        </p>
+        <p>
+          The first time you win a 4-star item in this event wish, there is a
+          <span class="red">50.000%</span> chance it will be one of the featured
+          characters
+          <span v-for="(char, index) in featured4Stars" :key="index"
+            >{{ char.name }} ({{ char.element }}), </span
+          >. If the first 4-star item you win in this event wish is not one of
+          the featured characters, then the next 4-star item you win is
+          <span class="red">guaranteed</span> to be a featured character.
+        </p>
+        <br />
+      </div>
       <p>
-        5-star weapons won in this wish come with
-        <span class="gold">Masterless Starglitter</span> ×10; 4-star weapons
-        come with <span class="gold">Masterless Starglitter</span> ×2; 3-star
-        weapons come with <span class="purple">Masterless Stardust ×15</span>.
+        <span v-if="!isFeaturedBanner"
+          >5-star weapons won in this wish come with
+          <span class="gold">Masterless Starglitter</span> ×10; </span
+        >4-star weapons
+        <span v-if="isFeaturedBanner">won in this wish </span>come with
+        <span class="gold">Masterless Starglitter</span> ×2; 3-star weapons
+        <span v-if="isFeaturedBanner">won in this wish </span>come with
+        <span class="purple">Masterless Stardust ×15</span>.
       </p>
       <br />
       <p>〓Duplicate Characters〓</p>
@@ -77,8 +156,10 @@
         On obtaining a 5-star character that you already own (whether obtained
         in a wish, redeemed at the shop, or awarded by the game): The 2nd – 7th
         time you obtain the character, it will be converted into that
-        character's Stella Fortuna ×1 and Masterless Starglitter ×10; from the
-        8th time onwards it will be converted into Masterless Starglitter ×25.
+        character's <span class="purple">Stella Fortuna</span> ×1 and
+        <span class="gold">Masterless Starglitter</span> ×10; from the 8th time
+        onwards it will be converted into
+        <span class="gold">Masterless Starglitter</span> ×25.
       </p>
       <p>
         On obtaining a 4-star character that you already own (whether obtained
@@ -89,6 +170,14 @@
         onwards it will be converted into
         <span class="gold">Masterless Starglitter</span> ×5.
       </p>
+      <div v-if="isFeaturedBanner">
+        <br />
+        <p>
+          ※ This is a character event wish. The wish guarantee count is
+          accumulated within character event wishes only and is independent of
+          the guarantee counts of other types of wishes.
+        </p>
+      </div>
       <br />
       <br />
       <p class="wish-header">Items to wish for:</p>
@@ -152,20 +241,22 @@ export default defineComponent({
       required: true,
     },
   },
-  computed: {
-    isFeaturedBanner(): boolean {
-      return this.banner.featuredDrops.length > 0;
-    },
-    featured5Star(): string[] {
-      return this.banner.featuredDrops.filter(
-        (item) => (ItemDatabase as { [name: string]: Item })[item].rarity === 5
-      );
-    },
-    featured4Stars(): string[] {
-      return this.banner.featuredDrops.filter(
-        (item) => (ItemDatabase as { [name: string]: Item })[item].rarity === 4
-      );
-    },
+  data() {
+    return {
+      isFeaturedBanner: this.banner.featuredDrops.length > 0,
+      featured5Star: this.banner.featuredDrops
+        .filter(
+          (item) =>
+            (ItemDatabase as { [name: string]: Item })[item].rarity === 5
+        )
+        .map((item) => (ItemDatabase as { [name: string]: Item })[item]),
+      featured4Stars: this.banner.featuredDrops
+        .filter(
+          (item) =>
+            (ItemDatabase as { [name: string]: Item })[item].rarity === 4
+        )
+        .map((item) => (ItemDatabase as { [name: string]: Item })[item]),
+    };
   },
   methods: {
     exit() {
