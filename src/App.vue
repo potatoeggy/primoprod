@@ -26,7 +26,7 @@
   <!-- main -->
   <wish-banners
     :inventory="inv"
-    :banner="require('./banners/the-herons-court.json')"
+    :banner="banner"
     @wish="wish"
     v-if="screen === 'wish-banner'"
   ></wish-banners>
@@ -72,6 +72,7 @@ export default defineComponent({
       screen: "wish-banner",
       lastRoll: [] as Item[],
       lastRollSorted: [] as Item[],
+      banner: require("./banners/wanderlust-invocation.json"),
     };
   },
   methods: {
