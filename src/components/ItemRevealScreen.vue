@@ -114,7 +114,6 @@ export default defineComponent({
 }
 
 .item-picture > img {
-  max-width: 100%;
   max-height: 100%;
 }
 
@@ -132,6 +131,7 @@ export default defineComponent({
 }
 
 .extra-dust-glitter {
+  text-align: left;
   margin-top: 7.5%;
   color: #e3e3e9;
 }
