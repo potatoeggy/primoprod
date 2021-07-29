@@ -88,10 +88,17 @@
             v-for="(char, index) in featured4Stars"
             :key="index"
             :style="getCharacterElementStyle(char)"
+            ><span
+              style="color: black"
+              v-if="index === featured4Stars.length - 1"
+              >and </span
+            >{{ char.description ? `"${char.description}"` : null }}
+            {{ char.name }} ({{ char.element }})<span
+              style="color: black"
+              v-if="index !== featured4Stars.length - 1"
+              >,
+            </span></span
           >
-            {{ char.description ? `"${char.description}"` : null }}
-            {{ char.name }} ({{ char.element }}),
-          </span>
           will receive a <span class="red">huge drop-rate boost</span>!
         </p>
         <p class="red">
@@ -169,8 +176,20 @@
           The first time you win a 4-star item in this event wish, there is a
           <span class="red">50.000%</span> chance it will be one of the featured
           characters
-          <span v-for="(char, index) in featured4Stars" :key="index"
-            >{{ char.name }} ({{ char.element }}), </span
+          <span
+            v-for="(char, index) in featured4Stars"
+            :key="index"
+            :style="getCharacterElementStyle(char)"
+            ><span
+              style="color: black"
+              v-if="index === featured4Stars.length - 1"
+              >and </span
+            >{{ char.description ? `"${char.description}"` : null }}
+            {{ char.name }} ({{ char.element }})<span
+              style="color: black"
+              v-if="index !== featured4Stars.length - 1"
+              >,
+            </span></span
           >. If the first 4-star item you win in this event wish is not one of
           the featured characters, then the next 4-star item you win is
           <span class="red">guaranteed</span> to be a featured character.
