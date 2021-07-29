@@ -9,7 +9,7 @@ export default defineComponent({});
 
 <style scoped>
 .plus-button {
-  display: relative;
+  position: relative;
   font-family: Genshin, Arial, Helvetica, sans-serif;
   border: none;
   width: 1.75rem;
