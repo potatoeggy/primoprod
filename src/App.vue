@@ -174,6 +174,6 @@ html,
 body,
 #app {
   height: 100%;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 </style>
