@@ -1,5 +1,7 @@
 // Some code taken from https://github.com/uzair-ashraf/genshin-impact-wish-simulator
-export const ItemDatabase: { [name: string]: Item } = (await import("./ItemDatabase.json")).default;
+export const ItemDatabase: { [name: string]: Item } = (
+  await import("./ItemDatabase.json")
+).default;
 
 export interface Item {
   name: string;
@@ -30,7 +32,7 @@ export default class Gacha {
   // TODO: since weapons are being added now their pity is actually slightly different I believe
   // TODO: consider adding an inherit tag to banners
   // since all genshin banners actually inherit from wanderlust
-  
+
   // loaded vars
   drops: Item[][];
   name: string;
@@ -63,9 +65,7 @@ export default class Gacha {
         .map((item) => ItemDatabase[item])
         .filter((item) => item.rarity === i)
     );
-    for (const item of banner.featuredDrops.map(
-      (item) => ItemDatabase[item]
-    )) {
+    for (const item of banner.featuredDrops.map((item) => ItemDatabase[item])) {
       this.drops[item.rarity].push({ ...item, featured: true });
     }
 
