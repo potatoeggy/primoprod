@@ -34,12 +34,20 @@
           ></span>
           Percentage of 5-Star Item Drops: 50.000%
         </p>
+        <div class="grid">
+          <banner-details-character-profile
+            v-for="(char, index) in featured5Star"
+            :character="char"
+            :key="index"
+          ></banner-details-character-profile>
+        </div>
         <p class="four-star star-text big-margin">
           <span class="star-holder"
             ><span class="star-img" v-for="index in 4" :key="index"></span
           ></span>
           Percentage of 4-Star Item Drops: 50.000%
         </p>
+        <div class="grid"></div>
         <br />
       </div>
       <wish-details-h-2 text="Wish Details"></wish-details-h-2>
@@ -227,14 +235,18 @@
 import { defineComponent } from "vue";
 import WishDetailsH2 from "./WishDetailsH2.vue";
 import BannerDetailsDropTable from "./BannerDetailsDropTable.vue";
-import { Banner, Item } from "../banners/Gacha";
-import ItemDatabase from "../banners/ItemDatabase.json";
+import { Banner, ItemDatabase } from "@/banners/Gacha";
+import BannerDetailsCharacterProfile from "./BannerDetailsCharacterProfile.vue";
 // TODO: problem: ItemDatabase is being passed around everywhere
 // which is causing memory buildup
 // or it might be something else but ram usage is suspiciously high
 
 export default defineComponent({
-  components: { WishDetailsH2, BannerDetailsDropTable },
+  components: {
+    WishDetailsH2,
+    BannerDetailsDropTable,
+    BannerDetailsCharacterProfile,
+  },
   props: {
     banner: {
       type: Object as () => Banner,
@@ -245,17 +257,11 @@ export default defineComponent({
     return {
       isFeaturedBanner: this.banner.featuredDrops.length > 0,
       featured5Star: this.banner.featuredDrops
-        .filter(
-          (item) =>
-            (ItemDatabase as { [name: string]: Item })[item].rarity === 5
-        )
-        .map((item) => (ItemDatabase as { [name: string]: Item })[item]),
+        .filter((item) => ItemDatabase[item].rarity === 5)
+        .map((item) => ItemDatabase[item]),
       featured4Stars: this.banner.featuredDrops
-        .filter(
-          (item) =>
-            (ItemDatabase as { [name: string]: Item })[item].rarity === 4
-        )
-        .map((item) => (ItemDatabase as { [name: string]: Item })[item]),
+        .filter((item) => ItemDatabase[item].rarity === 4)
+        .map((item) => ItemDatabase[item]),
     };
   },
   methods: {
@@ -268,6 +274,11 @@ export default defineComponent({
 </script>
 
 <style scoped>
+.grid {
+  display: grid;
+  grid-gap: 1rem;
+}
+
 .exit-button {
   width: 1.1rem;
   margin: 1rem;

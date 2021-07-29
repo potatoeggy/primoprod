@@ -32,8 +32,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { Banner, Item } from "../banners/Gacha";
-import ItemDatabase from "../banners/ItemDatabase.json";
+import { Banner, Item, ItemDatabase } from "../banners/Gacha";
 
 export default defineComponent({
   props: {
@@ -51,11 +50,11 @@ export default defineComponent({
       table: (() => {
         const drops: Item[][] = [[], [], [], [], [], []];
         for (const i of this.banner.featuredDrops) {
-          const item = (ItemDatabase as { [name: string]: Item })[i];
+          const item = ItemDatabase[i];
           drops[item.rarity].push({ featured: true, ...item });
         }
         for (const i of this.banner.drops) {
-          const item = (ItemDatabase as { [name: string]: Item })[i];
+          const item = ItemDatabase[i];
           // TODO: aiya cpu go boom
           // luckily the details screen is pretty light
           // and we're only searching through same rarity

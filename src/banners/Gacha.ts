@@ -1,5 +1,5 @@
 // Some code taken from https://github.com/uzair-ashraf/genshin-impact-wish-simulator
-import ItemDatabase from "./ItemDatabase.json";
+export const ItemDatabase: { [name: string]: Item } = (await import("./ItemDatabase.json")).default;
 
 export interface Item {
   name: string;
@@ -60,11 +60,11 @@ export default class Gacha {
     // combined featured and non-featured drops
     this.drops = Array.from([0, 1, 2, 3, 4, 5], (i) =>
       banner.drops
-        .map((item) => (ItemDatabase as { [name: string]: Item })[item])
+        .map((item) => ItemDatabase[item])
         .filter((item) => item.rarity === i)
     );
     for (const item of banner.featuredDrops.map(
-      (item) => (ItemDatabase as { [name: string]: Item })[item]
+      (item) => ItemDatabase[item]
     )) {
       this.drops[item.rarity].push({ ...item, featured: true });
     }
