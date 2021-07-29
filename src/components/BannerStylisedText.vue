@@ -1,0 +1,24 @@
+<template>
+  <span
+    v-for="(style, index) in banner.styles"
+    :key="index"
+    :style="{ color: style.color }"
+    >{{ style.text }}
+  </span>
+</template>
+
+<script lang="ts">
+import { defineComponent } from "vue";
+import { Banner } from "@/banners/Gacha";
+export default defineComponent({
+  props: {
+    banner: Object as () => Banner,
+  },
+});
+</script>
+
+<style scoped>
+span {
+  font-family: Arial, sans-serif;
+}
+</style>

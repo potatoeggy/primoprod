@@ -1,9 +1,14 @@
 {
   "name": "The Heron's Court",
-  "styles": [{
-    "color": "#60b9d3",
-    "text": "The Heron's"
-  }],
+  "styles": [
+    {
+      "color": "#60b9d3",
+      "text": "The Heron's"
+    },
+    {
+      "text": " Court"
+    }
+  ],
   "id": "the-herons-court",
   "storage": "event",
   "featuredDrops": [

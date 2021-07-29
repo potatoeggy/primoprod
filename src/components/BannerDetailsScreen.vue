@@ -21,7 +21,11 @@
     <div class="body">
       <h1>
         <span v-if="isFeaturedBanner">Event Wish</span
-        ><span v-else>Standard Wish</span> "{{ banner.name }}"
+        ><span v-else>Standard Wish</span> "<banner-stylised-text
+          :banner="banner"
+        >
+        </banner-stylised-text
+        >"
       </h1>
       <br />
       <br />
@@ -65,8 +69,10 @@
       </div>
       <div v-else>
         <p>
-          Event Wish "{{ banner.name }}" is now available. During this event
-          wish, the <span class="red">event-exclusive</span> 5-star character
+          Event Wish "<banner-stylised-text :banner="banner">
+          </banner-stylised-text
+          >" is now available. During this event wish, the
+          <span class="red">event-exclusive</span> 5-star character
           <span :style="getCharacterElementStyle(featured5Star[0])">
             {{
               featured5Star[0].description
@@ -120,33 +126,42 @@
       <div v-else>
         <p>5-Star Items</p>
         <p>
-          For Event Wish "{{ banner.name }}": Base probability of winning 5-star
-          character = <span class="red">0.600%</span>; consolidated probability
-          (incl. guarantee) = <span class="red">1.600%</span>; guaranteed to win
-          5-star character at least once per
-          <span class="red">90</span> attempts.
+          For Event Wish "<banner-stylised-text :banner="banner">
+          </banner-stylised-text
+          >": Base probability of winning 5-star character =
+          <span class="red">0.600%</span>; consolidated probability (incl.
+          guarantee) = <span class="red">1.600%</span>; guaranteed to win 5-star
+          character at least once per <span class="red">90</span> attempts.
         </p>
         <p>
           The first time you win a 5-star item in this event wish, there is a
           <span class="red">50.000%</span> chance it will be the promotional
-          character "{{ featured5Star.name }}". If the first 5-star character
-          you win in this event wish is not the promotional character, then the
-          next 5-star character you win is
+          character
+          <span :style="getCharacterElementStyle(featured5Star[0])">
+            {{
+              featured5Star[0].description
+                ? `"${featured5Star[0].description}"`
+                : null
+            }}
+            {{ featured5Star[0].name }} ({{ featured5Star[0].element }})</span
+          >. If the first 5-star character you win in this event wish is not the
+          promotional character, then the next 5-star character you win is
           <span class="red">guaranteed</span> to be the promotional character.
         </p>
         <p>4-Star Items</p>
         <p>
-          For Event Wish "{{ banner.name }}": Base probability of winning 4-star
-          item = <span class="red">5.100%</span>; base probability of winning
-          4-star character = <span class="red">2.550%</span>, and base
-          probability of winning 4-star weapon =
-          <span class="red">2.500%</span>; consolidated probability (incl.
-          guarantee) of winning 4-star item = <span class="red">13.000%</span>;
-          guaranteed to win 4-star or above item at least once per
-          <span class="red">10</span> attempts; probability of winning 4-star
-          item through the guarantee = <span class="red">99.400%</span>, and
-          probability of winning 5-star item through the guarantee =
-          <span class="red">0.600%</span>.
+          For Event Wish "<banner-stylised-text :banner="banner">
+          </banner-stylised-text
+          >": Base probability of winning 4-star item =
+          <span class="red">5.100%</span>; base probability of winning 4-star
+          character = <span class="red">2.550%</span>, and base probability of
+          winning 4-star weapon = <span class="red">2.500%</span>; consolidated
+          probability (incl. guarantee) of winning 4-star item =
+          <span class="red">13.000%</span>; guaranteed to win 4-star or above
+          item at least once per <span class="red">10</span> attempts;
+          probability of winning 4-star item through the guarantee =
+          <span class="red">99.400%</span>, and probability of winning 5-star
+          item through the guarantee = <span class="red">0.600%</span>.
         </p>
         <p>
           The first time you win a 4-star item in this event wish, there is a
@@ -249,6 +264,7 @@ import WishDetailsH2 from "./WishDetailsH2.vue";
 import BannerDetailsDropTable from "./BannerDetailsDropTable.vue";
 import { Banner, Item, ItemDatabase, ElementDatabase } from "@/banners/Gacha";
 import BannerDetailsCharacterProfile from "./BannerDetailsCharacterProfile.vue";
+import BannerStylisedText from "./BannerStylisedText.vue";
 // TODO: problem: ItemDatabase is being passed around everywhere
 // which is causing memory buildup
 // or it might be something else but ram usage is suspiciously high
@@ -258,6 +274,7 @@ export default defineComponent({
     WishDetailsH2,
     BannerDetailsDropTable,
     BannerDetailsCharacterProfile,
+    BannerStylisedText,
   },
   props: {
     banner: {
