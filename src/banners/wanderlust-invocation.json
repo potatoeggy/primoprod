@@ -1,5 +1,14 @@
 {
   "name": "Wanderlust Invocation",
+  "styles": [
+    {
+      "text": "Wanderlust "
+    },
+    {
+      "color": "#757acd",
+      "text": "Invocation"
+    }
+  ],
   "id": "wanderlust-invocation",
   "storage": "wanderlust-invocation",
   "drops": [
