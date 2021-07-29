@@ -70,7 +70,7 @@ export default defineComponent({
       try {
         return images(`./${this.currentItem.id}.png`);
       } catch (error) {
-        return "error.png";
+        return `${this.currentItem.id}.png`;
       }
     },
   },
