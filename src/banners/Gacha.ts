@@ -7,6 +7,7 @@ export interface Item {
   type: string;
   element: string;
   featured?: boolean;
+  description?: string;
 }
 
 export interface Banner {
@@ -15,6 +16,7 @@ export interface Banner {
   storage: string;
   drops: string[];
   featuredDrops: string[];
+  styles: StylisedText[];
 }
 
 export interface State {
@@ -25,7 +27,17 @@ export interface State {
   guaranteedFeatured5Star: boolean;
 }
 
-export const ItemDatabase: { [name: string]: Item } = ItemDB;
+export interface StylisedText {
+  color: string;
+  text: string;
+}
+
+export interface StylisedElement {
+  color: string;
+}
+
+export const ItemDatabase: { [name: string]: Item } = ItemDB.items;
+export const ElementDatabase: { [name: string]: StylisedElement } = ItemDB.elements;
 
 export default class Gacha {
   // TODO: since weapons are being added now their pity is actually slightly different I believe
