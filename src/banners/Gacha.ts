@@ -1,8 +1,5 @@
 // Some code taken from https://github.com/uzair-ashraf/genshin-impact-wish-simulator
-export const ItemDatabase: { [name: string]: Item } = (
-  await import("./ItemDatabase.json")
-).default;
-
+import ItemDB from "./ItemDatabase.json";
 export interface Item {
   name: string;
   id: string;
@@ -27,6 +24,8 @@ export interface State {
   guaranteedFeatured4Star: boolean;
   guaranteedFeatured5Star: boolean;
 }
+
+export const ItemDatabase: { [name: string]: Item } = ItemDB;
 
 export default class Gacha {
   // TODO: since weapons are being added now their pity is actually slightly different I believe
