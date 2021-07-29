@@ -23,10 +23,18 @@
     }
   },
   "items": {
+    "albedo": {
+      "name": "Albedo",
+      "id": "albedo",
+      "type": "character",
+      "element": "Geo",
+      "description": "Kreideprinz",
+      "rarity": 5
+    },
     "ayaka": {
       "name": "Kamisato Ayaka",
       "id": "ayaka",
-      "type": "Character",
+      "type": "character",
       "element": "Cryo",
       "description": "Frostflake Heron",
       "rarity": 5
@@ -34,70 +42,175 @@
     "diluc": {
       "name": "Diluc",
       "id": "diluc",
-      "type": "Character",
+      "type": "character",
       "element": "Pyro",
+      "description": "The Dark Side of Dawn",
+      "rarity": 5
+    },
+    "eula": {
+      "name": "Eula",
+      "id": "eula",
+      "type": "character",
+      "element": "Cryo",
+      "description": "Dance of the Shimmering Wave",
+      "rarity": 5
+    },
+    "ganyu": {
+      "name": "Ganyu",
+      "id": "ganyu",
+      "type": "character",
+      "element": "Cryo",
+      "description": "Plenilune Gaze",
+      "rarity": 5
+    },
+    "hu-tao": {
+      "name": "Hu Tao",
+      "id": "hu-tao",
+      "type": "character",
+      "element": "Pyro",
+      "description": "Fragrance in Thaw",
       "rarity": 5
     },
     "jean": {
       "name": "Jean",
       "id": "jean",
-      "type": "Character",
+      "type": "character",
       "element": "Anemo",
+      "description": "Dandelion Knight",
+      "rarity": 5
+    },
+    "kazuha": {
+      "name": "Kaedehara Kazuha",
+      "id": "kazuha",
+      "type": "character",
+      "element": "Anemo",
+      "description": "Scarlet Leaves Pursue Wild Waves",
       "rarity": 5
     },
     "keqing": {
       "name": "Keqing",
       "id": "keqing",
-      "type": "Character",
+      "type": "character",
       "element": "Electro",
+      "description": "Driving Thunder",
+      "rarity": 5
+    },
+    "klee": {
+      "name": "Klee",
+      "id": "klee",
+      "type": "character",
+      "element": "Pyro",
+      "description": "Fleeing Sunlight",
+      "rarity": 5
+    },
+    "kokomi": {
+      "name": "Sangonomiya Kokomi",
+      "id": "kokomi",
+      "type": "character",
+      "element": "Hydro",
+      "description": "Pearl of Wisdom",
       "rarity": 5
     },
     "mona": {
       "name": "Mona",
       "id": "mona",
-      "type": "Character",
+      "type": "character",
       "element": "Hydro",
+      "description": "Astral Reflection",
       "rarity": 5
     },
     "qiqi": {
       "name": "Qiqi",
       "id": "qiqi",
-      "type": "Character",
+      "type": "character",
       "element": "Cryo",
+      "description": "Icy Resurrection",
+      "rarity": 5
+    },
+    "raiden": {
+      "name": "Raiden Shogun",
+      "id": "raiden",
+      "type": "character",
+      "element": "Electro",
+      "description": "Plane of Euthymia",
+      "rarity": 5
+    },
+    "tartaglia": {
+      "name": "Tartaglia",
+      "id": "tartaglia",
+      "type": "character",
+      "element": "Hydro",
+      "description": "Childe",
+      "rarity": 5
+    },
+    "venti": {
+      "name": "Venti",
+      "id": "venti",
+      "type": "character",
+      "element": "Anemo",
+      "description": "Windborne Bard",
+      "rarity": 5
+    },
+    "xiao": {
+      "name": "Xiao",
+      "id": "xiao",
+      "type": "character",
+      "element": "Anemo",
+      "description": "Vigilant Yaksha",
+      "rarity": 5
+    },
+    "yoimiya": {
+      "name": "Yoimiya",
+      "id": "yoimiya",
+      "type": "character",
+      "element": "Pyro",
+      "description": "Frolicking Flames",
+      "rarity": 5
+    },
+    "zhongli": {
+      "name": "Zhongli",
+      "id": "zhongli",
+      "type": "character",
+      "element": "Geo",
+      "description": "Vago Mundo",
       "rarity": 5
     },
     "amber": {
       "name": "Amber",
       "id": "amber",
-      "type": "Character",
+      "type": "character",
       "element": "Pyro",
+      "description": "Gliding Champion",
       "rarity": 4
     },
     "barbara": {
       "name": "Barbara",
       "id": "barbara",
-      "type": "Character",
+      "type": "character",
       "element": "Hydro",
+      "description": "Shining Idol",
       "rarity": 4
     },
     "beidou": {
       "name": "Beidou",
       "id": "beidou",
-      "type": "Character",
+      "type": "character",
       "element": "Electro",
+      "description": "Uncrowned Lord of the Ocean",
       "rarity": 4
     },
     "bennett": {
       "name": "Bennett",
       "id": "bennett",
-      "type": "Character",
+      "type": "character",
       "element": "Pyro",
+      "description": "Trial by Fire",
       "rarity": 4
     },
     "chongyun": {
       "name": "Chongyun",
       "id": "chongyun",
-      "type": "Character",
+      "type": "character",
       "element": "Cryo",
       "description": "Frozen Ardor",
       "rarity": 4
@@ -105,35 +218,39 @@
     "diona": {
       "name": "Diona",
       "id": "diona",
-      "type": "Character",
+      "type": "character",
       "element": "Cryo",
+      "description": "Kätzlein Cocktail",
       "rarity": 4
     },
     "fischl": {
       "name": "Fischl",
       "id": "fischl",
-      "type": "Character",
+      "type": "character",
       "element": "Electro",
+      "description": "Prezessin der Verurteilung",
       "rarity": 4
     },
     "kaeya": {
       "name": "Kaeya",
       "id": "kaeya",
-      "type": "Character",
+      "type": "character",
       "element": "Cryo",
+      "description": "Frostwind Swordsman",
       "rarity": 4
     },
     "lisa": {
       "name": "Lisa",
       "id": "lisa",
-      "type": "Character",
+      "type": "character",
       "element": "Electro",
+      "description": "Witch of Purple Rose",
       "rarity": 4
     },
     "ningguang": {
       "name": "Ningguang",
       "id": "ningguang",
-      "type": "Character",
+      "type": "character",
       "element": "Geo",
       "description": "Eclipsing Star",
       "rarity": 4
@@ -141,56 +258,79 @@
     "noelle": {
       "name": "Noelle",
       "id": "noelle",
-      "type": "Character",
+      "type": "character",
       "element": "Geo",
+      "description": "Chivalric Blossom",
       "rarity": 4
     },
     "razor": {
       "name": "Razor",
       "id": "razor",
-      "type": "Character",
+      "type": "character",
       "element": "Electro",
+      "description": "Wolf Boy",
       "rarity": 4
     },
     "rosaria": {
       "name": "Rosaria",
       "id": "rosaria",
-      "type": "Character",
+      "type": "character",
       "element": "Cryo",
+      "description": "Thorny Benevolence",
+      "rarity": 4
+    },
+    "sara": {
+      "name": "Kujou Sara",
+      "id": "sara",
+      "type": "character",
+      "element": "Electro",
+      "description": "Crowfeather Kaburaya",
+      "rarity": 4
+    },
+    "sayu": {
+      "name": "Sayu",
+      "id": "sayu",
+      "type": "character",
+      "element": "Anemo",
+      "description": "Mujina Ninja",
       "rarity": 4
     },
     "sucrose": {
       "name": "Sucrose",
       "id": "sucrose",
-      "type": "Character",
+      "type": "character",
       "element": "Anemo",
+      "description": "Harmless Sweetie",
       "rarity": 4
     },
     "xiangling": {
       "name": "Xiangling",
       "id": "xiangling",
-      "type": "Character",
+      "type": "character",
       "element": "Pyro",
+      "description": "Exquisite Delicacy",
       "rarity": 4
     },
     "xingqiu": {
       "name": "Xingqiu",
       "id": "xingqiu",
-      "type": "Character",
+      "type": "character",
       "element": "Hydro",
+      "description": "Juvenile Galant",
       "rarity": 4
     },
     "xinyan": {
       "name": "Xinyan",
       "id": "xinyan",
-      "type": "Character",
+      "type": "character",
       "element": "Pyro",
+      "description": "Blazing Riff",
       "rarity": 4
     },
     "yanfei": {
       "name": "Yanfei",
       "id": "yanfei",
-      "type": "Character",
+      "type": "character",
       "element": "Pyro",
       "description": "Wise Innocence",
       "rarity": 4
