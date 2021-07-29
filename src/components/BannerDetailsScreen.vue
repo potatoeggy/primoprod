@@ -59,8 +59,10 @@
       <p v-else class="permanent big-margin">Limited-Time Event</p>
       <div v-if="!isFeaturedBanner">
         <p>
-          Standard Wish "{{ banner.name }}" is a standard wish with no time
-          limit. Non-event-exclusive characters and weapons are available.
+          Standard Wish "<banner-stylised-text :banner="banner">
+          </banner-stylised-text
+          >" is a standard wish with no time limit. Non-event-exclusive
+          characters and weapons are available.
         </p>
         <p>
           In this wish, <span class="red">guaranteed</span> to win 4-star or
