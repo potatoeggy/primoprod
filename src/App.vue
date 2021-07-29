@@ -166,10 +166,6 @@ export default defineComponent({
   user-select: none;
 }
 
-body {
-  overflow: hidden;
-}
-
 html,
 body,
 #app {

@@ -292,9 +292,6 @@ import BannerDetailsDropTable from "./BannerDetailsDropTable.vue";
 import { Banner, Item, ItemDatabase, ElementDatabase } from "@/banners/Gacha";
 import BannerDetailsCharacterProfile from "./BannerDetailsCharacterProfile.vue";
 import BannerStylisedText from "./BannerStylisedText.vue";
-// TODO: problem: ItemDatabase is being passed around everywhere
-// which is causing memory buildup
-// or it might be something else but ram usage is suspiciously high
 
 export default defineComponent({
   components: {
@@ -356,8 +353,10 @@ export default defineComponent({
   padding: 2rem;
   padding-left: 6rem;
   padding-right: 6rem;
+  /* viewport - header + padding*2 so that the page doesn't
+     extend to the bottom cutting off content */
+  height: calc(100% - 7rem);
   overflow: auto;
-  height: 100%;
 }
 
 .header {
@@ -462,13 +461,5 @@ h1::before {
   background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAMAAABhq6zVAAAAP1BMVEVHcEyjgFKkgFKjgFKjgFKiflGjf1KAgAChe0yjgFKigFCkgVGjgFGhf1KigFKigVKif1KigVGbgEmiflGjgFLp5kSyAAAAFHRSTlMA0RzQ/WV6AhtkZnvSetF50Xsce8af3VIAAABJSURBVAgdRcEJEoAgEASxFpBdvI/5/1stodCEyi9+48jHhsHobmmmsTNJaTYgTIuqZQp4iaqO4oCtSUrZaHYp01ncjE8p/Nx5PeguAvmODht+AAAAAElFTkSuQmCC);
   background-repeat: no-repeat;
   background-size: cover;
-}
-</style>
-
-<style>
-html,
-body,
-#app {
-  overflow: auto;
 }
 </style>
