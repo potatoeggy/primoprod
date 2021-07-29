@@ -51,7 +51,13 @@
           ></span>
           Percentage of 4-Star Item Drops: 50.000%
         </p>
-        <div class="grid"></div>
+        <div class="grid">
+          <banner-details-character-profile
+            v-for="(char, index) in featured4Stars"
+            :character="char"
+            :key="index"
+          ></banner-details-character-profile>
+        </div>
         <br />
       </div>
       <wish-details-h-2 text="Wish Details"></wish-details-h-2>
@@ -330,8 +336,9 @@ export default defineComponent({
 
 <style scoped>
 .grid {
-  display: grid;
+  display: flex;
   grid-gap: 1rem;
+  flex-wrap: wrap;
 }
 
 .exit-button {
