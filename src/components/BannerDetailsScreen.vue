@@ -210,7 +210,7 @@
         <span v-if="isFeaturedBanner">won in this wish </span>come with
         <span class="gold">Masterless Starglitter</span> ×2; 3-star weapons
         <span v-if="isFeaturedBanner">won in this wish </span>come with
-        <span class="purple">Masterless Stardust ×15</span>.
+        <span class="purple">Masterless Stardust</span> ×15.
       </p>
       <br />
       <p>〓Duplicate Characters〓</p>
