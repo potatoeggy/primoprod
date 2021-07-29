@@ -67,9 +67,21 @@
         <p>
           Event Wish "{{ banner.name }}" is now available. During this event
           wish, the <span class="red">event-exclusive</span> 5-star character
-          {{ featured5Star[0].name }} ({{ featured5Star[0].element }}) as well
-          as 4-star characters
-          <span v-for="(char, index) in featured4Stars" :key="index">
+          <span :style="getCharacterElementStyle(featured5Star[0])">
+            {{
+              featured5Star[0].description
+                ? `"${featured5Star[0].description}"`
+                : null
+            }}
+            {{ featured5Star[0].name }} ({{ featured5Star[0].element }})
+          </span>
+          as well as 4-star characters
+          <span
+            v-for="(char, index) in featured4Stars"
+            :key="index"
+            :style="getCharacterElementStyle(char)"
+          >
+            {{ char.description ? `"${char.description}"` : null }}
             {{ char.name }} ({{ char.element }}),
           </span>
           will receive a <span class="red">huge drop-rate boost</span>!
@@ -235,7 +247,7 @@
 import { defineComponent } from "vue";
 import WishDetailsH2 from "./WishDetailsH2.vue";
 import BannerDetailsDropTable from "./BannerDetailsDropTable.vue";
-import { Banner, ItemDatabase } from "@/banners/Gacha";
+import { Banner, Item, ItemDatabase, ElementDatabase } from "@/banners/Gacha";
 import BannerDetailsCharacterProfile from "./BannerDetailsCharacterProfile.vue";
 // TODO: problem: ItemDatabase is being passed around everywhere
 // which is causing memory buildup
@@ -267,6 +279,11 @@ export default defineComponent({
   methods: {
     exit() {
       this.$emit("exit");
+    },
+    getCharacterElementStyle(character: Item) {
+      return {
+        color: ElementDatabase[character.element].color,
+      };
     },
   },
   emits: ["exit"],

@@ -28,6 +28,7 @@
       "id": "ayaka",
       "type": "Character",
       "element": "Cryo",
+      "description": "Frostflake Heron",
       "rarity": 5
     },
     "diluc": {
@@ -98,6 +99,7 @@
       "id": "chongyun",
       "type": "Character",
       "element": "Cryo",
+      "description": "Frozen Ardor",
       "rarity": 4
     },
     "diona": {
@@ -133,6 +135,7 @@
       "id": "ningguang",
       "type": "Character",
       "element": "Geo",
+      "description": "Eclipsing Star",
       "rarity": 4
     },
     "noelle": {
@@ -189,6 +192,7 @@
       "id": "yanfei",
       "type": "Character",
       "element": "Pyro",
+      "description": "Wise Innocence",
       "rarity": 4
     },
     "amos-bow": {
