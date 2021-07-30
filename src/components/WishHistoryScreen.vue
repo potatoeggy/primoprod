@@ -18,7 +18,12 @@
     </svg>
   </div>
   <div class="details">
-    <h2>Select Wish Type:</h2>
+    <p class="select-wish-type">
+      Select Wish Type:
+      <select v-model="selectedWishType">
+        <option v-for="item in wishTypes" :key="item">{{ item }}</option>
+      </select>
+    </p>
     <p>
       * You can check the wishes you made. Wish records are updated instantly
       after the wish is made. If there is no record yet, please check again
@@ -31,23 +36,25 @@
         <th>Item Name</th>
         <th>Time Received</th>
       </tr>
-      <tr v-for="(pull, index) of pulls.slice().reverse()" :key="index">
-        <td>{{ pull.item.type }}</td>
-        <td>
-          <span
-            :class="{
-              purple: pull.item.rarity === 4,
-              gold: pull.item.rarity === 5,
-            }"
-            >{{ pull.item.name }}</span
-          >
-          <span class="purple" v-if="pull.item.rarity === 4"> (4-Star) </span>
-          <span class="gold" v-else-if="pull.item.rarity === 5">
-            (5-Star)
-          </span>
-        </td>
-        <td>{{ dayjs(pull.date).format("YYYY-MM-DD HH:mm:ss") }}</td>
-      </tr>
+      <template v-for="(pull, index) of pulls.slice().reverse()" :key="index">
+        <tr v-if="pull.bannerStorage === selectedWishType">
+          <td>{{ pull.item.type }}</td>
+          <td>
+            <span
+              :class="{
+                purple: pull.item.rarity === 4,
+                gold: pull.item.rarity === 5,
+              }"
+              >{{ pull.item.name }}</span
+            >
+            <span class="purple" v-if="pull.item.rarity === 4"> (4-Star) </span>
+            <span class="gold" v-else-if="pull.item.rarity === 5">
+              (5-Star)
+            </span>
+          </td>
+          <td>{{ dayjs(pull.date).format("YYYY-MM-DD HH:mm:ss") }}</td>
+        </tr>
+      </template>
     </table>
   </div>
 </template>
@@ -73,6 +80,7 @@ export default defineComponent({
     return {
       currentPage: 0,
       dayjs: dayjs,
+      selectedWishType: "",
     };
   },
   computed: {
@@ -85,6 +93,14 @@ export default defineComponent({
         };
       });
     },
+    wishTypes(): string[] {
+      // get all unique bannerStorages
+      return [
+        ...new Set(
+          this.inventory.pullHistory.map((pull) => pull.bannerStorage)
+        ),
+      ];
+    },
   },
   methods: {
     exit(): void {
@@ -96,6 +112,23 @@ export default defineComponent({
 </script>
 
 <style scoped>
+.select-wish-type {
+  width: 100%;
+  text-align: left;
+  font-size: 1.5rem;
+}
+select {
+  height: 3rem;
+  width: 40%;
+  background-color: #dbd7d3;
+  border: 2px solid #afaba7;
+  border-radius: 0.25rem;
+  color: #4d4d4d;
+  font-size: 1rem;
+  padding-left: 0.5rem;
+  margin-left: 1rem;
+}
+
 /* TODO: this is all copied straight from BannerDetails
  * so consider making the header/details bg a component
  * also setting font/colours
