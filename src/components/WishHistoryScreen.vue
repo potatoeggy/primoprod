@@ -31,7 +31,7 @@
         <th>Item Name</th>
         <th>Time Received</th>
       </tr>
-      <tr v-for="(pull, index) of pulls" :key="-index">
+      <tr v-for="(pull, index) of pulls.slice().reverse()" :key="index">
         <td>{{ pull.item.type }}</td>
         <td>
           <span
@@ -158,7 +158,7 @@ th {
 }
 
 td {
-  color: #a38052;
+  color: #8e8e8e;
 }
 
 th {
