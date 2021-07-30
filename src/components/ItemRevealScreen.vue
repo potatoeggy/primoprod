@@ -15,8 +15,7 @@
         />
       </div>
     </div>
-    <div class="image-padding">
-    </div>
+    <div class="image-padding"></div>
     <div
       class="extra-dust-glitter flex-start"
       v-if="currentItem.type === 'Weapon'"
