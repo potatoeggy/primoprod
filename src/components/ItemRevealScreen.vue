@@ -17,7 +17,7 @@
       <p
         :class="{
           'name-text': true,
-          transparent: animationIndex === 0,
+          transparent: animationIndex <= 0,
           'appear-slide-left': animationIndex === 1,
         }"
         @animationend="animationIndex += 1"
@@ -93,6 +93,7 @@ export default defineComponent({
       this.animationIndex = 0;
       /*
        * Animation index documentation
+       * -1: give time for images to reset
        * 0: item image zooms in
        * 1: item image and name text slides in
        * 2+: individual stars load in, extra text slides in
@@ -168,10 +169,6 @@ export default defineComponent({
   transform: translateX(1rem);
 }
 
-.transparent {
-  opacity: 0;
-}
-
 .starglitter-slide-in {
   animation-name: starglitterslidein;
   animation-duration: 0.05s;
@@ -227,15 +224,25 @@ export default defineComponent({
   filter: brightness(0%);
   animation-name: zoominfastdark;
   animation-duration: 0.25s;
+  /* The opacity change is to hide the image
+   * while Vue switches the image to avoid a huge
+   * flicker
+   * nextTick doesn't work with a negative animationIndex
+   * Quite frustrating
+   */
+  opacity: 0;
+  animation-delay: 0.1s;
   animation-iteration-count: initial;
 }
 
 @keyframes zoominfastdark {
   from {
     transform: scale(200%);
+    opacity: 1;
   }
   to {
     transform: scale(100%);
+    opacity: 1;
   }
 }
 
@@ -302,5 +309,9 @@ export default defineComponent({
   margin-bottom: -0.5rem;
   text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
   text-align: left;
+}
+
+.transparent {
+  opacity: 0;
 }
 </style>
