@@ -1,6 +1,6 @@
 import { Banner, Item } from "./Gacha";
 
-interface Pull {
+export interface Pull {
   item: string;
   date: Date;
   bannerStorage: string;
@@ -22,11 +22,15 @@ export default class Inventory {
     this.currency = JSON.parse(
       localStorage.getItem("currency") || JSON.stringify(this.currency)
     );
+    this.pullHistory = JSON.parse(
+      localStorage.getItem("pullHistory") || JSON.stringify(this.pullHistory)
+    );
   }
 
   saveState(): void {
     localStorage.currency = JSON.stringify(this.currency);
     localStorage.inventory = JSON.stringify(Object.assign({}, this.inventory)); // typescript why
+    localStorage.pullHistory = JSON.stringify(this.pullHistory);
   }
 
   addItems(items: string[]): void {

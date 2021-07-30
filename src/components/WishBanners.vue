@@ -7,6 +7,7 @@
   ></banner-details-screen>
   <wish-history-screen
     v-if="showHistory"
+    :inventory="inventory"
     @exit="exitHistoryScreen"
   ></wish-history-screen>
 

@@ -17,12 +17,75 @@
       ></path>
     </svg>
   </div>
-  <div class="details"></div>
+  <div class="details">
+    <h2>Select Wish Type:</h2>
+    <p>
+      * You can check the wishes you made. Wish records are updated instantly
+      after the wish is made. If there is no record yet, please check again
+      later. The times displayed below are according to local time.
+    </p>
+    <!-- largely from BannerDetailsDropTable -->
+    <table>
+      <tr>
+        <th>Item Type</th>
+        <th>Item Name</th>
+        <th>Time Received</th>
+      </tr>
+      <tr v-for="(pull, index) of pulls" :key="-index">
+        <td>{{ pull.item.type }}</td>
+        <td>
+          <span
+            :class="{
+              purple: pull.item.rarity === 4,
+              gold: pull.item.rarity === 5,
+            }"
+            >{{ pull.item.name }}</span
+          >
+          <span class="purple" v-if="pull.item.rarity === 4"> (4-star) </span>
+          <span class="gold" v-else-if="pull.item.rarity === 5">
+            (5-star)
+          </span>
+        </td>
+        <td>{{ dayjs(pull.date).format("YYYY-MM-DD HH:mm:ss") }}</td>
+      </tr>
+    </table>
+  </div>
 </template>
 
 <script lang="ts">
+import { Item, ItemDatabase } from "@/banners/Gacha";
+import Inventory, { Pull } from "@/banners/Inventory";
 import { defineComponent } from "vue";
+import dayjs from "dayjs";
+
+interface DetailedPull extends Omit<Pull, "item"> {
+  item: Item;
+}
+
 export default defineComponent({
+  props: {
+    inventory: {
+      type: Inventory,
+      required: true,
+    },
+  },
+  data() {
+    return {
+      currentPage: 0,
+      dayjs: dayjs,
+    };
+  },
+  computed: {
+    pulls(): DetailedPull[] {
+      return this.inventory.pullHistory.map((pull) => {
+        return {
+          item: ItemDatabase[pull.item],
+          bannerStorage: pull.bannerStorage,
+          date: pull.date,
+        };
+      });
+    },
+  },
   methods: {
     exit(): void {
       this.$emit("exit");
@@ -38,6 +101,9 @@ export default defineComponent({
  * also setting font/colours
  */
 .details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   background-color: #ebebeb;
   padding: 2rem;
   padding-left: 6rem;
@@ -63,5 +129,49 @@ export default defineComponent({
 .exit-button:hover,
 .exit-button:active {
   color: goldenrod;
+}
+
+p {
+  text-align: left;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  line-height: 1.5rem;
+  color: #4d4d4d;
+}
+
+* {
+  font-family: Arial, sans-serif;
+}
+
+table {
+  width: 100%;
+  text-align: center;
+  table-layout: fixed;
+  border-collapse: collapse;
+  font-size: 1.25rem;
+}
+
+td,
+th {
+  padding: 0.75rem;
+  border: 0.1rem solid #c4c2bf;
+}
+
+td {
+  color: #a38052;
+}
+
+th {
+  font-weight: bolder;
+  background-color: #dbd7d3;
+  color: #4d4d4d;
+}
+
+.gold {
+  color: #bd6029;
+}
+
+.purple {
+  color: #a153e1;
 }
 </style>
