@@ -34,6 +34,42 @@ export default class Inventory {
     this.saveState();
   }
 
+  addItemsViaGacha(items: Item[]): void {
+    // WARN: this does not give any visual output aside from
+    // updating this.currency
+    for (const item of items) {
+      if (item.type === "Weapon") {
+        switch (item.rarity) {
+          case 3: this.currency.stardust += 15; break;
+          case 4: this.currency.starglitter += 2; break;
+          case 5: this.currency.starglitter += 10;
+        }
+      } else if (item.type === "Character") {
+        if (this.inventory[item.id]) {
+          // at least one
+          if (this.inventory[item.id] <= 7) {
+            // six constellations
+            switch (item.rarity) {
+              case 4: this.currency.starglitter += 2; break;
+              case 5: this.currency.starglitter += 10;
+            }
+          } else {
+            // more than six cons
+            switch (item.rarity) {
+              case 4: this.currency.starglitter += 10; break;
+              case 5: this.currency.starglitter += 25;
+            }
+          }
+        }
+      } else {
+        console.error(`Invalid item type for ${item}!`)
+      }
+    }
+    // this saves state at the end so we don't go back
+    // and forth with localStorage (buffer!)
+    this.addItems(items.map((e) => e.id));
+  }
+
   removeItems(items: string[]): void {
     // use a dict/object instead with a json db
     for (const item of items) {

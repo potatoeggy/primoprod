@@ -15,11 +15,20 @@
         />
       </div>
     </div>
-    <div class="extra-dust-glitter flex-start">
+    <div class="image-padding">
+    </div>
+    <div
+      class="extra-dust-glitter flex-start"
+      v-if="currentItem.type === 'Weapon'"
+    >
       <p>Extra</p>
-      <div class="extra-text flex-start">
+      <div class="extra-text flex-start" v-if="currentItem.rarity === 3">
         <p>Masterless Stardust</p>
         <p>x15</p>
+      </div>
+      <div class="extra-text flex-start starglitter" v-else>
+        <p>Masterless Starglitter</p>
+        <p>x{{ currentItem.rarity === 4 ? 2 : 10 }}</p>
       </div>
     </div>
   </div>
@@ -79,6 +88,11 @@ export default defineComponent({
 </script>
 
 <style scoped>
+.image-padding {
+  width: 50%;
+  height: 100%;
+}
+
 .item {
   display: flex;
   align-items: center;
@@ -134,6 +148,7 @@ export default defineComponent({
   text-align: left;
   margin-top: 7.5%;
   color: #e3e3e9;
+  min-width: 20%;
 }
 
 .extra-text {
@@ -146,11 +161,17 @@ export default defineComponent({
   color: #f7b7ff;
   letter-spacing: -0.06rem;
   line-height: 2rem;
-  background: linear-gradient(to right, #6f3aabaa, #6f3aab11);
+  background: linear-gradient(to right, #6f3aabdd, #6f3aab11);
+}
+
+.starglitter {
+  color: #fff45e;
+  background: linear-gradient(to right, #e0a933dd, #6f3aab11);
 }
 
 .name-text {
   margin-bottom: -0.5rem;
   text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
+  text-align: left;
 }
 </style>

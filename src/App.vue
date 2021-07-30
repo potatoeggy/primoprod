@@ -72,7 +72,7 @@ export default defineComponent({
       screen: "wish-banner",
       lastRoll: [] as Item[],
       lastRollSorted: [] as Item[],
-      banner: require("./banners/wanderlust-invocation.json"),
+      banner: require("./banners/the-herons-court.json"),
     };
   },
   methods: {
@@ -101,7 +101,7 @@ export default defineComponent({
 
       console.log("Rolled:", this.lastRoll);
       this.pullRarity = this.lastRollSorted[0].rarity;
-      this.inv.addItems(this.lastRollSorted.map((e) => e.id));
+      this.inv.addItemsViaGacha(this.lastRollSorted);
     },
 
     cancelWish(): void {
