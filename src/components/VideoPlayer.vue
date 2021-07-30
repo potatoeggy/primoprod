@@ -7,41 +7,8 @@
       Skip
       <span class="caret right"></span>
     </button>
-    <!-- no idea how to use v-for with assets -->
-    <video
-      id="video-3star-1"
-      :class="{ playing: pulls === 1 && stars === 3 }"
-      @ended="ended"
-    >
-      <source src="@/assets/video/3starwish-1.mp4" />
-    </video>
-    <video
-      id="video-4star-1"
-      :class="{ playing: pulls === 1 && stars === 4 }"
-      @ended="ended"
-    >
-      <source src="@/assets/video/4starwish-1.mp4" />
-    </video>
-    <video
-      id="video-4star-10"
-      :class="{ playing: pulls === 10 && stars === 4 }"
-      @ended="ended"
-    >
-      <source src="@/assets/video/4starwish-10.mp4" />
-    </video>
-    <video
-      id="video-5star-1"
-      :class="{ playing: pulls === 1 && stars === 5 }"
-      @ended="ended"
-    >
-      <source src="@/assets/video/5starwish-1.mp4" />
-    </video>
-    <video
-      id="video-5star-10"
-      :class="{ playing: pulls === 10 && stars === 5 }"
-      @ended="ended"
-    >
-      <source src="@/assets/video/5starwish-10.mp4" />
+    <video :id="videoId" @ended="ended">
+      <source :src="videoSrc" />
     </video>
   </div>
 </template>
@@ -66,6 +33,20 @@ export default defineComponent({
       ) as HTMLAudioElement
     ).play();
   },
+  computed: {
+    videoId(): string {
+      return `video-${this.stars}star-${this.pulls}`;
+    },
+    videoSrc(): string {
+      const videos = require.context("../assets/video/", false, /\.mp4$/);
+      try {
+        return videos(`./${this.stars}starwish-${this.pulls}.mp4`);
+      } catch (error) {
+        console.error(error);
+        return `${this.stars}starwish-${this.pulls}.mp4`;
+      }
+    },
+  },
   methods: {
     ended(): void {
       this.$emit("video-ended");
@@ -89,7 +70,7 @@ export default defineComponent({
 }
 
 video {
-  display: none;
+  display: block;
   position: absolute;
   left: 50%;
   top: 50%;
@@ -97,10 +78,6 @@ video {
   min-height: 100%;
   min-width: 100%;
   z-index: 2;
-}
-
-.playing {
-  display: block;
 }
 
 .skip-button {
