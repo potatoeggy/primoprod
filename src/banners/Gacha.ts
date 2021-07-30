@@ -164,16 +164,22 @@ export default class Gacha {
     this.state.pityCounter5 += 1;
     this.state.pityCounter4 = 0;
 
+    // initialise in case things bork
     let drop = this.drops[4][this.rng(this.drops[4].length)];
-    if (this.state.guaranteedFeatured4Star || drop.featured) {
+    if (this.rng(2) || this.state.guaranteedFeatured4Star) {
+      // TODO: refactor to have less duplicated code
       this.state.guaranteedFeatured4Star = false;
       const filtered = this.drops[4].filter((drop) => drop.featured);
-      // it's okay to recalculate here since it's featured and less copied code :P
+
       if (filtered.length > 0) {
         drop = filtered[this.rng(filtered.length)];
       }
     } else {
       this.state.guaranteedFeatured4Star = true;
+      const filtered = this.drops[4].filter((drop) => !drop.featured)
+      if (filtered.length > 0) {
+        drop = filtered[this.rng(filtered.length)];
+      }
     }
     this.saveState();
     return drop;
@@ -184,7 +190,7 @@ export default class Gacha {
     this.state.pityCounter5 = 0;
 
     let drop = this.drops[5][this.rng(this.drops[5].length)];
-    if (this.state.guaranteedFeatured5Star || drop.featured) {
+    if (this.rng(2) || this.state.guaranteedFeatured5Star) {
       this.state.guaranteedFeatured5Star = false;
       const filtered = this.drops[5].filter((drop) => drop.featured);
       if (filtered.length > 0) {
@@ -192,6 +198,10 @@ export default class Gacha {
       }
     } else {
       this.state.guaranteedFeatured5Star = true;
+      const filtered = this.drops[5].filter((drop) => !drop.featured);
+      if (filtered.length > 0) {
+        drop = filtered[this.rng(filtered.length)];
+      }
     }
     this.saveState();
     return drop;
