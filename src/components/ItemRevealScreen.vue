@@ -2,22 +2,51 @@
   <!-- TODO: manually crop images and stick them into proper divs -->
   <!-- TODO: add loading screen for videos/images (the alt tag) -->
   <div class="item-picture" @click="nextItem">
-    <img :src="currentItemImage" />
+    <img
+      :src="currentItemImage"
+      :class="{
+        'animate-image': animationIndex === 1,
+        'zoom-image': animationIndex === 0,
+        'active-img': true,
+      }"
+      @animationend="animationIndex += 1"
+    />
   </div>
   <div class="item" @click="nextItem">
     <div class="name-rarity flex-start">
-      <p class="name-text">{{ currentItem.name }}</p>
+      <p
+        :class="{
+          'name-text': true,
+          transparent: animationIndex === 0,
+          'appear-slide-left': animationIndex === 1,
+        }"
+        @animationend="animationIndex += 1"
+      >
+        {{ currentItem.name }}
+      </p>
       <div class="stars">
         <img
           src="@/assets/images/star.svg"
           v-for="n in currentItem.rarity"
           v-bind:key="n"
+          :class="{
+            transparent: animationIndex < n + 2,
+            'star-pop-in': animationIndex === n + 2,
+          }"
+          @animationend="animationIndex += 1"
         />
       </div>
     </div>
     <div class="image-padding"></div>
     <div
-      class="extra-dust-glitter flex-start"
+      :class="[
+        'extra-dust-glitter',
+        'flex-start',
+        {
+          'starglitter-slide-in': animationIndex >= 2,
+          transparent: animationIndex < 2,
+        },
+      ]"
       v-if="currentItem.type === 'Weapon'"
     >
       <p>Extra</p>
@@ -52,6 +81,7 @@ export default defineComponent({
   data() {
     return {
       currentIndex: 0,
+      animationIndex: 0,
     };
   },
   methods: {
@@ -60,6 +90,13 @@ export default defineComponent({
       if (this.currentIndex >= this.lastRoll.length) {
         this.exit();
       }
+      this.animationIndex = 0;
+      /*
+       * Animation index documentation
+       * 0: item image zooms in
+       * 1: item image and name text slides in
+       * 2+: individual stars load in, extra text slides in
+       */
     },
     exit() {
       this.$emit("exit");
@@ -126,8 +163,101 @@ export default defineComponent({
   z-index: 0;
 }
 
-.item-picture > img {
+.active-img {
   max-height: 100%;
+  transform: translateX(1rem);
+}
+
+.transparent {
+  opacity: 0;
+}
+
+.starglitter-slide-in {
+  animation-name: starglitterslidein;
+  animation-duration: 0.05s;
+  animation-iteration-count: initial;
+}
+
+@keyframes starglitterslidein {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.star-pop-in {
+  animation-name: starpopin;
+  animation-duration: 0.125s;
+  animation-iteration-count: initial;
+}
+
+@keyframes starpopin {
+  from {
+    transform: scale(200%);
+  }
+  to {
+    transform: scale(100%);
+  }
+}
+
+.appear-slide-left {
+  animation-name: fade-in-slide-left;
+  /* equal to quickfadein */
+  animation-duration: 0.75s;
+  animation-iteration-count: initial;
+  opacity: 0;
+}
+
+@keyframes fade-in-slide-left {
+  from {
+  }
+  80% {
+    transform: translateX(1rem);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.zoom-image {
+  filter: brightness(0%);
+  animation-name: zoominfastdark;
+  animation-duration: 0.25s;
+  animation-iteration-count: initial;
+}
+
+@keyframes zoominfastdark {
+  from {
+    transform: scale(200%);
+  }
+  to {
+    transform: scale(100%);
+  }
+}
+
+.animate-image {
+  animation-name: quickfadein;
+  animation-duration: 0.75s;
+  animation-iteration-count: initial;
+}
+
+@keyframes quickfadein {
+  from {
+    filter: brightness(0%);
+    transform: translateX(0%);
+  }
+  80% {
+    filter: brightness(0%);
+    transform: translateX(0%);
+  }
+  to {
+    filter: brightness(100%);
+    transform: translateX(1rem);
+  }
 }
 
 .flex-start {
