@@ -150,7 +150,7 @@ export default defineComponent({
 }
 
 .name-text {
-  padding-bottom: 0.75rem;
+  margin-bottom: -0.5rem;
   text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
 }
 </style>
