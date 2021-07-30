@@ -41,9 +41,9 @@
             }"
             >{{ pull.item.name }}</span
           >
-          <span class="purple" v-if="pull.item.rarity === 4"> (4-star) </span>
+          <span class="purple" v-if="pull.item.rarity === 4"> (4-Star) </span>
           <span class="gold" v-else-if="pull.item.rarity === 5">
-            (5-star)
+            (5-Star)
           </span>
         </td>
         <td>{{ dayjs(pull.date).format("YYYY-MM-DD HH:mm:ss") }}</td>
