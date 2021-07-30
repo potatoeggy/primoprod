@@ -1,8 +1,9 @@
-import { Item } from "./Gacha";
+import { Banner, Item } from "./Gacha";
 
 interface Pull {
   item: string;
   date: Date;
+  bannerStorage: string;
 }
 
 export default class Inventory {
@@ -40,14 +41,18 @@ export default class Inventory {
     this.saveState();
   }
 
-  addPulls(items: string[]): void {
+  addPulls(items: string[], bannerStorage: string): void {
     for (const item of items) {
-      this.pullHistory.push({ item: item, date: new Date() });
+      this.pullHistory.push({
+        item: item,
+        date: new Date(),
+        bannerStorage: bannerStorage,
+      });
     }
     this.saveState();
   }
 
-  addItemsViaGacha(items: Item[]): void {
+  addItemsViaGacha(items: Item[], bannerStorage: string): void {
     // wrapper function calling addItems and addPulls for convenience
     // WARN: this does not give any visual output aside from
     // updating this.currency
@@ -93,7 +98,10 @@ export default class Inventory {
     // this saves state at the end so we don't go back
     // and forth with localStorage (buffer!)
     this.addItems(items.map((e) => e.id));
-    this.addPulls(items.map((e) => e.id));
+    this.addPulls(
+      items.map((e) => e.id),
+      bannerStorage
+    );
   }
 
   removeItems(items: string[]): void {

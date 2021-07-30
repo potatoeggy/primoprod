@@ -101,7 +101,7 @@ export default defineComponent({
 
       console.log("Rolled:", this.lastRoll);
       this.pullRarity = this.lastRollSorted[0].rarity;
-      this.inv.addItemsViaGacha(this.lastRollSorted);
+      this.inv.addItemsViaGacha(this.lastRollSorted, this.banner.storage);
     },
 
     cancelWish(): void {

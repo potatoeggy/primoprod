@@ -5,8 +5,12 @@
     v-if="showDetails"
     @exit="exitDetailsScreen"
   ></banner-details-screen>
+  <wish-history-screen
+    v-if="showHistory"
+    @exit="exitHistoryScreen"
+  ></wish-history-screen>
 
-  <div :class="{ banner: true, invisible: showDetails }">
+  <div :class="{ banner: true, invisible: showDetails || showHistory }">
     <div id="header" class="space-between center">
       <div id="wish-label" class="space-between center">
         <img src="../assets/images/ui-wish-edited.png" />
@@ -40,7 +44,10 @@
             text="Details"
             @clicked="showDetails = true"
           ></text-button>
-          <text-button text="History"></text-button>
+          <text-button
+            text="History"
+            @clicked="showHistory = true"
+          ></text-button>
         </div>
       </div>
       <div id="wish-buttons" class="footer-align-flex">
@@ -56,12 +63,19 @@ import { defineComponent } from "vue";
 import WishButton from "./WishButton.vue";
 import TextButton from "./TextButton.vue";
 import GemCounter from "./GemCounter.vue";
-import BannerDetailsScreen from "@/components/BannerDetailsScreen.vue";
+import BannerDetailsScreen from "./BannerDetailsScreen.vue";
 import { Banner } from "@/banners/Gacha";
 import Inventory from "@/banners/Inventory";
+import WishHistoryScreen from "./WishHistoryScreen.vue";
 
 export default defineComponent({
-  components: { WishButton, TextButton, GemCounter, BannerDetailsScreen },
+  components: {
+    WishButton,
+    TextButton,
+    GemCounter,
+    BannerDetailsScreen,
+    WishHistoryScreen,
+  },
   props: {
     banner: {
       type: Object as () => Banner,
@@ -75,6 +89,7 @@ export default defineComponent({
   data() {
     return {
       showDetails: false,
+      showHistory: false,
       fates: this.inventory.fates,
       primos: this.inventory.primos,
       starglitter: this.inventory.starglitter,
@@ -104,6 +119,13 @@ export default defineComponent({
         document.getElementById("audioExitDialogDEPRECATED") as HTMLAudioElement
       ).play();
       this.showDetails = false;
+    },
+    exitHistoryScreen(): void {
+      // so much legacy cruft from when I didn't know Vue :(
+      (
+        document.getElementById("audioExitDialogDEPRECATED") as HTMLAudioElement
+      ).play();
+      this.showHistory = false;
     },
   },
   emits: ["wish"],
