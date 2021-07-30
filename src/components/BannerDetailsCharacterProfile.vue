@@ -5,7 +5,11 @@
       :src="elementBgs(`./bg-${character.element}.png`)"
     />
     <div class="card-info">
-      <img class="char-icon" :src="icons(`./icon-${character.id}.png`)" />
+      <img
+        class="char-icon"
+        :src="icons(`./icon-${character.id}.png`)"
+        :alt="`icon-${character.id}`"
+      />
       <p>{{ character.name }}</p>
     </div>
   </div>

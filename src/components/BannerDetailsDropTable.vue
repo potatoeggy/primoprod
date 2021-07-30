@@ -13,7 +13,7 @@
       <td>{{ table[rarity][(row - 1) * 2].type }}</td>
       <td>
         <span v-if="table[rarity][(row - 1) * 2].featured">
-          <img src="@/assets/images/rate-up-check.png" />
+          <img src="@/assets/images/rate-up-check.png" alt="rate_up" />
         </span>
         {{ table[rarity][(row - 1) * 2].name }}
       </td>
@@ -22,7 +22,7 @@
       </td>
       <td v-if="table[rarity][(row - 1) * 2 + 1]">
         <span v-if="table[rarity][(row - 1) * 2 + 1].featured">
-          <img src="@/assets/images/rate-up-check.png" />
+          <img src="@/assets/images/rate-up-check.png" alt="rate_up" />
         </span>
         {{ table[rarity][(row - 1) * 2 + 1].name }}
       </td>

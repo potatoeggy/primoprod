@@ -8,7 +8,7 @@
   >
     <div class="flex-gem">
       <div class="left">
-        <img :src="require(`@/assets/images/${icon}`)" />
+        <img :src="require(`@/assets/images/${icon}`)" :alt="icon" />
       </div>
       <div class="text">{{ text }}</div>
       <plus-button v-if="plusSign"></plus-button>

@@ -10,6 +10,7 @@
         'active-img': true,
       }"
       @animationend="animationIndex += 1"
+      :alt="currentItemImage"
     />
   </div>
   <div class="item" @click="nextItem">
@@ -34,6 +35,7 @@
             'star-pop-in': animationIndex === n + 2,
           }"
           @animationend="animationIndex += 1"
+          alt="star"
         />
       </div>
     </div>

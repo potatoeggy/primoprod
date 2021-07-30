@@ -1,5 +1,10 @@
 import { Item } from "./Gacha";
 
+interface Pull {
+  item: string;
+  date: Date;
+}
+
 export default class Inventory {
   private currency = {
     primos: 5200,
@@ -9,6 +14,7 @@ export default class Inventory {
   };
 
   inventory: { [name: string]: number } = {};
+  pullHistory: Pull[] = [];
 
   constructor() {
     this.inventory = JSON.parse(localStorage.getItem("inventory") || "[]");
@@ -34,15 +40,28 @@ export default class Inventory {
     this.saveState();
   }
 
+  addPulls(items: string[]): void {
+    for (const item of items) {
+      this.pullHistory.push({ item: item, date: new Date() });
+    }
+    this.saveState();
+  }
+
   addItemsViaGacha(items: Item[]): void {
+    // wrapper function calling addItems and addPulls for convenience
     // WARN: this does not give any visual output aside from
     // updating this.currency
     for (const item of items) {
       if (item.type === "Weapon") {
         switch (item.rarity) {
-          case 3: this.currency.stardust += 15; break;
-          case 4: this.currency.starglitter += 2; break;
-          case 5: this.currency.starglitter += 10;
+          case 3:
+            this.currency.stardust += 15;
+            break;
+          case 4:
+            this.currency.starglitter += 2;
+            break;
+          case 5:
+            this.currency.starglitter += 10;
         }
       } else if (item.type === "Character") {
         if (this.inventory[item.id]) {
@@ -50,24 +69,31 @@ export default class Inventory {
           if (this.inventory[item.id] <= 7) {
             // six constellations
             switch (item.rarity) {
-              case 4: this.currency.starglitter += 2; break;
-              case 5: this.currency.starglitter += 10;
+              case 4:
+                this.currency.starglitter += 2;
+                break;
+              case 5:
+                this.currency.starglitter += 10;
             }
           } else {
             // more than six cons
             switch (item.rarity) {
-              case 4: this.currency.starglitter += 10; break;
-              case 5: this.currency.starglitter += 25;
+              case 4:
+                this.currency.starglitter += 10;
+                break;
+              case 5:
+                this.currency.starglitter += 25;
             }
           }
         }
       } else {
-        console.error(`Invalid item type for ${item}!`)
+        console.error(`Invalid item type for ${item}!`);
       }
     }
     // this saves state at the end so we don't go back
     // and forth with localStorage (buffer!)
     this.addItems(items.map((e) => e.id));
+    this.addPulls(items.map((e) => e.id));
   }
 
   removeItems(items: string[]): void {
