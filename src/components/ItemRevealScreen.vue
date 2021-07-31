@@ -1,6 +1,10 @@
 <template>
-  <!-- TODO: manually crop images and stick them into proper divs -->
-  <!-- TODO: add loading screen for videos/images (the alt tag) -->
+  <template v-for="n in 5" :key="n">
+    <!-- -1 to zero index -->
+    <audio :ref="`audioStarPing${n - 1}`" preload>
+      <source src="@/assets/audio/star-ping.mp3" type="audio/mpeg" />
+    </audio>
+  </template>
   <div class="item-picture" @click="nextItem">
     <img
       :src="currentItemImage"
@@ -9,7 +13,7 @@
         'zoom-image': animationIndex === 0,
         'active-img': true,
       }"
-      @animationend="animationIndex += 1"
+      @animationend="nextAnimation"
       :alt="currentItemImage"
     />
   </div>
@@ -21,7 +25,7 @@
           transparent: animationIndex <= 0,
           'appear-slide-left': animationIndex === 1,
         }"
-        @animationend="animationIndex += 1"
+        @animationend="nextAnimation"
       >
         {{ currentItem.name }}
       </p>
@@ -34,7 +38,7 @@
             transparent: animationIndex < n + 2,
             'star-pop-in': animationIndex === n + 2,
           }"
-          @animationend="animationIndex += 1"
+          @animationend="nextAnimation"
           alt="star"
         />
       </div>
@@ -100,6 +104,17 @@ export default defineComponent({
        * 1: item image and name text slides in
        * 2+: individual stars load in, extra text slides in
        */
+    },
+    nextAnimation() {
+      this.animationIndex += 1;
+      if (this.animationIndex >= 2 && this.animationIndex <= this.currentItem.rarity + 2) {
+        // if stars are animated
+        (
+          this.$refs[
+            `audioStarPing${this.animationIndex - 2}`
+          ] as HTMLAudioElement
+        ).play();
+      }
     },
     exit() {
       this.$emit("exit");
@@ -188,7 +203,7 @@ export default defineComponent({
 
 .star-pop-in {
   animation-name: starpopin;
-  animation-duration: 0.125s;
+  animation-duration: 0.15s;
   animation-iteration-count: initial;
 }
 
