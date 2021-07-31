@@ -1,5 +1,5 @@
 <template>
-  <template v-for="n in 5" :key="n">
+  <template v-for="n in 6" :key="n">
     <!-- -1 to zero index -->
     <audio :ref="`audioStarPing${n - 1}`" preload>
       <source src="@/assets/audio/star-ping.mp3" type="audio/mpeg" />
@@ -107,8 +107,15 @@ export default defineComponent({
     },
     nextAnimation() {
       this.animationIndex += 1;
-      if (this.animationIndex >= 2 && this.animationIndex <= this.currentItem.rarity + 2) {
-        // if stars are animated
+      if (
+        this.animationIndex >= 2 &&
+        this.animationIndex <= this.currentItem.rarity + 2
+      ) {
+        // when a star is animated
+        // it's weird but it has to be <= rarity + 2
+        // because otherwise the last one won't play and
+        // i don't know why
+        // that's why there are six audios
         (
           this.$refs[
             `audioStarPing${this.animationIndex - 2}`
