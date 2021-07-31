@@ -194,7 +194,7 @@ export default defineComponent({
 
 @keyframes starpopin {
   from {
-    transform: scale(200%);
+    transform: scale(300%);
   }
   to {
     transform: scale(100%);
