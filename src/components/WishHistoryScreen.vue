@@ -108,6 +108,9 @@ export default defineComponent({
     },
   },
   emits: ["exit"],
+  created() {
+    this.selectedWishType = this.pulls[0]?.bannerStorage;
+  },
 });
 </script>
 
