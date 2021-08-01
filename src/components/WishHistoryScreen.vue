@@ -197,6 +197,21 @@ td {
   color: #8e8e8e;
 }
 
+th:nth-child(1) {
+  /* Select the second column */
+  width: 10rem;
+}
+
+th:nth-child(2) {
+  /* Select the second column */
+  width: auto;
+}
+
+th:nth-child(3) {
+  /* Select the second column */
+  width: 14rem;
+}
+
 th {
   font-weight: bolder;
   background-color: #dbd7d3;
