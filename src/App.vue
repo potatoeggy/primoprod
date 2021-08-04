@@ -21,13 +21,6 @@
     v-on:cancel-wish="exitConfirmCancelDialog(cancelWish)"
     v-on:wish="exitConfirmCancelDialog(goWish, $event)"
   ></fate-purchase-dialog>
-  <video-player
-    v-if="screen === 'video-player'"
-    :pulls="pullNumber"
-    :stars="pullRarity"
-    v-on:video-ended="showResults"
-    v-on:video-skipped="showResultsEnd"
-  ></video-player>
 
   <!-- main -->
   <wish-banners
@@ -42,6 +35,13 @@
     v-if="screen === 'item-reveal'"
     @exit="screen = 'wish-banner'"
   ></item-reveal-screen>
+  <video-player
+    v-if="screen === 'video-player'"
+    :pulls="pullNumber"
+    :stars="pullRarity"
+    v-on:video-ended="showResults"
+    v-on:video-skipped="showResultsEnd"
+  ></video-player>
 </template>
 
 <script lang="ts">
