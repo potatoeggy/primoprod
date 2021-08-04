@@ -1,6 +1,12 @@
 <template>
   <!-- audio -->
-  <audio ref="audioBgm" preload autoplay loop>
+  <audio
+    ref="audioBgm"
+    preload
+    autoplay
+    loop
+    :muted="screen === 'item-reveal' || screen === 'video-player'"
+  >
     <source src="./assets/audio/bgm-wish.mp3" />
   </audio>
   <audio ref="audioExitDialog" id="audioExitDialogDEPRECATED" preload>
