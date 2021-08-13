@@ -329,8 +329,9 @@ export default defineComponent({
 
 .exit-button {
   width: 1.5rem;
-  margin: 1rem;
-  margin-top: 0.75rem; /* this feels terrible */
+  height: 1.5rem;
+  margin: auto;
+  margin-left: 1rem;
   filter: brightness(30%);
 }
 
@@ -353,6 +354,7 @@ export default defineComponent({
 .header {
   background-color: #111315;
   height: 3rem;
+  display: flex;
 }
 
 * {
