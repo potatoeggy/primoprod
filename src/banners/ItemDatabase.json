@@ -621,6 +621,46 @@
       "type": "Weapon",
       "element": "Catalyst",
       "rarity": 3
+    },
+    "primogem": {
+      "name": "Primogem",
+      "id": "primogem",
+      "type": "Special Currency",
+      "element": "",
+      "description": "A primordial crystalline gem that's beyond the mundane world. Shines with the condensed hopes and dreams of universes that once were.",
+      "rarity": 5
+    },
+    "starglitter": {
+      "name": "Masterless Starglitter",
+      "id": "starglitter",
+      "type": "Superior Voucher",
+      "element": "",
+      "description": "Currency used to purchase rare resources from the Shop. Surplus Starglitter of destiny. Perhaps it can light up other corners of the universe.",
+      "rarity": 5
+    },
+    "stardust": {
+      "name": "Masterless Stardust",
+      "id": "stardust",
+      "type": "Common Voucher",
+      "element": "",
+      "description": "Currency used to purchase rare resources from the Shop. Surplus Stardust of destiny. Perhaps it can create new destinies when in large enough quantities.",
+      "rarity": 4
+    },
+    "intertwined-fate": {
+      "name": "Intertwined Fate",
+      "id": "intertwined-fate",
+      "type": "Limited Wishing Item",
+      "element": "",
+      "description": "A fateful stone that connects dreams. Its glimmers can entwine fates and connect dreams, just as how its glimmer links stars into the shapes of a heart's desires.",
+      "rarity": 5
+    },
+    "acquaint-fate": {
+      "name": "Acquaint Fate",
+      "id": "acquaint-fate",
+      "type": "Wishing Item",
+      "element": "",
+      "description": "A seed that lights up the night. No matter the distance apart, guided by the stone's glimmer, the fated will meet under the stars.",
+      "rarity": 5
     }
   }
 }
