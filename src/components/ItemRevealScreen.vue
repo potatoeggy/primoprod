@@ -1,8 +1,24 @@
 <template>
-  <template v-for="n in 6" :key="n">
-    <!-- -1 to zero index -->
-    <audio :ref="`audioStarPing${n - 1}`" preload>
-      <source src="@/assets/audio/star-ping.mp3" type="audio/mpeg" />
+  <template v-for="i in [3, 4, 5]" :key="i">
+    <audio
+      :ref="`audioItemReveal`"
+      preload
+      v-if="currentIndex > 0 && currentItem.rarity === i"
+    >
+      <source
+        :src="require(`@/assets/audio/${i}-star-wish-reveal.mp3`)"
+        type="audio/mpeg"
+      />
+    </audio>
+    <audio
+      :ref="`audioItemReveal`"
+      preload
+      v-else-if="currentItem.rarity === i"
+    >
+      <source
+        :src="require(`@/assets/audio/${i}-star-wish-reveal-first.mp3`)"
+        type="audio/mpeg"
+      />
     </audio>
   </template>
   <div class="item-picture" @click="nextItem">
@@ -14,6 +30,7 @@
         'active-img': true,
         'active-img-weapon': currentItem.type === 'Weapon',
       }"
+      @animationstart="playSfx"
       @animationend="nextAnimation"
       :alt="currentItemImage"
     />
@@ -96,11 +113,11 @@ export default defineComponent({
       this.currentIndex += 1;
       if (this.currentIndex >= this.lastRoll.length) {
         this.exit();
+        return;
       }
       this.animationIndex = 0;
       /*
        * Animation index documentation
-       * -1: give time for images to reset
        * 0: item image zooms in
        * 1: item image and name text slides in
        * 2+: individual stars load in, extra text slides in
@@ -108,24 +125,19 @@ export default defineComponent({
     },
     nextAnimation() {
       this.animationIndex += 1;
-      if (
-        this.animationIndex >= 2 &&
-        this.animationIndex <= this.currentItem.rarity + 2
-      ) {
-        // when a star is animated
-        // it's weird but it has to be <= rarity + 2
-        // because otherwise the last one won't play and
-        // i don't know why
-        // that's why there are six audios
-        (
-          this.$refs[
-            `audioStarPing${this.animationIndex - 2}`
-          ] as HTMLAudioElement
-        ).play();
-      }
     },
     exit() {
       this.$emit("exit");
+    },
+    playSfx() {
+      if (this.animationIndex > 0) {
+        // do not do anything if this is not the very first aniindex
+        return;
+      }
+      const audioRef = this.$refs.audioItemReveal as HTMLAudioElement;
+      audioRef.pause();
+      audioRef.currentTime = 0;
+      audioRef.play();
     },
   },
   computed: {
@@ -142,6 +154,21 @@ export default defineComponent({
         return images(`./${this.currentItem.id}.png`);
       } catch (error) {
         return `${this.currentItem.id}.png`;
+      }
+    },
+    currentItemAudio(): string {
+      const name = `${this.currentItem.rarity}-star-wish-reveal${
+        this.currentIndex === 0 ? "-first" : ""
+      }`;
+      try {
+        return require.context(
+          "@/assets/audio",
+          false,
+          /\.mp3$/
+        )(`./${name}.mp3`);
+      } catch (error) {
+        console.error(`Could not find ${name}.mp3.`);
+        return "";
       }
     },
   },
