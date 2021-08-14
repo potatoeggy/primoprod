@@ -12,6 +12,7 @@
         'animate-image': animationIndex === 1,
         'zoom-image': animationIndex === 0,
         'active-img': true,
+        'active-img-weapon': currentItem.type === 'Weapon',
       }"
       @animationend="nextAnimation"
       :alt="currentItemImage"
@@ -165,8 +166,8 @@ export default defineComponent({
   width: 100%;
   /* once a certain screen size is hit change to align-items center I guess */
 }
+
 .item > div {
-  /* I would prefer using > div but that makes its selector specificity too high */
   display: flex;
   flex-direction: column;
   z-index: 1;
@@ -191,6 +192,11 @@ export default defineComponent({
 .active-img {
   max-height: 100%;
   transform: translateX(1rem);
+}
+
+.active-img-weapon {
+  max-height: 60%;
+  max-width: 60%;
 }
 
 .starglitter-slide-in {

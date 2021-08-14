@@ -107,7 +107,7 @@ export default defineComponent({
       try {
         return images(`./${this.banner.id}.png`);
       } catch (error) {
-        return "error.png";
+        return `./${this.banner.id}.png`;
       }
     },
   },

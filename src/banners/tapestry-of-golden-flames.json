@@ -1,0 +1,73 @@
+{
+  "name": "Tapestry of Golden Flames",
+  "styles": [
+    {
+      "text": "Tapestry of "
+    },
+    {
+      "color": "#ec4923",
+      "text": "Golden Flames"
+    }
+  ],
+  "id": "tapestry-of-golden-flames",
+  "storage": "event",
+  "featuredDrops": [
+    "yoimiya",
+    "sayu",
+    "diona",
+    "xinyan"
+  ],
+  "drops": [
+    "jean",
+    "qiqi",
+    "keqing",
+    "mona",
+    "diluc",
+    "sucrose",
+    "rosaria",
+    "diona",
+    "kaeya",
+    "fischl",
+    "beidou",
+    "razor",
+    "lisa",
+    "noelle",
+    "xingqiu",
+    "barbara",
+    "xinyan",
+    "bennett",
+    "xiangling",
+    "amber",
+    "favonius-warbow",
+    "sacrificial-bow",
+    "the-stringless",
+    "rust",
+    "favonius-codex",
+    "sacrificial-fragments",
+    "the-widsith",
+    "eye-of-perception",
+    "favonius-greatsword",
+    "sacrificial-greatsword",
+    "the-bell",
+    "rainslasher",
+    "favonius-lance",
+    "dragons-bane",
+    "favonius-sword",
+    "sacrificial-sword",
+    "the-flute",
+    "lions-roar",
+    "slingshot",
+    "sharpshooters-oath",
+    "raven-bow",
+    "emerald-orb",
+    "thrilling-tales-of-dragon-slayers",
+    "magic-guide",
+    "debate-club",
+    "bloodtainted-greatsword",
+    "ferrous-shadow",
+    "black-tassel",
+    "skyrider-sword",
+    "harbinger-of-dawn",
+    "cool-steel"
+  ]
+}

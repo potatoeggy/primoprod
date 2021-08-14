@@ -58,6 +58,9 @@ export default defineComponent({
           // TODO: aiya cpu go boom
           // luckily the details screen is pretty light
           // and we're only searching through same rarity
+
+          // TODO: refactor this there is absolutely no need
+          // to make it a lambda it's confusing
           if (
             ((it: Item) => {
               for (const i of drops[it.rarity]) {
