@@ -82,7 +82,7 @@ export default defineComponent({
   min-width: 50%;
   top: 50%;
   left: 50%;
-  font-size: 1.5rem;
+  font-size: 2rem;
   color: #4a5365;
   padding: 1.5rem 3rem;
   background-color: rgb(228, 226, 220);
@@ -102,7 +102,7 @@ export default defineComponent({
 }
 
 #dialog-fate-purchase > div > * {
-  letter-spacing: -0.1rem;
+  letter-spacing: -0.05rem;
 }
 
 #dialog-paimon-bargain {
