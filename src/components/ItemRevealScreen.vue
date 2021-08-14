@@ -1,22 +1,24 @@
 <template>
   <template v-for="i in [3, 4, 5]" :key="i">
     <audio
-      :ref="`audioItemReveal`"
+      ref="audioItemReveal"
       preload
-      v-if="currentIndex > 0 && currentItem.rarity === i"
+      @canplaythrough="if (animationIndex < 0) nextAnimation();"
+      v-if="currentIndex === 0 && currentItem.rarity === i"
     >
       <source
-        :src="require(`@/assets/audio/${i}-star-wish-reveal.mp3`)"
+        :src="require(`@/assets/audio/${i}-star-wish-reveal-first.mp3`)"
         type="audio/mpeg"
       />
     </audio>
     <audio
-      :ref="`audioItemReveal`"
+      ref="audioItemReveal"
       preload
+      @canplaythrough="if (animationIndex < 0) nextAnimation();"
       v-else-if="currentItem.rarity === i"
     >
       <source
-        :src="require(`@/assets/audio/${i}-star-wish-reveal-first.mp3`)"
+        :src="require(`@/assets/audio/${i}-star-wish-reveal.mp3`)"
         type="audio/mpeg"
       />
     </audio>
@@ -29,9 +31,11 @@
         'zoom-image': animationIndex === 0,
         'active-img': true,
         'active-img-weapon': currentItem.type === 'Weapon',
+        transparent: animationIndex < 0,
       }"
       @animationstart="playSfx"
       @animationend="nextAnimation"
+      @load="nextAnimation"
       :alt="currentItemImage"
     />
   </div>
@@ -43,7 +47,6 @@
           transparent: animationIndex <= 0,
           'appear-slide-left': animationIndex === 1,
         }"
-        @animationend="nextAnimation"
       >
         {{ currentItem.name }}
       </p>
@@ -53,8 +56,9 @@
           v-for="n in currentItem.rarity"
           v-bind:key="n"
           :class="{
-            transparent: animationIndex < n + 2,
-            'star-pop-in': animationIndex === n + 2,
+            transparent: animationIndex < n + 1,
+            delayed: n === 1 && animationIndex === n + 1,
+            'star-pop-in': animationIndex === n + 1,
           }"
           @animationend="nextAnimation"
           alt="star"
@@ -105,19 +109,54 @@ export default defineComponent({
   data() {
     return {
       currentIndex: 0,
-      animationIndex: 0,
+      animationIndex: -2,
     };
   },
   methods: {
     nextItem() {
+      /* PROBLEM: animations/sfx do not line up
+       * solutions:
+       * 1. Prefetch and pray everything prefetches properly
+       * and that nothing blows up
+       *  - opportunities for prefetching:
+       *  - while video is playing (spare bandwidth)
+       *  - while animations are playing
+       *  - audio: in the wish banner screen
+       * 2. Require that music and images have loaded before
+       * animation stage 1 (index 0) can begin
+       * 3. Combine 1 and 2
+       */
       this.currentIndex += 1;
       if (this.currentIndex >= this.lastRoll.length) {
         this.exit();
         return;
       }
-      this.animationIndex = 0;
+
+      this.animationIndex = -2;
+      if (this.currentIndex >= 1) {
+        // from the second item reveal onward
+        // modify animationIndex as necessary
+        // in case audio/images are already loaded
+        if (
+          this.currentItem.rarity ===
+            this.lastRoll[this.currentIndex - 1].rarity &&
+          this.currentIndex >= 1
+        ) {
+          // audio depends on rarity and the first two
+          // audios are guaranteed to be different because of
+          // "first"
+          this.animationIndex += 1;
+        }
+
+        if (this.currentItem.id === this.lastRoll[this.currentIndex - 1].id) {
+          // if the image has already loaded
+          this.animationIndex += 1;
+        }
+      }
+
       /*
        * Animation index documentation
+       * below 0: image and/or sfx have yet to finish loading
        * 0: item image zooms in
        * 1: item image and name text slides in
        * 2+: individual stars load in, extra text slides in
@@ -131,7 +170,7 @@ export default defineComponent({
     },
     playSfx() {
       if (this.animationIndex > 0) {
-        // do not do anything if this is not the very first aniindex
+        // only play sound when assets have loaded
         return;
       }
       const audioRef = this.$refs.audioItemReveal as HTMLAudioElement;
@@ -243,23 +282,29 @@ export default defineComponent({
 
 .star-pop-in {
   animation-name: starpopin;
-  animation-duration: 0.15s;
+  animation-duration: 0.165s;
   animation-iteration-count: initial;
+}
+
+.delayed {
+  animation-delay: 0.3s;
+  opacity: 0;
 }
 
 @keyframes starpopin {
   from {
     transform: scale(300%);
+    opacity: 1;
   }
   to {
     transform: scale(100%);
+    opacity: 1;
   }
 }
 
 .appear-slide-left {
   animation-name: fade-in-slide-left;
-  /* equal to quickfadein */
-  animation-duration: 0.75s;
+  animation-duration: 1s;
   animation-iteration-count: initial;
   opacity: 0;
 }
@@ -288,13 +333,12 @@ export default defineComponent({
    * Quite frustrating
    */
   opacity: 0;
-  animation-delay: 0.1s;
   animation-iteration-count: initial;
 }
 
 @keyframes zoominfastdark {
   from {
-    transform: scale(200%);
+    transform: scale(400%);
     opacity: 1;
   }
   to {
@@ -304,12 +348,14 @@ export default defineComponent({
 }
 
 .animate-image {
-  animation-name: quickfadein;
-  animation-duration: 0.75s;
+  animation-name: fade-in-slide-right;
+  animation-duration: 1s;
   animation-iteration-count: initial;
+  filter: brightness(0%);
+  transform: translateX(0%);
 }
 
-@keyframes quickfadein {
+@keyframes fade-in-slide-right {
   from {
     filter: brightness(0%);
     transform: translateX(0%);
