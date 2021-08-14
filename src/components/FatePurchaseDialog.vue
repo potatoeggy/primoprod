@@ -82,7 +82,7 @@ export default defineComponent({
   min-width: 50%;
   top: 50%;
   left: 50%;
-  font-size: 2rem;
+  font-size: 1.5rem;
   color: #4a5365;
   padding: 1.5rem 3rem;
   background-color: rgb(228, 226, 220);
