@@ -75,6 +75,7 @@ export default defineComponent({
       lastRoll: [] as Item[],
       lastRollSorted: [] as Item[],
       banner: require("./banners/tapestry-of-golden-flames.json"),
+      overlay: "",
     };
   },
   methods: {
