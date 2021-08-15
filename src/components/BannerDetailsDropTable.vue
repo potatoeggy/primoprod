@@ -54,11 +54,25 @@ export default defineComponent({
           drops[item.rarity].push({ featured: true, ...item });
         }
         for (const i of this.banner.drops) {
-          for (const item of drops[ItemDatabase[i].rarity]) {
-            if (item.id !== ItemDatabase[i].id) {
-              drops[item.rarity].push(item);
-              break;
-            }
+          const item = ItemDatabase[i];
+          // TODO: aiya cpu go boom
+          // luckily the details screen is pretty light
+          // and we're only searching through same rarity
+
+          // TODO: refactor this there is absolutely no need
+          // to make it a lambda it's confusing
+          if (
+            ((it: Item) => {
+              for (const i of drops[it.rarity]) {
+                if (it.id === i.id) {
+                  return false;
+                }
+              }
+              return true;
+            })(item)
+          ) {
+            // aiya ram go boom
+            drops[item.rarity].push(item);
           }
         }
         return drops;

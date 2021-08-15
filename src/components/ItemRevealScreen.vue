@@ -114,6 +114,18 @@ export default defineComponent({
   },
   methods: {
     nextItem() {
+      /* PROBLEM: animations/sfx do not line up
+       * solutions:
+       * 1. Prefetch and pray everything prefetches properly
+       * and that nothing blows up
+       *  - opportunities for prefetching:
+       *  - while video is playing (spare bandwidth)
+       *  - while animations are playing
+       *  - audio: in the wish banner screen
+       * 2. Require that music and images have loaded before
+       * animation stage 1 (index 0) can begin
+       * 3. Combine 1 and 2
+       */
       this.currentIndex += 1;
       if (this.currentIndex >= this.lastRoll.length) {
         this.exit();
@@ -122,6 +134,9 @@ export default defineComponent({
 
       this.animationIndex = -2;
       if (this.currentIndex >= 1) {
+        // from the second item reveal onward
+        // modify animationIndex as necessary
+        // in case audio/images are already loaded
         if (
           this.currentItem.rarity ===
             this.lastRoll[this.currentIndex - 1].rarity &&
