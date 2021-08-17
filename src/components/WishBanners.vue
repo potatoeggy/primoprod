@@ -102,7 +102,7 @@ export default defineComponent({
       primos: this.inventory.primos,
       starglitter: this.inventory.starglitter,
       stardust: this.inventory.stardust,
-      itemGetOverlay: false,
+      itemGetOverlay: true,
     };
   },
   computed: {
