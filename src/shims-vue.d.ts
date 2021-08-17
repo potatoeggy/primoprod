@@ -4,3 +4,8 @@ declare module '*.vue' {
   const component: DefineComponent<{}, {}, any>
   export default component
 }
+
+declare module 'vue-dragscroll' {
+  import type { Directive } from 'vue'
+  export const dragscrollNext: Directive<any, any>
+}

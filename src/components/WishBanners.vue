@@ -1,5 +1,10 @@
 <template>
   <!-- overlay use json? -->
+  <item-obtain-overlay
+    v-if="itemGetOverlay"
+    :obtainedItems="[]"
+    @exit="itemGetOverlay = false"
+  ></item-obtain-overlay>
   <banner-details-screen
     :banner="banner"
     v-if="showDetails"
@@ -18,7 +23,12 @@
         <p id="wish-label">Wish</p>
       </div>
       <div id="gems">
-        <gem-counter icon="primogem.png" :text="primos" plusSign></gem-counter>
+        <gem-counter
+          icon="primogem.png"
+          :text="primos"
+          plusSign
+          @image-clicked="overlay = true"
+        ></gem-counter>
         <gem-counter icon="intertwined-fate.png" :text="fates"></gem-counter>
       </div>
     </div>
@@ -68,6 +78,7 @@ import BannerDetailsScreen from "./BannerDetailsScreen.vue";
 import { Banner } from "@/banners/Gacha";
 import Inventory from "@/banners/Inventory";
 import WishHistoryScreen from "./WishHistoryScreen.vue";
+import ItemObtainOverlay from "./ItemObtainOverlay.vue";
 
 export default defineComponent({
   components: {
@@ -76,6 +87,7 @@ export default defineComponent({
     GemCounter,
     BannerDetailsScreen,
     WishHistoryScreen,
+    ItemObtainOverlay,
   },
   props: {
     banner: {
@@ -95,6 +107,7 @@ export default defineComponent({
       primos: this.inventory.primos,
       starglitter: this.inventory.starglitter,
       stardust: this.inventory.stardust,
+      itemGetOverlay: true,
     };
   },
   computed: {

@@ -8,9 +8,13 @@
   >
     <div class="flex-gem">
       <div class="left">
-        <img :src="require(`@/assets/images/${icon}`)" :alt="icon" />
+        <img
+          :src="require(`@/assets/images/${icon}`)"
+          :alt="icon"
+          @click="imageClicked"
+        />
       </div>
-      <div class="text">{{ text }}</div>
+      <div class="text" @click="imageClicked">{{ text }}</div>
       <plus-button v-if="plusSign"></plus-button>
     </div>
   </button>
@@ -48,6 +52,12 @@ export default defineComponent({
       default: true,
     },
   },
+  methods: {
+    imageClicked(): void {
+      this.$emit("image-clicked");
+    },
+  },
+  emits: ["image-clicked"],
 });
 </script>
 
@@ -81,6 +91,11 @@ img {
   height: 2.2rem;
   margin-left: 0.3rem;
   filter: drop-shadow(0px 1px 1px #222);
+}
+
+img:active {
+  filter: drop-shadow(0px 1px 1px #222) brightness(60%);
+  transition: filter 0.15s;
 }
 
 .text {
