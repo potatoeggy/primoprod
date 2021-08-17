@@ -23,12 +23,7 @@
         <p id="wish-label">Wish</p>
       </div>
       <div id="gems">
-        <gem-counter
-          icon="primogem.png"
-          :text="primos"
-          plusSign
-          @image-clicked="overlay = true"
-        ></gem-counter>
+        <gem-counter icon="primogem.png" :text="primos" plusSign></gem-counter>
         <gem-counter icon="intertwined-fate.png" :text="fates"></gem-counter>
       </div>
     </div>
@@ -107,7 +102,7 @@ export default defineComponent({
       primos: this.inventory.primos,
       starglitter: this.inventory.starglitter,
       stardust: this.inventory.stardust,
-      itemGetOverlay: true,
+      itemGetOverlay: false,
     };
   },
   computed: {
