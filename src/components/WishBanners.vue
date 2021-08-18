@@ -1,5 +1,10 @@
 <template>
   <!-- overlay use json? -->
+  <item-description-overlay
+    :item="activeItem"
+    v-if="activeItem"
+    @exit="activeItemId = ''"
+  ></item-description-overlay>
   <item-obtain-overlay
     v-if="itemGetOverlay"
     :obtainedItems="[
@@ -27,8 +32,17 @@
         <p id="wish-label">Wish</p>
       </div>
       <div id="gems">
-        <gem-counter icon="primogem.png" :text="primos" plusSign></gem-counter>
-        <gem-counter icon="intertwined-fate.png" :text="fates"></gem-counter>
+        <gem-counter
+          icon="primogem.png"
+          :text="primos"
+          @image-clicked="activeItemId = 'primogem'"
+          plusSign
+        ></gem-counter>
+        <gem-counter
+          icon="intertwined-fate.png"
+          :text="fates"
+          @image-clicked="activeItemId = 'intertwined-fate'"
+        ></gem-counter>
       </div>
     </div>
     <div id="div-banner">
@@ -40,11 +54,13 @@
           <gem-counter
             icon="starglitter.png"
             :text="starglitter"
+            @image-clicked="activeItemId = 'starglitter'"
             nobackground
           ></gem-counter>
           <gem-counter
             icon="stardust.png"
             :text="stardust"
+            @image-clicked="activeItemId = 'stardust'"
             nobackground
           ></gem-counter>
         </div>
@@ -74,10 +90,11 @@ import WishButton from "./WishButton.vue";
 import TextButton from "./TextButton.vue";
 import GemCounter from "./GemCounter.vue";
 import BannerDetailsScreen from "./BannerDetailsScreen.vue";
-import { Banner } from "@/banners/Gacha";
+import { Banner, Item, ItemDatabase } from "@/banners/Gacha";
 import Inventory from "@/banners/Inventory";
 import WishHistoryScreen from "./WishHistoryScreen.vue";
 import ItemObtainOverlay from "./ItemObtainOverlay.vue";
+import ItemDescriptionOverlay from "./ItemDescriptionOverlay.vue";
 
 export default defineComponent({
   components: {
@@ -87,6 +104,7 @@ export default defineComponent({
     BannerDetailsScreen,
     WishHistoryScreen,
     ItemObtainOverlay,
+    ItemDescriptionOverlay,
   },
   props: {
     banner: {
@@ -107,6 +125,7 @@ export default defineComponent({
       starglitter: this.inventory.starglitter,
       stardust: this.inventory.stardust,
       itemGetOverlay: true,
+      activeItemId: "",
     };
   },
   computed: {
@@ -121,6 +140,9 @@ export default defineComponent({
       } catch (error) {
         return `./${this.banner.id}.png`;
       }
+    },
+    activeItem(): Item {
+      return ItemDatabase[this.activeItemId];
     },
   },
   methods: {
