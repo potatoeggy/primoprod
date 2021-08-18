@@ -37,7 +37,8 @@ export interface StylisedElement {
 }
 
 export const ItemDatabase: { [name: string]: Item } = ItemDB.items;
-export const ElementDatabase: { [name: string]: StylisedElement } = ItemDB.elements;
+export const ElementDatabase: { [name: string]: StylisedElement } =
+  ItemDB.elements;
 
 export default class Gacha {
   // TODO: since weapons are being added now their pity is actually slightly different I believe
@@ -176,7 +177,7 @@ export default class Gacha {
       }
     } else {
       this.state.guaranteedFeatured4Star = true;
-      const filtered = this.drops[4].filter((drop) => !drop.featured)
+      const filtered = this.drops[4].filter((drop) => !drop.featured);
       if (filtered.length > 0) {
         drop = filtered[this.rng(filtered.length)];
       }
