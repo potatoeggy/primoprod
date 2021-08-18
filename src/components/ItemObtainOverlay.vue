@@ -1,4 +1,10 @@
 <template>
+  <!-- description overlay -->
+  <item-description-overlay
+    :item="activeItem"
+    v-if="activeItem"
+    @exit="activeItemId = ''"
+  ></item-description-overlay>
   <transition name="zoom-fade">
     <div
       id="item-obtain-overlay-bg"
@@ -20,7 +26,7 @@
             v-for="(i, index) in items"
             :key="index"
           >
-            <div class="item-box-graphics" @click="activeItemInfo = i.item.id">
+            <div class="item-box-graphics" @click="activeItemId = i.item.id">
               <div
                 :class="[
                   [0, 'gray', 'green', 'blue', 'purple', 'orange'][
@@ -53,6 +59,7 @@
 <script lang="ts">
 import { Item, ItemDatabase } from "@/banners/Gacha";
 import { defineComponent } from "vue";
+import ItemDescriptionOverlay from "./ItemDescriptionOverlay.vue";
 
 export interface ItemStringQuantity {
   id: string;
@@ -65,6 +72,7 @@ export interface ItemQuantity {
 }
 
 export default defineComponent({
+  components: { ItemDescriptionOverlay },
   props: {
     obtainedItems: {
       type: Object as () => Array<ItemStringQuantity>,
@@ -77,7 +85,7 @@ export default defineComponent({
   },
   data() {
     return {
-      activeItemInfo: "",
+      activeItemId: "",
       active: true,
     };
   },
@@ -86,6 +94,9 @@ export default defineComponent({
       return this.obtainedItems.map((i) => {
         return { item: ItemDatabase[i.id], quantity: i.quantity };
       });
+    },
+    activeItem(): Item {
+      return ItemDatabase[this.activeItemId];
     },
   },
   methods: {
@@ -286,7 +297,7 @@ export default defineComponent({
 }
 
 .blue {
-  background-color: #a5bacc;
+  background: linear-gradient(#577291, #5495b2);
 }
 
 .green {

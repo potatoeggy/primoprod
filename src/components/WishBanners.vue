@@ -2,7 +2,11 @@
   <!-- overlay use json? -->
   <item-obtain-overlay
     v-if="itemGetOverlay"
-    :obtainedItems="[]"
+    :obtainedItems="[
+      { id: 'primogem', quantity: 160 },
+      { id: 'intertwined-fate', quantity: 3 },
+      { id: 'stardust', quantity: 135 },
+    ]"
     @exit="itemGetOverlay = false"
   ></item-obtain-overlay>
   <banner-details-screen
