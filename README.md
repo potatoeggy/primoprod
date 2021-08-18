@@ -1,6 +1,12 @@
 # primoprod
 
-A Genshin Impact wish simulator to push a to-do list with gacha as motivation
+A Genshin Impact-inspired wish simulator written with Vue and Typescript to push a to-do list with gacha as motivation
+
+![](primoprod-demo.png)
+
+All code is licensed under the AGPL in LICENSE.md.
+
+Most assets are owned by MiHoYo, Co., Ltd.
 
 ## Project setup
 ```
@@ -16,11 +22,3 @@ yarn serve
 ```
 yarn build
 ```
-
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
