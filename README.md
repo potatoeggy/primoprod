@@ -18,7 +18,17 @@ yarn install
 yarn serve
 ```
 
+Electron:
+```
+yarn electron:serve
+```
+
 ### Compiles and minifies for production
 ```
 yarn build
+```
+
+Electron:
+```
+yarn electron:build
 ```
