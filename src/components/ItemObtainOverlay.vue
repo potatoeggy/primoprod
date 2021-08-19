@@ -202,7 +202,8 @@ export default defineComponent({
   flex-direction: row;
   flex-wrap: nowrap;
   justify-content: center;
-  max-width: 80%;
+  width: 80%;
+  min-width: 20rem;
   height: calc(var(--obtain-overlay-height) + 3rem);
   padding-top: 1rem;
   overflow: hidden;
@@ -219,6 +220,7 @@ export default defineComponent({
   margin-bottom: 1rem;
   padding-top: 2rem;
   padding-bottom: 2rem;
+  width: 60%;
 }
 
 .main {
