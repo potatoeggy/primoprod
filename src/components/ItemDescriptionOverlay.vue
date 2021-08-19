@@ -1,40 +1,43 @@
 <template>
-  <div id="WTF-HTML"></div>
-  <transition name="item-desc-zoom-fade">
+  <audio ref="audioDescriptionOverlayExit" preload>
+    <source src="@/assets/audio/description-exit.mp3" />
+  </audio>
+  <audio preload autoplay>
+    <source src="@/assets/audio/description-enter.mp3" />
+  </audio>
+  <div
+    :class="{ bg: true, 'zoom-fade-in': active, 'zoom-fade-out': !active }"
+    id="item-description-overlay-bg"
+    @click="exitOutsideCheck"
+    @animationend="exit"
+  >
     <div
-      :class="{ bg: true, 'zoom-fade-in': active, 'zoom-fade-out': !active }"
-      id="item-description-overlay-bg"
-      @click="exitOutsideCheck"
-      @animationend="exit"
+      :class="{ 'main-box': true, 'zoom-in': active, 'zoom-out': !active }"
+      :style="cssBox"
     >
-      <div
-        :class="{ 'main-box': true, 'zoom-in': active, 'zoom-out': !active }"
-        :style="cssBox"
-      >
-        <div class="coloured-box">
-          <p class="item-name">{{ item.name }}</p>
-        </div>
-        <div class="graphic-box">
-          <p class="item-name item-type">{{ item.type }}</p>
-          <div class="item-icon">
-            <img
-              class="item-icon-img"
-              :src="require(`@/assets/images/${item.id}.png`)"
-            />
-          </div>
-          <div class="star-box margin-left">
-            <img
-              class="star"
-              src="@/assets/images/star.svg"
-              v-for="i in item.rarity"
-              :key="i"
-            />
-          </div>
-        </div>
-        <p class="description margin-left">{{ item.description }}</p>
+      <div class="coloured-box">
+        <p class="item-name">{{ item.name }}</p>
       </div>
+      <div class="graphic-box">
+        <p class="item-name item-type">{{ item.type }}</p>
+        <div class="item-icon">
+          <img
+            class="item-icon-img"
+            :src="require(`@/assets/images/${item.id}.png`)"
+          />
+        </div>
+        <div class="star-box margin-left">
+          <img
+            class="star"
+            src="@/assets/images/star.svg"
+            v-for="i in item.rarity"
+            :key="i"
+          />
+        </div>
+      </div>
+      <p class="description margin-left">{{ item.description }}</p>
     </div>
-  </transition>
+  </div>
 </template>
 
 <script lang="ts">
@@ -82,6 +85,7 @@ export default defineComponent({
   methods: {
     exitOutsideCheck(e: Event) {
       if (e.target === document.getElementById("item-description-overlay-bg")) {
+        (this.$refs.audioDescriptionOverlayExit as HTMLAudioElement).play();
         this.active = false;
       }
     },
