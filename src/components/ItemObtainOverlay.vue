@@ -1,5 +1,11 @@
 <template>
   <!-- description overlay -->
+  <audio preload autoplay>
+    <source src="@/assets/audio/item-obtain.mp3" />
+  </audio>
+  <audio ref="audioExitOverlay" preload>
+    <source src="@/assets/audio/close-overlay.mp3" />
+  </audio>
   <item-description-overlay
     :item="activeItem"
     v-if="activeItem"
@@ -105,11 +111,14 @@ export default defineComponent({
         e.target === document.getElementById("item-obtain-overlay-bg") ||
         e.target === document.getElementById("item-obtain-overlay-center-box")
       ) {
+        (this.$refs.audioExitOverlay as HTMLAudioElement).play();
         this.active = false;
       }
     },
     exit() {
-      if (!this.active) this.$emit("exit");
+      if (!this.active) {
+        this.$emit("exit");
+      }
     },
   },
   emits: ["exit"],
