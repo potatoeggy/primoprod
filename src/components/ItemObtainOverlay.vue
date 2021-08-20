@@ -96,13 +96,11 @@ export default defineComponent({
   },
   computed: {
     items(): Array<ItemQuantity> {
-      const test = this.obtainedItems
+      return this.obtainedItems
         .map((i) => {
           return { item: ItemDatabase[i.id], quantity: i.quantity };
         })
         .filter((i) => i.quantity > 0);
-      console.log(test);
-      return test;
     },
     activeItem(): Item {
       return ItemDatabase[this.activeItemId];
