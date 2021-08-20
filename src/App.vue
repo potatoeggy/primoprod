@@ -15,6 +15,12 @@
     v-on:cancel-wish="exitConfirmCancelDialog(cancelWish)"
     v-on:wish="exitConfirmCancelDialog(goWish, $event)"
   ></fate-purchase-dialog>
+  <item-obtain-overlay
+    description="Extra"
+    :obtainedItems="pullExtraRewards"
+    v-if="pullExtraRewards.length > 0 && screen === 'wish-banner'"
+    @exit="pullExtraRewards = []"
+  ></item-obtain-overlay>
 
   <!-- main -->
   <wish-banners
@@ -44,6 +50,7 @@ import WishBanners from "@/components/WishBanners.vue";
 import FatePurchaseDialog from "@/components/FatePurchaseDialog.vue";
 import ItemRevealScreen from "@/components/ItemRevealScreen.vue";
 import ItemAllRevealScreen from "@/components/ItemAllRevealScreen.vue";
+import ItemObtainOverlay from "@/components/ItemObtainOverlay.vue";
 
 // gacha
 import Gacha, { Item } from "@/banners/Gacha";
@@ -59,6 +66,7 @@ export default defineComponent({
       () => import("@/components/VideoPlayer.vue")
     ),
     ItemRevealScreen,
+    ItemObtainOverlay,
   },
   data() {
     return {
@@ -76,6 +84,7 @@ export default defineComponent({
       lastRollSorted: [] as Item[],
       banner: require("./banners/tapestry-of-golden-flames.json"),
       overlay: "",
+      pullExtraRewards: {},
     };
   },
   methods: {
@@ -104,7 +113,14 @@ export default defineComponent({
 
       console.log("Rolled:", this.lastRoll);
       this.pullRarity = this.lastRollSorted[0].rarity;
-      this.inv.addItemsViaGacha(this.lastRoll, this.banner.storage);
+      const extraRewards = this.inv.addItemsViaGacha(
+        this.lastRoll,
+        this.banner.storage
+      );
+      this.pullExtraRewards = [
+        { id: "stardust", quantity: extraRewards.stardust },
+        { id: "starglitter", quantity: extraRewards.starglitter },
+      ];
     },
 
     cancelWish(): void {

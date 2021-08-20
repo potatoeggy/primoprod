@@ -1,5 +1,4 @@
 <template>
-  <!-- description overlay -->
   <audio preload autoplay>
     <source src="@/assets/audio/item-obtain.mp3" />
   </audio>
@@ -97,9 +96,13 @@ export default defineComponent({
   },
   computed: {
     items(): Array<ItemQuantity> {
-      return this.obtainedItems.map((i) => {
-        return { item: ItemDatabase[i.id], quantity: i.quantity };
-      });
+      const test = this.obtainedItems
+        .map((i) => {
+          return { item: ItemDatabase[i.id], quantity: i.quantity };
+        })
+        .filter((i) => i.quantity > 0);
+      console.log(test);
+      return test;
     },
     activeItem(): Item {
       return ItemDatabase[this.activeItemId];

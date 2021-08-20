@@ -6,6 +6,11 @@ export interface Pull {
   bannerStorage: string;
 }
 
+export interface PullExtraRewards {
+  stardust: number;
+  starglitter: number;
+}
+
 export default class Inventory {
   private currency = {
     primos: 5200,
@@ -56,21 +61,21 @@ export default class Inventory {
     this.saveState();
   }
 
-  addItemsViaGacha(items: Item[], bannerStorage: string): void {
+  addItemsViaGacha(items: Item[], bannerStorage: string): PullExtraRewards {
     // wrapper function calling addItems and addPulls for convenience
-    // WARN: this does not give any visual output aside from
-    // updating this.currency
+    const extraRewards: PullExtraRewards = { stardust: 0, starglitter: 0 };
+    // AHAHA so screwed on 10-pull screen
     for (const item of items) {
       if (item.type === "Weapon") {
         switch (item.rarity) {
           case 3:
-            this.currency.stardust += 15;
+            extraRewards.stardust += 15;
             break;
           case 4:
-            this.currency.starglitter += 2;
+            extraRewards.starglitter += 2;
             break;
           case 5:
-            this.currency.starglitter += 10;
+            extraRewards.starglitter += 10;
         }
       } else if (item.type === "Character") {
         if (this.inventory[item.id]) {
@@ -79,19 +84,19 @@ export default class Inventory {
             // six constellations
             switch (item.rarity) {
               case 4:
-                this.currency.starglitter += 2;
+                extraRewards.starglitter += 2;
                 break;
               case 5:
-                this.currency.starglitter += 10;
+                extraRewards.starglitter += 10;
             }
           } else {
             // more than six cons
             switch (item.rarity) {
               case 4:
-                this.currency.starglitter += 10;
+                extraRewards.starglitter += 10;
                 break;
               case 5:
-                this.currency.starglitter += 25;
+                extraRewards.starglitter += 25;
             }
           }
         }
@@ -106,6 +111,9 @@ export default class Inventory {
       items.map((e) => e.id),
       bannerStorage
     );
+    this.currency.starglitter += extraRewards.starglitter;
+    this.currency.stardust += extraRewards.stardust;
+    return extraRewards;
   }
 
   removeItems(items: string[]): void {

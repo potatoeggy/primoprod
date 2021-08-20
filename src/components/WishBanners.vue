@@ -5,15 +5,6 @@
     v-if="activeItem"
     @exit="activeItemId = ''"
   ></item-description-overlay>
-  <item-obtain-overlay
-    v-if="itemGetOverlay"
-    :obtainedItems="[
-      { id: 'primogem', quantity: 160 },
-      { id: 'intertwined-fate', quantity: 3 },
-      { id: 'stardust', quantity: 135 },
-    ]"
-    @exit="itemGetOverlay = false"
-  ></item-obtain-overlay>
   <banner-details-screen
     :banner="banner"
     v-if="showDetails"
@@ -93,7 +84,6 @@ import BannerDetailsScreen from "./BannerDetailsScreen.vue";
 import { Banner, Item, ItemDatabase } from "@/banners/Gacha";
 import Inventory from "@/banners/Inventory";
 import WishHistoryScreen from "./WishHistoryScreen.vue";
-import ItemObtainOverlay from "./ItemObtainOverlay.vue";
 import ItemDescriptionOverlay from "./ItemDescriptionOverlay.vue";
 
 export default defineComponent({
@@ -103,7 +93,6 @@ export default defineComponent({
     GemCounter,
     BannerDetailsScreen,
     WishHistoryScreen,
-    ItemObtainOverlay,
     ItemDescriptionOverlay,
   },
   props: {
@@ -124,7 +113,6 @@ export default defineComponent({
       primos: this.inventory.primos,
       starglitter: this.inventory.starglitter,
       stardust: this.inventory.stardust,
-      itemGetOverlay: true,
       activeItemId: "",
     };
   },
