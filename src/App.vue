@@ -118,8 +118,22 @@ export default defineComponent({
         this.banner.storage
       );
       this.pullExtraRewards = [
-        { id: "stardust", quantity: extraRewards.stardust },
-        { id: "starglitter", quantity: extraRewards.starglitter },
+        {
+          id: "stardust",
+          quantity: extraRewards
+            .filter((i) => i.id === "stardust")
+            .reduce((a, b) => {
+              return { id: "", quantity: a.quantity + b.quantity };
+            }).quantity,
+        },
+        {
+          id: "starglitter",
+          quantity: extraRewards
+            .filter((i) => i.id === "starglitter")
+            .reduce((a, b) => {
+              return { id: "", quantity: a.quantity + b.quantity };
+            }).quantity,
+        },
       ];
     },
 

@@ -62,19 +62,14 @@
 </template>
 
 <script lang="ts">
-import { Item, ItemDatabase } from "@/banners/Gacha";
+import {
+  Item,
+  ItemDatabase,
+  ItemQuantity,
+  ItemStringQuantity,
+} from "@/banners/Gacha";
 import { defineComponent } from "vue";
 import ItemDescriptionOverlay from "./ItemDescriptionOverlay.vue";
-
-export interface ItemStringQuantity {
-  id: string;
-  quantity: number;
-}
-
-export interface ItemQuantity {
-  item: Item;
-  quantity: number;
-}
 
 export default defineComponent({
   components: { ItemDescriptionOverlay },

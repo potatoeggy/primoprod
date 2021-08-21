@@ -41,6 +41,16 @@
   </div>
   <div class="item" @click="nextItem">
     <div class="name-rarity flex-start">
+      <img
+        :src="
+          require(`@/assets/images/icons/icon-element-${currentItem.element}.png`)
+        "
+        :class="{
+          'element-img': true,
+          transparent: animationIndex <= 0,
+          'appear-slide-left-element': animationIndex >= 1,
+        }"
+      />
       <p
         :class="{
           'name-text': true,
@@ -291,6 +301,14 @@ export default defineComponent({
   animation-name: fade-in-slide-left;
   animation-duration: 1s;
   animation-iteration-count: initial;
+  opacity: 0;
+}
+
+.appear-slide-left-element {
+  animation-name: fade-in-slide-left;
+  animation-duration: 1s;
+  animation-delay: 0.5s;
+  animation-fill-mode: forwards;
   opacity: 0;
 }
 

@@ -1,16 +1,10 @@
-import { Banner, Item } from "./Gacha";
+import { Banner, Item, ItemStringQuantity } from "./Gacha";
 
 export interface Pull {
   item: string;
   date: Date;
   bannerStorage: string;
 }
-
-export interface PullExtraRewards {
-  stardust: number;
-  starglitter: number;
-}
-
 export default class Inventory {
   private currency = {
     primos: 5200,
@@ -61,21 +55,30 @@ export default class Inventory {
     this.saveState();
   }
 
-  addItemsViaGacha(items: Item[], bannerStorage: string): PullExtraRewards {
+  addItemsViaGacha(items: Item[], bannerStorage: string): ItemStringQuantity[] {
     // wrapper function calling addItems and addPulls for convenience
-    const extraRewards: PullExtraRewards = { stardust: 0, starglitter: 0 };
-    // AHAHA so screwed on 10-pull screen
+    const extraRewards: ItemStringQuantity[] = [];
+    const pushStardust = (quantity: number) => {
+      extraRewards.push({ id: "stardust", quantity: quantity });
+      this.currency.stardust += quantity;
+    };
+
+    const pushStarglitter = (quantity: number) => {
+      extraRewards.push({ id: "starglitter", quantity: quantity });
+      this.currency.starglitter += quantity;
+    };
+
     for (const item of items) {
       if (item.type === "Weapon") {
         switch (item.rarity) {
           case 3:
-            extraRewards.stardust += 15;
+            pushStardust(15);
             break;
           case 4:
-            extraRewards.starglitter += 2;
+            pushStarglitter(2);
             break;
           case 5:
-            extraRewards.starglitter += 10;
+            pushStarglitter(10);
         }
       } else if (item.type === "Character") {
         if (this.inventory[item.id]) {
@@ -84,19 +87,19 @@ export default class Inventory {
             // six constellations
             switch (item.rarity) {
               case 4:
-                extraRewards.starglitter += 2;
+                pushStarglitter(2);
                 break;
               case 5:
-                extraRewards.starglitter += 10;
+                pushStarglitter(10);
             }
           } else {
             // more than six cons
             switch (item.rarity) {
               case 4:
-                extraRewards.starglitter += 10;
+                pushStarglitter(10);
                 break;
               case 5:
-                extraRewards.starglitter += 25;
+                pushStarglitter(25);
             }
           }
         }
@@ -111,8 +114,6 @@ export default class Inventory {
       items.map((e) => e.id),
       bannerStorage
     );
-    this.currency.starglitter += extraRewards.starglitter;
-    this.currency.stardust += extraRewards.stardust;
     return extraRewards;
   }
 

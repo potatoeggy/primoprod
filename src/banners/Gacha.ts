@@ -36,6 +36,16 @@ export interface StylisedElement {
   color: string;
 }
 
+export interface ItemStringQuantity {
+  id: string;
+  quantity: number;
+}
+
+export interface ItemQuantity {
+  item: Item;
+  quantity: number;
+}
+
 export const ItemDatabase: { [name: string]: Item } = ItemDB.items;
 export const ElementDatabase: { [name: string]: StylisedElement } =
   ItemDB.elements;
