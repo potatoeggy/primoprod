@@ -72,9 +72,7 @@ export default defineComponent({
     return {
       // storage vars
       inv: new Inventory(),
-      standardGacha: new Gacha(
-        require("@/banners/tapestry-of-golden-flames.json")
-      ),
+      standardGacha: new Gacha(require("@/banners/the-herons-court.json")),
       // state vars
       checkPullDialog: false,
       pullNumber: 1,
@@ -82,7 +80,7 @@ export default defineComponent({
       screen: "wish-banner",
       lastRoll: [] as Item[],
       lastRollSorted: [] as Item[],
-      banner: require("./banners/tapestry-of-golden-flames.json"),
+      banner: require("./banners/the-herons-court.json"),
       overlay: "",
       pullExtraRewards: {},
     };
