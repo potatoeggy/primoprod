@@ -40,7 +40,7 @@
     />
   </div>
   <div class="item" @click="nextItem">
-    <div class="name-rarity flex-start">
+    <div class="name-rarity flex-start" id="item-reveal-description-box">
       <img
         :src="
           require(`@/assets/images/icons/icon-element-${currentItem.element}.png`)
@@ -54,13 +54,14 @@
       <p
         :class="{
           'name-text': true,
+          'name-left-align': true,
           transparent: animationIndex <= 0,
           'appear-slide-left': animationIndex === 1,
         }"
       >
         {{ currentItem.name }}
       </p>
-      <div class="stars">
+      <div class="stars name-left-align">
         <img
           src="@/assets/images/star.svg"
           v-for="n in currentItem.rarity"
@@ -307,7 +308,7 @@ export default defineComponent({
 .appear-slide-left-element {
   animation-name: fade-in-slide-left;
   animation-duration: 1s;
-  animation-delay: 0.5s;
+  animation-delay: 0.25s;
   animation-fill-mode: forwards;
   opacity: 0;
 }
@@ -415,6 +416,10 @@ export default defineComponent({
   margin-bottom: -0.5rem;
   text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
   text-align: left;
+}
+
+.name-left-align {
+  margin-left: 2rem;
 }
 
 .transparent {

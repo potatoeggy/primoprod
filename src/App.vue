@@ -120,7 +120,7 @@ export default defineComponent({
           id: "stardust",
           quantity: extraRewards
             .filter((i) => i.id === "stardust")
-            .reduce((a, b) => {
+            ?.reduce((a, b) => {
               return { id: "", quantity: a.quantity + b.quantity };
             }).quantity,
         },
@@ -128,7 +128,7 @@ export default defineComponent({
           id: "starglitter",
           quantity: extraRewards
             .filter((i) => i.id === "starglitter")
-            .reduce((a, b) => {
+            ?.reduce((a, b) => {
               return { id: "", quantity: a.quantity + b.quantity };
             }).quantity,
         },
