@@ -34,7 +34,14 @@
     :inventory="inv"
     v-if="screen === 'item-reveal'"
     @exit="screen = 'wish-banner'"
+    @reveal-all="screen = 'item-all-reveal'"
   ></item-reveal-screen>
+  <item-all-reveal-screen
+    :lastRoll="lastRoll"
+    :inventory="inv"
+    @exit="screen = 'wish-banner'"
+    v-if="screen === 'item-all-reveal'"
+  ></item-all-reveal-screen>
   <video-player
     v-if="screen === 'video-player'"
     :pulls="pullNumber"
@@ -66,6 +73,7 @@ export default defineComponent({
       () => import("@/components/VideoPlayer.vue")
     ),
     ItemRevealScreen,
+    ItemAllRevealScreen,
     ItemObtainOverlay,
   },
   data() {

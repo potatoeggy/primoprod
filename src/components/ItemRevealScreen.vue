@@ -137,7 +137,11 @@ export default defineComponent({
     nextItem() {
       this.currentIndex += 1;
       if (this.currentIndex >= this.lastRoll.length) {
-        this.exit();
+        if (this.lastRoll.length === 1) {
+          this.exit();
+        } else {
+          this.$emit("reveal-all");
+        }
         return;
       }
 
@@ -217,7 +221,7 @@ export default defineComponent({
       }
     },
   },
-  emits: ["exit"],
+  emits: ["exit", "reveal-all"],
 });
 </script>
 
