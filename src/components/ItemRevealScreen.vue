@@ -226,6 +226,9 @@ export default defineComponent({
 
 .element-img {
   width: 8rem;
+  /* recolouring an image :/ */
+  filter: invert(35%) sepia(26%) saturate(203%) hue-rotate(188deg)
+    brightness(93%) contrast(92%);
 }
 
 .image-padding {
