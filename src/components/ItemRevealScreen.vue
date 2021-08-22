@@ -40,40 +40,44 @@
     />
   </div>
   <div class="item" @click="nextItem">
-    <div class="name-rarity flex-start" id="item-reveal-description-box">
-      <img
-        :src="
-          require(`@/assets/images/icons/icon-element-${currentItem.element}.png`)
-        "
-        :class="{
-          'element-img': true,
-          transparent: animationIndex <= 0,
-          'appear-slide-left-element': animationIndex >= 1,
-        }"
-      />
-      <p
-        :class="{
-          'name-text': true,
-          'name-left-align': true,
-          transparent: animationIndex <= 0,
-          'appear-slide-left': animationIndex === 1,
-        }"
-      >
-        {{ currentItem.name }}
-      </p>
-      <div class="stars name-left-align">
+    <div class="name-rarity" id="item-reveal-description-box">
+      <div class="element-img-box">
         <img
-          src="@/assets/images/star.svg"
-          v-for="n in currentItem.rarity"
-          v-bind:key="n"
+          :src="
+            require(`@/assets/images/icons/icon-element-${currentItem.element}.png`)
+          "
           :class="{
-            transparent: animationIndex < n + 1,
-            delayed: n === 1 && animationIndex === n + 1,
-            'star-pop-in': animationIndex === n + 1,
+            'element-img': true,
+            transparent: animationIndex <= 0,
+            'appear-slide-left-element': animationIndex >= 1,
           }"
-          @animationend="nextAnimation"
-          alt="star"
         />
+      </div>
+      <div class="flex-start star-text-box">
+        <p
+          :class="{
+            'name-text': true,
+            'name-left-align': true,
+            transparent: animationIndex <= 0,
+            'appear-slide-left': animationIndex === 1,
+          }"
+        >
+          {{ currentItem.name }}
+        </p>
+        <div class="stars name-left-align">
+          <img
+            src="@/assets/images/star.svg"
+            v-for="n in currentItem.rarity"
+            v-bind:key="n"
+            :class="{
+              transparent: animationIndex < n + 1,
+              delayed: n === 1 && animationIndex === n + 1,
+              'star-pop-in': animationIndex === n + 1,
+            }"
+            @animationend="nextAnimation"
+            alt="star"
+          />
+        </div>
       </div>
     </div>
     <div class="image-padding"></div>
@@ -212,6 +216,18 @@ export default defineComponent({
 </script>
 
 <style scoped>
+.element-img-box {
+  width: 4.5rem;
+  z-index: -1;
+  transform: translateY(-2.5rem);
+  margin-right: -1rem;
+  margin-bottom: -2rem;
+}
+
+.element-img {
+  width: 8rem;
+}
+
 .image-padding {
   width: 50%;
   height: 100%;
@@ -227,11 +243,11 @@ export default defineComponent({
   height: 100%;
   width: 100%;
   /* once a certain screen size is hit change to align-items center I guess */
+  padding-left: 1rem;
 }
 
 .item > div {
   display: flex;
-  flex-direction: column;
   z-index: 1;
 }
 
@@ -378,13 +394,22 @@ export default defineComponent({
   align-items: flex-start;
 }
 
+.star-text-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
 .name-rarity {
   color: white;
   margin-top: 10%;
-  margin-left: 5rem;
+  margin-left: auto;
   font-size: 2.25rem;
   word-wrap: break-word;
   letter-spacing: -0.125rem;
+  flex-direction: row;
+  align-items: flex-end;
+  margin-right: 0;
 }
 
 .extra-dust-glitter {
@@ -392,6 +417,7 @@ export default defineComponent({
   margin-top: 7.5%;
   color: #e3e3e9;
   min-width: 20%;
+  flex-direction: column;
 }
 
 .extra-text {
