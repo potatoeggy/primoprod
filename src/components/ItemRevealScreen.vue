@@ -40,7 +40,13 @@
     />
   </div>
   <div class="item" @click="nextItem">
-    <div class="name-rarity" id="item-reveal-description-box">
+    <div
+      :class="{
+        'name-rarity': true,
+        'name-rarity-left-push': currentItem.type === 'Character',
+      }"
+      id="item-reveal-description-box"
+    >
       <div class="element-img-box">
         <img
           :src="
@@ -48,6 +54,7 @@
           "
           :class="{
             'element-img': true,
+            'element-img-weapon': currentItem.type === 'Weapon',
             transparent: animationIndex <= 0,
             'appear-slide-left-element': animationIndex >= 1,
           }"
@@ -87,10 +94,9 @@
         'flex-start',
         {
           'starglitter-slide-in': animationIndex >= 2,
-          transparent: animationIndex < 2,
+          transparent: animationIndex < 2 || currentItem.type === 'Character',
         },
       ]"
-      v-if="currentItem.type === 'Weapon'"
     >
       <p>Extra</p>
       <div class="extra-text flex-start" v-if="currentItem.rarity === 3">
@@ -226,6 +232,9 @@ export default defineComponent({
 
 .element-img {
   width: 8rem;
+}
+
+.element-img-weapon {
   /* recolouring an image :/ */
   filter: invert(35%) sepia(26%) saturate(203%) hue-rotate(188deg)
     brightness(93%) contrast(92%);
@@ -413,6 +422,15 @@ export default defineComponent({
   flex-direction: row;
   align-items: flex-end;
   margin-right: 0;
+  /* css too hard screw it */
+  transform: translateY(30%);
+}
+
+/* help me */
+.name-rarity-left-push {
+  align-items: flex-start;
+  position: absolute;
+  left: 5rem;
 }
 
 .extra-dust-glitter {
