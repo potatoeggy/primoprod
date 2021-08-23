@@ -1,12 +1,23 @@
 <template>
   <div class="close-button-box">
-    <img src="@/assets/images/close-button.png" class="close-button" />
+    <img
+      src="@/assets/images/close-button.png"
+      class="close-button"
+      @click="clicked"
+    />
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
-export default defineComponent({});
+export default defineComponent({
+  methods: {
+    clicked() {
+      this.$emit("clicked");
+    },
+  },
+  emits: ["clicked"],
+});
 </script>
 
 <style scoped>

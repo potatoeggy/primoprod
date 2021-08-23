@@ -21,12 +21,14 @@
     v-if="pullExtraRewards.length > 0 && screen === 'wish-banner'"
     @exit="pullExtraRewards = []"
   ></item-obtain-overlay>
+  <quest-screen @exit="overlay = ''" v-if="overlay === 'quests'"></quest-screen>
 
   <!-- main -->
   <wish-banners
     :inventory="inv"
     :banner="banner"
     @wish="wish"
+    @exit="overlay = 'quests'"
     v-if="screen === 'wish-banner'"
   ></wish-banners>
   <item-reveal-screen
@@ -58,6 +60,7 @@ import FatePurchaseDialog from "@/components/FatePurchaseDialog.vue";
 import ItemRevealScreen from "@/components/ItemRevealScreen.vue";
 import ItemAllRevealScreen from "@/components/ItemAllRevealScreen.vue";
 import ItemObtainOverlay from "@/components/ItemObtainOverlay.vue";
+import QuestScreen from "@/components/QuestScreen.vue";
 
 // gacha
 import Gacha, { Item } from "@/banners/Gacha";
@@ -75,6 +78,7 @@ export default defineComponent({
     ItemRevealScreen,
     ItemAllRevealScreen,
     ItemObtainOverlay,
+    QuestScreen,
   },
   data() {
     return {

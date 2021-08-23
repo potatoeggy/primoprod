@@ -34,7 +34,9 @@
           :text="fates"
           @image-clicked="activeItemId = 'intertwined-fate'"
         ></gem-counter>
-        <div class="close-box"><close-button></close-button></div>
+        <div class="close-box">
+          <close-button @clicked="exit"></close-button>
+        </div>
       </div>
     </div>
     <div id="div-banner">
@@ -153,8 +155,11 @@ export default defineComponent({
       ).play();
       this.showHistory = false;
     },
+    exit(): void {
+      this.$emit("exit");
+    },
   },
-  emits: ["wish"],
+  emits: ["wish", "exit"],
 });
 </script>
 
