@@ -7,8 +7,70 @@
       <close-button @clicked="exitAnimation"></close-button>
     </div>
     <div class="body">
-      <div class="quest-selector"></div>
-      <div class="quest-details"></div>
+      <div class="quest-selector">
+        <p class="quest-header" v-if="currentTab === 'All Quests'">
+          Daily Commissions
+        </p>
+        <template v-for="(quest, index) in commissions" :key="index">
+          <div
+            :class="{
+              'quest-box': true,
+              'quest-box-active': currentQuest.name === quest.name,
+            }"
+            v-if="
+              currentTab === 'All Quests' || currentTab === 'Daily Commissions'
+            "
+            @click="currentQuest = quest"
+          >
+            <div>{{ quest.name }}</div>
+          </div>
+        </template>
+        <p
+          class="quest-header"
+          v-if="currentTab === 'All Quests' && events.length > 0"
+        >
+          Event Quests
+        </p>
+        <template v-for="(quest, index) in events" :key="index">
+          <div
+            :class="{
+              'quest-box': true,
+              'quest-box-active': currentQuest.name === quest.name,
+            }"
+            v-if="currentTab === 'All Quests' || currentTab === 'Event Quests'"
+            @click="currentQuest = quest"
+          >
+            {{ quest.name }}
+          </div>
+        </template>
+      </div>
+      <div class="quest-details">
+        <template v-if="currentQuest.name">
+          <p class="quest-desc-name">{{ currentQuest.name }}</p>
+          <div class="quest-description">{{ currentQuest.description }}</div>
+          <div class="quest-rewards">
+            <p class="quest-header">Quest Chain Rewards:</p>
+            <div class="quest-reward-icons">
+              <div
+                :class="[
+                  'reward-icon-graphics',
+                  [0, 'gray', 'green', 'blue', 'purple', 'orange'][
+                    idToItem(i.id).rarity
+                  ],
+                ]"
+                v-for="(i, index) in currentQuest.rewards"
+                :key="index"
+              >
+                <img
+                  :src="require(`@/assets/images/${i.id}.png`)"
+                  class="icon-img"
+                />
+                <div class="quantity-text">{{ i.quantity }}</div>
+              </div>
+            </div>
+          </div>
+        </template>
+      </div>
     </div>
   </div>
 </template>
@@ -16,18 +78,31 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import CloseButton from "./CloseButton.vue";
-import Quests from "@/banners/Quests";
+import Quests, { Quest } from "@/banners/Quests";
+import { Item, ItemDatabase } from "@/banners/Gacha";
 
 export default defineComponent({
+  components: { CloseButton },
   data() {
     return {
       active: true,
       currentTab: "All Quests",
       quests: new Quests(),
+      currentQuest: {} as Quest,
     };
   },
-  components: { CloseButton },
+  computed: {
+    commissions(): Quest[] {
+      return this.quests.commissions;
+    },
+    events(): Quest[] {
+      return this.quests.events;
+    },
+  },
   methods: {
+    idToItem(id: string): Item {
+      return ItemDatabase[id];
+    },
     exitAnimation() {
       this.active = false;
     },
@@ -59,22 +134,119 @@ export default defineComponent({
   animation: main-exit 0.1s ease-in 0s reverse forwards;
 }
 
+.quest-box {
+  width: 90%;
+  background-color: #2c3848cc;
+  color: #e4ddd4;
+  height: 4rem;
+  font-size: 1.25rem;
+  text-align: left;
+  letter-spacing: -0.05rem;
+  display: flex;
+  align-items: center;
+  transition: transform 0.1s, background-color 0.1s, color 0.1s;
+  margin-bottom: 0.75rem;
+}
+
+.quest-box-active {
+  color: #2c3848;
+  background-color: #ede6da;
+  transform: scale(105%);
+}
+
+.quest-box > div {
+  margin: 0.25rem;
+  width: 100%;
+  height: 2.4rem;
+  padding-left: 2rem;
+  padding: 0.5rem;
+}
+
+.quest-box-active > div {
+  border: 0.2rem solid #00000033;
+}
+
+.quest-header,
+.quest-desc-name {
+  color: #e4ddd4;
+  text-align: left;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  text-shadow: 1px 2px rgba(2, 2, 2, 0.2);
+  letter-spacing: -0.05rem;
+}
+
+.quest-desc-name {
+  font-size: 2rem;
+}
+
+.quest-description {
+  text-align: left;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  height: 60%;
+  border-top: 0.25rem solid #e4ddd455;
+  border-bottom: 0.25rem solid #e4ddd455;
+  color: #e4ddd4;
+}
+
+.quest-reward-icons {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+.reward-icon-graphics {
+  display: flex;
+  align-items: center;
+  margin-right: 0.5rem;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 0.5rem;
+}
+
+.quantity-text {
+  position: absolute;
+  color: white;
+  width: 4rem;
+  height: 1rem;
+  background-color: #00000055;
+  border-bottom-right-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
+  transform: translateY(1.5rem);
+  font-size: 0.8rem;
+}
+
+.icon-img {
+  height: 3.75rem;
+  margin: auto;
+}
+
 .body {
   margin-bottom: 2rem;
   margin-top: 1rem;
   display: flex;
   justify-content: space-between;
   flex-direction: row;
-  flex-wrap: wrap;
   height: 100%;
-  width: 80vw;
+  width: 85vw;
 }
 
-.quest-selector,
+.quest-selector {
+  height: 100%;
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+}
+
 .quest-details {
-  height: auto;
-  width: auto;
-  background-color: red;
+  height: 100%;
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  padding-left: 2rem;
 }
 
 .header {
@@ -103,7 +275,7 @@ export default defineComponent({
   }
   to {
     background: linear-gradient(to bottom, #383d53, transparent);
-    backdrop-filter: blur(2rem);
+    backdrop-filter: blur(1.5rem);
   }
 }
 
@@ -116,5 +288,25 @@ export default defineComponent({
     background: linear-gradient(to bottom, #383d53, transparent);
     backdrop-filter: blur(1rem);
   }
+}
+
+.orange {
+  background: linear-gradient(#936031, #b27730);
+}
+
+.purple {
+  background: linear-gradient(#565282, #9f6eb9);
+}
+
+.blue {
+  background: linear-gradient(#577291, #5495b2);
+}
+
+.green {
+  background-color: #53756a;
+}
+
+.gray {
+  background-color: #505863;
 }
 </style>

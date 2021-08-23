@@ -3,7 +3,7 @@ import { ItemStringQuantity } from "./Gacha";
 export interface Quest {
   name: string;
   description?: string;
-  rewards: ItemStringQuantity[];
+  rewards?: ItemStringQuantity[];
 }
 
 export default class Quests {
