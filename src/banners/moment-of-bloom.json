@@ -1,21 +1,21 @@
 {
-  "name": "Tapestry of Golden Flames",
+  "name": "Moment of Bloom",
   "styles": [
     {
-      "text": "Tapestry of "
+      "color": "#ef6a4b",
+      "text": "Moment of"
     },
     {
-      "color": "#ec4923",
-      "text": "Golden Flames"
+      "text": " Bloom"
     }
   ],
-  "id": "tapestry-of-golden-flames",
+  "id": "moment-of-bloom",
   "storage": "event",
   "featuredDrops": [
-    "yoimiya",
-    "sayu",
-    "diona",
-    "xinyan"
+    "hu-tao",
+    "xingqiu",
+    "xiangling",
+    "chongyun"
   ],
   "drops": [
     "jean",
@@ -29,15 +29,13 @@
     "fischl",
     "beidou",
     "razor",
+    "diona",
+    "xinyan",
+    "ningguang",
     "noelle",
-    "xingqiu",
     "barbara",
     "xinyan",
     "bennett",
-    "xiangling",
-    "yanfei",
-    "ningguang",
-    "chongyun",
     "favonius-warbow",
     "sacrificial-bow",
     "the-stringless",

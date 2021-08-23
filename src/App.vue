@@ -80,7 +80,7 @@ export default defineComponent({
     return {
       // storage vars
       inv: new Inventory(),
-      standardGacha: new Gacha(require("@/banners/the-herons-court.json")),
+      standardGacha: new Gacha(require("@/banners/moment-of-bloom.json")),
       // state vars
       checkPullDialog: false,
       pullNumber: 1,
@@ -88,7 +88,7 @@ export default defineComponent({
       screen: "wish-banner",
       lastRoll: [] as Item[],
       lastRollSorted: [] as Item[],
-      banner: require("./banners/the-herons-court.json"),
+      banner: require("./banners/moment-of-bloom.json"),
       overlay: "",
       pullExtraRewards: {},
     };
