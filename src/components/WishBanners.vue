@@ -34,6 +34,7 @@
           :text="fates"
           @image-clicked="activeItemId = 'intertwined-fate'"
         ></gem-counter>
+        <div class="close-box"><close-button></close-button></div>
       </div>
     </div>
     <div id="div-banner">
@@ -85,6 +86,7 @@ import { Banner, Item, ItemDatabase } from "@/banners/Gacha";
 import Inventory from "@/banners/Inventory";
 import WishHistoryScreen from "./WishHistoryScreen.vue";
 import ItemDescriptionOverlay from "./ItemDescriptionOverlay.vue";
+import CloseButton from "./CloseButton.vue";
 
 export default defineComponent({
   components: {
@@ -94,6 +96,7 @@ export default defineComponent({
     BannerDetailsScreen,
     WishHistoryScreen,
     ItemDescriptionOverlay,
+    CloseButton,
   },
   props: {
     banner: {
@@ -173,6 +176,10 @@ export default defineComponent({
   display: none;
 }
 
+.close-box {
+  margin-left: 1rem;
+}
+
 #wish-banners > div {
   display: flex;
   min-height: 0;
@@ -181,6 +188,11 @@ export default defineComponent({
 #header {
   animation: fadein 0.75s forwards, slide-from-top 0.75s forwards ease-out;
   margin-bottom: 0;
+}
+
+#gems {
+  display: flex;
+  align-items: center;
 }
 
 #div-banner {
