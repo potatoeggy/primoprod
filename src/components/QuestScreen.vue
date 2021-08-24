@@ -309,8 +309,6 @@ textarea.quest-description {
   margin: 0;
   padding: 0;
   width: 99%;
-  overflow-y: scroll;
-  overflow-x: hidden;
   height: 100%;
   resize: none;
 }
@@ -331,6 +329,8 @@ textarea.quest-description {
   color: #e4ddd4;
   overflow: hidden;
   white-space: pre-wrap;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .quest-reward-icons {
