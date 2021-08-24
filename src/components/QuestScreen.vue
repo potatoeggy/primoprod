@@ -260,7 +260,13 @@ export default defineComponent({
   margin-bottom: 0.75rem;
 }
 
-.quest-box-active {
+.quest-box:hover:not(.quest-box-active) {
+  transform: scale(102%);
+  border: 0.15rem solid #c7b696;
+}
+
+.quest-box-active,
+.quest-box:active {
   color: #2c3848;
   background-color: #ede6da;
   transform: scale(102%);
@@ -275,7 +281,8 @@ export default defineComponent({
   overflow: hidden;
 }
 
-.quest-box-active > div {
+.quest-box-active > div,
+.quest-box:active > div {
   border: 0.2rem solid #00000033;
 }
 
