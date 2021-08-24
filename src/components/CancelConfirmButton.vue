@@ -1,9 +1,12 @@
 <template>
-  <div class="cancel-confirm-selector">
+  <div class="cancel-confirm-selector" :style="styles">
     <button type="button" class="cancel-confirm-button" @click="onclick">
       <span class="icon">
         <span
-          :class="{ icon_x: text === 'Cancel', icon_o: text === 'Confirm' }"
+          :class="{
+            icon_x: text === 'Cancel',
+            icon_o: text !== 'Cancel',
+          }"
         >
           <div></div>
           <div></div>
@@ -22,6 +25,20 @@ export default defineComponent({
       type: String,
       required: true,
     },
+    invert: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
+  },
+  computed: {
+    styles(this) {
+      return {
+        "--bg-color": this.invert ? "rgb(228, 226, 220)" : "rgb(74, 83, 101)",
+        "--text-color": this.invert ? "rgb(74, 83, 101)" : "rgb(228, 226, 220)",
+        "--length": this.invert ? "13rem" : "18rem",
+      };
+    },
   },
   methods: {
     onclick(): void {
@@ -37,15 +54,15 @@ export default defineComponent({
   position: relative;
   display: flex;
   justify-content: center;
-  color: rgb(228, 226, 220);
-  background-color: rgb(74, 83, 101);
+  color: var(--text-color);
+  background-color: var(--bg-color);
   margin: 1rem 1rem;
   padding: 0.5rem 2rem 1rem 2.5rem;
   border-radius: 1.5rem;
   border: 0px solid transparent;
-  width: 18rem;
+  width: var(--length);
   height: 3rem;
-  font-size: 70%;
+  font-size: 1.5rem;
   transition: box-shadow 0.3s;
   letter-spacing: -0.1rem;
 }
@@ -83,9 +100,9 @@ export default defineComponent({
     background: #ede9cc;
   }
   100% {
-    box-shadow: rgb(74, 83, 101) 0px 0px 0px 0.1rem;
+    box-shadow: var(--bg-color) 0px 0px 0px 0.1rem;
     background-color: #ffe8b3;
-    color: rgb(74, 83, 101);
+    color: var(--bg-color);
   }
 }
 

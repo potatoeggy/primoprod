@@ -25,13 +25,13 @@
       <div id="gems">
         <gem-counter
           icon="primogem.png"
-          :text="primos"
+          :text="inventory.primos"
           @image-clicked="activeItemId = 'primogem'"
           plusSign
         ></gem-counter>
         <gem-counter
           icon="intertwined-fate.png"
-          :text="fates"
+          :text="inventory.fates"
           @image-clicked="activeItemId = 'intertwined-fate'"
         ></gem-counter>
         <div class="close-box">
@@ -47,13 +47,13 @@
         <div id="masterless-home" class="footer-align-flex left-align-flex">
           <gem-counter
             icon="starglitter.png"
-            :text="starglitter"
+            :text="inventory.starglitter"
             @image-clicked="activeItemId = 'starglitter'"
             nobackground
           ></gem-counter>
           <gem-counter
             icon="stardust.png"
-            :text="stardust"
+            :text="inventory.stardust"
             @image-clicked="activeItemId = 'stardust'"
             nobackground
           ></gem-counter>
@@ -71,8 +71,16 @@
         </div>
       </div>
       <div id="wish-buttons" class="footer-align-flex">
-        <wish-button :wishes="1" :fates="fates" @try-wish="wish"></wish-button>
-        <wish-button :wishes="10" :fates="fates" @try-wish="wish"></wish-button>
+        <wish-button
+          :wishes="1"
+          :fates="inventory.fates"
+          @try-wish="wish"
+        ></wish-button>
+        <wish-button
+          :wishes="10"
+          :fates="inventory.fates"
+          @try-wish="wish"
+        ></wish-button>
       </div>
     </div>
   </div>
@@ -114,10 +122,6 @@ export default defineComponent({
     return {
       showDetails: false,
       showHistory: false,
-      fates: this.inventory.fates,
-      primos: this.inventory.primos,
-      starglitter: this.inventory.starglitter,
-      stardust: this.inventory.stardust,
       activeItemId: "",
     };
   },

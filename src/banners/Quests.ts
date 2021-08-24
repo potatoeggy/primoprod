@@ -4,14 +4,25 @@ export interface Quest {
   name: string;
   description?: string;
   rewards?: ItemStringQuantity[];
+  complete: boolean;
 }
 
 export default class Quests {
-  private commissionQuests: Quest[] = [];
+  private commissionQuests: Quest[] = Array.from({ length: 4 }, (_, i) => {
+    return {
+      name: `Daily Commission #${i+1}`,
+      description: "Add an interesting description here!",
+      rewards: [{id: "primogem", quantity: 20}],
+      complete: false
+    };
+  });
   private eventQuests: Quest[] = [];
 
   constructor() {
-    this.commissions = JSON.parse(localStorage.getItem("commissions") || "[]");
+    this.commissions = JSON.parse(
+      localStorage.getItem("commissions") ||
+        JSON.stringify(this.commissionQuests)
+    );
   }
 
   saveState(): void {

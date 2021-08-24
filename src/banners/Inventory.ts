@@ -32,13 +32,21 @@ export default class Inventory {
     localStorage.pullHistory = JSON.stringify(this.pullHistory);
   }
 
-  addItems(items: string[]): void {
+  addItems(items: ItemStringQuantity[]): void {
     // default to auto-save
     for (const item of items) {
-      if (this.inventory[item]) {
-        this.inventory[item] += 1;
+      if (this.inventory[item.id]) {
+        this.inventory[item.id] += item.quantity;
+      } else if (item.id === "primogem") {
+        this.currency.primos += item.quantity;
+      } else if (item.id === "starglitter") {
+        this.currency.starglitter += item.quantity;
+      } else if (item.id === "stardust") {
+        this.currency.stardust += item.quantity;
+      } else if (item.id === "fates") {
+        this.currency.fates += item.quantity;
       } else {
-        this.inventory[item] = 1;
+        this.inventory[item.id] = item.quantity;
       }
     }
     this.saveState();
@@ -109,7 +117,11 @@ export default class Inventory {
     }
     // this saves state at the end so we don't go back
     // and forth with localStorage (buffer!)
-    this.addItems(items.map((e) => e.id));
+    this.addItems(
+      items.map((e) => {
+        return { id: e.id, quantity: 1 };
+      })
+    );
     this.addPulls(
       items.map((e) => e.id),
       bannerStorage

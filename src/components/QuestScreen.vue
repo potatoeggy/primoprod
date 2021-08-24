@@ -1,4 +1,15 @@
 <template>
+  <!-- overlay -->
+  <item-description-overlay
+    :item="itemDescription"
+    v-if="itemDescriptionId"
+    @exit="itemDescriptionId = ''"
+  ></item-description-overlay>
+  <item-obtain-overlay
+    :obtainedItems="obtainScreenRewards"
+    v-if="obtainScreenRewards.length > 0"
+  ></item-obtain-overlay>
+
   <div :class="{ main: true, 'exit-main': !active }" @animationend="exit">
     <div class="header">
       <p>
@@ -20,7 +31,10 @@
             v-if="
               currentTab === 'All Quests' || currentTab === 'Daily Commissions'
             "
-            @click="currentQuest = quest"
+            @click="
+              currentQuest = quest;
+              editMode = false;
+            "
           >
             <div>{{ quest.name }}</div>
           </div>
@@ -38,38 +52,72 @@
               'quest-box-active': currentQuest.name === quest.name,
             }"
             v-if="currentTab === 'All Quests' || currentTab === 'Event Quests'"
-            @click="currentQuest = quest"
+            @click="
+              currentQuest = quest;
+              editMode = false;
+            "
           >
             {{ quest.name }}
           </div>
         </template>
       </div>
       <div class="quest-details">
-        <template v-if="currentQuest.name">
-          <p class="quest-desc-name">{{ currentQuest.name }}</p>
-          <div class="quest-description">{{ currentQuest.description }}</div>
-          <div class="quest-rewards">
-            <p class="quest-header">Quest Chain Rewards:</p>
-            <div class="quest-reward-icons">
-              <div
-                :class="[
-                  'reward-icon-graphics',
-                  [0, 'gray', 'green', 'blue', 'purple', 'orange'][
-                    idToItem(i.id).rarity
-                  ],
-                ]"
-                v-for="(i, index) in currentQuest.rewards"
-                :key="index"
-              >
-                <img
-                  :src="require(`@/assets/images/${i.id}.png`)"
-                  class="icon-img"
-                />
-                <div class="quantity-text">{{ i.quantity }}</div>
-              </div>
+        <div class="flex-row">
+          <p class="quest-desc-name" v-if="!editMode">
+            {{ currentQuest.name }}
+          </p>
+          <input
+            v-model="currentQuest.name"
+            type="text"
+            class="quest-desc-name"
+            v-else
+          />
+          <img
+            class="ui-icon"
+            src="@/assets/images/edit.svg"
+            @click="editMode = !editMode"
+          />
+        </div>
+        <div class="quest-description">
+          <p v-if="!editMode">{{ currentQuest.description }}</p>
+          <textarea
+            class="quest-description"
+            v-model="currentQuest.description"
+            v-else
+          ></textarea>
+        </div>
+        <div class="quest-rewards">
+          <p :class="{ 'quest-header': true, 'quest-header-white': editMode }">
+            Quest Chain Rewards:
+          </p>
+          <div class="quest-reward-icons">
+            <div
+              :class="[
+                'reward-icon-graphics',
+                [0, 'gray', 'green', 'blue', 'purple', 'orange'][
+                  idToItem(i.id).rarity
+                ],
+              ]"
+              v-for="(i, index) in currentQuest.rewards"
+              :key="index"
+              @click="itemDescriptionId = i.id"
+            >
+              <img
+                :src="require(`@/assets/images/${i.id}.png`)"
+                class="icon-img"
+              />
+              <div class="quantity-text">{{ i.quantity }}</div>
             </div>
           </div>
-        </template>
+        </div>
+        <div class="flex-end">
+          <cancel-confirm-button
+            :text="editMode ? 'Save' : 'Claim'"
+            invert
+            @pressed="processClaim"
+          ></cancel-confirm-button>
+          <!-- TODO: add delete button when edit mode on -->
+        </div>
       </div>
     </div>
   </div>
@@ -79,16 +127,34 @@
 import { defineComponent } from "vue";
 import CloseButton from "./CloseButton.vue";
 import Quests, { Quest } from "@/banners/Quests";
-import { Item, ItemDatabase } from "@/banners/Gacha";
+import { Item, ItemDatabase, ItemStringQuantity } from "@/banners/Gacha";
+import ItemDescriptionOverlay from "./ItemDescriptionOverlay.vue";
+import ItemObtainOverlay from "./ItemObtainOverlay.vue";
+import CancelConfirmButton from "./CancelConfirmButton.vue";
+import Inventory from "@/banners/Inventory";
 
 export default defineComponent({
-  components: { CloseButton },
+  components: {
+    CloseButton,
+    ItemDescriptionOverlay,
+    CancelConfirmButton,
+    ItemObtainOverlay,
+  },
+  props: {
+    inventory: {
+      type: Object as () => Inventory,
+      required: true,
+    },
+  },
   data() {
     return {
       active: true,
       currentTab: "All Quests",
       quests: new Quests(),
       currentQuest: {} as Quest,
+      itemDescriptionId: "",
+      editMode: false,
+      obtainScreenRewards: [] as ItemStringQuantity[],
     };
   },
   computed: {
@@ -97,6 +163,9 @@ export default defineComponent({
     },
     events(): Quest[] {
       return this.quests.events;
+    },
+    itemDescription(): Item {
+      return ItemDatabase[this.itemDescriptionId];
     },
   },
   methods: {
@@ -111,6 +180,23 @@ export default defineComponent({
         this.$emit("exit");
       }
     },
+    processClaim() {
+      if (this.editMode) {
+        this.editMode = false;
+      } else {
+        if (!this.currentQuest.complete) {
+          this.currentQuest.complete = true;
+          if (this.currentQuest.rewards) {
+            this.inventory.addItems(this.currentQuest.rewards);
+          }
+          this.obtainScreenRewards = this.currentQuest.rewards || [];
+        }
+      }
+      this.quests.saveState();
+    },
+  },
+  mounted() {
+    this.currentQuest = this.quests.commissions[0];
   },
   emits: ["exit"],
 });
@@ -134,6 +220,32 @@ export default defineComponent({
   animation: main-exit 0.1s ease-in 0s reverse forwards;
 }
 
+.flex-end {
+  display: flex;
+  flex-direction: row-reverse;
+  width: 100%;
+  height: 4rem;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.ui-icon {
+  width: 2rem;
+  margin-top: 0.5rem;
+}
+
+.ui-icon:hover {
+  filter: brightness(80%);
+}
+
+.ui-icon:active {
+  filter: brightness(60%);
+}
+
 .quest-box {
   width: 90%;
   background-color: #2c3848cc;
@@ -151,7 +263,7 @@ export default defineComponent({
 .quest-box-active {
   color: #2c3848;
   background-color: #ede6da;
-  transform: scale(105%);
+  transform: scale(102%);
 }
 
 .quest-box > div {
@@ -176,6 +288,32 @@ export default defineComponent({
   letter-spacing: -0.05rem;
 }
 
+.quest-header-white {
+  color: white;
+}
+
+input.quest-desc-name {
+  background-color: transparent;
+  outline: none;
+  border: none;
+  border-bottom: 1px solid white;
+  color: white;
+}
+
+textarea.quest-description {
+  background: transparent;
+  outline: none;
+  border: none;
+  color: white;
+  margin: 0;
+  padding: 0;
+  width: 99%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: 100%;
+  resize: none;
+}
+
 .quest-desc-name {
   font-size: 2rem;
 }
@@ -190,12 +328,14 @@ export default defineComponent({
   border-top: 0.25rem solid #e4ddd455;
   border-bottom: 0.25rem solid #e4ddd455;
   color: #e4ddd4;
+  overflow: hidden;
 }
 
 .quest-reward-icons {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
+  height: 6rem;
 }
 
 .reward-icon-graphics {
@@ -205,6 +345,15 @@ export default defineComponent({
   width: 4rem;
   height: 4rem;
   border-radius: 0.5rem;
+  transition: border 0.1s;
+}
+
+.reward-icon-graphics:hover {
+  border: 0.2rem solid white;
+}
+
+.reward-icon-graphics:active {
+  filter: brightness(90%);
 }
 
 .quantity-text {

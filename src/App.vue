@@ -21,7 +21,11 @@
     v-if="pullExtraRewards.length > 0 && screen === 'wish-banner'"
     @exit="pullExtraRewards = []"
   ></item-obtain-overlay>
-  <quest-screen @exit="overlay = ''" v-if="overlay === 'quests'"></quest-screen>
+  <quest-screen
+    @exit="overlay = ''"
+    v-if="overlay === 'quests'"
+    :inventory="inv"
+  ></quest-screen>
 
   <!-- main -->
   <wish-banners
