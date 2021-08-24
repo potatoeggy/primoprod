@@ -272,6 +272,7 @@ export default defineComponent({
   height: 2.4rem;
   padding-left: 2rem;
   padding: 0.5rem;
+  overflow: hidden;
 }
 
 .quest-box-active > div {
@@ -329,6 +330,7 @@ textarea.quest-description {
   border-bottom: 0.25rem solid #e4ddd455;
   color: #e4ddd4;
   overflow: hidden;
+  white-space: pre-wrap;
 }
 
 .quest-reward-icons {
