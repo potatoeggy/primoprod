@@ -322,7 +322,7 @@ export default defineComponent({
   letter-spacing: -0.05rem;
   display: flex;
   align-items: center;
-  transition: transform 0.1s, background-color 0.2s, color 0.1s;
+  transition: transform 0.1s, background-color 0.1s, color 0.1s;
   margin-bottom: 0.75rem;
 }
 
