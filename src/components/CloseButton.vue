@@ -13,6 +13,12 @@ import { defineComponent } from "vue";
 export default defineComponent({
   methods: {
     clicked() {
+      // TODO: WARN: stupid and hacky temporary solution that will
+      // break once an inventory is introduced
+      (
+        (this.$parent?.$refs.audioExitDialogDEPRECATED ||
+          this.$parent?.$refs.audioCancelConfirm) as HTMLAudioElement
+      ).play();
       this.$emit("clicked");
     },
   },
