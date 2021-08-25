@@ -23,6 +23,8 @@ Electron:
 yarn electron:serve
 ```
 
+NOTE: If building for Electron, Electron 11+ is required for video playback to work properly.
+
 ### Compiles and minifies for production
 ```
 yarn build
