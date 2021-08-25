@@ -48,6 +48,14 @@
             </div>
           </template>
         </template>
+        <div style="margin-top: auto">
+          <cancel-confirm-button
+            text="New"
+            invert
+            @pressed="newQuest"
+            v-if="!editMode"
+          ></cancel-confirm-button>
+        </div>
       </div>
       <div class="quest-details">
         <div class="flex-row">
@@ -236,6 +244,20 @@ export default defineComponent({
         this.formattedQuests.find((i) => i.quests.length > 0)?.quests[0] ||
         this.quests.commissions[0];
     },
+    newQuest() {
+      const audio = this.$refs.audioQuestClick as HTMLAudioElement;
+      if (!audio.paused) {
+        audio.currentTime = 0;
+      }
+      audio.play();
+      this.quests.events.push({
+        name: "New Quest",
+        id: `custom-event-${+new Date()}`,
+        description: "Add an interesting description here!",
+        rewards: [{ id: "primogem", quantity: 840 }],
+      });
+      this.currentQuest = this.quests.events[this.quests.events.length - 1];
+    },
   },
   mounted() {
     this.resetCurrentQuest();
@@ -267,6 +289,8 @@ export default defineComponent({
   flex-direction: row-reverse;
   width: 100%;
   height: 4rem;
+  margin-top: auto;
+  margin-bottom: 1rem;
 }
 
 .flex-row {
@@ -380,7 +404,6 @@ textarea.quest-description {
   border-top: 0.25rem solid #e4ddd455;
   border-bottom: 0.25rem solid #e4ddd455;
   color: #e4ddd4;
-  overflow: hidden;
   white-space: pre-wrap;
   overflow-x: hidden;
   overflow-y: auto;
@@ -443,6 +466,9 @@ textarea.quest-description {
   width: 40%;
   display: flex;
   flex-direction: column;
+  overflow-x: visible;
+  overflow-y: auto;
+  padding-left: 0.5rem;
 }
 
 .quest-details {
