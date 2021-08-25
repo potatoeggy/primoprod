@@ -234,6 +234,12 @@ export default defineComponent({
           // of quests and UUIDs are assigned to quests (ideally
           // actually you would identify them by date number)
           // TODO: deletebutton
+          // TODO: fix all of the divs bouncing around everywhere
+          // by adding padding?
+          // TODO: shrink the description buttons on click instead
+          // of filtering brightness to emulate original behaviour
+          // TODO: fix up Quest.ts and really determine what you
+          // need in the API
         }
       }
       this.quests.saveState();

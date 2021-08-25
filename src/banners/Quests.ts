@@ -2,18 +2,18 @@ import { ItemStringQuantity } from "./Gacha";
 
 export interface Quest {
   name: string;
+  id: string;
   description?: string;
-  rewards?: ItemStringQuantity[];
+  rewards: ItemStringQuantity[];
   complete: boolean;
   claimed?: Date;
-  expires?: Date;
-  tags?: string;
 }
 
 export default class Quests {
   private commissionQuests: Quest[] = Array.from({ length: 4 }, (_, i) => {
     return {
       name: `Daily Commission #${i + 1}`,
+      id: `daily-commission-${i + 1}`,
       description: "Add an interesting description here!",
       rewards: [{ id: "primogem", quantity: 20 }],
       complete: false,
