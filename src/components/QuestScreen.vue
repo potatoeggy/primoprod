@@ -20,75 +20,29 @@
     </div>
     <div class="body">
       <div class="quest-selector">
-        <p class="quest-header" v-if="currentTab === 'All Quests'">
-          Daily Commissions
-        </p>
-        <template v-for="(quest, index) in commissions" :key="index">
-          <div
-            :class="{
-              'quest-box': true,
-              'quest-box-active': currentQuest.name === quest.name,
-            }"
-            v-if="
-              (currentTab === 'All Quests' ||
-                currentTab === 'Daily Commissions') &&
-              !quest.complete
-            "
-            @click="
-              currentQuest = quest;
-              editMode = false;
-            "
+        <template v-for="(category, _) of formattedQuests" :key="_">
+          <p
+            class="quest-header"
+            v-if="currentTab === 'All Quests' && category.quests.length > 0"
           >
-            <div>{{ quest.name }}</div>
-          </div>
-        </template>
-        <p
-          class="quest-header"
-          v-if="currentTab === 'All Quests' && events.length > 0"
-        >
-          Event Quests
-        </p>
-        <template v-for="(quest, index) in events" :key="index">
-          <div
-            :class="{
-              'quest-box': true,
-              'quest-box-active': currentQuest.name === quest.name,
-            }"
-            v-if="
-              (currentTab === 'All Quests' || currentTab === 'Event Quests') &&
-              !quest.complete
-            "
-            @click="
-              currentQuest = quest;
-              editMode = false;
-            "
-          >
-            <div>{{ quest.name }}</div>
-          </div>
-        </template>
-        <p
-          class="quest-header"
-          v-if="currentTab === 'All Quests' && completedQuests.length > 0"
-        >
-          Completed Quests
-        </p>
-        <template v-for="(quest, index) in completedQuests" :key="index">
-          <div
-            :class="{
-              'quest-box': true,
-              'quest-box-active': currentQuest.name === quest.name,
-              'quest-box-faded': true,
-            }"
-            v-if="
-              currentTab === 'All Quests' || currentTab === 'Completed Quests'
-            "
-            @click="
-              currentQuest = quest;
-              editMode = false;
-            "
-          >
-            <div>{{ quest.name }}</div>
-          </div>
+            {{ category.name }}
+          </p>
+          <template v-for="quest of category.quests" :key="quest.id">
+            <div
+              :class="{
+                'quest-box': true,
+                'quest-box-active': currentQuest.id === quest.id,
+                'quest-box-faded': quest.complete,
+              }"
+              v-if="currentTab === 'All Quests' || currentTab === header"
+              @click="
+                currentQuest = quest;
+                editMode = false;
+              "
+            >
+              <div>{{ quest.name }}</div>
+            </div>
+          </template>
         </template>
       </div>
       <div class="quest-details">
@@ -105,6 +59,7 @@
           <img
             class="ui-icon"
             src="@/assets/images/edit.svg"
+            v-if="!currentQuest.uneditable"
             @click="editMode = !editMode"
           />
         </div>
@@ -189,19 +144,26 @@ export default defineComponent({
     };
   },
   computed: {
-    commissions(): Quest[] {
-      return this.quests.commissions;
-    },
-    events(): Quest[] {
-      return this.quests.events;
-    },
     itemDescription(): Item {
       return ItemDatabase[this.itemDescriptionId];
     },
-    completedQuests(): Quest[] {
+    formattedQuests(): { name: string; quests: Quest[] }[] {
       return [
-        ...this.commissions.filter((i) => i.complete),
-        ...this.events.filter((i) => i.complete),
+        {
+          name: "Daily Commissions",
+          quests: this.quests.commissions.filter((i) => !i.complete),
+        },
+        {
+          name: "Event Quests",
+          quests: this.quests.events.filter((i) => !i.complete),
+        },
+        {
+          name: "Completed Quests",
+          quests: [
+            ...this.quests.commissions.filter((i) => i.complete),
+            ...this.quests.events.filter((i) => i.complete),
+          ],
+        },
       ];
     },
   },
@@ -225,24 +187,19 @@ export default defineComponent({
           if (this.currentQuest.rewards) {
             this.inventory.addItems(this.currentQuest.rewards);
           }
+          // mark the current quest as done and save it
           this.obtainScreenRewards = this.currentQuest.rewards || [];
           this.currentQuest.complete = true;
           this.currentQuest.claimed = new Date();
-          this.quests.saveState();
-          console.log(this.quests);
-          // TODO: rewrite such that you compute a list
-          // of quests and UUIDs are assigned to quests (ideally
-          // actually you would identify them by date number)
+          this.quests.refresh();
+
           // TODO: deletebutton
           // TODO: fix all of the divs bouncing around everywhere
           // by adding padding?
           // TODO: shrink the description buttons on click instead
           // of filtering brightness to emulate original behaviour
-          // TODO: fix up Quest.ts and really determine what you
-          // need in the API
         }
       }
-      this.quests.saveState();
     },
   },
   mounted() {
