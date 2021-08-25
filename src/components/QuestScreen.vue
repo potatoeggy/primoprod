@@ -200,6 +200,7 @@ export default defineComponent({
       (this.$refs.audioCancelConfirm as HTMLAudioElement).play();
       if (this.editMode) {
         this.editMode = false;
+        this.quests.saveState();
       } else {
         if (!this.currentQuest.complete) {
           if (this.currentQuest.rewards) {
