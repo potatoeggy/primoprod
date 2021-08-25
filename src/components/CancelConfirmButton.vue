@@ -5,9 +5,14 @@
         <span
           :class="{
             icon_x: text === 'Cancel',
-            icon_o: text !== 'Cancel',
+            icon_o: text !== 'Cancel' && text !== 'Delete',
           }"
         >
+          <img
+            class="icon_delete"
+            src="@/assets/images/delete.svg"
+            v-if="text === 'Delete'"
+          />
           <div></div>
           <div></div>
         </span>
@@ -131,5 +136,11 @@ export default defineComponent({
   width: 0.75rem;
   height: 0.75rem;
   border-radius: 50%;
+}
+
+.icon_delete {
+  color: red;
+  margin-top: 0.3rem;
+  width: 90%;
 }
 </style>

@@ -11,6 +11,13 @@
     @exit="obtainScreenRewards = []"
   ></item-obtain-overlay>
 
+  <audio ref="audioCancelConfirm" preload>
+    <source src="@/assets/audio/text-click.mp3" />
+  </audio>
+  <audio ref="audioQuestClick" preload>
+    <source src="@/assets/audio/quest-click.mp3" />
+  </audio>
+
   <div :class="{ main: true, 'exit-main': !active }" @animationend="exit">
     <div class="header">
       <p>
@@ -35,10 +42,7 @@
                 'quest-box-faded': quest.complete,
               }"
               v-if="currentTab === 'All Quests' || currentTab === header"
-              @click="
-                currentQuest = quest;
-                editMode = false;
-              "
+              @click="setCurrentQuest(quest)"
             >
               <div>{{ quest.name }}</div>
             </div>
@@ -102,7 +106,12 @@
             @pressed="processClaim"
             v-if="editMode || !currentQuest.complete"
           ></cancel-confirm-button>
-          <!-- TODO: add delete button when edit mode on -->
+          <cancel-confirm-button
+            text="Delete"
+            invert
+            @pressed="deleteCurrentQuest"
+            v-if="currentQuest.id && !currentQuest.id.startsWith('root-')"
+          ></cancel-confirm-button>
         </div>
       </div>
     </div>
@@ -180,6 +189,7 @@ export default defineComponent({
       }
     },
     processClaim() {
+      (this.$refs.audioCancelConfirm as HTMLAudioElement).play();
       if (this.editMode) {
         this.editMode = false;
       } else {
@@ -193,7 +203,6 @@ export default defineComponent({
           this.currentQuest.claimed = new Date();
           this.quests.refresh();
 
-          // TODO: deletebutton
           // TODO: fix all of the divs bouncing around everywhere
           // by adding padding?
           // TODO: shrink the description buttons on click instead
@@ -201,9 +210,34 @@ export default defineComponent({
         }
       }
     },
+    deleteCurrentQuest() {
+      (this.$refs.audioCancelConfirm as HTMLAudioElement).play();
+      this.resetCurrentQuest();
+
+      // commissions can't be deleted and ids should be unique
+      this.quests.events.splice(
+        this.quests.events.findIndex((i) => i.id === this.currentQuest.id),
+        1
+      );
+      this.quests.saveState();
+    },
+    setCurrentQuest(quest: Quest) {
+      const audio = this.$refs.audioQuestClick as HTMLAudioElement;
+      if (!audio.paused) {
+        audio.currentTime = 0;
+      }
+      audio.play();
+      this.currentQuest = quest;
+      this.editMode = false;
+    },
+    resetCurrentQuest() {
+      this.currentQuest =
+        this.formattedQuests.find((i) => i.quests.length > 0)?.quests[0] ||
+        this.quests.commissions[0];
+    },
   },
   mounted() {
-    this.currentQuest = this.quests.commissions[0];
+    this.resetCurrentQuest();
   },
   emits: ["exit"],
 });
@@ -263,7 +297,7 @@ export default defineComponent({
   letter-spacing: -0.05rem;
   display: flex;
   align-items: center;
-  transition: transform 0.1s, background-color 0.1s, color 0.1s;
+  transition: transform 0.1s, background-color 0.2s, color 0.1s;
   margin-bottom: 0.75rem;
 }
 

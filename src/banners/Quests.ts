@@ -15,7 +15,7 @@ export default class Quests {
   commissions: Quest[] = Array.from({ length: 4 }, (_, i) => {
     return {
       name: `Daily Commission #${i + 1}`,
-      id: `daily-commission-${i + 1}`,
+      id: `root-daily-commission-${i + 1}`,
       description: "Add an interesting description here!",
       rewards: [{ id: "primogem", quantity: 20 }],
     };
@@ -72,12 +72,12 @@ export default class Quests {
     // don't spawn a new quest based on old data
     if (
       this.commissions.every((item) => item.complete) &&
-      !this.events.find((i) => i.id === "ad-astra-abyssosque")
+      !this.events.find((i) => i.id === "root-ad-astra-abyssosque")
     ) {
       console.log("Daily commissions completed!");
       this.events.unshift({
         name: "Ad Astra Abyssosque!",
-        id: "ad-astra-abyssosque",
+        id: "root-ad-astra-abyssosque",
         description:
           "Congratulations for completing all your daily commissions! Here is your reward, please claim it before it expires tomorrow.",
         rewards: [{ id: "primogem", quantity: 40 }],
