@@ -16,8 +16,10 @@ export default defineComponent({
       // TODO: WARN: stupid and hacky temporary solution that will
       // break once an inventory is introduced
       (
-        (this.$parent?.$refs.audioExitDialogDEPRECATED ||
-          this.$parent?.$refs.audioCancelConfirm) as HTMLAudioElement
+        (this.$parent?.$refs.audioCancelConfirm ||
+          document.getElementById(
+            "audioExitDialogDEPRECATED"
+          )) as HTMLAudioElement
       ).play();
       this.$emit("clicked");
     },
