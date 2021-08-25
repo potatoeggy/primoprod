@@ -17,7 +17,7 @@ export default class Quests {
       name: `Daily Commission #${i + 1}`,
       id: `root-daily-commission-${i + 1}`,
       description: "Add an interesting description here!",
-      rewards: [{ id: "primogem", quantity: 20 }],
+      rewards: [{ id: "primogem", quantity: 30 }],
     };
   });
   events: Quest[] = [
@@ -80,7 +80,7 @@ export default class Quests {
         id: "root-ad-astra-abyssosque",
         description:
           "Congratulations for completing all your daily commissions! Here is your reward, please claim it before it expires tomorrow.",
-        rewards: [{ id: "primogem", quantity: 40 }],
+        rewards: [{ id: "primogem", quantity: 60 }],
         expires: (() => {
           const d = new Date();
           d.setDate(d.getDate() + 1);

@@ -255,7 +255,7 @@ export default defineComponent({
         name: "New Quest",
         id: `custom-event-${+new Date()}`,
         description: "Add an interesting description here!",
-        rewards: [{ id: "primogem", quantity: 840 }],
+        rewards: [{ id: "primogem", quantity: 900 }],
       });
       this.currentQuest = this.quests.events[this.quests.events.length - 1];
     },
