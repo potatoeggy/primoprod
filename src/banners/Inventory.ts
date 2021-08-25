@@ -43,7 +43,7 @@ export default class Inventory {
         this.currency.starglitter += item.quantity;
       } else if (item.id === "stardust") {
         this.currency.stardust += item.quantity;
-      } else if (item.id === "fates") {
+      } else if (item.id === "intertwined-fate") {
         this.currency.fates += item.quantity;
       } else {
         this.inventory[item.id] = item.quantity;
