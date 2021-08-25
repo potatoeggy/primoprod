@@ -231,6 +231,7 @@ export default defineComponent({
       this.editMode = false;
     },
     resetCurrentQuest() {
+      this.editMode = false;
       this.currentQuest =
         this.formattedQuests.find((i) => i.quests.length > 0)?.quests[0] ||
         this.quests.commissions[0];
