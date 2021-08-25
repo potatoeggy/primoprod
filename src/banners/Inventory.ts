@@ -7,8 +7,8 @@ export interface Pull {
 }
 export default class Inventory {
   private currency = {
-    primos: 5200,
-    fates: 60,
+    primos: 0,
+    fates: 0,
     starglitter: 0,
     stardust: 0,
   };
