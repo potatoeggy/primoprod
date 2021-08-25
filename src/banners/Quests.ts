@@ -7,6 +7,7 @@ export interface Quest {
   complete: boolean;
   claimed?: Date;
   expires?: Date;
+  tags?: string;
 }
 
 export default class Quests {
@@ -35,6 +36,7 @@ export default class Quests {
       ) {
         delete item.claimed;
         item.complete = false;
+        this.saveState();
       }
     });
 

@@ -227,8 +227,13 @@ export default defineComponent({
           }
           this.obtainScreenRewards = this.currentQuest.rewards || [];
           this.currentQuest.complete = true;
+          this.currentQuest.claimed = new Date();
           this.quests.saveState();
           console.log(this.quests);
+          // TODO: rewrite such that you compute a list
+          // of quests and UUIDs are assigned to quests (ideally
+          // actually you would identify them by date number)
+          // TODO: deletebutton
         }
       }
       this.quests.saveState();
