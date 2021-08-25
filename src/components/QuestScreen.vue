@@ -268,7 +268,7 @@ export default defineComponent({
 }
 
 .quest-box-faded {
-  filter: brightness(150%);
+  filter: brightness(120%);
 }
 
 .quest-box:hover:not(.quest-box-active) {
