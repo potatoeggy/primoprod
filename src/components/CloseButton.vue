@@ -33,6 +33,10 @@ export default defineComponent({
   border-width: 0.25rem;
 }
 
+.close-button:active {
+  filter: brightness(80%);
+}
+
 .close-button-box {
   width: 3rem;
   height: 3rem;
