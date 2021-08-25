@@ -107,8 +107,8 @@ export default defineComponent({
         e.target === document.getElementById("item-obtain-overlay-bg") ||
         e.target === document.getElementById("item-obtain-overlay-center-box")
       ) {
-        (this.$refs.audioExitOverlay as HTMLAudioElement).play();
         this.active = false;
+        (this.$refs.audioExitOverlay as HTMLAudioElement).play();
       }
     },
     exit() {

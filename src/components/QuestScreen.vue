@@ -8,6 +8,7 @@
   <item-obtain-overlay
     :obtainedItems="obtainScreenRewards"
     v-if="obtainScreenRewards.length > 0"
+    @exit="obtainScreenRewards = []"
   ></item-obtain-overlay>
 
   <div :class="{ main: true, 'exit-main': !active }" @animationend="exit">
@@ -29,7 +30,9 @@
               'quest-box-active': currentQuest.name === quest.name,
             }"
             v-if="
-              currentTab === 'All Quests' || currentTab === 'Daily Commissions'
+              (currentTab === 'All Quests' ||
+                currentTab === 'Daily Commissions') &&
+              !quest.complete
             "
             @click="
               currentQuest = quest;
@@ -51,13 +54,40 @@
               'quest-box': true,
               'quest-box-active': currentQuest.name === quest.name,
             }"
-            v-if="currentTab === 'All Quests' || currentTab === 'Event Quests'"
+            v-if="
+              (currentTab === 'All Quests' || currentTab === 'Event Quests') &&
+              !quest.complete
+            "
             @click="
               currentQuest = quest;
               editMode = false;
             "
           >
-            {{ quest.name }}
+            <div>{{ quest.name }}</div>
+          </div>
+        </template>
+        <p
+          class="quest-header"
+          v-if="currentTab === 'All Quests' && completedQuests.length > 0"
+        >
+          Completed Quests
+        </p>
+        <template v-for="(quest, index) in completedQuests" :key="index">
+          <div
+            :class="{
+              'quest-box': true,
+              'quest-box-active': currentQuest.name === quest.name,
+              'quest-box-faded': true,
+            }"
+            v-if="
+              currentTab === 'All Quests' || currentTab === 'Completed Quests'
+            "
+            @click="
+              currentQuest = quest;
+              editMode = false;
+            "
+          >
+            <div>{{ quest.name }}</div>
           </div>
         </template>
       </div>
@@ -115,6 +145,7 @@
             :text="editMode ? 'Save' : 'Claim'"
             invert
             @pressed="processClaim"
+            v-if="editMode || !currentQuest.complete"
           ></cancel-confirm-button>
           <!-- TODO: add delete button when edit mode on -->
         </div>
@@ -167,6 +198,12 @@ export default defineComponent({
     itemDescription(): Item {
       return ItemDatabase[this.itemDescriptionId];
     },
+    completedQuests(): Quest[] {
+      return [
+        ...this.commissions.filter((i) => i.complete),
+        ...this.events.filter((i) => i.complete),
+      ];
+    },
   },
   methods: {
     idToItem(id: string): Item {
@@ -185,11 +222,13 @@ export default defineComponent({
         this.editMode = false;
       } else {
         if (!this.currentQuest.complete) {
-          this.currentQuest.complete = true;
           if (this.currentQuest.rewards) {
             this.inventory.addItems(this.currentQuest.rewards);
           }
           this.obtainScreenRewards = this.currentQuest.rewards || [];
+          this.currentQuest.complete = true;
+          this.quests.saveState();
+          console.log(this.quests);
         }
       }
       this.quests.saveState();
@@ -258,6 +297,10 @@ export default defineComponent({
   align-items: center;
   transition: transform 0.1s, background-color 0.1s, color 0.1s;
   margin-bottom: 0.75rem;
+}
+
+.quest-box-faded {
+  filter: brightness(150%);
 }
 
 .quest-box:hover:not(.quest-box-active) {

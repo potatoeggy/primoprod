@@ -5,15 +5,17 @@ export interface Quest {
   description?: string;
   rewards?: ItemStringQuantity[];
   complete: boolean;
+  claimed?: Date;
+  expires?: Date;
 }
 
 export default class Quests {
   private commissionQuests: Quest[] = Array.from({ length: 4 }, (_, i) => {
     return {
-      name: `Daily Commission #${i+1}`,
+      name: `Daily Commission #${i + 1}`,
       description: "Add an interesting description here!",
-      rewards: [{id: "primogem", quantity: 20}],
-      complete: false
+      rewards: [{ id: "primogem", quantity: 20 }],
+      complete: false,
     };
   });
   private eventQuests: Quest[] = [];
@@ -23,6 +25,23 @@ export default class Quests {
       localStorage.getItem("commissions") ||
         JSON.stringify(this.commissionQuests)
     );
+
+    this.commissions.forEach((item) => {
+      if (
+        // if items are unclaimed or their reset date
+        // is yesterday or before
+        (item.claimed || new Date().setHours(0, 0, 0, 0)) <
+        new Date().setHours(4, 0, 0, 0)
+      ) {
+        delete item.claimed;
+        item.complete = false;
+      }
+    });
+
+    if (this.commissions.every((item) => item.complete)) {
+      // give reward
+      // insert event quest that expires?
+    }
   }
 
   saveState(): void {
