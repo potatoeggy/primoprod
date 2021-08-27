@@ -52,7 +52,12 @@ export default class Quests {
      * also check if event quests have expired
      */
     for (const item of this.commissions) {
-      if (item.claimed) {item.claimed = new Date(item.claimed);}
+      if (item.claimed) {
+        item.claimed = new Date(item.claimed);
+      }
+      if (item.expires) {
+        item.expires = new Date(item.expires);
+      }
       if (
         // if items are unclaimed or their reset date
         // is yesterday or before
