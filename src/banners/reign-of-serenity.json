@@ -1,51 +1,42 @@
 {
-  "name": "Wanderlust Invocation",
+  "name": "Reign of Serenity",
   "styles": [
     {
-      "text": "Wanderlust "
+      "text": "Reign of "
     },
     {
-      "color": "#757acd",
-      "text": "Invocation"
+      "color": "#6957c2",
+      "text": "Serenity"
     }
   ],
-  "id": "wanderlust-invocation",
-  "storage": "wanderlust-invocation",
+  "id": "reign-of-serenity",
+  "storage": "event",
+  "featuredDrops": [
+    "raiden",
+    "sara",
+    "sucrose",
+    "xiangling"
+  ],
   "drops": [
     "jean",
     "qiqi",
     "keqing",
     "mona",
     "diluc",
-    "sucrose",
     "rosaria",
     "diona",
-    "chongyun",
-    "kaeya",
     "fischl",
     "beidou",
     "razor",
-    "lisa",
     "noelle",
-    "ningguang",
     "xingqiu",
     "barbara",
-    "yanfei",
     "xinyan",
     "bennett",
-    "xiangling",
-    "amber",
+    "yanfei",
+    "ningguang",
+    "chongyun",
     "sayu",
-    "skyward-harp",
-    "amos-bow",
-    "skyward-atlas",
-    "lost-prayer-to-the-sacred-winds",
-    "skyward-pride",
-    "wolfs-gravestone",
-    "skyward-spine",
-    "primordial-jade-winged-spear",
-    "skyward-blade",
-    "aquila-favonia",
     "favonius-warbow",
     "sacrificial-bow",
     "the-stringless",
@@ -77,6 +68,5 @@
     "skyrider-sword",
     "harbinger-of-dawn",
     "cool-steel"
-  ],
-  "featuredDrops": []
+  ]
 }
