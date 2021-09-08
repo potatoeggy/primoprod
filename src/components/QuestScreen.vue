@@ -27,28 +27,30 @@
     </div>
     <div class="body">
       <div class="quest-selector">
-        <template v-for="(category, _) of formattedQuests" :key="_">
-          <p
-            class="quest-header"
-            v-if="currentTab === 'All Quests' && category.quests.length > 0"
-          >
-            {{ category.name }}
-          </p>
-          <template v-for="quest of category.quests" :key="quest.id">
-            <div
-              :class="{
-                'quest-box': true,
-                'quest-box-active': currentQuest.id === quest.id,
-                'quest-box-faded': quest.complete,
-              }"
-              v-if="currentTab === 'All Quests' || currentTab === header"
-              @click="setCurrentQuest(quest)"
+        <div class="quest-selector-list">
+          <template v-for="(category, _) of formattedQuests" :key="_">
+            <p
+              class="quest-header"
+              v-if="currentTab === 'All Quests' && category.quests.length > 0"
             >
-              <div>{{ quest.name }}</div>
-            </div>
+              {{ category.name }}
+            </p>
+            <template v-for="quest of category.quests" :key="quest.id">
+              <div
+                :class="{
+                  'quest-box': true,
+                  'quest-box-active': currentQuest.id === quest.id,
+                  'quest-box-faded': quest.complete,
+                }"
+                v-if="currentTab === 'All Quests' || currentTab === header"
+                @click="setCurrentQuest(quest)"
+              >
+                <div>{{ quest.name }}</div>
+              </div>
+            </template>
           </template>
-        </template>
-        <div style="margin-top: auto">
+        </div>
+        <div>
           <cancel-confirm-button
             text="New"
             invert
@@ -107,7 +109,7 @@
             </div>
           </div>
         </div>
-        <div class="flex-end">
+        <div class="flex-end save-buttons">
           <cancel-confirm-button
             :text="editMode ? 'Save' : 'Claim'"
             invert
@@ -294,6 +296,10 @@ export default defineComponent({
   margin-bottom: 1rem;
 }
 
+.save-buttons {
+  margin-top: 0;
+}
+
 .flex-row {
   display: flex;
   flex-direction: row;
@@ -467,9 +473,14 @@ textarea.quest-description {
   width: 40%;
   display: flex;
   flex-direction: column;
+  padding-left: 0.5rem;
+}
+
+.quest-selector-list {
   overflow-x: visible;
   overflow-y: auto;
-  padding-left: 0.5rem;
+  max-height: 80%;
+  margin-bottom: 0;
 }
 
 .quest-details {
