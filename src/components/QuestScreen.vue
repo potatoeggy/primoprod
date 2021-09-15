@@ -223,13 +223,13 @@ export default defineComponent({
     },
     deleteCurrentQuest() {
       (this.$refs.audioCancelConfirm as HTMLAudioElement).play();
-      this.resetCurrentQuest();
 
       // commissions can't be deleted and ids should be unique
       this.quests.events.splice(
         this.quests.events.findIndex((i) => i.id === this.currentQuest.id),
         1
       );
+      this.resetCurrentQuest();
       this.quests.saveState();
     },
     setCurrentQuest(quest: Quest) {
