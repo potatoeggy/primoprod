@@ -28,13 +28,22 @@ export default defineComponent({
   },
   data() {
     return {
-      icons: require.context("../assets/images/icons/", false, /\.png$/),
       elementBgs: require.context(
         "../assets/images/details-bg/",
         false,
         /\.png$/
       ),
     };
+  },
+  methods: {
+    icons(path: string) {
+      const i = require.context("../assets/images/icons/", false, /\.png$/);
+      try {
+        return i(path);
+      } catch (err) {
+        return path;
+      }
+    },
   },
 });
 </script>

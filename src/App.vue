@@ -88,7 +88,7 @@ export default defineComponent({
     return {
       // storage vars
       inv: new Inventory(),
-      standardGacha: new Gacha(require("@/banners/reign-of-serenity.json")),
+      standardGacha: new Gacha(require("@/banners/drifting-luminescence.json")),
       // state vars
       checkPullDialog: false,
       pullNumber: 1,
@@ -96,7 +96,7 @@ export default defineComponent({
       screen: "wish-banner",
       lastRoll: [] as Item[],
       lastRollSorted: [] as Item[],
-      banner: require("./banners/reign-of-serenity.json"),
+      banner: require("./banners/drifting-luminescence.json"),
       overlay: "",
       pullExtraRewards: {},
     };

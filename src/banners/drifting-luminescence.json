@@ -1,0 +1,71 @@
+{
+  "name": "Drifting Luminescence",
+  "styles": [
+    {
+      "color": "#408ecd",
+      "text": "Drifting"
+    },
+    {
+      "text": " Luminescence"
+    }
+  ],
+  "id": "drifting-luminescence",
+  "storage": "event",
+  "featuredDrops": [
+    "kokomi",
+    "xingqiu",
+    "beidou",
+    "rosaria"
+  ],
+  "drops": [
+    "jean",
+    "qiqi",
+    "keqing",
+    "mona",
+    "diona",
+    "fischl",
+    "razor",
+    "noelle",
+    "barbara",
+    "xinyan",
+    "bennett",
+    "yanfei",
+    "ningguang",
+    "chongyun",
+    "sara",
+    "sucrose",
+    "xiangling",
+    "sayu",
+    "favonius-warbow",
+    "sacrificial-bow",
+    "the-stringless",
+    "rust",
+    "favonius-codex",
+    "sacrificial-fragments",
+    "the-widsith",
+    "eye-of-perception",
+    "favonius-greatsword",
+    "sacrificial-greatsword",
+    "the-bell",
+    "rainslasher",
+    "favonius-lance",
+    "dragons-bane",
+    "favonius-sword",
+    "sacrificial-sword",
+    "the-flute",
+    "lions-roar",
+    "slingshot",
+    "sharpshooters-oath",
+    "raven-bow",
+    "emerald-orb",
+    "thrilling-tales-of-dragon-slayers",
+    "magic-guide",
+    "debate-club",
+    "bloodtainted-greatsword",
+    "ferrous-shadow",
+    "black-tassel",
+    "skyrider-sword",
+    "harbinger-of-dawn",
+    "cool-steel"
+  ]
+}
