@@ -104,6 +104,7 @@ img:active {
   margin-bottom: auto;
   margin-left: 0.5rem;
   margin-right: 1.3rem;
+  font-size: 1.3rem;
 }
 
 .plus-button {
