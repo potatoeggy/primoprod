@@ -16,8 +16,21 @@
     @exit="exitHistoryScreen"
   ></wish-history-screen>
 
-  <div :class="{ banner: true, invisible: showDetails || showHistory }">
-    <div id="header" class="space-between center">
+  <div
+    :class="{
+      banner: true,
+      invisible: showDetails || showHistory,
+    }"
+  >
+    <div
+      id="header"
+      :class="[
+        'space-between',
+        'center',
+        stateExiting ? 'exit-animation' : 'start-animation',
+      ]"
+      @animationend="exitEmit"
+    >
       <div id="wish-label" class="space-between center">
         <img src="../assets/images/ui-wish-edited.png" />
         <p id="wish-label">Wish</p>
@@ -39,10 +52,19 @@
         </div>
       </div>
     </div>
-    <div id="div-banner">
+    <div
+      id="div-banner"
+      :class="stateExiting ? 'exit-animation' : 'start-animation'"
+    >
       <img id="banner" :src="getBannerImage" />
     </div>
-    <div id="footer" class="space-between">
+    <div
+      id="footer"
+      :class="[
+        'space-between',
+        stateExiting ? 'exit-animation' : 'start-animation',
+      ]"
+    >
       <div>
         <div id="masterless-home" class="footer-align-flex left-align-flex">
           <gem-counter
@@ -59,7 +81,10 @@
           ></gem-counter>
         </div>
         <div id="shop-buttons" class="footer-align-flex">
-          <text-button text="Shop"></text-button>
+          <text-button
+            text="Shop"
+            @clicked="targetExitEmit = 'go-shop'"
+          ></text-button>
           <text-button
             text="Details"
             @clicked="showDetails = true"
@@ -123,6 +148,7 @@ export default defineComponent({
       showDetails: false,
       showHistory: false,
       activeItemId: "",
+      targetExitEmit: "" as "wish" | "go-quests" | "go-shop" | "",
     };
   },
   computed: {
@@ -140,6 +166,9 @@ export default defineComponent({
     },
     activeItem(): Item {
       return ItemDatabase[this.activeItemId];
+    },
+    stateExiting(): boolean {
+      return this.targetExitEmit !== "";
     },
   },
   methods: {
@@ -159,11 +188,19 @@ export default defineComponent({
       ).play();
       this.showHistory = false;
     },
+    exitEmit(): void {
+      if (!this.targetExitEmit) {
+        // i would use this.stateExiting but typescript needs
+        // to check that and isn't smart enough to do that :(
+        return;
+      }
+      this.$emit(this.targetExitEmit);
+    },
     exit(): void {
-      this.$emit("exit");
+      this.$emit("go-quests");
     },
   },
-  emits: ["wish", "exit"],
+  emits: ["wish", "go-quests", "go-shop"],
 });
 </script>
 
@@ -199,6 +236,19 @@ export default defineComponent({
   margin-bottom: 0;
 }
 
+#header.exit-animation {
+  animation: fadein 0.75s forwards reverse,
+    slide-from-top 0.75s forwards ease-out reverse;
+}
+
+/* because legacy code doesn't use transition and so
+ * here we are because animations don't trigger if you
+ * only reverse it without a keyframe change
+ */
+#header.start-animation {
+  animation: fadein-2 0.75s forwards, slide-from-top-2 0.75s forwards ease-out;
+}
+
 #gems {
   display: flex;
   align-items: center;
@@ -208,8 +258,16 @@ export default defineComponent({
   display: flex;
   align-items: center;
   justify-content: center;
-  animation: fadein 0.75s forwards, slide-from-left 0.75s forwards ease-out;
   max-height: 70%;
+}
+
+#div-banner.start-animation {
+  animation: fadein 0.75s forwards, slide-from-left 0.75s forwards ease-out;
+}
+
+#div-banner.exit-animation {
+  animation: fadein-2 0.75s forwards reverse,
+    slide-from-left-2 0.75s forwards ease-out reverse;
 }
 
 #banner {
@@ -219,7 +277,15 @@ export default defineComponent({
 
 #footer {
   min-height: 4rem;
+}
+
+#footer.start-animation {
   animation: fadein 0.75s forwards, slide-from-bottom 0.75s forwards ease-out;
+}
+
+#footer.exit-animation {
+  animation: fadein-2 0.75s forwards reverse,
+    slide-from-bottom-2 0.75s forwards ease-out reverse;
 }
 
 @keyframes slide-from-top {
@@ -250,6 +316,42 @@ export default defineComponent({
 }
 
 @keyframes fadein {
+  from {
+    opacity: 0.5;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slide-from-top-2 {
+  from {
+    transform: translateY(-2rem);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-from-left-2 {
+  from {
+    transform: translateX(2rem);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-from-bottom-2 {
+  from {
+    transform: translateY(2rem);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadein-2 {
   from {
     opacity: 0.5;
   }

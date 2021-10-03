@@ -26,14 +26,14 @@
     v-if="overlay === 'quests'"
     :inventory="inv"
   ></quest-screen>
-  <shop-overlay @exit="overlay = ''" v-if="overlay === 'shop'"></shop-overlay>
 
   <!-- main -->
   <wish-banners
     :inventory="inv"
     :banner="banner"
     @wish="wish"
-    @exit="overlay = 'quests'"
+    @go-quests="overlay = 'quests'"
+    @go-shop="screen = 'shop'"
     v-if="screen === 'wish-banner'"
   ></wish-banners>
   <item-reveal-screen
@@ -56,6 +56,11 @@
     v-on:video-ended="showResults"
     v-on:video-skipped="showResultsEnd"
   ></video-player>
+  <shop-screen
+    @exit="screen = 'wish-banner'"
+    v-if="screen === 'shop'"
+    :inventory="inv"
+  ></shop-screen>
 </template>
 
 <script lang="ts">
@@ -66,7 +71,7 @@ import ItemRevealScreen from "@/components/ItemRevealScreen.vue";
 import ItemAllRevealScreen from "@/components/ItemAllRevealScreen.vue";
 import ItemObtainOverlay from "@/components/ItemObtainOverlay.vue";
 import QuestScreen from "@/components/QuestScreen.vue";
-import ShopOverlay from "@/components/ShopOverlay.vue";
+import ShopScreen from "@/components/ShopScreen.vue";
 
 // gacha
 import Gacha, { Item, ItemStringQuantity } from "@/banners/Gacha";
@@ -85,7 +90,7 @@ export default defineComponent({
     ItemAllRevealScreen,
     ItemObtainOverlay,
     QuestScreen,
-    ShopOverlay,
+    ShopScreen,
   },
   data() {
     return {
