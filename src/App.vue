@@ -72,6 +72,9 @@ import Gacha, { Item } from "@/banners/Gacha";
 // inventory
 import Inventory from "@/banners/Inventory";
 
+// current selected banner path, temporary until a dynamic switcher is introduced
+const ACTIVE_BANNER = "./banners/drifting-luminescence.json";
+
 export default defineComponent({
   components: {
     WishBanners,
@@ -88,7 +91,7 @@ export default defineComponent({
     return {
       // storage vars
       inv: new Inventory(),
-      standardGacha: new Gacha(require("@/banners/drifting-luminescence.json")),
+      standardGacha: new Gacha(require(ACTIVE_BANNER)),
       // state vars
       checkPullDialog: false,
       pullNumber: 1,
@@ -96,7 +99,7 @@ export default defineComponent({
       screen: "wish-banner",
       lastRoll: [] as Item[],
       lastRollSorted: [] as Item[],
-      banner: require("./banners/drifting-luminescence.json"),
+      banner: require(ACTIVE_BANNER),
       overlay: "",
       pullExtraRewards: {},
     };
