@@ -59,7 +59,7 @@
           ></gem-counter>
         </div>
         <div id="shop-buttons" class="footer-align-flex">
-          <text-button text="Shop"></text-button>
+          <text-button text="Shop" @clicked="showShop = true"></text-button>
           <text-button
             text="Details"
             @clicked="showDetails = true"

@@ -94,8 +94,8 @@ img {
 }
 
 img:active {
-  filter: drop-shadow(0px 1px 1px #222) brightness(60%);
-  transition: filter 0.15s;
+  opacity: 0.2;
+  transition: opacity 0.15s;
 }
 
 .text {
