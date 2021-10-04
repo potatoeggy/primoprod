@@ -343,8 +343,8 @@ export default defineComponent({
 .details {
   background-color: #ebebeb;
   padding: 2rem;
-  padding-left: 6rem;
-  padding-right: 6rem;
+  padding-left: 10%;
+  padding-right: 10%;
   /* viewport - header + padding*2 so that the page doesn't
      extend to the bottom cutting off content */
   height: calc(100% - 7rem);
