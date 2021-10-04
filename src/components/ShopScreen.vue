@@ -34,8 +34,18 @@ import Inventory from "@/banners/Inventory";
 import { defineComponent } from "vue";
 import GemCounter from "./GemCounter.vue";
 import CloseButton from "./CloseButton.vue";
+import { ItemStringQuantity } from "@/banners/Gacha";
+import RootShopItemList from "@/banners/shop.json";
 
-// import a shop json
+// import a shop json that shows shop quantities
+
+export interface ShopItem {
+  id: string;
+  quantity: number;
+  cost: ItemStringQuantity[];
+}
+
+export const ShopList: ShopItem[] = RootShopItemList;
 
 export default defineComponent({
   components: { GemCounter, CloseButton },
