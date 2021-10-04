@@ -80,10 +80,24 @@ export default defineComponent({
   animation: main-entry 0.1s ease-in 0s forwards;
   padding: 1rem;
   box-sizing: border-box;
+  animation: main-entry 0.5s forwards;
 }
 
 .exit-main {
   animation: main-exit 0.1s ease-in 0s reverse forwards;
+}
+
+.header {
+  animation: header-entry 0.2s forwards;
+}
+
+@keyframes header-entry {
+  from {
+    transform: translateY(-1rem);
+  }
+  to {
+    transform: none;
+  }
 }
 
 @keyframes main-entry {

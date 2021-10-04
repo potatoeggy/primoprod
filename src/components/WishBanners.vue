@@ -237,8 +237,8 @@ export default defineComponent({
 }
 
 #header.exit-animation {
-  animation: fadein 0.75s forwards reverse,
-    slide-from-top 0.75s forwards ease-out reverse;
+  animation: fadein 0.25s forwards ease-out reverse,
+    slide-from-top 0.25s forwards reverse;
 }
 
 /* because legacy code doesn't use transition and so
@@ -266,8 +266,8 @@ export default defineComponent({
 }
 
 #div-banner.exit-animation {
-  animation: fadein-2 0.75s forwards reverse,
-    slide-from-left-2 0.75s forwards ease-out reverse;
+  animation: fadein-2 0.25s forwards ease-out reverse,
+    slide-from-left-2 0.5s forwards reverse;
 }
 
 #banner {
@@ -284,8 +284,8 @@ export default defineComponent({
 }
 
 #footer.exit-animation {
-  animation: fadein-2 0.75s forwards reverse,
-    slide-from-bottom-2 0.75s forwards ease-out reverse;
+  animation: fadein-2 0.25s forwards ease-out reverse,
+    slide-from-bottom-2 0.25s forwards ease-in reverse;
 }
 
 @keyframes slide-from-top {
