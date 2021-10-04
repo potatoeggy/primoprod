@@ -25,7 +25,13 @@
         <th>Item Name</th>
         <th>Time Received</th>
       </tr>
-      <template v-for="(pull, index) of pulls.slice().reverse()" :key="index">
+      <template
+        v-for="(pull, index) of pulls.slice(
+          currentPage * MAX_PULLS_PER_PAGE,
+          currentPage * MAX_PULLS_PER_PAGE + MAX_PULLS_PER_PAGE
+        )"
+        :key="index"
+      >
         <tr v-if="pull.bannerStorage === selectedWishType">
           <td>{{ pull.item.type }}</td>
           <td>
@@ -45,6 +51,24 @@
         </tr>
       </template>
     </table>
+    <div class="footer-buttons">
+      <!-- I know that buttons exist but they come
+           with so much extra stuff I don't want to
+           deal with -->
+      <div
+        :class="['page-button-box', { disabled: currentPage == 0 }]"
+        @click="currentPage = Math.max(currentPage - 1, 0)"
+      >
+        &lt;
+      </div>
+      {{ currentPage + 1 }}
+      <div
+        :class="['page-button-box', { disabled: currentPage == numPullPages }]"
+        @click="currentPage = Math.min(currentPage + 1, numPullPages)"
+      >
+        &gt;
+      </div>
+    </div>
   </div>
 </template>
 
@@ -70,17 +94,23 @@ export default defineComponent({
       currentPage: 0,
       dayjs: dayjs,
       selectedWishType: "",
+      MAX_PULLS_PER_PAGE: 6,
     };
   },
   computed: {
     pulls(): DetailedPull[] {
-      return this.inventory.pullHistory.map((pull) => {
-        return {
-          item: ItemDatabase[pull.item],
-          bannerStorage: pull.bannerStorage,
-          date: pull.date,
-        };
-      });
+      return this.inventory.pullHistory
+        .map((pull) => {
+          return {
+            item: ItemDatabase[pull.item],
+            bannerStorage: pull.bannerStorage,
+            date: pull.date,
+          };
+        })
+        .reverse();
+    },
+    numPullPages(): number {
+      return Math.ceil(this.pulls.length / this.MAX_PULLS_PER_PAGE) - 1;
     },
     wishTypes(): string[] {
       // get all unique bannerStorages
@@ -104,6 +134,34 @@ export default defineComponent({
 </script>
 
 <style scoped>
+.page-button-box {
+  --box-size: 3rem;
+  width: var(--box-size);
+  height: var(--box-size);
+  background-color: brown;
+  color: white;
+  display: grid;
+  place-items: center;
+  border-radius: 0.25rem;
+}
+
+.page-button-box.disabled {
+  background-color: gray;
+}
+
+.footer-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1rem;
+  width: 100%;
+}
+
+.footer-buttons > * {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
 .select-wish-type {
   width: 100%;
   text-align: left;
