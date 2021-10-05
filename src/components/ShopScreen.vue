@@ -1,9 +1,9 @@
 <template>
-  <item-description-overlay
+  <item-purchase-overlay
     :item="activeItem"
     v-if="activeItem"
     @exit="activeItemId = ''"
-  ></item-description-overlay>
+  ></item-purchase-overlay>
   <!-- should not be itemdescription should be a new one
        that lets you buy things -->
   <div class="main">
@@ -63,7 +63,7 @@ import Inventory from "@/banners/Inventory";
 import { defineComponent } from "vue";
 import GemCounter from "./GemCounter.vue";
 import CloseButton from "./CloseButton.vue";
-import ItemDescriptionOverlay from "./ItemDescriptionOverlay.vue";
+import ItemPurchaseOverlay from "./ItemPurchaseOverlay.vue";
 import { Item, ItemDatabase, ItemStringQuantity } from "@/banners/Gacha";
 import RootShopItemList from "@/banners/shop.json";
 
@@ -76,7 +76,7 @@ export interface ShopItem {
 }
 
 export default defineComponent({
-  components: { GemCounter, CloseButton, ItemDescriptionOverlay },
+  components: { GemCounter, CloseButton, ItemPurchaseOverlay },
   props: {
     inventory: {
       type: Inventory,
