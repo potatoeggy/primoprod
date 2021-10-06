@@ -61,7 +61,9 @@
       >
         &lt;
       </div>
-      {{ currentPage + 1 }}
+      <div class="page-button-box page-number-indicator">
+        {{ currentPage + 1 }}
+      </div>
       <div
         :class="['page-button-box', { disabled: currentPage == numPullPages }]"
         @click="currentPage = Math.min(currentPage + 1, numPullPages)"
@@ -138,7 +140,7 @@ export default defineComponent({
   --box-size: 3rem;
   width: var(--box-size);
   height: var(--box-size);
-  background-color: brown;
+  background-color: #c3a280;
   color: white;
   display: grid;
   place-items: center;
@@ -160,6 +162,11 @@ export default defineComponent({
 .footer-buttons > * {
   margin-left: 1rem;
   margin-right: 1rem;
+}
+
+.page-number-indicator {
+  background-color: #918981;
+  margin: 0;
 }
 
 .select-wish-type {
