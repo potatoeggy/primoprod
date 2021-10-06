@@ -4,8 +4,12 @@
     v-if="activeItem"
     @exit="activeItemId = ''"
   ></item-purchase-overlay>
-  <!-- should not be itemdescription should be a new one
-       that lets you buy things -->
+  <item-description-overlay
+    :item="descriptionItem"
+    v-if="descriptionItem"
+    @exit="descriptionItemId = ''"
+  ></item-description-overlay>
+
   <div class="main">
     <div class="header">
       <close-button @clicked="exit"></close-button>
@@ -16,6 +20,7 @@
           plusSign
           outline
           nobackground
+          @click="descriptionItemId = 'primogem'"
         >
         </gem-counter>
       </div>
@@ -24,6 +29,7 @@
         :text="inventory.starglitter"
         outline
         nobackground
+        @click="descriptionItemId = 'starglitter'"
       >
       </gem-counter>
       <gem-counter
@@ -31,6 +37,7 @@
         :text="inventory.stardust"
         outline
         nobackground
+        @click="descriptionItemId = 'stardust'"
       ></gem-counter>
     </div>
     <div class="shop-body">
@@ -64,6 +71,7 @@ import { defineComponent } from "vue";
 import GemCounter from "./GemCounter.vue";
 import CloseButton from "./CloseButton.vue";
 import ItemPurchaseOverlay from "./ItemPurchaseOverlay.vue";
+import ItemDescriptionOverlay from "./ItemDescriptionOverlay.vue";
 import { Item, ItemDatabase, ItemStringQuantity } from "@/banners/Gacha";
 import RootShopItemList from "@/banners/shop.json";
 
@@ -76,7 +84,12 @@ export interface ShopItem {
 }
 
 export default defineComponent({
-  components: { GemCounter, CloseButton, ItemPurchaseOverlay },
+  components: {
+    GemCounter,
+    CloseButton,
+    ItemPurchaseOverlay,
+    ItemDescriptionOverlay,
+  },
   props: {
     inventory: {
       type: Inventory,
@@ -86,6 +99,7 @@ export default defineComponent({
   data() {
     return {
       activeItemId: "",
+      descriptionItemId: "",
       shopList: RootShopItemList as ShopItem[],
       ItemDatabase: ItemDatabase,
       bodyBoxBgColours: [
@@ -102,6 +116,9 @@ export default defineComponent({
   computed: {
     activeItem(): Item {
       return ItemDatabase[this.activeItemId];
+    },
+    descriptionItem(): Item {
+      return ItemDatabase[this.descriptionItemId];
     },
   },
   methods: {
@@ -139,16 +156,16 @@ export default defineComponent({
 }
 
 .shop-item-holder {
-  --shop-item-width: 15rem;
+  --shop-item-width: 17.5rem;
   width: var(--shop-item-width);
-  height: var(--shop-item-width);
+  height: calc(var(--shop-item-width) * 0.95);
   display: flex;
   flex-direction: column;
   align-items: center;
   background: linear-gradient(
-    to bottom right,
+    to bottom,
     var(--body-bg-gradient-start) 0%,
-    var(--body-bg-gradient-middle) 15%,
+    var(--body-bg-gradient-middle) 0%,
     var(--body-bg-gradient-end) 100%
   );
   transition: border 0.1s;
@@ -166,15 +183,18 @@ export default defineComponent({
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: darkcyan;
+  background-color: #616c87;
   width: 100%;
   padding: 0.1rem;
   gap: 0.25rem;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
 }
 
 .item-price-text {
   color: white;
-  font-size: 1rem;
+  font-size: 1.25rem;
+  padding-left: 0.1rem;
 }
 
 .item-img {
@@ -184,14 +204,14 @@ export default defineComponent({
 }
 
 .cost-item-img {
-  --image-size: 1.75rem;
+  --image-size: 2rem;
   height: var(--image-size);
   width: var(--image-size);
 }
 
 .item-label {
   color: white;
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   transform: translateY(-1rem);
 }
 
