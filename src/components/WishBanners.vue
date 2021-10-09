@@ -59,7 +59,7 @@
           ></gem-counter>
         </div>
         <div id="shop-buttons" class="footer-align-flex">
-          <text-button text="Shop" @clicked="showShop = true"></text-button>
+          <text-button text="Shop"></text-button>
           <text-button
             text="Details"
             @clicked="showDetails = true"
@@ -74,12 +74,12 @@
         <wish-button
           :wishes="1"
           :fates="inventory.fates"
-          @try-wish="wish"
+          @try-wish="wish(1)"
         ></wish-button>
         <wish-button
           :wishes="10"
           :fates="inventory.fates"
-          @try-wish="wish"
+          @try-wish="wish(10)"
         ></wish-button>
       </div>
     </div>

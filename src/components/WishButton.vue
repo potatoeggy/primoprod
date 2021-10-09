@@ -1,5 +1,5 @@
 <template>
-  <audio ref="textClickAudio" preload>
+  <audio ref="textClickAudio" preload="true">
     <source src="@/assets/audio/wish-button.mp3" type="audio/mpeg" />
   </audio>
   <div class="wish-container" tabindex="0" @click="play">

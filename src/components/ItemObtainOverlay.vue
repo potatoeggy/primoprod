@@ -1,8 +1,8 @@
 <template>
-  <audio preload autoplay>
+  <audio preload="true" autoplay>
     <source src="@/assets/audio/item-obtain.mp3" />
   </audio>
-  <audio ref="audioExitOverlay" preload>
+  <audio ref="audioExitOverlay" preload="true">
     <source src="@/assets/audio/close-overlay.mp3" />
   </audio>
   <item-description-overlay

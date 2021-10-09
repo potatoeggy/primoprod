@@ -11,10 +11,10 @@
     @exit="obtainScreenRewards = []"
   ></item-obtain-overlay>
 
-  <audio ref="audioCancelConfirm" preload>
+  <audio ref="audioCancelConfirm" preload="true">
     <source src="@/assets/audio/text-click.mp3" />
   </audio>
-  <audio ref="audioQuestClick" preload>
+  <audio ref="audioQuestClick" preload="true">
     <source src="@/assets/audio/quest-click.mp3" />
   </audio>
 
@@ -42,7 +42,9 @@
                   'quest-box-active': currentQuest.id === quest.id,
                   'quest-box-faded': quest.complete,
                 }"
-                v-if="currentTab === 'All Quests' || currentTab === header"
+                v-if="
+                  currentTab === 'All Quests' || currentTab === category.name
+                "
                 @click="setCurrentQuest(quest)"
               >
                 <div>{{ quest.name }}</div>

@@ -1,14 +1,14 @@
 <template>
-  <span v-if="banner.styles">
+  <span v-if="banner?.styles">
     <span
-      v-for="(style, index) in banner.styles"
+      v-for="(style, index) in banner?.styles"
       :key="index"
       :style="{ color: style.color || 'unset' }"
       >{{ style.text }}
     </span>
   </span>
   <span v-else>
-    {{ banner.name }}
+    {{ banner?.name }}
   </span>
 </template>
 

@@ -2,7 +2,7 @@
   <template v-for="i in [3, 4, 5]" :key="i">
     <audio
       ref="audioItemReveal"
-      preload
+      preload="true"
       @canplaythrough="if (animationIndex < 0) nextAnimation();"
       v-if="currentIndex === 0 && currentItem.rarity === i"
     >
@@ -13,7 +13,7 @@
     </audio>
     <audio
       ref="audioItemReveal"
-      preload
+      preload="true"
       @canplaythrough="if (animationIndex < 0) nextAnimation();"
       v-else-if="currentItem.rarity === i"
     >
