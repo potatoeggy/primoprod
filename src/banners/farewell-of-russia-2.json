@@ -2,7 +2,7 @@
   "name": "Farewell of Snezhnaya",
   "id": "farewell-of-snezhnaya-2",
   "storage": "event",
-  "featuredDrops": ["childe", "yanfei", "chongyun", "ningguang"],
+  "featuredDrops": ["tartaglia", "yanfei", "chongyun", "ningguang"],
   "drops": [
     "jean",
     "qiqi",
