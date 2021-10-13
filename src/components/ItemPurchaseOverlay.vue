@@ -11,9 +11,14 @@
     @click="exitOutsideCheck"
     @animationend="exit"
   >
-    <div
-      :class="{ 'main-box': true, 'zoom-in': active, 'zoom-out': !active }"
-    ></div>
+    <div :class="{ 'main-box': true, 'zoom-in': active, 'zoom-out': !active }">
+      <p class="header-text flex">Item to Exchange</p>
+    </div>
+    <div class="detailed-box flex-column">
+      <div class="item-description-box flex"></div>
+      <div class="quantity-adjuster-box flex-column"></div>
+    </div>
+    <div class="cancel-confirm-box flex"></div>
   </div>
 </template>
 
@@ -49,6 +54,20 @@ export default defineComponent({
 </script>
 
 <style scoped>
+.header-text {
+  color: #495366;
+  font-size: 1.5rem;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
 .bg {
   position: fixed;
   display: flex;
@@ -71,6 +90,9 @@ export default defineComponent({
   animation: open-dialog 0.1s forwards;
   width: var(--description-box-width);
   height: var(--description-box-height);
+  box-sizing: content-box;
+  padding: 1rem;
+  align-items: center;
 }
 
 /* ahahaha copy :( */
