@@ -1,4 +1,4 @@
-import { Banner, Item, ItemStringQuantity } from "./Gacha";
+import { Item, ItemStringQuantity } from "./Gacha";
 
 export interface Pull {
   item: string;
@@ -6,7 +6,7 @@ export interface Pull {
   bannerStorage: string;
 }
 export default class Inventory {
-  private currency = {
+  currency = {
     primos: 0,
     fates: 0,
     starglitter: 0,

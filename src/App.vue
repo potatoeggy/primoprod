@@ -1,9 +1,9 @@
 <template>
   <!-- audio -->
-  <audio ref="audioBgm" preload autoplay loop>
+  <audio ref="audioBgm" preload="true" autoplay loop>
     <source src="./assets/audio/bgm-wish.mp3" />
   </audio>
-  <audio ref="audioExitDialog" id="audioExitDialogDEPRECATED" preload>
+  <audio ref="audioExitDialog" id="audioExitDialogDEPRECATED" preload="true">
     <source src="./assets/audio/exit-dialog.mp3" />
   </audio>
 
@@ -67,7 +67,7 @@ import ItemObtainOverlay from "@/components/ItemObtainOverlay.vue";
 import QuestScreen from "@/components/QuestScreen.vue";
 
 // gacha
-import Gacha, { Item } from "@/banners/Gacha";
+import Gacha, { Item, ItemStringQuantity } from "@/banners/Gacha";
 
 // inventory
 import Inventory from "@/banners/Inventory";
@@ -88,7 +88,7 @@ export default defineComponent({
     return {
       // storage vars
       inv: new Inventory(),
-      standardGacha: new Gacha(require("@/banners/drifting-luminescence.json")),
+      standardGacha: new Gacha(require("@/banners/farewell-of-snezhnaya.json")),
       // state vars
       checkPullDialog: false,
       pullNumber: 1,
@@ -96,9 +96,9 @@ export default defineComponent({
       screen: "wish-banner",
       lastRoll: [] as Item[],
       lastRollSorted: [] as Item[],
-      banner: require("./banners/drifting-luminescence.json"),
+      banner: require("./banners/farewell-of-snezhnaya.json"),
       overlay: "",
-      pullExtraRewards: {},
+      pullExtraRewards: [] as ItemStringQuantity[],
     };
   },
   methods: {
@@ -157,7 +157,7 @@ export default defineComponent({
 
     // hacky :/ but the audio element is unfortunately unmounted
     // before the audio fully plays
-    exitConfirmCancelDialog(fn: () => void, fatesNeeded: number): void {
+    exitConfirmCancelDialog(fn: () => void, fatesNeeded?: number): void {
       (this.$refs.audioExitDialog as HTMLAudioElement).play();
       if (fatesNeeded) {
         this.inv.primos -= fatesNeeded * 160;

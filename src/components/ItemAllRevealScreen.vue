@@ -2,7 +2,7 @@
 
 <script lang="ts">
 import Inventory from "@/banners/Inventory";
-import { Item } from "electron";
+import { Item } from "@/banners/Gacha";
 import { defineComponent } from "vue";
 export default defineComponent({
   props: {
