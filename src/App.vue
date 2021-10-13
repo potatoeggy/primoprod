@@ -88,7 +88,9 @@ export default defineComponent({
     return {
       // storage vars
       inv: new Inventory(),
-      standardGacha: new Gacha(require("@/banners/farewell-of-snezhnaya.json")),
+      standardGacha: new Gacha(
+        require("@/banners/farewell-of-snezhnaya-2.json")
+      ),
       // state vars
       checkPullDialog: false,
       pullNumber: 1,
@@ -96,7 +98,7 @@ export default defineComponent({
       screen: "wish-banner",
       lastRoll: [] as Item[],
       lastRollSorted: [] as Item[],
-      banner: require("./banners/farewell-of-snezhnaya.json"),
+      banner: require("./banners/farewell-of-snezhnaya-2.json"),
       overlay: "",
       pullExtraRewards: [] as ItemStringQuantity[],
     };
