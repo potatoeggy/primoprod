@@ -4,6 +4,7 @@
       'gem-counter': true,
       'gem-counter-background': !nobackground,
       'gem-counter-outline': outline,
+      'gem-counter-small': small,
     }"
     tabindex="-1"
   >
@@ -57,6 +58,11 @@ export default defineComponent({
       required: false,
       default: true,
     },
+    small: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
   },
   methods: {
     imageClicked(): void {
@@ -100,6 +106,12 @@ export default defineComponent({
   text-align: center;
 }
 
+.gem-counter-small {
+  scale: 0.8;
+  margin: 0;
+  height: 2rem;
+}
+
 img {
   vertical-align: middle;
   height: 2rem;
@@ -119,6 +131,17 @@ img:active {
   margin-left: 0.5rem;
   margin-right: 1.3rem;
   font-size: 1.3rem;
+}
+
+.gem-counter-small .text {
+  /* hacks dirty hacks */
+  margin-right: 1rem;
+  transform: translateY(-0.25rem);
+}
+
+.gem-counter-small img {
+  margin-left: 0;
+  transform: translateY(-0.4rem);
 }
 
 .plus-button {

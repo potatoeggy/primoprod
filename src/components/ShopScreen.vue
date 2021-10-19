@@ -1,8 +1,8 @@
 <template>
   <item-purchase-overlay
-    :item="activeItem"
-    v-if="activeItem"
-    @exit="activeItemId = ''"
+    :shopItem="activePurchase"
+    v-if="activePurchase"
+    @exit="activePurchase = null"
   ></item-purchase-overlay>
   <item-description-overlay
     :item="descriptionItem"
@@ -45,7 +45,7 @@
         <div
           :style="cssColours(ItemDatabase[item.id])"
           class="shop-item-holder"
-          @click="activeItemId = item.id"
+          @click="activePurchase = item"
         >
           <img
             :src="require(`@/assets/images/${item.id}.png`)"
@@ -98,7 +98,7 @@ export default defineComponent({
   },
   data() {
     return {
-      activeItemId: "",
+      activePurchase: null as ShopItem | null,
       descriptionItemId: "",
       shopList: RootShopItemList as ShopItem[],
       ItemDatabase: ItemDatabase,
@@ -114,9 +114,6 @@ export default defineComponent({
     };
   },
   computed: {
-    activeItem(): Item {
-      return ItemDatabase[this.activeItemId];
-    },
     descriptionItem(): Item {
       return ItemDatabase[this.descriptionItemId];
     },

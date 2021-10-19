@@ -5,6 +5,12 @@
   <audio preload="true" autoplay>
     <source src="@/assets/audio/description-enter.mp3" />
   </audio>
+  <item-description-overlay
+    v-if="activeItemId"
+    :item="activeItem"
+    @exit="activeItemId = ''"
+  ></item-description-overlay>
+
   <div
     :class="{ bg: true, 'zoom-fade-in': active, 'zoom-fade-out': !active }"
     id="item-purchase-overlay-bg"
@@ -13,29 +19,109 @@
   >
     <div :class="{ 'main-box': true, 'zoom-in': active, 'zoom-out': !active }">
       <p class="header-text flex">Item to Exchange</p>
+      <div class="detailed-box flex-column">
+        <div
+          class="item-description-box flex"
+          :style="cssBox"
+          @click.self="activeItemId = item.id"
+        >
+          <img
+            class="item-img"
+            :src="require(`@/assets/images/${item.id}.png`)"
+            @click.self="activeItemId = item.id"
+          />
+          <div
+            class="item-description-text flex-column text"
+            @click.self="activeItemId = item.id"
+          >
+            <div
+              class="flex item-header-text text"
+              @click.self="activeItemId = item.id"
+            >
+              <p @click="activeItemId = item.id">{{ item.name }}</p>
+              <gem-counter
+                :text="shopItem.cost[0].quantity"
+                :icon="`${shopItem.cost[0].id}.png`"
+                :small="true"
+                @image-clicked="activeItemId = shopItem.cost[0].id"
+              ></gem-counter>
+            </div>
+            <div class="flex star-box" @click="activeItemId = item.id">
+              <img
+                class="star-img"
+                src="@/assets/images/star.svg"
+                v-for="i in item.rarity"
+                :key="i"
+              />
+            </div>
+            <p @click="activeItemId = item.id">{{ item.description }}</p>
+          </div>
+        </div>
+        <div class="quantity-adjuster-box flex-column">
+          <p>Qty.</p>
+          <p style="font-size: 1.75rem">{{ quantityToPurchase }}</p>
+          <div class="quantity-adjuster-interactive flex">
+            <div class="plus-minus disabled">-</div>
+            <p>min</p>
+            <input type="range" />
+            <p>max</p>
+            <div class="plus-minus">+</div>
+          </div>
+        </div>
+      </div>
+      <div class="cancel-confirm-box flex">
+        <cancel-confirm-button text="Cancel"></cancel-confirm-button>
+        <cancel-confirm-button text="Exchange"></cancel-confirm-button>
+      </div>
     </div>
-    <div class="detailed-box flex-column">
-      <div class="item-description-box flex"></div>
-      <div class="quantity-adjuster-box flex-column"></div>
-    </div>
-    <div class="cancel-confirm-box flex"></div>
   </div>
 </template>
 
 <script lang="ts">
-import { Item } from "@/banners/Gacha";
+import { Item, ItemDatabase } from "@/banners/Gacha";
 import { defineComponent } from "vue";
+import CancelConfirmButton from "./CancelConfirmButton.vue";
+import ItemDescriptionOverlay from "./ItemDescriptionOverlay.vue";
+import GemCounter from "./GemCounter.vue";
+import { ShopItem } from "./ShopScreen.vue";
+
 export default defineComponent({
+  components: { CancelConfirmButton, ItemDescriptionOverlay, GemCounter },
   props: {
-    item: {
-      type: Object as () => Item,
+    shopItem: {
+      type: Object as () => ShopItem,
       required: true,
     },
   },
   data() {
     return {
       active: true,
+      activeItemId: "",
+      quantityToPurchase: 1,
+      bodyBoxBgColours: [
+        [],
+        ["#505865", "#545a66", "#828e99"],
+        ["#46565c", "#485d60", "#659973"],
+        ["#525376", "#4e5d7c", "#489fb3"],
+        ["#595482", "#716196", "#b684c8"],
+        ["#695352", "#99694e", "#e3ad52"],
+      ],
     };
+  },
+  computed: {
+    cssBox(): { [name: string]: string } {
+      return {
+        "--body-bg-gradient-start": this.bodyBoxBgColours[this.item.rarity][0],
+        "--body-bg-gradient-middle": this.bodyBoxBgColours[this.item.rarity][1],
+        "--body-bg-gradient-end": this.bodyBoxBgColours[this.item.rarity][2],
+      };
+    },
+    activeItem(): Item {
+      return ItemDatabase[this.activeItemId];
+    },
+    item(): Item {
+      return ItemDatabase[this.shopItem.id];
+    },
   },
   methods: {
     exitOutsideCheck(e: Event) {
@@ -50,10 +136,31 @@ export default defineComponent({
       }
     },
   },
+  emits: ["exit"],
 });
 </script>
 
 <style scoped>
+.item-description-text {
+  gap: 0.25rem;
+  text-align: left;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+.item-header-text {
+  font-size: 1.5rem;
+  justify-content: space-between;
+  align-items: center;
+}
+.star-box {
+  gap: 0.2rem;
+}
+.star-img {
+  width: 1rem;
+}
+.text {
+  color: #ece5d8;
+}
 .header-text {
   color: #495366;
   font-size: 1.5rem;
@@ -68,6 +175,61 @@ export default defineComponent({
   flex-direction: column;
 }
 
+.detailed-box {
+  width: 100%;
+  gap: 1rem;
+}
+
+.item-description-box {
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  background: linear-gradient(
+    to bottom right,
+    var(--body-bg-gradient-start) 0%,
+    var(--body-bg-gradient-middle) 50%,
+    var(--body-bg-gradient-end) 100%
+  );
+  padding-left: 1rem;
+  padding-right: 1rem;
+  transition: filter 0.2s;
+}
+
+.item-description-box:active {
+  /* TODO: do not illuminate gemcounter or trigger
+   * when gemcounter is clicked
+   */
+  filter: brightness(80%);
+}
+
+.item-img {
+  max-width: 10rem;
+}
+
+.quantity-adjuster-interactive {
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+
+input[type="range"] {
+  width: 50%;
+}
+
+.plus-minus {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 1rem;
+  color: white;
+  background-color: #4a5365;
+  display: grid;
+  place-items: center;
+  font-size: 1.5rem;
+}
+
+.disabled {
+  opacity: 0.3;
+}
+
 .bg {
   position: fixed;
   display: flex;
@@ -76,7 +238,7 @@ export default defineComponent({
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 999;
+  z-index: 99;
 }
 
 .main-box {
@@ -93,6 +255,7 @@ export default defineComponent({
   box-sizing: content-box;
   padding: 1rem;
   align-items: center;
+  gap: 0.5rem;
 }
 
 /* ahahaha copy :( */
