@@ -1,6 +1,7 @@
 <template>
   <item-purchase-overlay
     :shopItem="activePurchase"
+    :inventory="inventory"
     v-if="activePurchase"
     @exit="activePurchase = null"
   ></item-purchase-overlay>

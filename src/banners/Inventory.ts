@@ -129,18 +129,27 @@ export default class Inventory {
     return extraRewards;
   }
 
-  removeItems(items: string[]): void {
+  removeItems(items: ItemStringQuantity[]): void {
     // use a dict/object instead with a json db
     for (const item of items) {
-      if (this.inventory[item]) {
-        this.inventory[item] -= 1;
-        if (this.inventory[item] <= 0) {
-          delete this.inventory[item];
+      if (item.id === "primogem") {
+        this.currency.primos -= item.quantity;
+      } else if (item.id === "starglitter") {
+        this.currency.starglitter -= item.quantity;
+      } else if (item.id === "stardust") {
+        this.currency.stardust -= item.quantity;
+      } else if (item.id === "intertwined-fate") {
+        this.currency.fates -= item.quantity;
+      } else if (this.inventory[item.id]) {
+        this.inventory[item.id] -= 1;
+        if (this.inventory[item.id] <= 0) {
+          delete this.inventory[item.id];
+        } else {
+          console.log(`Removing ${item} failed: item not found!`);
         }
-      } else {
-        console.log(`Removing ${item} failed: item not found!`);
       }
     }
+    this.saveState();
   }
 
   resetItems(): void {
