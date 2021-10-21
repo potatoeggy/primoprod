@@ -87,7 +87,10 @@ export default class Quests {
         id: "root-ad-astra-abyssosque",
         description:
           "Congratulations for completing all your daily commissions! Here is your reward, please claim it before it expires tomorrow.",
-        rewards: [{ id: "primogem", quantity: 60 }],
+        rewards: [
+          { id: "primogem", quantity: 60 },
+          { id: "acquaint-fate", quantity: 1 },
+        ],
         expires: (() => {
           const d = new Date();
           d.setDate(d.getDate() + 1);
