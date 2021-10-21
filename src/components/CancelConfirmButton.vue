@@ -1,6 +1,10 @@
 <template>
   <div class="cancel-confirm-selector" :style="styles">
-    <button type="button" class="cancel-confirm-button" @click="onclick">
+    <button
+      type="button"
+      :class="['cancel-confirm-button', { disabled: disabled }]"
+      @click="onclick"
+    >
       <span class="icon">
         <span
           :class="{
@@ -35,19 +39,30 @@ export default defineComponent({
       required: false,
       default: false,
     },
+    disabled: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
   },
   computed: {
     styles(this) {
       return {
-        "--bg-color": this.invert ? "rgb(228, 226, 220)" : "rgb(74, 83, 101)",
-        "--text-color": this.invert ? "rgb(74, 83, 101)" : "rgb(228, 226, 220)",
+        "--bg-color":
+          this.invert || this.disabled
+            ? "rgb(228, 226, 220)"
+            : "rgb(74, 83, 101)",
+        "--text-color":
+          this.invert || this.disabled
+            ? "rgb(74, 83, 101)"
+            : "rgb(228, 226, 220)",
         "--length": this.invert ? "13rem" : "18rem",
       };
     },
   },
   methods: {
     onclick(): void {
-      this.$emit("pressed");
+      if (!this.disabled) this.$emit("pressed");
     },
   },
   emits: ["pressed"],
@@ -85,13 +100,18 @@ export default defineComponent({
   top: -0.3rem;
 }
 
-.cancel-confirm-button:hover,
-.cancel-confirm-button:active {
+.cancel-confirm-button:hover:not(.disabled),
+.cancel-confirm-button:active:not(.disabled) {
   box-shadow: #ffe8b3 0px 0px 0px 0.3rem;
   transition: none;
 }
 
-.cancel-confirm-button:active {
+.disabled {
+  box-shadow: rgb(49, 49, 49) 0px 0px 0px 0.1rem;
+  opacity: 0.4;
+}
+
+.cancel-confirm-button:active:not(.disabled) {
   animation-name: colourchangedialog;
   animation-duration: 0.2s;
   animation-fill-mode: forwards;

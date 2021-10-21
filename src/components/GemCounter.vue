@@ -16,7 +16,9 @@
           @click="imageClicked"
         />
       </div>
-      <div class="text" @click="imageClicked">{{ text }}</div>
+      <div :class="['text', { red: red }]" @click="imageClicked">
+        {{ text }}
+      </div>
       <plus-button v-if="plusSign"></plus-button>
     </div>
   </button>
@@ -59,6 +61,11 @@ export default defineComponent({
       default: true,
     },
     small: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
+    red: {
       type: Boolean,
       required: false,
       default: false,
@@ -131,6 +138,10 @@ img:active {
   margin-left: 0.5rem;
   margin-right: 1.3rem;
   font-size: 1.3rem;
+}
+
+.red {
+  color: red;
 }
 
 .gem-counter-small .text {

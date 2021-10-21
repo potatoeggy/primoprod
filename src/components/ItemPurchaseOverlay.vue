@@ -48,6 +48,7 @@
                 :text="shopItem.cost[0].quantity"
                 :icon="`${shopItem.cost[0].id}.png`"
                 :small="true"
+                :red="insufficientFunds"
                 @image-clicked="activeItemId = shopItem.cost[0].id"
               ></gem-counter>
             </div>
@@ -62,7 +63,10 @@
             <p @click="activeItemId = item.id">{{ item.description }}</p>
           </div>
         </div>
-        <div class="quantity-adjuster-box flex-column">
+        <div
+          class="quantity-adjuster-box flex-column"
+          v-if="!insufficientFunds"
+        >
           <p>Qty.</p>
           <p style="font-size: 1.75rem">{{ quantityToPurchase }}</p>
           <div class="quantity-adjuster-interactive flex">
@@ -75,7 +79,7 @@
             <p>1</p>
             <input
               type="range"
-              v-model="quantityToPurchase"
+              v-model.number="quantityToPurchase"
               min="1"
               :max="numPurchasable"
             />
@@ -91,6 +95,7 @@
             </div>
           </div>
         </div>
+        <p v-if="insufficientFunds" style="color: red">Insufficient Funds</p>
       </div>
       <div class="cancel-confirm-box flex">
         <cancel-confirm-button
@@ -100,6 +105,7 @@
         <cancel-confirm-button
           text="Exchange"
           @pressed="purchase"
+          :disabled="insufficientFunds"
         ></cancel-confirm-button>
       </div>
     </div>
@@ -184,6 +190,9 @@ export default defineComponent({
       }
       return Math.floor(bank / this.shopItem.cost[0].quantity);
     },
+    insufficientFunds(): boolean {
+      return this.numPurchasable > 0 ? false : true;
+    },
   },
   methods: {
     purchase() {
@@ -241,6 +250,7 @@ export default defineComponent({
 .text {
   color: #ece5d8;
 }
+
 .header-text {
   color: #495366;
   font-size: 1.5rem;
