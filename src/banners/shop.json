@@ -1,0 +1,32 @@
+[
+  {
+    "id": "intertwined-fate",
+    "quantity": 1,
+    "cost": [{ "id": "stardust", "quantity": 75 }]
+  },
+  {
+    "id": "acquaint-fate",
+    "quantity": 1,
+    "cost": [{ "id": "stardust", "quantity": 75 }]
+  },
+  {
+    "id": "intertwined-fate",
+    "quantity": 1,
+    "cost": [{ "id": "starglitter", "quantity": 5 }]
+  },
+  {
+    "id": "acquaint-fate",
+    "quantity": 1,
+    "cost": [{ "id": "starglitter", "quantity": 5 }]
+  },
+  {
+    "id": "intertwined-fate",
+    "quantity": 1,
+    "cost": [{ "id": "primogem", "quantity": 160 }]
+  },
+  {
+    "id": "acquaint-fate",
+    "quantity": 1,
+    "cost": [{ "id": "primogem", "quantity": 160 }]
+  }
+]

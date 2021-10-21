@@ -32,7 +32,8 @@
     :inventory="inv"
     :banner="banner"
     @wish="wish"
-    @exit="overlay = 'quests'"
+    @go-quests="overlay = 'quests'"
+    @go-shop="screen = 'shop'"
     v-if="screen === 'wish-banner'"
   ></wish-banners>
   <item-reveal-screen
@@ -55,6 +56,11 @@
     v-on:video-ended="showResults"
     v-on:video-skipped="showResultsEnd"
   ></video-player>
+  <shop-screen
+    @exit="screen = 'wish-banner'"
+    v-if="screen === 'shop'"
+    :inventory="inv"
+  ></shop-screen>
 </template>
 
 <script lang="ts">
@@ -65,6 +71,7 @@ import ItemRevealScreen from "@/components/ItemRevealScreen.vue";
 import ItemAllRevealScreen from "@/components/ItemAllRevealScreen.vue";
 import ItemObtainOverlay from "@/components/ItemObtainOverlay.vue";
 import QuestScreen from "@/components/QuestScreen.vue";
+import ShopScreen from "@/components/ShopScreen.vue";
 
 // gacha
 import Gacha, { Item, ItemStringQuantity } from "@/banners/Gacha";
@@ -83,14 +90,13 @@ export default defineComponent({
     ItemAllRevealScreen,
     ItemObtainOverlay,
     QuestScreen,
+    ShopScreen,
   },
   data() {
     return {
       // storage vars
       inv: new Inventory(),
-      standardGacha: new Gacha(
-        require("@/banners/farewell-of-snezhnaya-2.json")
-      ),
+      standardGacha: new Gacha(require("@/banners/moment-of-bloom.json")),
       // state vars
       checkPullDialog: false,
       pullNumber: 1,
@@ -98,7 +104,7 @@ export default defineComponent({
       screen: "wish-banner",
       lastRoll: [] as Item[],
       lastRollSorted: [] as Item[],
-      banner: require("./banners/farewell-of-snezhnaya-2.json"),
+      banner: require("./banners/moment-of-bloom.json"),
       overlay: "",
       pullExtraRewards: [] as ItemStringQuantity[],
     };

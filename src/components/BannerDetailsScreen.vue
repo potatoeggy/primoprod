@@ -323,7 +323,7 @@ export default defineComponent({
 <style scoped>
 .grid {
   display: flex;
-  grid-gap: 1rem;
+  gap: 1rem;
   flex-wrap: wrap;
 }
 

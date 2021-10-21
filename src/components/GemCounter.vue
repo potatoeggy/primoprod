@@ -3,6 +3,8 @@
     v-bind:class="{
       'gem-counter': true,
       'gem-counter-background': !nobackground,
+      'gem-counter-outline': outline,
+      'gem-counter-small': small,
     }"
     tabindex="-1"
   >
@@ -14,7 +16,9 @@
           @click="imageClicked"
         />
       </div>
-      <div class="text" @click="imageClicked">{{ text }}</div>
+      <div :class="['text', { red: red }]" @click="imageClicked">
+        {{ text }}
+      </div>
       <plus-button v-if="plusSign"></plus-button>
     </div>
   </button>
@@ -46,10 +50,25 @@ export default defineComponent({
       required: false,
       default: false,
     },
+    outline: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
     alignRight: {
       type: Boolean,
       required: false,
       default: true,
+    },
+    small: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
+    red: {
+      type: Boolean,
+      required: false,
+      default: false,
     },
   },
   methods: {
@@ -65,7 +84,7 @@ export default defineComponent({
 .gem-counter {
   background-color: unset;
   text-shadow: 1px 1px rgba(0, 0, 0, 0.5);
-  height: 2.2rem;
+  height: 2.3rem;
   width: auto;
   border-radius: 2rem;
   border-width: 0px;
@@ -81,14 +100,28 @@ export default defineComponent({
   background-color: rgba(0, 0, 0, 0.35);
 }
 
+.gem-counter-outline {
+  border-style: solid;
+  border-width: 0.2rem;
+  outline: none;
+  border-color: #424558;
+  box-shadow: none;
+}
+
 .flex-gem {
   display: flex;
   text-align: center;
 }
 
+.gem-counter-small {
+  scale: 0.8;
+  margin: 0;
+  height: 2rem;
+}
+
 img {
   vertical-align: middle;
-  height: 2.2rem;
+  height: 2rem;
   margin-left: 0.3rem;
   filter: drop-shadow(0px 1px 1px #222);
 }
@@ -104,6 +137,22 @@ img:active {
   margin-bottom: auto;
   margin-left: 0.5rem;
   margin-right: 1.3rem;
+  font-size: 1.3rem;
+}
+
+.red {
+  color: red;
+}
+
+.gem-counter-small .text {
+  /* hacks dirty hacks */
+  margin-right: 1rem;
+  transform: translateY(-0.25rem);
+}
+
+.gem-counter-small img {
+  margin-left: 0;
+  transform: translateY(-0.4rem);
 }
 
 .plus-button {

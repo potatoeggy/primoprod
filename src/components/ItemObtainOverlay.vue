@@ -227,7 +227,7 @@ export default defineComponent({
   justify-content: center;
   height: 100%;
   width: 100%;
-  z-index: 99;
+  z-index: 100;
   /* once a certain screen size is hit change to align-items center I guess */
 }
 
