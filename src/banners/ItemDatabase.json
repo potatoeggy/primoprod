@@ -303,6 +303,14 @@
       "description": "Harmless Sweetie",
       "rarity": 4
     },
+    "thoma": {
+      "name": "Thoma",
+      "id": "thoma",
+      "type": "Character",
+      "element": "Pyro",
+      "description": "Protector from Afar",
+      "rarity": 4
+    },
     "xiangling": {
       "name": "Xiangling",
       "id": "xiangling",

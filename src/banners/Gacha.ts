@@ -88,6 +88,10 @@ export default class Gacha {
         .filter((item) => item.rarity === i)
     );
     for (const item of banner.featuredDrops.map((item) => ItemDatabase[item])) {
+      console.assert(
+        item,
+        "A featured item ID did not appear in ItemDatabase. Check your banner JSON and ensure that each drop is present in ItemDatabase."
+      );
       this.drops[item.rarity].push({ ...item, featured: true });
     }
 

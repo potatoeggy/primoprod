@@ -79,6 +79,8 @@ import Gacha, { Item, ItemStringQuantity } from "@/banners/Gacha";
 // inventory
 import Inventory from "@/banners/Inventory";
 
+const ACTIVE_BANNER = "moment-of-bloom-2";
+
 export default defineComponent({
   components: {
     WishBanners,
@@ -96,7 +98,7 @@ export default defineComponent({
     return {
       // storage vars
       inv: new Inventory(),
-      standardGacha: new Gacha(require("@/banners/moment-of-bloom.json")),
+      standardGacha: new Gacha(require(`@/banners/${ACTIVE_BANNER}.json`)),
       // state vars
       checkPullDialog: false,
       pullNumber: 1,
@@ -104,7 +106,7 @@ export default defineComponent({
       screen: "wish-banner",
       lastRoll: [] as Item[],
       lastRollSorted: [] as Item[],
-      banner: require("./banners/moment-of-bloom.json"),
+      banner: require(`@/banners/${ACTIVE_BANNER}.json`),
       overlay: "",
       pullExtraRewards: [] as ItemStringQuantity[],
     };
@@ -141,20 +143,27 @@ export default defineComponent({
       );
       this.pullExtraRewards = [
         {
+          // TODO: these reduces are failing because arrays are empty, probably shortcircuit/return 0
           id: "stardust",
           quantity: extraRewards
             .filter((i) => i.id === "stardust")
-            ?.reduce((a, b) => {
-              return { id: "", quantity: a.quantity + b.quantity };
-            }).quantity,
+            ?.reduce(
+              (a, b) => {
+                return { id: "", quantity: a.quantity + b.quantity };
+              },
+              { quantity: 0 }
+            ).quantity,
         },
         {
           id: "starglitter",
           quantity: extraRewards
             .filter((i) => i.id === "starglitter")
-            ?.reduce((a, b) => {
-              return { id: "", quantity: a.quantity + b.quantity };
-            }).quantity,
+            ?.reduce(
+              (a, b) => {
+                return { id: "", quantity: a.quantity + b.quantity };
+              },
+              { quantity: 0 }
+            ).quantity,
         },
       ];
     },
