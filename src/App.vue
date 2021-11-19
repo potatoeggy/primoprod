@@ -10,10 +10,14 @@
   <!-- overlay -->
   <fate-purchase-dialog
     :fatesToPurchase="fatesToPurchase"
+    :useStandardFates="useStandardFates"
     :primoBalance="inv.primos"
-    v-if="pullNumber > inv.fates && checkPullDialog"
-    v-on:cancel-wish="exitConfirmCancelDialog(cancelWish)"
-    v-on:wish="exitConfirmCancelDialog(goWish, $event)"
+    v-if="
+      pullNumber > (useStandardFates ? inv.standardFates : inv.fates) &&
+      checkPullDialog
+    "
+    @cancel-wish="exitConfirmCancelDialog(cancelWish)"
+    @wish="exitConfirmCancelDialog(goWish, $event)"
   ></fate-purchase-dialog>
   <item-obtain-overlay
     description="Extra"
@@ -105,6 +109,7 @@ export default defineComponent({
       checkPullDialog: false,
       pullNumber: 1,
       pullRarity: 0,
+      useStandardFates: false,
       screen: "wish-banner",
       lastRoll: [] as Item[],
       lastRollSorted: [] as Item[],
@@ -118,9 +123,13 @@ export default defineComponent({
     changeBannerIndex(index: number): void {
       this.currentBannerIndex = index;
     },
-    wish(pulls: number): void {
+    wish(pulls: number, useStandardFates: boolean): void {
+      this.useStandardFates = useStandardFates;
       this.pullNumber = pulls;
-      if (pulls <= this.inv.fates) {
+      if (
+        pulls <=
+        (this.useStandardFates ? this.inv.standardFates : this.inv.fates)
+      ) {
         this.goWish();
       } else {
         this.checkPullDialog = true;
@@ -130,7 +139,11 @@ export default defineComponent({
     goWish(): void {
       // TODO: seriously consider moving wish and video logic
       // to WishBanners so that gachas are linked together
-      this.inv.fates -= this.pullNumber;
+      if (this.useStandardFates) {
+        this.inv.standardFates -= this.pullNumber;
+      } else {
+        this.inv.fates -= this.pullNumber;
+      }
       this.checkPullDialog = false;
       this.screen = "video-player";
 
@@ -189,7 +202,11 @@ export default defineComponent({
       (this.$refs.audioExitDialog as HTMLAudioElement).play();
       if (fatesNeeded) {
         this.inv.primos -= fatesNeeded * 160;
-        this.inv.fates += fatesNeeded;
+        if (this.useStandardFates) {
+          this.inv.standardFates += fatesNeeded;
+        } else {
+          this.inv.fates += fatesNeeded;
+        }
       }
       fn();
     },
@@ -205,14 +222,17 @@ export default defineComponent({
     },
   },
   computed: {
-    fatesToPurchase(): number {
-      return this.pullNumber - this.inv.fates;
-    },
     standardGacha(): Gacha {
       return this.gachas[this.currentBannerIndex];
     },
     currentBanner(): Banner {
       return this.banners[this.currentBannerIndex];
+    },
+    fatesToPurchase(): number {
+      return (
+        this.pullNumber -
+        (this.useStandardFates ? this.inv.standardFates : this.inv.fates)
+      );
     },
   },
   mounted() {

@@ -123,13 +123,21 @@
       <div id="wish-buttons" class="footer-align-flex">
         <wish-button
           :wishes="1"
-          :fates="inventory.fates"
+          :fates="
+            banner.storage === 'standard'
+              ? inventory.standardFates
+              : inventory.fates
+          "
           :standard="banner.storage === 'standard'"
           @try-wish="wish(1)"
         ></wish-button>
         <wish-button
           :wishes="10"
-          :fates="inventory.fates"
+          :fates="
+            banner.storage === 'standard'
+              ? inventory.standardFates
+              : inventory.fates
+          "
           :standard="banner.storage === 'standard'"
           @try-wish="wish(10)"
         ></wish-button>
@@ -220,7 +228,7 @@ export default defineComponent({
       }
     },
     wish(number: number): void {
-      this.$emit("wish", number);
+      this.$emit("wish", number, this.banner.storage === "standard");
     },
     changeBanner(index: number): void {
       (

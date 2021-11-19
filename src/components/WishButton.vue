@@ -18,7 +18,7 @@
               standard ? 'acquaint' : 'intertwined'
             }-fate.png`)
           "
-          alt="intertwined_fate"
+          alt="fate"
         />
         <span>x {{ wishes }}</span>
       </p>
