@@ -7,7 +7,8 @@
       <div id="dialog-text">
         <p v-if="primoBalance >= primogemsNeeded">
           An additional
-          <span class="fate-coloured">{{ fatesToPurchase }}</span> Intertwined
+          <span class="fate-coloured">{{ fatesToPurchase }}</span>
+          {{ useStandardFates ? "Acquaint" : "Intertwined" }}
           Fate are needed.
         </p>
         <p v-if="primoBalance >= primogemsNeeded">
@@ -47,6 +48,11 @@ export default defineComponent({
     primoBalance: {
       type: Number,
       required: true,
+    },
+    useStandardFates: {
+      type: Boolean,
+      required: false,
+      default: false,
     },
   },
   computed: {

@@ -13,8 +13,12 @@
       >
         <img
           class="fate-image"
-          src="@/assets/images/intertwined-fate.png"
-          alt="intertwined_fate"
+          :src="
+            require(`@/assets/images/${
+              standard ? 'acquaint' : 'intertwined'
+            }-fate.png`)
+          "
+          alt="fate"
         />
         <span>x {{ wishes }}</span>
       </p>
@@ -34,6 +38,11 @@ export default defineComponent({
     fates: {
       type: Number,
       required: true,
+    },
+    standard: {
+      type: Boolean,
+      required: false,
+      default: false,
     },
   },
   methods: {

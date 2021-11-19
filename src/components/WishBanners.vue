@@ -16,6 +16,10 @@
     @exit="exitHistoryScreen"
   ></wish-history-screen>
 
+  <audio id="audio-banner-switch" preload="true">
+    <source src="@/assets/audio/banner-switch.mp3" />
+  </audio>
+
   <div
     :class="{
       banner: true,
@@ -35,6 +39,19 @@
         <img src="../assets/images/ui-wish-edited.png" />
         <p id="wish-label">Wish</p>
       </div>
+      <div class="banner-header">
+        <template v-for="(ban, index) of banners" :key="index">
+          <img
+            :src="getBannerHeaderImage(ban, true)"
+            v-if="currentBannerIndex === index"
+          />
+          <img
+            :src="getBannerHeaderImage(ban)"
+            v-else
+            @click="changeBanner(index)"
+          />
+        </template>
+      </div>
       <div id="gems">
         <gem-counter
           icon="primogem.png"
@@ -43,9 +60,16 @@
           plusSign
         ></gem-counter>
         <gem-counter
+          icon="acquaint-fate.png"
+          :text="inventory.standardFates"
+          @image-clicked="activeItemId = 'acquaint-fate'"
+          v-if="banner.storage === 'standard'"
+        ></gem-counter>
+        <gem-counter
           icon="intertwined-fate.png"
           :text="inventory.fates"
           @image-clicked="activeItemId = 'intertwined-fate'"
+          v-else
         ></gem-counter>
         <div class="close-box">
           <close-button @clicked="exit"></close-button>
@@ -55,6 +79,7 @@
     <div
       id="div-banner"
       :class="stateExiting ? 'exit-animation' : 'start-animation'"
+      :key="currentBannerIndex"
     >
       <img id="banner" :src="getBannerImage" />
     </div>
@@ -98,12 +123,22 @@
       <div id="wish-buttons" class="footer-align-flex">
         <wish-button
           :wishes="1"
-          :fates="inventory.fates"
+          :fates="
+            banner.storage === 'standard'
+              ? inventory.standardFates
+              : inventory.fates
+          "
+          :standard="banner.storage === 'standard'"
           @try-wish="wish(1)"
         ></wish-button>
         <wish-button
           :wishes="10"
-          :fates="inventory.fates"
+          :fates="
+            banner.storage === 'standard'
+              ? inventory.standardFates
+              : inventory.fates
+          "
+          :standard="banner.storage === 'standard'"
           @try-wish="wish(10)"
         ></wish-button>
       </div>
@@ -134,8 +169,12 @@ export default defineComponent({
     CloseButton,
   },
   props: {
-    banner: {
-      type: Object as () => Banner,
+    banners: {
+      type: Object as () => Banner[],
+      required: true,
+    },
+    currentBannerIndex: {
+      type: Number,
       required: true,
     },
     inventory: {
@@ -152,6 +191,10 @@ export default defineComponent({
     };
   },
   computed: {
+    banner(): Banner {
+      return this.banners[this.currentBannerIndex];
+    },
+
     getBannerImage(): string {
       const images = require.context(
         "../assets/images/banners/",
@@ -172,8 +215,26 @@ export default defineComponent({
     },
   },
   methods: {
+    getBannerHeaderImage(banner: Banner, selected = false): string {
+      const images = require.context(
+        "../assets/images/banner-headers/",
+        false,
+        /\.png$/
+      );
+      try {
+        return images(`./${selected ? "selected-" : ""}${banner.id}.png`);
+      } catch (error) {
+        return `./${selected ? "selected-" : ""}${banner.id}.png`;
+      }
+    },
     wish(number: number): void {
-      this.$emit("wish", number);
+      this.$emit("wish", number, this.banner.storage === "standard");
+    },
+    changeBanner(index: number): void {
+      (
+        document.getElementById("audio-banner-switch") as HTMLAudioElement
+      ).play();
+      this.$emit("change-banner", index);
     },
     exitDetailsScreen(): void {
       (
@@ -200,7 +261,7 @@ export default defineComponent({
       this.$emit("go-quests");
     },
   },
-  emits: ["wish", "go-quests", "go-shop"],
+  emits: ["wish", "go-quests", "go-shop", "change-banner"],
 });
 </script>
 
@@ -213,6 +274,13 @@ export default defineComponent({
   text-align: center;
   color: #2c3e50;
   height: 100%;
+}
+
+.banner-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2vw;
 }
 
 .invisible {

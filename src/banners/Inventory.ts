@@ -9,6 +9,7 @@ export default class Inventory {
   currency = {
     primos: 0,
     fates: 0,
+    standardFates: 0,
     starglitter: 0,
     stardust: 0,
   };
@@ -24,6 +25,17 @@ export default class Inventory {
     this.pullHistory = JSON.parse(
       localStorage.getItem("pullHistory") || JSON.stringify(this.pullHistory)
     );
+    this.migrationCheck();
+  }
+
+  migrationCheck(): void {
+    // any inventory incompatibilities will be resolved here if due to major updates
+    // 1.0-beta7: Acquaint Fates were moved from the inventory to be a currency
+    if (this.inventory["acquaint-fate"]) {
+      this.standardFates =
+        (this.standardFates || 0) + this.inventory["acquaint-fate"];
+      delete this.inventory["acquaint-fate"];
+    }
   }
 
   saveState(): void {
@@ -45,6 +57,8 @@ export default class Inventory {
         this.currency.stardust += item.quantity;
       } else if (item.id === "intertwined-fate") {
         this.currency.fates += item.quantity;
+      } else if (item.id === "acquaint-fate") {
+        this.currency.standardFates += item.quantity;
       } else {
         this.inventory[item.id] = item.quantity;
       }
@@ -140,6 +154,8 @@ export default class Inventory {
         this.currency.stardust -= item.quantity;
       } else if (item.id === "intertwined-fate") {
         this.currency.fates -= item.quantity;
+      } else if (item.id === "acquaint-fate") {
+        this.currency.standardFates -= item.quantity;
       } else if (this.inventory[item.id]) {
         this.inventory[item.id] -= 1;
         if (this.inventory[item.id] <= 0) {
@@ -161,6 +177,7 @@ export default class Inventory {
     this.currency = {
       primos: 0,
       fates: 0,
+      standardFates: 0,
       starglitter: 0,
       stardust: 0,
     };
@@ -182,6 +199,15 @@ export default class Inventory {
 
   public set fates(num: number) {
     this.currency.fates = num;
+    this.saveState();
+  }
+
+  public get standardFates(): number {
+    return this.currency.standardFates;
+  }
+
+  public set standardFates(num: number) {
+    this.currency.standardFates = num;
     this.saveState();
   }
 
