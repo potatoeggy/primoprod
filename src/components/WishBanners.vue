@@ -56,9 +56,16 @@
           plusSign
         ></gem-counter>
         <gem-counter
+          icon="acquaint-fate.png"
+          :text="inventory.standardFates"
+          @image-clicked="activeItemId = 'acquaint-fate'"
+          v-if="banner.storage === 'standard'"
+        ></gem-counter>
+        <gem-counter
           icon="intertwined-fate.png"
           :text="inventory.fates"
           @image-clicked="activeItemId = 'intertwined-fate'"
+          v-else
         ></gem-counter>
         <div class="close-box">
           <close-button @clicked="exit"></close-button>
@@ -113,11 +120,13 @@
         <wish-button
           :wishes="1"
           :fates="inventory.fates"
+          :standard="banner.storage === 'standard'"
           @try-wish="wish(1)"
         ></wish-button>
         <wish-button
           :wishes="10"
           :fates="inventory.fates"
+          :standard="banner.storage === 'standard'"
           @try-wish="wish(10)"
         ></wish-button>
       </div>
