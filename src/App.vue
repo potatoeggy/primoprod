@@ -30,10 +30,12 @@
   <!-- main -->
   <wish-banners
     :inventory="inv"
-    :banner="banner"
+    :banners="banners"
+    :currentBannerIndex="currentBannerIndex"
     @wish="wish"
     @go-quests="overlay = 'quests'"
     @go-shop="screen = 'shop'"
+    @change-banner="changeBannerIndex"
     v-if="screen === 'wish-banner'"
   ></wish-banners>
   <item-reveal-screen
@@ -74,12 +76,12 @@ import QuestScreen from "@/components/QuestScreen.vue";
 import ShopScreen from "@/components/ShopScreen.vue";
 
 // gacha
-import Gacha, { Item, ItemStringQuantity } from "@/banners/Gacha";
+import Gacha, { Banner, Item, ItemStringQuantity } from "@/banners/Gacha";
 
 // inventory
 import Inventory from "@/banners/Inventory";
 
-const ACTIVE_BANNER = "moment-of-bloom-2";
+const BANNERS = ["moment-of-bloom-2", "wanderlust-invocation"];
 
 export default defineComponent({
   components: {
@@ -98,7 +100,7 @@ export default defineComponent({
     return {
       // storage vars
       inv: new Inventory(),
-      standardGacha: new Gacha(require(`@/banners/${ACTIVE_BANNER}.json`)),
+      gachas: BANNERS.map((id) => new Gacha(require(`@/banners/${id}.json`))),
       // state vars
       checkPullDialog: false,
       pullNumber: 1,
@@ -106,12 +108,16 @@ export default defineComponent({
       screen: "wish-banner",
       lastRoll: [] as Item[],
       lastRollSorted: [] as Item[],
-      banner: require(`@/banners/${ACTIVE_BANNER}.json`),
+      banners: BANNERS.map((id) => require(`@/banners/${id}.json`)) as Banner[],
+      currentBannerIndex: 0,
       overlay: "",
       pullExtraRewards: [] as ItemStringQuantity[],
     };
   },
   methods: {
+    changeBannerIndex(index: number): void {
+      this.currentBannerIndex = index;
+    },
     wish(pulls: number): void {
       this.pullNumber = pulls;
       if (pulls <= this.inv.fates) {
@@ -135,11 +141,16 @@ export default defineComponent({
       this.lastRollSorted = [...this.lastRoll];
       this.lastRollSorted.sort((a, b) => b.rarity - a.rarity); // highest rarity to lowest
 
-      console.log("Rolled:", this.lastRoll);
+      console.log(
+        "Banner",
+        this.currentBanner.id,
+        "rolled:",
+        [...this.lastRoll.map((i) => Object.assign({}, i))] // thank you vue love that
+      );
       this.pullRarity = this.lastRollSorted[0].rarity;
       const extraRewards = this.inv.addItemsViaGacha(
         this.lastRoll,
-        this.banner.storage
+        this.currentBanner.storage
       );
       this.pullExtraRewards = [
         {
@@ -196,6 +207,12 @@ export default defineComponent({
   computed: {
     fatesToPurchase(): number {
       return this.pullNumber - this.inv.fates;
+    },
+    standardGacha(): Gacha {
+      return this.gachas[this.currentBannerIndex];
+    },
+    currentBanner(): Banner {
+      return this.banners[this.currentBannerIndex];
     },
   },
   mounted() {

@@ -35,6 +35,19 @@
         <img src="../assets/images/ui-wish-edited.png" />
         <p id="wish-label">Wish</p>
       </div>
+      <div class="banner-header">
+        <template v-for="(ban, index) of banners" :key="index">
+          <img
+            :src="getBannerHeaderImage(ban, true)"
+            v-if="currentBannerIndex === index"
+          />
+          <img
+            :src="getBannerHeaderImage(ban)"
+            v-else
+            @click="changeBanner(index)"
+          />
+        </template>
+      </div>
       <div id="gems">
         <gem-counter
           icon="primogem.png"
@@ -134,8 +147,12 @@ export default defineComponent({
     CloseButton,
   },
   props: {
-    banner: {
-      type: Object as () => Banner,
+    banners: {
+      type: Object as () => Banner[],
+      required: true,
+    },
+    currentBannerIndex: {
+      type: Number,
       required: true,
     },
     inventory: {
@@ -152,6 +169,10 @@ export default defineComponent({
     };
   },
   computed: {
+    banner(): Banner {
+      return this.banners[this.currentBannerIndex];
+    },
+
     getBannerImage(): string {
       const images = require.context(
         "../assets/images/banners/",
@@ -172,8 +193,23 @@ export default defineComponent({
     },
   },
   methods: {
+    getBannerHeaderImage(banner: Banner, selected = false): string {
+      const images = require.context(
+        "../assets/images/banner-headers/",
+        false,
+        /\.png$/
+      );
+      try {
+        return images(`./${selected ? "selected-" : ""}${banner.id}.png`);
+      } catch (error) {
+        return `./${selected ? "selected-" : ""}${banner.id}.png`;
+      }
+    },
     wish(number: number): void {
       this.$emit("wish", number);
+    },
+    changeBanner(index: number): void {
+      this.$emit("change-banner", index);
     },
     exitDetailsScreen(): void {
       (
@@ -200,7 +236,7 @@ export default defineComponent({
       this.$emit("go-quests");
     },
   },
-  emits: ["wish", "go-quests", "go-shop"],
+  emits: ["wish", "go-quests", "go-shop", "change-banner"],
 });
 </script>
 
@@ -213,6 +249,13 @@ export default defineComponent({
   text-align: center;
   color: #2c3e50;
   height: 100%;
+}
+
+.banner-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2vw;
 }
 
 .invisible {
