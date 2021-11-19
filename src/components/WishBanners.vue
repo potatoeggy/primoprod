@@ -68,6 +68,7 @@
     <div
       id="div-banner"
       :class="stateExiting ? 'exit-animation' : 'start-animation'"
+      :key="currentBannerIndex"
     >
       <img id="banner" :src="getBannerImage" />
     </div>
