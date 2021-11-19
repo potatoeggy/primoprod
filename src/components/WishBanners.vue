@@ -16,6 +16,10 @@
     @exit="exitHistoryScreen"
   ></wish-history-screen>
 
+  <audio id="audio-banner-switch" preload="true">
+    <source src="@/assets/audio/banner-switch.mp3" />
+  </audio>
+
   <div
     :class="{
       banner: true,
@@ -219,6 +223,9 @@ export default defineComponent({
       this.$emit("wish", number);
     },
     changeBanner(index: number): void {
+      (
+        document.getElementById("audio-banner-switch") as HTMLAudioElement
+      ).play();
       this.$emit("change-banner", index);
     },
     exitDetailsScreen(): void {
