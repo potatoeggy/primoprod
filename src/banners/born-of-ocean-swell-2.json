@@ -1,16 +1,17 @@
 {
-  "name": "Wanderlust Invocation",
+  "name": "Born of Ocean Swell",
   "styles": [
     {
-      "text": "Wanderlust "
+      "color": "#3db3d6",
+      "text": "Born of"
     },
     {
-      "color": "#757acd",
-      "text": "Invocation"
+      "text": " Ocean Swell"
     }
   ],
-  "id": "wanderlust-invocation",
-  "storage": "standard",
+  "id": "born-of-ocean-swell-2",
+  "storage": "event",
+  "featuredDrops": ["eula", "bennett", "rosaria", "noelle"],
   "drops": [
     "jean",
     "qiqi",
@@ -18,35 +19,21 @@
     "mona",
     "diluc",
     "sucrose",
-    "rosaria",
     "diona",
-    "chongyun",
-    "kaeya",
     "fischl",
     "beidou",
     "razor",
-    "lisa",
-    "noelle",
-    "ningguang",
-    "xingqiu",
-    "barbara",
-    "yanfei",
+    "diona",
     "xinyan",
-    "bennett",
+    "ningguang",
+    "barbara",
+    "xinyan",
+    "chongyun",
     "xiangling",
-    "amber",
-    "sayu",
+    "xingqiu",
     "thoma",
-    "skyward-harp",
-    "amos-bow",
-    "skyward-atlas",
-    "lost-prayer-to-the-sacred-winds",
-    "skyward-pride",
-    "wolfs-gravestone",
-    "skyward-spine",
-    "primordial-jade-winged-spear",
-    "skyward-blade",
-    "aquila-favonia",
+    "diona",
+    "sayu",
     "favonius-warbow",
     "sacrificial-bow",
     "the-stringless",
@@ -78,6 +65,5 @@
     "skyrider-sword",
     "harbinger-of-dawn",
     "cool-steel"
-  ],
-  "featuredDrops": []
+  ]
 }

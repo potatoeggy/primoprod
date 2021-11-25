@@ -85,7 +85,11 @@ import Gacha, { Banner, Item, ItemStringQuantity } from "@/banners/Gacha";
 // inventory
 import Inventory from "@/banners/Inventory";
 
-const BANNERS = ["moment-of-bloom-2", "wanderlust-invocation"];
+const BANNERS = [
+  "secretum-secretorum-2",
+  "born-of-ocean-swell-2",
+  "wanderlust-invocation",
+];
 
 export default defineComponent({
   components: {
