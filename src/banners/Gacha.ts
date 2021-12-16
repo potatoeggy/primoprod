@@ -1,4 +1,3 @@
-// Some code taken from https://github.com/uzair-ashraf/genshin-impact-wish-simulator
 import ItemDB from "./ItemDatabase.json";
 export interface Item {
   name: string;
@@ -62,11 +61,15 @@ export default class Gacha {
 
   // constant vars
   // pities are -1 because numbers are zero indexed :/
-  readonly softPity5Start = 75 - 1;
-  readonly hardPity5Limit = 90 - 1;
-  readonly hardPity4Limit = 10 - 1;
-  readonly standardRange = this.generateProbabilityRange(943, 51, 6); // % 94.3, 5.1, 0.6
-  readonly softPityRange = this.generateProbabilityRange(629, 51, 320); // % 62.9, 5.1, 32
+  readonly SOFT_PITY_5_START = 75 - 1;
+  readonly HARD_PITY_5 = 90 - 1;
+  readonly HARD_PITY_4 = 10 - 1;
+  readonly STANDARD_ODDS = [94.3, 5.1, 0.6]; // rarity and their percentage odds
+  readonly SOFT_PITY_ODDS = [
+    (): number => 100 - (0.6 + 6 * (this.state.pityCounter5 - 73)),
+    5.1,
+    (): number => 0.6 + 6 * (this.state.pityCounter5 - 73),
+  ];
 
   // state vars
   state: State = {
@@ -104,21 +107,26 @@ export default class Gacha {
     console.log(this.state);
   }
 
-  generateProbabilityRange(
-    threeOdds: number,
-    fourOdds: number,
-    fiveOdds: number
-  ): Array<number> {
-    console.assert(threeOdds + fourOdds + fiveOdds === 1000);
-    const range: Array<number> = [];
-    [threeOdds, fourOdds, fiveOdds].forEach((odds, i) =>
-      range.push(...Array.from({ length: odds }, (_) => i + 3))
-    );
-    return range;
-  }
-
   rng(max: number): number {
     return Math.floor(Math.random() * max);
+  }
+
+  rollRandomRarityWithPity(odds: (number | (() => number))[]): number {
+    console.assert(odds.length == 3);
+    const newOdds = odds.map(
+      (
+        (sum) => (value: number | (() => number)) =>
+          (sum += typeof value == "number" ? value : value())
+      )(0)
+    ); // prefix sum array
+
+    // hacky workaround bad planning that rng is only for ints
+    const roll = this.rng(1000) / 10;
+    for (const [index, value] of newOdds.entries()) {
+      if (value >= roll) return index + 3; // god i hate this it limits things to 3-5 stars
+    }
+    console.error("You done goofed in your roll");
+    return -1;
   }
 
   rollTen(): Item[] {
@@ -136,31 +144,34 @@ export default class Gacha {
   roll(): Item {
     console.assert(this.state.pityCounter5 <= 90);
     const probabilityRange =
-      this.state.pityCounter5 >= this.softPity5Start
-        ? this.softPityRange
-        : this.standardRange;
+      this.state.pityCounter5 >= this.SOFT_PITY_5_START
+        ? this.SOFT_PITY_ODDS
+        : this.STANDARD_ODDS;
     this.state.pullAttempts += 1;
 
-    // guarantees and specials
-    if (this.state.pityCounter5 >= this.hardPity5Limit) {
+    const rolledRarity = this.rollRandomRarityWithPity(probabilityRange);
+    console.assert(rolledRarity >= 3 && rolledRarity <= 5);
+
+    if (rolledRarity === 5) {
       return this.get5StarItem();
     }
 
-    if (this.state.pityCounter4 >= this.hardPity4Limit) {
-      if (probabilityRange[this.rng(probabilityRange.length)] === 5) {
+    // guarantees and specials
+    if (this.state.pityCounter5 >= this.HARD_PITY_5) {
+      return this.get5StarItem();
+    }
+
+    if (rolledRarity === 4) {
+      return this.get4StarItem();
+    }
+
+    if (this.state.pityCounter4 >= this.HARD_PITY_4) {
+      if (this.rollRandomRarityWithPity(probabilityRange) === 5) {
         return this.get5StarItem();
       }
       return this.get4StarItem();
     }
 
-    const rarity = probabilityRange[this.rng(probabilityRange.length)];
-    console.assert(rarity >= 3 && rarity <= 5);
-
-    if (rarity === 4) {
-      return this.get4StarItem();
-    } else if (rarity === 5) {
-      return this.get5StarItem();
-    }
     return this.get3StarItem();
   }
 
