@@ -8,6 +8,12 @@ All code is licensed under the AGPL in LICENSE.md.
 
 Most assets are owned by MiHoYo, Co., Ltd.
 
+## Usage
+
+Visit https://primoprod.eggworld.tk for a live demo!
+
+Alternatively, to use primoprod offline or with a slow internet connection, download the latest desktop version in the [Releases](https://github.com/potatoeggy/primoprod/releases/latest) tab.
+
 ## Project setup
 ```
 yarn install
