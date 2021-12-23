@@ -71,6 +71,14 @@
       "description": "Fragrance in Thaw",
       "rarity": 5
     },
+    "itto": {
+      "name": "Arataki Itto",
+      "id": "itto",
+      "type": "Character",
+      "element": "Geo",
+      "description": "Hanamizaka Heroics",
+      "rarity": 5
+    },
     "jean": {
       "name": "Jean",
       "id": "jean",
@@ -228,7 +236,15 @@
       "id": "fischl",
       "type": "Character",
       "element": "Electro",
-      "description": "Prezessin der Verurteilung",
+      "description": "Prinzessin der Verurteilung",
+      "rarity": 4
+    },
+    "gorou": {
+      "name": "Gorou",
+      "id": "gorou",
+      "type": "Character",
+      "element": "Geo",
+      "description": "Canine Warrior",
       "rarity": 4
     },
     "kaeya": {
