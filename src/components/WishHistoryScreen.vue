@@ -26,13 +26,15 @@
         <th>Time Received</th>
       </tr>
       <template
-        v-for="(pull, index) of pulls.slice(
-          currentPage * MAX_PULLS_PER_PAGE,
-          currentPage * MAX_PULLS_PER_PAGE + MAX_PULLS_PER_PAGE
-        )"
+        v-for="(pull, index) of pulls
+          .filter((p) => p.bannerStorage === selectedWishType)
+          .slice(
+            currentPage * MAX_PULLS_PER_PAGE,
+            currentPage * MAX_PULLS_PER_PAGE + MAX_PULLS_PER_PAGE
+          )"
         :key="index"
       >
-        <tr v-if="pull.bannerStorage === selectedWishType">
+        <tr>
           <td>{{ pull.item.type }}</td>
           <td>
             <span
@@ -112,7 +114,12 @@ export default defineComponent({
         .reverse();
     },
     numPullPages(): number {
-      return Math.ceil(this.pulls.length / this.MAX_PULLS_PER_PAGE) - 1;
+      return (
+        Math.ceil(
+          this.pulls.filter((p) => p.bannerStorage === this.selectedWishType)
+            .length / this.MAX_PULLS_PER_PAGE
+        ) - 1
+      );
     },
     wishTypes(): string[] {
       // get all unique bannerStorages
@@ -121,6 +128,11 @@ export default defineComponent({
           this.inventory.pullHistory.map((pull) => pull.bannerStorage)
         ),
       ];
+    },
+  },
+  watch: {
+    selectedWishType: function (newType, oldType) {
+      this.currentPage = 0;
     },
   },
   methods: {
