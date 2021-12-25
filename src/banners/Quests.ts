@@ -67,7 +67,6 @@ export default class Quests {
         delete item.claimed;
         item.complete = false;
       }
-      console.log(item, item.complete);
     }
 
     // remove expired quests

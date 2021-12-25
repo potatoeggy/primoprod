@@ -10,12 +10,11 @@
     v-if="activeItem"
     @exit="activeItemId = ''"
   ></item-description-overlay>
-  <transition name="zoom-fade">
+  <transition name="zoom-fade" @after-leave="exit">
     <div
       id="item-obtain-overlay-bg"
       class="main"
       @click="exitOutsideCheck"
-      @animationend="exit"
       v-if="active"
     >
       <p class="obtained">Obtained</p>
@@ -269,7 +268,7 @@ export default defineComponent({
   content: "";
   background: url("../assets/images/wish-reveal-background.jpg") center/cover
       no-repeat fixed,
-    white;
+    #4a4a52;
   top: 0;
   right: 0;
   bottom: 0;
