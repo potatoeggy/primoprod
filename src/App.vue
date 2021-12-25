@@ -274,4 +274,9 @@ body,
   height: 100%;
   overflow: hidden;
 }
+
+img {
+  /* to not have white flash on initial load */
+  background-color: transparent;
+}
 </style>
