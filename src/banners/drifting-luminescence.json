@@ -11,12 +11,8 @@
   ],
   "id": "drifting-luminescence",
   "storage": "event",
-  "featuredDrops": [
-    "kokomi",
-    "xingqiu",
-    "beidou",
-    "rosaria"
-  ],
+  "description": "Character Event Wish",
+  "featuredDrops": ["kokomi", "xingqiu", "beidou", "rosaria"],
   "drops": [
     "jean",
     "qiqi",

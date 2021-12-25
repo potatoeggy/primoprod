@@ -163,7 +163,8 @@ export default defineComponent({
       this.pullRarity = this.lastRollSorted[0].rarity;
       const extraRewards = this.inv.addItemsViaGacha(
         this.lastRoll,
-        this.currentBanner.storage
+        this.currentBanner.storage,
+        this.currentBanner.description
       );
       this.pullExtraRewards = [
         {

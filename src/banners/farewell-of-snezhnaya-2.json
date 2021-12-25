@@ -2,6 +2,7 @@
   "name": "Farewell of Snezhnaya",
   "id": "farewell-of-snezhnaya-2",
   "storage": "event",
+  "description": "Character Event Wish",
   "featuredDrops": ["tartaglia", "yanfei", "chongyun", "ningguang"],
   "drops": [
     "jean",

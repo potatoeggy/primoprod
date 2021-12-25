@@ -4,6 +4,7 @@ export interface Pull {
   item: string;
   date: Date;
   bannerStorage: string;
+  description: string;
 }
 export default class Inventory {
   currency = {
@@ -36,6 +37,7 @@ export default class Inventory {
         (this.standardFates || 0) + this.inventory["acquaint-fate"];
       delete this.inventory["acquaint-fate"];
     }
+    this.saveState();
   }
 
   saveState(): void {
@@ -66,18 +68,23 @@ export default class Inventory {
     this.saveState();
   }
 
-  addPulls(items: string[], bannerStorage: string): void {
+  addPulls(items: string[], bannerStorage: string, description: string): void {
     for (const item of items) {
       this.pullHistory.push({
         item: item,
         date: new Date(),
         bannerStorage: bannerStorage,
+        description: description,
       });
     }
     this.saveState();
   }
 
-  addItemsViaGacha(items: Item[], bannerStorage: string): ItemStringQuantity[] {
+  addItemsViaGacha(
+    items: Item[],
+    bannerStorage: string,
+    description: string
+  ): ItemStringQuantity[] {
     // wrapper function calling addItems and addPulls for convenience
     const extraRewards: ItemStringQuantity[] = [];
     const pushStardust = (quantity: number) => {
@@ -138,7 +145,8 @@ export default class Inventory {
     );
     this.addPulls(
       items.map((e) => e.id),
-      bannerStorage
+      bannerStorage,
+      description
     );
     return extraRewards;
   }

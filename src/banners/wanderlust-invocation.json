@@ -11,6 +11,7 @@
   ],
   "id": "wanderlust-invocation",
   "storage": "standard",
+  "description": "Permanent Wish",
   "drops": [
     "jean",
     "qiqi",

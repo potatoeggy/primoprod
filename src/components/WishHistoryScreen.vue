@@ -23,6 +23,7 @@
       <tr>
         <th>Item Type</th>
         <th>Item Name</th>
+        <th>Wish Type</th>
         <th>Time Received</th>
       </tr>
       <template
@@ -49,6 +50,7 @@
               (5-Star)
             </span>
           </td>
+          <td>{{ pull.description }}</td>
           <td>{{ dayjs(pull.date).format("YYYY-MM-DD HH:mm:ss") }}</td>
         </tr>
       </template>
@@ -108,6 +110,7 @@ export default defineComponent({
           return {
             item: ItemDatabase[pull.item],
             bannerStorage: pull.bannerStorage,
+            description: pull.description,
             date: pull.date,
           };
         })
@@ -131,7 +134,7 @@ export default defineComponent({
     },
   },
   watch: {
-    selectedWishType: function (newType, oldType) {
+    selectedWishType: function () {
       this.currentPage = 0;
     },
   },
@@ -268,7 +271,7 @@ td {
 
 th:nth-child(1) {
   /* Select the second column */
-  width: 10rem;
+  max-width: 10rem;
 }
 
 th:nth-child(2) {
@@ -278,7 +281,11 @@ th:nth-child(2) {
 
 th:nth-child(3) {
   /* Select the second column */
-  width: 14rem;
+  max-width: 14rem;
+}
+
+th:nth-child(4) {
+  max-width: 14rem;
 }
 
 th {

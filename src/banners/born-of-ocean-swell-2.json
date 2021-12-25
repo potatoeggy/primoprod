@@ -11,6 +11,7 @@
   ],
   "id": "born-of-ocean-swell-2",
   "storage": "event",
+  "description": "Character Event Wish-2",
   "featuredDrops": ["eula", "bennett", "rosaria", "noelle"],
   "drops": [
     "jean",

@@ -10,13 +10,9 @@
     }
   ],
   "id": "moment-of-bloom",
+  "description": "Character Event Wish",
   "storage": "event",
-  "featuredDrops": [
-    "hu-tao",
-    "xingqiu",
-    "xiangling",
-    "chongyun"
-  ],
+  "featuredDrops": ["hu-tao", "xingqiu", "xiangling", "chongyun"],
   "drops": [
     "jean",
     "qiqi",

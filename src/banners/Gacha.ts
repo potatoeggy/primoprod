@@ -16,6 +16,7 @@ export interface Banner {
   drops: string[];
   featuredDrops: string[];
   styles: StylisedText[];
+  description: string;
 }
 
 export interface State {

@@ -11,12 +11,8 @@
   ],
   "id": "reign-of-serenity",
   "storage": "event",
-  "featuredDrops": [
-    "raiden",
-    "sara",
-    "sucrose",
-    "xiangling"
-  ],
+  "description": "Character Event Wish",
+  "featuredDrops": ["raiden", "sara", "sucrose", "xiangling"],
   "drops": [
     "jean",
     "qiqi",

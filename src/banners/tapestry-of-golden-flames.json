@@ -11,12 +11,8 @@
   ],
   "id": "tapestry-of-golden-flames",
   "storage": "event",
-  "featuredDrops": [
-    "yoimiya",
-    "sayu",
-    "diona",
-    "xinyan"
-  ],
+  "description": "Character Event Wish",
+  "featuredDrops": ["yoimiya", "sayu", "diona", "xinyan"],
   "drops": [
     "jean",
     "qiqi",

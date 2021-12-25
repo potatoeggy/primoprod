@@ -10,6 +10,7 @@
     }
   ],
   "id": "moment-of-bloom-2",
+  "description": "Character Event Wish",
   "storage": "event",
   "featuredDrops": ["hu-tao", "thoma", "diona", "sayu"],
   "drops": [

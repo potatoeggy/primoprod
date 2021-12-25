@@ -11,12 +11,8 @@
   ],
   "id": "the-herons-court",
   "storage": "event",
-  "featuredDrops": [
-    "ayaka",
-    "ningguang",
-    "chongyun",
-    "yanfei"
-  ],
+  "description": "Character Event Wish",
+  "featuredDrops": ["ayaka", "ningguang", "chongyun", "yanfei"],
   "drops": [
     "jean",
     "qiqi",

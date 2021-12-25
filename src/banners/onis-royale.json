@@ -11,6 +11,7 @@
   ],
   "id": "onis-royale",
   "storage": "event",
+  "description": "Character Event Wish",
   "featuredDrops": ["itto", "gorou", "barbara", "xiangling"],
   "drops": [
     "jean",
