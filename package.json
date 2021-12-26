@@ -13,6 +13,9 @@
   },
   "main": "background.js",
   "dependencies": {
+    "@capacitor/android": "^3.3.3",
+    "@capacitor/cli": "^3.3.3",
+    "@capacitor/core": "^3.3.3",
     "core-js": "^3.6.5",
     "dayjs": "^1.10.6",
     "vue": "^3.0.0"
