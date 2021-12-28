@@ -50,5 +50,5 @@ jobs:
         github_token: ${{ secrets.github_token }}
         release: ${{ startsWith(github.ref, 'refs/tags/v') }}
         use_vue_cli: true
-        args:  ${{ matrix.flags }}
+        args:  ${{ matrix.flags }} --publish always
     
