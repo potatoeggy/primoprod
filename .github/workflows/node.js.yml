@@ -19,14 +19,15 @@ jobs:
         include:
           - os: windows-latest
             flags: portable
+            extension: exe
             
           - os: macos-latest
             flags: zip
+            extension: zip
             
           - os: ubuntu-latest
             flags: appimage
-            prep: |
-              sudo apt-get install -y wine
+            extension: AppImage
 
     steps:
     - name: Install system dependencies
@@ -50,5 +51,11 @@ jobs:
         github_token: ${{ secrets.github_token }}
         release: ${{ startsWith(github.ref, 'refs/tags/v') }}
         use_vue_cli: true
-        args:  ${{ matrix.flags }} --publish always
+        args:  ${{ matrix.flags }} --publish never
+    
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: ${{ matrix.os }}-${{ matrix.flags }}
+        path: dist_electron/primoprod*.${{ matrix.extension }}
     
