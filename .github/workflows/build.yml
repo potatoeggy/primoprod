@@ -84,15 +84,17 @@ jobs:
 
       - name: Prepare Android build
         run: yarn cap:init
-      
+
       - name: Android build
         working-directory: ./android
         run: ./gradlew build
-      
+
       - name: Sign Android build
         run: jarsigner -sigalg SHA1withRSA -digestalg SHA1 -keystore ~/.android/debug.keystore ./android/app/build/outputs/apk/release/app-release-unsigned.apk
+
+      - name: Prepare to sign build
         run: mv ./android/app/build/outputs/apk/release/app-release-unsigned.apk ./primoprod.apk
-      
+
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
