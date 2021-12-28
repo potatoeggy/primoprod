@@ -20,9 +20,9 @@ Alternatively, to use primoprod offline or with a slow internet connection, down
 yarn install
 ```
 
-For Electron (desktop) builds, **Electron 11+** is required.
+For Electron (desktop) builds, **Node 14+** and **Electron 11+** is required.
 
-For Capacitor (Android) builds, **Node 12+**, **Java 8-16**, and the **Android SDK with platform API 21-31** is required.
+For Capacitor (Android) builds, **Node 14+**, **Java 8-16**, and the **Android SDK with platform API 21-31** is required.
 
 ### Compiles and hot-reloads for development
 
