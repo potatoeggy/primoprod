@@ -143,6 +143,14 @@
       "description": "Plane of Euthymia",
       "rarity": 5
     },
+    "shenhe": {
+      "name": "Shenhe",
+      "id": "shenhe",
+      "type": "Character",
+      "element": "Cryo",
+      "description": "Lonesome Transcendence",
+      "rarity": 5
+    },
     "tartaglia": {
       "name": "Tartaglia",
       "id": "tartaglia",
@@ -357,6 +365,14 @@
       "type": "Character",
       "element": "Pyro",
       "description": "Wise Innocence",
+      "rarity": 4
+    },
+    "yun-jin": {
+      "name": "Yun Jin",
+      "id": "yun-jin",
+      "type": "Character",
+      "element": "Geo",
+      "description": "Stage Lucida",
       "rarity": 4
     },
     "amos-bow": {
