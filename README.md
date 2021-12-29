@@ -1,7 +1,7 @@
 # primoprod
 
 <p align="center">
-    <img src="https://img.shields.io/github/workflow/status/potatoeggy/primoprod/Node.js%20CI" />
+    <img src="https://img.shields.io/github/workflow/status/potatoeggy/primoprod/web-electron-capacitor-ci" />
     <img src="https://img.shields.io/github/v/release/potatoeggy/primoprod?display_name=tag" />
     <img src="https://img.shields.io/github/issues/potatoeggy/primoprod" />
     <img src="https://img.shields.io/github/forks/potatoeggy/primoprod" />
@@ -42,6 +42,7 @@ yarn serve
 ```
 
 Electron:
+
 ```
 yarn electron:serve
 ```
@@ -61,6 +62,7 @@ yarn build
 ```
 
 Electron (output folder `/dist_electron`):
+
 ```
 yarn electron:build
 ```
