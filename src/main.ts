@@ -1,5 +1,5 @@
 import { createApp } from "vue";
-import { Pull } from "./banners/Inventory";
+import { Pull } from "@/types";
 import { dragscrollNext } from "vue-dragscroll";
 import App from "./App.vue";
 

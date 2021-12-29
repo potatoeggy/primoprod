@@ -278,7 +278,8 @@
 import { defineComponent } from "vue";
 import WishDetailsH2 from "./WishDetailsH2.vue";
 import BannerDetailsDropTable from "./BannerDetailsDropTable.vue";
-import { Banner, Item, ItemDatabase, ElementDatabase } from "@/banners/Gacha";
+import { Banner, Item } from "@/types";
+import { ItemDatabase, ElementDatabase } from "@/banners/Gacha";
 import BannerDetailsCharacterProfile from "./BannerDetailsCharacterProfile.vue";
 import BannerStylisedText from "./BannerStylisedText.vue";
 

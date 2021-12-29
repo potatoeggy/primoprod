@@ -113,7 +113,7 @@
 
 <script lang="ts">
 import Inventory from "@/banners/Inventory";
-import { Item } from "@/banners/Gacha";
+import { Item } from "@/types";
 import { defineComponent } from "vue";
 
 export default defineComponent({

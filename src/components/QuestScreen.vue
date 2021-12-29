@@ -133,8 +133,9 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import CloseButton from "./CloseButton.vue";
-import Quests, { Quest } from "@/banners/Quests";
-import { Item, ItemDatabase, ItemStringQuantity } from "@/banners/Gacha";
+import Quests from "@/banners/Quests";
+import { ItemDatabase } from "@/banners/Gacha";
+import { Item, ItemStringQuantity, Quest } from "@/types";
 import ItemDescriptionOverlay from "./ItemDescriptionOverlay.vue";
 import ItemObtainOverlay from "./ItemObtainOverlay.vue";
 import CancelConfirmButton from "./CancelConfirmButton.vue";

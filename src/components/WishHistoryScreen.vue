@@ -79,10 +79,11 @@
 </template>
 
 <script lang="ts">
-import { Item, ItemDatabase } from "@/banners/Gacha";
-import Inventory, { Pull } from "@/banners/Inventory";
+import { ItemDatabase } from "@/banners/Gacha";
+import Inventory from "@/banners/Inventory";
 import { defineComponent } from "vue";
 import dayjs from "dayjs";
+import { Item, Pull } from "@/types";
 
 interface DetailedPull extends Omit<Pull, "item"> {
   item: Item;

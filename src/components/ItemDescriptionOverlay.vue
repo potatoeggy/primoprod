@@ -41,7 +41,7 @@
 </template>
 
 <script lang="ts">
-import { Item } from "@/banners/Gacha";
+import { Item } from "@/types";
 import { defineComponent } from "vue";
 
 export default defineComponent({

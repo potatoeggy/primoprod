@@ -14,7 +14,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { Banner } from "@/banners/Gacha";
+import { Banner } from "@/types";
 export default defineComponent({
   props: {
     banner: Object as () => Banner,
