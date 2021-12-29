@@ -1,15 +1,4 @@
-import { ItemStringQuantity } from "./Gacha";
-
-export interface Quest {
-  name: string;
-  id: string;
-  description?: string;
-  rewards: ItemStringQuantity[];
-  complete?: boolean;
-  uneditable?: boolean;
-  claimed?: Date;
-  expires?: Date;
-}
+import { Quest } from "@/types";
 
 export default class Quests {
   commissions: Quest[] = Array.from({ length: 4 }, (_, i) => {

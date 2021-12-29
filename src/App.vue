@@ -80,7 +80,8 @@ import QuestScreen from "@/components/QuestScreen.vue";
 import ShopScreen from "@/components/ShopScreen.vue";
 
 // gacha
-import Gacha, { Banner, Item, ItemStringQuantity } from "@/banners/Gacha";
+import Gacha from "@/banners/Gacha";
+import { Banner, Item, ItemStringQuantity } from "@/types";
 
 // inventory
 import Inventory from "@/banners/Inventory";

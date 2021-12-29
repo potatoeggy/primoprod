@@ -1,3 +1,14 @@
+export interface Quest {
+  name: string;
+  id: string;
+  description?: string;
+  rewards: ItemStringQuantity[];
+  complete?: boolean;
+  uneditable?: boolean;
+  claimed?: Date;
+  expires?: Date;
+}
+
 export interface Pull {
   item: string;
   date: Date;
