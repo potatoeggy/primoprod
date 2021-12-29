@@ -61,7 +61,7 @@ jobs:
           path: dist_electron/primoprod*.${{ matrix.extension }}
 
   build-capacitor:
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         node-version: [16.x]
