@@ -17,7 +17,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { Item } from "@/banners/Gacha";
+import { Item } from "@/types";
 
 export default defineComponent({
   props: {

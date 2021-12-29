@@ -73,7 +73,8 @@ import GemCounter from "./GemCounter.vue";
 import CloseButton from "./CloseButton.vue";
 import ItemPurchaseOverlay from "./ItemPurchaseOverlay.vue";
 import ItemDescriptionOverlay from "./ItemDescriptionOverlay.vue";
-import { Item, ItemDatabase, ItemStringQuantity } from "@/banners/Gacha";
+import { ItemDatabase } from "@/banners/Gacha";
+import { Item, ItemStringQuantity } from "@/types";
 import RootShopItemList from "@/banners/shop.json";
 
 // import a shop json that shows shop quantities

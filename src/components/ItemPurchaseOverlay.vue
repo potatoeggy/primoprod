@@ -113,7 +113,8 @@
 </template>
 
 <script lang="ts">
-import { Item, ItemDatabase, ItemStringQuantity } from "@/banners/Gacha";
+import { ItemDatabase } from "@/banners/Gacha";
+import { Item, ItemStringQuantity } from "@/types";
 import { defineComponent } from "vue";
 import CancelConfirmButton from "./CancelConfirmButton.vue";
 import ItemDescriptionOverlay from "./ItemDescriptionOverlay.vue";

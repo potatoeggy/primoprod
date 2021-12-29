@@ -61,12 +61,8 @@
 </template>
 
 <script lang="ts">
-import {
-  Item,
-  ItemDatabase,
-  ItemQuantity,
-  ItemStringQuantity,
-} from "@/banners/Gacha";
+import { Item, ItemQuantity, ItemStringQuantity } from "@/types";
+import { ItemDatabase } from "@/banners/Gacha";
 import { defineComponent } from "vue";
 import ItemDescriptionOverlay from "./ItemDescriptionOverlay.vue";
 

@@ -134,7 +134,8 @@
 import { defineComponent } from "vue";
 import CloseButton from "./CloseButton.vue";
 import Quests, { Quest } from "@/banners/Quests";
-import { Item, ItemDatabase, ItemStringQuantity } from "@/banners/Gacha";
+import { ItemDatabase } from "@/banners/Gacha";
+import { Item, ItemStringQuantity } from "@/types";
 import ItemDescriptionOverlay from "./ItemDescriptionOverlay.vue";
 import ItemObtainOverlay from "./ItemObtainOverlay.vue";
 import CancelConfirmButton from "./CancelConfirmButton.vue";

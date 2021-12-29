@@ -32,7 +32,8 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { Banner, Item, ItemDatabase } from "../banners/Gacha";
+import { Banner, Item } from "@/types";
+import { ItemDatabase } from "@/banners/Gacha";
 
 export default defineComponent({
   props: {

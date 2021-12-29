@@ -1,11 +1,5 @@
-import { Item, ItemStringQuantity } from "./Gacha";
+import { Item, ItemStringQuantity, Pull } from "@/types";
 
-export interface Pull {
-  item: string;
-  date: Date;
-  bannerStorage: string;
-  description: string;
-}
 export default class Inventory {
   currency = {
     primos: 0,
