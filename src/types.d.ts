@@ -1,4 +1,3 @@
-// TODO: move all exported types here
 export interface Pull {
   item: string;
   date: Date;
