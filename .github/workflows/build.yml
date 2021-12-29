@@ -90,7 +90,7 @@ jobs:
         run: ./gradlew build
 
       - name: Sign Android build
-        run: jarsigner -sigalg SHA1withRSA -digestalg SHA1 -keystore ~/.android/debug.keystore ./android/app/build/outputs/apk/release/app-release-unsigned.apk
+        run: jarsigner -sigalg SHA1withRSA -digestalg SHA1 -keystore ~/.android/debug.keystore ./android/app/build/outputs/apk/release/app-release-unsigned.apk androiddebugkey
 
       - name: Prepare to sign build
         run: mv ./android/app/build/outputs/apk/release/app-release-unsigned.apk ./primoprod.apk
