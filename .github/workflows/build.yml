@@ -76,13 +76,6 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: "yarn"
 
-      - name: Set up JDK 17
-        uses: actions/setup-java@v2
-        with:
-          java-version: 17
-          distribution: "adopt"
-          cache: gradle
-
       - name: Install Node dependencies
         run: yarn install
 
@@ -91,6 +84,14 @@ jobs:
 
       - name: Prepare Android build
         run: yarn cap:init
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v2
+        working-directory: ./android
+        with:
+          java-version: 17
+          distribution: "adopt"
+          cache: gradle
 
       - name: Android build
         working-directory: ./android
