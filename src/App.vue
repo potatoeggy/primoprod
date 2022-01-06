@@ -86,7 +86,11 @@ import { Banner, Item, ItemStringQuantity } from "@/types";
 // inventory
 import Inventory from "@/banners/Inventory";
 
-const BANNERS = ["invitation-to-mundane-life-2", "wanderlust-invocation"];
+const BANNERS = [
+  "the-transcendent-one-returns",
+  "invitation-to-mundane-life-2",
+  "wanderlust-invocation",
+];
 
 export default defineComponent({
   components: {
