@@ -7,7 +7,7 @@
     <a href="/LICENSE.md"><img src="https://img.shields.io/github/license/potatoeggy/primoprod" /></a>
     <img src="https://img.shields.io/github/forks/potatoeggy/primoprod" />
     <img src="https://img.shields.io/github/stars/potatoeggy/primoprod" />
-</p>https://github.com/potatoeggy/primoprod/releases/tag/1.0.0-2
+</p>
 
 A Genshin Impact-inspired wish simulator written with Vue and Typescript to push a to-do list with gacha as motivation
 
