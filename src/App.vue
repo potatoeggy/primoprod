@@ -254,6 +254,14 @@ export default defineComponent({
   src: local("Genshin"), url(./assets/fonts/Genshin.ttf) format("truetype");
 }
 
+@media screen and (orientation: portrait) {
+  #app {
+    transform: rotate(90deg);
+    width: 100vh;
+    height: 100vw;
+  }
+}
+
 #app {
   -webkit-font-smoothing: antialiased;
   text-align: center;
