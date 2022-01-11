@@ -16,8 +16,8 @@ export default class Quests {
       description:
         "Thank you for using primoprod! To get you started, have some gems and fates on us!",
       rewards: [
-        { id: "primogem", quantity: 3200 },
-        { id: "intertwined-fate", quantity: 5 },
+        { id: "primogem", quantity: 10000 },
+        { id: "intertwined-fate", quantity: 45 },
       ],
       uneditable: true,
     },
