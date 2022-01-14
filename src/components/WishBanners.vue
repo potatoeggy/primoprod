@@ -388,7 +388,7 @@ export default defineComponent({
 #header {
   animation: fadein 0.75s forwards, slide-from-top 0.75s forwards ease-out;
   margin-bottom: 0;
-  min-height: 20%;
+  max-height: min-content;
 }
 
 #header.exit-animation {
@@ -433,7 +433,7 @@ export default defineComponent({
 }
 
 #footer {
-  min-height: 20%;
+  max-height: min-content;
 }
 
 #footer.start-animation {
@@ -592,6 +592,10 @@ export default defineComponent({
 
   .banner {
     width: 90%;
+  }
+
+  #div-banner {
+    max-height: 80%;
   }
 }
 </style>
