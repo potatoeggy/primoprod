@@ -163,4 +163,12 @@ export default defineComponent({
   margin-top: 0.3rem;
   width: 80%;
 }
+
+@media screen and (max-width: 850px) and (orientation: portrait),
+  (orientation: landscape) and (max-height: 850px) {
+  .cancel-confirm-button {
+    font-size: 1.5rem;
+    width: calc(var(--length) * 0.9);
+  }
+}
 </style>

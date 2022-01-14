@@ -128,4 +128,11 @@ export default defineComponent({
 .fate-coloured {
   color: #f49c00;
 }
+
+@media screen and (max-width: 850px) and (orientation: portrait),
+  (orientation: landscape) and (max-height: 850px) {
+  #dialog-fate-purchase {
+    font-size: 1.5rem;
+  }
+}
 </style>
