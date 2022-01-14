@@ -597,5 +597,10 @@ export default defineComponent({
   #div-banner {
     max-height: 80%;
   }
+
+  #header {
+    padding-right: 5rem;
+    box-sizing: border-box;
+  }
 }
 </style>
