@@ -144,6 +144,8 @@ export default defineComponent({
   align-items: center;
   width: 100%;
   margin-right: 3rem;
+  padding-right: 5rem;
+  box-sizing: border-box;
 }
 
 .shop-body {
@@ -221,8 +223,8 @@ export default defineComponent({
   position: fixed;
   top: 0;
   left: 0;
-  height: 100vh;
-  width: 100vw;
+  height: 100%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;

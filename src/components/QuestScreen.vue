@@ -277,8 +277,8 @@ export default defineComponent({
   position: fixed;
   top: 0;
   left: 0;
-  height: 100vh;
-  width: 100vw;
+  height: 100%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -467,8 +467,8 @@ textarea.quest-description {
   display: flex;
   justify-content: space-between;
   flex-direction: row;
-  height: 100%;
-  width: 85vw;
+  height: 85%;
+  width: 85%;
 }
 
 .quest-selector {
@@ -553,5 +553,14 @@ textarea.quest-description {
 
 .gray {
   background-color: #505863;
+}
+
+@media screen and (max-width: 850px) and (orientation: portrait) {
+  .header {
+    padding-right: 3rem;
+    margin-left: 0;
+    box-sizing: border-box;
+    padding-bottom: 0.5rem;
+  }
 }
 </style>

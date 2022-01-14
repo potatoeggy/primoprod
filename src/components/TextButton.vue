@@ -37,7 +37,7 @@ export default defineComponent({
   border: solid transparent;
   box-shadow: 0 2px 2px 0 rgba(100, 100, 100, 0.2),
     0 2px 2px 0 rgba(100, 100, 100, 0.19);
-  font-size: 14pt;
+  font-size: 1.25rem;
   color: black;
   text-align: center;
   transition: border 0.3s;
@@ -68,6 +68,14 @@ export default defineComponent({
     color: white;
     background: linear-gradient(rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.05)),
       #e0ddd4;
+  }
+}
+
+@media screen and (max-width: 850px) and (orientation: portrait),
+  screen and (max-height: 700px) and (orientation: landscape) {
+  .menu-button {
+    transform: scale(75%);
+    margin: 0;
   }
 }
 </style>

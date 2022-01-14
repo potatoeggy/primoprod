@@ -261,7 +261,6 @@ export default defineComponent({
   background: url("./assets/images/wish-background.png") center/cover no-repeat
       fixed,
     #8ac2eb;
-  min-height: max-content;
 }
 
 /* reset css */
@@ -277,11 +276,38 @@ html,
 body,
 #app {
   height: 100%;
+  margin: 0;
+  padding: 0;
   overflow: hidden;
 }
 
 img {
   /* to not have white flash on initial load */
   background-color: transparent;
+}
+
+@media screen and (orientation: portrait) {
+  body {
+    height: 100vw;
+    width: 100vh;
+    transform: rotate(90deg);
+    transform-origin: bottom left;
+    position: absolute;
+    top: -100vw;
+    left: 0;
+  }
+  #app {
+    width: 100%;
+  }
+
+  html {
+    font-size: 10px;
+  }
+}
+
+@media screen and (max-height: 700px) and (orientation: landscape) {
+  html {
+    font-size: 10px;
+  }
 }
 </style>

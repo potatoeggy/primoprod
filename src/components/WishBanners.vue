@@ -19,128 +19,163 @@
   <audio id="audio-banner-switch" preload="true">
     <source src="@/assets/audio/banner-switch.mp3" />
   </audio>
-
-  <div
-    :class="{
-      banner: true,
-      invisible: showDetails || showHistory,
-    }"
-  >
-    <div
-      id="header"
-      :class="[
-        'space-between',
-        'center',
-        stateExiting ? 'exit-animation' : 'start-animation',
-      ]"
-      @animationend="exitEmit"
-    >
-      <div id="wish-label" class="space-between center">
-        <img src="../assets/images/ui-wish-edited.png" />
-        <p id="wish-label">Wish</p>
-      </div>
-      <div class="banner-header">
-        <template v-for="(ban, index) of banners" :key="index">
-          <img
-            :src="getBannerHeaderImage(ban, true)"
-            v-if="currentBannerIndex === index"
-          />
-          <img
-            :src="getBannerHeaderImage(ban)"
-            v-else
-            @click="changeBanner(index)"
-          />
-        </template>
-      </div>
-      <div id="gems">
-        <gem-counter
-          icon="primogem.png"
-          :text="inventory.primos"
-          @image-clicked="activeItemId = 'primogem'"
-          plusSign
-        ></gem-counter>
-        <gem-counter
-          icon="acquaint-fate.png"
-          :text="inventory.standardFates"
-          @image-clicked="activeItemId = 'acquaint-fate'"
-          v-if="banner.storage === 'standard'"
-        ></gem-counter>
-        <gem-counter
-          icon="intertwined-fate.png"
-          :text="inventory.fates"
-          @image-clicked="activeItemId = 'intertwined-fate'"
+  <div class="banner-container">
+    <div class="mobile-header" v-if="isMobile">
+      <img src="../assets/images/ui-wish-edited.png" />
+      <template v-for="(ban, index) of banners" :key="index">
+        <img
+          :src="getBannerHeaderImage(ban, true)"
+          v-if="currentBannerIndex === index"
+          class="header-resizable"
+        />
+        <img
+          :src="getBannerHeaderImage(ban)"
           v-else
-        ></gem-counter>
-        <div class="close-box">
-          <close-button @clicked="exit"></close-button>
+          @click="changeBanner(index)"
+          class="header-resizable"
+        />
+      </template>
+    </div>
+    <div
+      :class="{
+        banner: true,
+        invisible: showDetails || showHistory,
+      }"
+    >
+      <div
+        id="header"
+        :class="[
+          'space-between',
+          'center',
+          stateExiting ? 'exit-animation' : 'start-animation',
+        ]"
+        @animationend="exitEmit"
+      >
+        <div id="wish-label" class="space-between center">
+          <img v-if="!isMobile" src="../assets/images/ui-wish-edited.png" />
+          <p id="wish-label">Wish</p>
         </div>
-      </div>
-    </div>
-    <div
-      id="div-banner"
-      :class="stateExiting ? 'exit-animation' : 'start-animation'"
-      :key="currentBannerIndex"
-    >
-      <img id="banner" :src="getBannerImage" />
-    </div>
-    <div
-      id="footer"
-      :class="[
-        'space-between',
-        stateExiting ? 'exit-animation' : 'start-animation',
-      ]"
-    >
-      <div>
-        <div id="masterless-home" class="footer-align-flex left-align-flex">
+        <div class="banner-header" v-if="!isMobile">
+          <template v-for="(ban, index) of banners" :key="index">
+            <img
+              :src="getBannerHeaderImage(ban, true)"
+              v-if="currentBannerIndex === index"
+              class="header-resizable"
+            />
+            <img
+              :src="getBannerHeaderImage(ban)"
+              v-else
+              @click="changeBanner(index)"
+              class="header-resizable"
+            />
+          </template>
+        </div>
+        <div id="gems">
           <gem-counter
             icon="starglitter.png"
             :text="inventory.starglitter"
             @image-clicked="activeItemId = 'starglitter'"
-            nobackground
+            v-if="isMobile"
           ></gem-counter>
           <gem-counter
             icon="stardust.png"
             :text="inventory.stardust"
             @image-clicked="activeItemId = 'stardust'"
-            nobackground
+            v-if="isMobile"
           ></gem-counter>
-        </div>
-        <div id="shop-buttons" class="footer-align-flex">
-          <text-button
-            text="Shop"
-            @clicked="targetExitEmit = 'go-shop'"
-          ></text-button>
-          <text-button
-            text="Details"
-            @clicked="showDetails = true"
-          ></text-button>
-          <text-button
-            text="History"
-            @clicked="showHistory = true"
-          ></text-button>
+          <gem-counter
+            icon="primogem.png"
+            :text="inventory.primos"
+            @image-clicked="activeItemId = 'primogem'"
+            plusSign
+          ></gem-counter>
+          <gem-counter
+            icon="acquaint-fate.png"
+            :text="inventory.standardFates"
+            @image-clicked="activeItemId = 'acquaint-fate'"
+            v-if="banner.storage === 'standard'"
+          ></gem-counter>
+          <gem-counter
+            icon="intertwined-fate.png"
+            :text="inventory.fates"
+            @image-clicked="activeItemId = 'intertwined-fate'"
+            v-else
+          ></gem-counter>
+          <div class="close-box">
+            <close-button @clicked="exit"></close-button>
+          </div>
         </div>
       </div>
-      <div id="wish-buttons" class="footer-align-flex">
-        <wish-button
-          :wishes="1"
-          :fates="
-            banner.storage === 'standard'
-              ? inventory.standardFates
-              : inventory.fates
-          "
-          :standard="banner.storage === 'standard'"
-          @try-wish="wish(1)"
-        ></wish-button>
-        <wish-button
-          :wishes="10"
-          :fates="
-            banner.storage === 'standard'
-              ? inventory.standardFates
-              : inventory.fates
-          "
-          :standard="banner.storage === 'standard'"
-          @try-wish="wish(10)"
-        ></wish-button>
+      <div
+        id="div-banner"
+        :class="stateExiting ? 'exit-animation' : 'start-animation'"
+        :key="currentBannerIndex"
+      >
+        <img id="banner" :src="getBannerImage" />
+      </div>
+      <div
+        id="footer"
+        :class="[
+          'space-between',
+          stateExiting ? 'exit-animation' : 'start-animation',
+        ]"
+      >
+        <div id="shop-button-holder-sometimes">
+          <div
+            v-if="!isMobile"
+            id="masterless-home"
+            class="footer-align-flex left-align-flex"
+          >
+            <gem-counter
+              icon="starglitter.png"
+              :text="inventory.starglitter"
+              @image-clicked="activeItemId = 'starglitter'"
+              nobackground
+            ></gem-counter>
+            <gem-counter
+              icon="stardust.png"
+              :text="inventory.stardust"
+              @image-clicked="activeItemId = 'stardust'"
+              nobackground
+            ></gem-counter>
+          </div>
+          <div id="shop-buttons" class="footer-align-flex">
+            <text-button
+              text="Shop"
+              @clicked="targetExitEmit = 'go-shop'"
+            ></text-button>
+            <text-button
+              text="Details"
+              @clicked="showDetails = true"
+            ></text-button>
+            <text-button
+              text="History"
+              @clicked="showHistory = true"
+            ></text-button>
+          </div>
+        </div>
+        <div id="wish-buttons" class="footer-align-flex">
+          <wish-button
+            :wishes="1"
+            :fates="
+              banner.storage === 'standard'
+                ? inventory.standardFates
+                : inventory.fates
+            "
+            :standard="banner.storage === 'standard'"
+            @try-wish="wish(1)"
+          ></wish-button>
+          <wish-button
+            :wishes="10"
+            :fates="
+              banner.storage === 'standard'
+                ? inventory.standardFates
+                : inventory.fates
+            "
+            :standard="banner.storage === 'standard'"
+            @try-wish="wish(10)"
+          ></wish-button>
+        </div>
       </div>
     </div>
   </div>
@@ -189,13 +224,14 @@ export default defineComponent({
       showHistory: false,
       activeItemId: "",
       targetExitEmit: "" as "wish" | "go-quests" | "go-shop" | "",
+      windowHeight: window.innerHeight,
+      windowWidth: window.innerWidth,
     };
   },
   computed: {
     banner(): Banner {
       return this.banners[this.currentBannerIndex];
     },
-
     getBannerImage(): string {
       const images = require.context(
         "../assets/images/banners/",
@@ -213,6 +249,12 @@ export default defineComponent({
     },
     stateExiting(): boolean {
       return this.targetExitEmit !== "";
+    },
+    isMobile(): boolean {
+      return (
+        (this.windowHeight > this.windowWidth && this.windowWidth < 850) ||
+        this.windowHeight < 700
+      );
     },
   },
   methods: {
@@ -261,6 +303,16 @@ export default defineComponent({
     exit(): void {
       this.$emit("go-quests");
     },
+    onResize() {
+      this.windowHeight = window.innerHeight;
+      this.windowWidth = window.innerWidth;
+    },
+  },
+  created() {
+    this.$nextTick(() => window.addEventListener("resize", this.onResize));
+  },
+  beforeUnmount() {
+    window.removeEventListener("resize", this.onResize);
   },
   emits: ["wish", "go-quests", "go-shop", "change-banner"],
 });
@@ -271,17 +323,54 @@ export default defineComponent({
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  -webkit-font-smoothing: antialiased;
   text-align: center;
   color: #2c3e50;
   height: 100%;
+  width: 100%;
+}
+
+.banner-container {
+  height: 100%;
+  display: flex;
+}
+
+.mobile-header {
+  width: 5%;
+  height: 100%;
+  background: linear-gradient(to bottom, #424b5c, #7a8d9c88);
+  display: flex;
+  flex-direction: column;
+  margin-left: 2rem;
+  box-sizing: border-box;
+  gap: 1rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  align-items: center;
+  transform: translateX(1rem);
+  border-left: 0.1rem solid #978b72;
+  border-right: 0.1rem solid #978b72;
+}
+
+.mobile-header > .header-resizable {
+  max-width: 8.5rem;
+}
+
+.mobile-header > img:not(.header-resizable) {
+  width: 80%;
+  padding-bottom: 1rem;
+  padding-top: 1rem;
 }
 
 .banner-header {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 2vw;
+  gap: 1rem;
+}
+
+.header-resizable {
+  min-width: 2rem;
+  max-width: calc(100% / 3);
 }
 
 .invisible {
@@ -303,6 +392,7 @@ export default defineComponent({
 #header {
   animation: fadein 0.75s forwards, slide-from-top 0.75s forwards ease-out;
   margin-bottom: 0;
+  max-height: min-content;
 }
 
 #header.exit-animation {
@@ -327,7 +417,8 @@ export default defineComponent({
   display: flex;
   align-items: center;
   justify-content: center;
-  max-height: 70%;
+  max-height: 60%;
+  max-width: 100%;
 }
 
 #div-banner.start-animation {
@@ -342,10 +433,11 @@ export default defineComponent({
 #banner {
   max-width: 90%;
   max-height: 100%;
+  height: 100%;
 }
 
 #footer {
-  min-height: 4rem;
+  max-height: min-content;
 }
 
 #footer.start-animation {
@@ -432,7 +524,7 @@ export default defineComponent({
 .footer-align-flex {
   display: flex;
   justify-content: center;
-  align-items: flex-end;
+  align-items: center;
   flex-wrap: wrap;
 }
 
@@ -442,7 +534,7 @@ export default defineComponent({
 
 #wish-label > img {
   width: 3rem;
-  margin-right: 3rem;
+  margin-right: 20%;
 }
 
 .space-between {
@@ -461,15 +553,60 @@ export default defineComponent({
   margin-bottom: auto;
 }
 
-.wish-container + .wish-container {
-  padding-left: 1rem;
-  padding-right: 1rem;
-}
-
 #wish-label {
   color: #f6f2ee;
   text-shadow: 1px 1px rgba(2, 2, 2, 0.3);
   user-select: none;
-  font-size: 16pt;
+  font-size: 1.25rem;
+  margin-left: 0;
+  padding-right: 0.5rem;
+}
+
+@media screen and (max-width: 850px) and (orientation: portrait),
+  screen and (max-height: 700px) and (orientation: landscape) {
+  .menu-button {
+    transform: scale(75%);
+    margin: 0;
+  }
+
+  .footer-align-flex {
+    flex-wrap: nowrap;
+    align-items: flex-start;
+  }
+
+  #wish-buttons {
+    transform: translateY(-1.75rem);
+    width: 55%;
+  }
+
+  #shop-buttons {
+    width: 100%;
+  }
+
+  #shop-button-holder-sometimes {
+    width: 45%;
+  }
+
+  #header {
+    width: 100%;
+    margin: 0;
+  }
+
+  p#wish-label {
+    margin-right: 10rem;
+  }
+
+  .banner {
+    width: 90%;
+  }
+
+  #div-banner {
+    max-height: 80%;
+  }
+
+  #header {
+    padding-right: 5rem;
+    box-sizing: border-box;
+  }
 }
 </style>

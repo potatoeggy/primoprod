@@ -16,7 +16,7 @@ export default defineComponent({});
   height: 1.75rem;
   border-radius: 50%;
   background-color: #ece5d8;
-  font-size: 22pt;
+  font-size: 2rem;
   text-align: center;
   transition: 0.1s;
   outline: none;
