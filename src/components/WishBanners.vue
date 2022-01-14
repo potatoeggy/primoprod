@@ -370,6 +370,7 @@ export default defineComponent({
 
 .header-resizable {
   min-width: 2rem;
+  max-width: calc(100% / 3);
 }
 
 .invisible {
@@ -557,6 +558,8 @@ export default defineComponent({
   text-shadow: 1px 1px rgba(2, 2, 2, 0.3);
   user-select: none;
   font-size: 1.25rem;
+  margin-left: 0;
+  padding-right: 0.5rem;
 }
 
 @media screen and (max-width: 850px) and (orientation: portrait),
