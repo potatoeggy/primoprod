@@ -277,8 +277,8 @@ export default defineComponent({
   position: fixed;
   top: 0;
   left: 0;
-  height: 100vh;
-  width: 100vw;
+  height: 100%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -468,7 +468,7 @@ textarea.quest-description {
   justify-content: space-between;
   flex-direction: row;
   height: 100%;
-  width: 85vw;
+  width: 85%;
 }
 
 .quest-selector {
