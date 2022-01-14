@@ -304,4 +304,10 @@ img {
     font-size: 10px;
   }
 }
+
+@media screen and (max-height: 700px) and (orientation: landscape) {
+  html {
+    font-size: 10px;
+  }
+}
 </style>
