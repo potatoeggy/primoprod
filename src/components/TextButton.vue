@@ -37,7 +37,7 @@ export default defineComponent({
   border: solid transparent;
   box-shadow: 0 2px 2px 0 rgba(100, 100, 100, 0.2),
     0 2px 2px 0 rgba(100, 100, 100, 0.19);
-  font-size: 14pt;
+  font-size: 1.25rem;
   color: black;
   text-align: center;
   transition: border 0.3s;

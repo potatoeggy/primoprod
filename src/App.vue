@@ -299,5 +299,9 @@ img {
   #app {
     width: 100%;
   }
+
+  html {
+    font-size: 10px;
+  }
 }
 </style>
