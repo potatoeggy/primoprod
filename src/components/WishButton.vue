@@ -92,7 +92,7 @@ p {
 }
 
 @media screen and (max-width: 850px) and (orientation: portrait),
-  (orientation: landscape) and (max-height: 850px) {
+  screen and (max-height: 700px) and (orientation: landscape) {
   p {
     font-size: 1rem;
   }
