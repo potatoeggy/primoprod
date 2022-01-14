@@ -39,7 +39,7 @@
         <img src="../assets/images/ui-wish-edited.png" />
         <p id="wish-label">Wish</p>
       </div>
-      <div class="banner-header">
+      <div class="banner-header" v-if="!isMobile">
         <template v-for="(ban, index) of banners" :key="index">
           <img
             :src="getBannerHeaderImage(ban, true)"
@@ -55,6 +55,18 @@
         </template>
       </div>
       <div id="gems">
+        <gem-counter
+          icon="starglitter.png"
+          :text="inventory.starglitter"
+          @image-clicked="activeItemId = 'starglitter'"
+          v-if="isMobile"
+        ></gem-counter>
+        <gem-counter
+          icon="stardust.png"
+          :text="inventory.stardust"
+          @image-clicked="activeItemId = 'stardust'"
+          v-if="isMobile"
+        ></gem-counter>
         <gem-counter
           icon="primogem.png"
           :text="inventory.primos"
@@ -92,31 +104,39 @@
         stateExiting ? 'exit-animation' : 'start-animation',
       ]"
     >
-      <div
-        v-if="!isMobile"
-        id="masterless-home"
-        class="footer-align-flex left-align-flex"
-      >
-        <gem-counter
-          icon="starglitter.png"
-          :text="inventory.starglitter"
-          @image-clicked="activeItemId = 'starglitter'"
-          nobackground
-        ></gem-counter>
-        <gem-counter
-          icon="stardust.png"
-          :text="inventory.stardust"
-          @image-clicked="activeItemId = 'stardust'"
-          nobackground
-        ></gem-counter>
-      </div>
-      <div id="shop-buttons" class="footer-align-flex">
-        <text-button
-          text="Shop"
-          @clicked="targetExitEmit = 'go-shop'"
-        ></text-button>
-        <text-button text="Details" @clicked="showDetails = true"></text-button>
-        <text-button text="History" @clicked="showHistory = true"></text-button>
+      <div id="shop-button-holder-sometimes">
+        <div
+          v-if="!isMobile"
+          id="masterless-home"
+          class="footer-align-flex left-align-flex"
+        >
+          <gem-counter
+            icon="starglitter.png"
+            :text="inventory.starglitter"
+            @image-clicked="activeItemId = 'starglitter'"
+            nobackground
+          ></gem-counter>
+          <gem-counter
+            icon="stardust.png"
+            :text="inventory.stardust"
+            @image-clicked="activeItemId = 'stardust'"
+            nobackground
+          ></gem-counter>
+        </div>
+        <div id="shop-buttons" class="footer-align-flex">
+          <text-button
+            text="Shop"
+            @clicked="targetExitEmit = 'go-shop'"
+          ></text-button>
+          <text-button
+            text="Details"
+            @clicked="showDetails = true"
+          ></text-button>
+          <text-button
+            text="History"
+            @clicked="showHistory = true"
+          ></text-button>
+        </div>
       </div>
       <div id="wish-buttons" class="footer-align-flex">
         <wish-button
@@ -268,10 +288,8 @@ export default defineComponent({
       this.windowWidth = window.innerWidth;
     },
   },
-  mounted() {
-    this.$nextTick(() => {
-      window.addEventListener("resize", () => this.onResize);
-    });
+  created() {
+    this.$nextTick(() => window.addEventListener("resize", this.onResize));
   },
   beforeUnmount() {
     window.removeEventListener("resize", this.onResize);
@@ -507,6 +525,10 @@ export default defineComponent({
   }
 
   #shop-buttons {
+    width: 100%;
+  }
+
+  #shop-button-holder-sometimes {
     width: 45%;
   }
 }
