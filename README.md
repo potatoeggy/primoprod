@@ -1,27 +1,31 @@
 # primoprod
 
 <p align="center">
-    <img src="https://img.shields.io/github/workflow/status/potatoeggy/primoprod/build" />
-    <img src="https://img.shields.io/github/v/release/potatoeggy/primoprod?display_name=tag" />
-    <img src="https://img.shields.io/github/issues/potatoeggy/primoprod" />
+    <a href="https://github.com/potatoeggy/primoprod/actions?query=branch%3Amaster"><img src="https://img.shields.io/github/workflow/status/potatoeggy/primoprod/build" /></a>
+    <a href="https://github.com/potatoeggy/primoprod/releases/latest"><img src="https://img.shields.io/github/v/release/potatoeggy/primoprod?display_name=tag" /></a>
+    <a href="https://github.com/potatoeggy/primoprod/issues"><img src="https://img.shields.io/github/issues/potatoeggy/primoprod" /></a>
+    <a href="/LICENSE.md"><img src="https://img.shields.io/github/license/potatoeggy/primoprod" /></a>
     <img src="https://img.shields.io/github/forks/potatoeggy/primoprod" />
     <img src="https://img.shields.io/github/stars/potatoeggy/primoprod" />
-    <img src="https://img.shields.io/github/license/potatoeggy/primoprod" />
 </p>
 
 A Genshin Impact-inspired wish simulator written with Vue and Typescript to push a to-do list with gacha as motivation
 
 ![](primoprod-demo.png)
 
-All code is licensed under the AGPL in LICENSE.md.
-
-Most assets are owned by MiHoYo, Co., Ltd.
-
 ## Usage
 
 Visit https://primoprod.eggworld.tk for a live demo!
 
-Alternatively, to use primoprod offline or with a slow internet connection, download the latest desktop or Android version in the [Releases](https://github.com/potatoeggy/primoprod/releases/latest) tab.
+Alternatively, to use primoprod offline or with a slow internet connection or while the demo is down, download the latest desktop or Android version in the [Releases](https://github.com/potatoeggy/primoprod/releases/latest) tab.
+
+## Disclaimer
+
+All code is licensed under the AGPL in LICENSE.md.
+
+This project is for practice and for fun and is **not** intended for monetary gain. Most assets are owned by MiHoYo, Co., Ltd.
+
+Some implementation details were inspired by https://genshin.thekima.com and https://github.com/uzair-ashraf/genshin-impact-wish-simulator.
 
 ## Project setup
 

@@ -168,7 +168,7 @@ export default class Gacha {
   }
 
   get5StarItem(): Item {
-    this.state.pityCounter4 = 0;
+    this.state.pityCounter4 += 1;
     this.state.pityCounter5 = 0;
 
     let drop = this.drops[5][this.rng(this.drops[5].length)];

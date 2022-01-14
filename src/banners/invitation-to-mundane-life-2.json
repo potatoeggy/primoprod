@@ -1,17 +1,18 @@
 {
-  "name": "Wanderlust Invocation",
+  "name": "Invitation to Mundane Life",
   "styles": [
     {
-      "text": "Wanderlust "
+      "color": "#359596",
+      "text": "Invitation to"
     },
     {
-      "color": "#757acd",
-      "text": "Invocation"
+      "text": " Mundane Life"
     }
   ],
-  "id": "wanderlust-invocation",
-  "storage": "standard",
-  "description": "Permanent Wish",
+  "id": "invitation-to-mundane-life-2",
+  "storage": "event",
+  "description": "Character Event Wish-2",
+  "featuredDrops": ["xiao", "ningguang", "chongyun", "yun-jin"],
   "drops": [
     "jean",
     "qiqi",
@@ -19,36 +20,24 @@
     "mona",
     "diluc",
     "sucrose",
-    "rosaria",
     "diona",
-    "chongyun",
-    "kaeya",
     "fischl",
     "beidou",
     "razor",
-    "lisa",
-    "noelle",
-    "ningguang",
-    "xingqiu",
-    "barbara",
-    "yanfei",
+    "diona",
     "xinyan",
-    "bennett",
-    "xiangling",
-    "amber",
-    "sayu",
+    "ningguang",
+    "chongyun",
+    "xingqiu",
     "thoma",
+    "diona",
+    "sayu",
+    "bennett",
+    "rosaria",
+    "noelle",
     "gorou",
-    "skyward-harp",
-    "amos-bow",
-    "skyward-atlas",
-    "lost-prayer-to-the-sacred-winds",
-    "skyward-pride",
-    "wolfs-gravestone",
-    "skyward-spine",
-    "primordial-jade-winged-spear",
-    "skyward-blade",
-    "aquila-favonia",
+    "barbara",
+    "xiangling",
     "favonius-warbow",
     "sacrificial-bow",
     "the-stringless",
@@ -80,6 +69,5 @@
     "skyrider-sword",
     "harbinger-of-dawn",
     "cool-steel"
-  ],
-  "featuredDrops": []
+  ]
 }
