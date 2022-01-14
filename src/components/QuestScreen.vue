@@ -554,4 +554,14 @@ textarea.quest-description {
 .gray {
   background-color: #505863;
 }
+
+@media screen and (max-width: 850px) and (orientation: portrait),
+  (orientation: landscape) and (max-height: 850px) {
+  .header {
+    padding-right: 3rem;
+    margin-left: 0;
+    box-sizing: border-box;
+    padding-bottom: 0.5rem;
+  }
+}
 </style>
