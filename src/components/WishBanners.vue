@@ -332,10 +332,9 @@ export default defineComponent({
 }
 
 .mobile-header {
-  min-width: 4%;
-  max-width: 6%;
+  width: 5%;
   height: 100%;
-  background: linear-gradient(to bottom, #424b5c, #7a8d9c);
+  background: linear-gradient(to bottom, #424b5c, #7a8d9c88);
   display: flex;
   flex-direction: column;
   margin-left: 2rem;
@@ -345,6 +344,8 @@ export default defineComponent({
   padding-bottom: 1rem;
   align-items: center;
   transform: translateX(1rem);
+  border-left: 0.1rem solid #978b72;
+  border-right: 0.1rem solid #978b72;
 }
 
 .mobile-header > .header-resizable {
@@ -552,7 +553,7 @@ export default defineComponent({
   color: #f6f2ee;
   text-shadow: 1px 1px rgba(2, 2, 2, 0.3);
   user-select: none;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
 }
 
 @media screen and (max-width: 850px) and (orientation: portrait),
@@ -569,6 +570,7 @@ export default defineComponent({
 
   #wish-buttons {
     transform: translateY(-1.75rem);
+    width: 55%;
   }
 
   #shop-buttons {
@@ -580,9 +582,12 @@ export default defineComponent({
   }
 
   #header {
-    margin-top: 0;
     width: 100%;
-    margin-left: 0;
+    margin: 0;
+  }
+
+  p#wish-label {
+    margin-right: 10rem;
   }
 
   .banner {
