@@ -161,6 +161,6 @@ export default defineComponent({
 .icon_delete {
   color: red;
   margin-top: 0.3rem;
-  width: 90%;
+  width: 80%;
 }
 </style>

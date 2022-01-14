@@ -467,7 +467,7 @@ textarea.quest-description {
   display: flex;
   justify-content: space-between;
   flex-direction: row;
-  height: 100%;
+  height: 85%;
   width: 85%;
 }
 
