@@ -1549,6 +1549,11 @@
   resolved "https://registry.yarnpkg.com/@vue/cli-plugin-vuex/-/cli-plugin-vuex-4.5.13.tgz#98646d8bc1e69cf6c6a6cba2fed3eace0356c360"
   integrity sha512-I1S9wZC7iI0Wn8kw8Zh+A2Qkf6s1M6vTGBkx8boXjuzfwEEyEHRxadsVCecZc8Mkpydo0nykj+MyYF96TKFuVA==
 
+"@vue/cli-plugin-vuex@~4.5.0":
+  version "4.5.15"
+  resolved "https://registry.yarnpkg.com/@vue/cli-plugin-vuex/-/cli-plugin-vuex-4.5.15.tgz#466c1f02777d02fef53a9bb49a36cc3a3bcfec4e"
+  integrity sha512-fqap+4HN+w+InDxlA3hZTOGE0tzBTgXhKLoDydhywqgmhQ1D9JA6Feh94ze6tG8DsWX58/ujYUqA8jAz17FJtg==
+
 "@vue/cli-service@~4.5.0":
   version "4.5.13"
   resolved "https://registry.yarnpkg.com/@vue/cli-service/-/cli-service-4.5.13.tgz#a09e684a801684b6e24e5414ad30650970eec9ed"
@@ -10075,11 +10080,6 @@ vm-browserify@^1.0.1:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/vm-browserify/-/vm-browserify-1.1.2.tgz#78641c488b8e6ca91a75f511e7a3b32a86e5dda0"
   integrity sha512-2ham8XPWTONajOR0ohOKOHXkm3+gaBmGut3SRuu75xLd/RRaY6vqgh8NBYYk7+RW3u5AtzPQZG8F10LHkl0lAQ==
-
-vue-class-component@^8.0.0-0:
-  version "8.0.0-rc.1"
-  resolved "https://registry.yarnpkg.com/vue-class-component/-/vue-class-component-8.0.0-rc.1.tgz#db692cd97656eb9a08206c03d0b7398cdb1d9420"
-  integrity sha512-w1nMzsT/UdbDAXKqhwTmSoyuJzUXKrxLE77PCFVuC6syr8acdFDAq116xgvZh9UCuV0h+rlCtxXolr3Hi3HyPQ==
 
 vue-cli-plugin-electron-builder@~2.1.1:
   version "2.1.1"

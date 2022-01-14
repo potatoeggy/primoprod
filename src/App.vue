@@ -254,14 +254,6 @@ export default defineComponent({
   src: local("Genshin"), url(./assets/fonts/Genshin.ttf) format("truetype");
 }
 
-@media screen and (orientation: portrait) {
-  #app {
-    transform: rotate(90deg);
-    width: 100vh;
-    height: 100vw;
-  }
-}
-
 #app {
   -webkit-font-smoothing: antialiased;
   text-align: center;
@@ -269,7 +261,6 @@ export default defineComponent({
   background: url("./assets/images/wish-background.png") center/cover no-repeat
       fixed,
     #8ac2eb;
-  min-height: max-content;
 }
 
 /* reset css */
@@ -285,10 +276,28 @@ html,
 body,
 #app {
   height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
 }
 
 img {
   /* to not have white flash on initial load */
   background-color: transparent;
+}
+
+@media screen and (orientation: portrait) {
+  body {
+    height: 100vw;
+    width: 100vh;
+    transform: rotate(90deg);
+    transform-origin: bottom left;
+    position: absolute;
+    top: -100vw;
+    left: 0;
+  }
+  #app {
+    width: 100%;
+  }
 }
 </style>

@@ -44,11 +44,13 @@
           <img
             :src="getBannerHeaderImage(ban, true)"
             v-if="currentBannerIndex === index"
+            class="header-resizable"
           />
           <img
             :src="getBannerHeaderImage(ban)"
             v-else
             @click="changeBanner(index)"
+            class="header-resizable"
           />
         </template>
       </div>
@@ -90,35 +92,31 @@
         stateExiting ? 'exit-animation' : 'start-animation',
       ]"
     >
-      <div>
-        <div id="masterless-home" class="footer-align-flex left-align-flex">
-          <gem-counter
-            icon="starglitter.png"
-            :text="inventory.starglitter"
-            @image-clicked="activeItemId = 'starglitter'"
-            nobackground
-          ></gem-counter>
-          <gem-counter
-            icon="stardust.png"
-            :text="inventory.stardust"
-            @image-clicked="activeItemId = 'stardust'"
-            nobackground
-          ></gem-counter>
-        </div>
-        <div id="shop-buttons" class="footer-align-flex">
-          <text-button
-            text="Shop"
-            @clicked="targetExitEmit = 'go-shop'"
-          ></text-button>
-          <text-button
-            text="Details"
-            @clicked="showDetails = true"
-          ></text-button>
-          <text-button
-            text="History"
-            @clicked="showHistory = true"
-          ></text-button>
-        </div>
+      <div
+        v-if="!isMobile"
+        id="masterless-home"
+        class="footer-align-flex left-align-flex"
+      >
+        <gem-counter
+          icon="starglitter.png"
+          :text="inventory.starglitter"
+          @image-clicked="activeItemId = 'starglitter'"
+          nobackground
+        ></gem-counter>
+        <gem-counter
+          icon="stardust.png"
+          :text="inventory.stardust"
+          @image-clicked="activeItemId = 'stardust'"
+          nobackground
+        ></gem-counter>
+      </div>
+      <div id="shop-buttons" class="footer-align-flex">
+        <text-button
+          text="Shop"
+          @clicked="targetExitEmit = 'go-shop'"
+        ></text-button>
+        <text-button text="Details" @clicked="showDetails = true"></text-button>
+        <text-button text="History" @clicked="showHistory = true"></text-button>
       </div>
       <div id="wish-buttons" class="footer-align-flex">
         <wish-button
@@ -189,13 +187,14 @@ export default defineComponent({
       showHistory: false,
       activeItemId: "",
       targetExitEmit: "" as "wish" | "go-quests" | "go-shop" | "",
+      windowHeight: window.innerHeight,
+      windowWidth: window.innerWidth,
     };
   },
   computed: {
     banner(): Banner {
       return this.banners[this.currentBannerIndex];
     },
-
     getBannerImage(): string {
       const images = require.context(
         "../assets/images/banners/",
@@ -213,6 +212,9 @@ export default defineComponent({
     },
     stateExiting(): boolean {
       return this.targetExitEmit !== "";
+    },
+    isMobile(): boolean {
+      return this.windowHeight > this.windowWidth && this.windowWidth < 850;
     },
   },
   methods: {
@@ -261,6 +263,18 @@ export default defineComponent({
     exit(): void {
       this.$emit("go-quests");
     },
+    onResize() {
+      this.windowHeight = window.innerHeight;
+      this.windowWidth = window.innerWidth;
+    },
+  },
+  mounted() {
+    this.$nextTick(() => {
+      window.addEventListener("resize", () => this.onResize);
+    });
+  },
+  beforeUnmount() {
+    window.removeEventListener("resize", this.onResize);
   },
   emits: ["wish", "go-quests", "go-shop", "change-banner"],
 });
@@ -284,6 +298,11 @@ export default defineComponent({
   gap: 2vw;
 }
 
+.header-resizable {
+  min-width: 2rem;
+  max-width: calc(100% / 3);
+}
+
 .invisible {
   /* TODO: display: none also triggers the entry animation so:
    * use v-if for simplicity or make it an actual overlay using position: fixed
@@ -303,6 +322,7 @@ export default defineComponent({
 #header {
   animation: fadein 0.75s forwards, slide-from-top 0.75s forwards ease-out;
   margin-bottom: 0;
+  min-height: 20%;
 }
 
 #header.exit-animation {
@@ -327,7 +347,8 @@ export default defineComponent({
   display: flex;
   align-items: center;
   justify-content: center;
-  max-height: 70%;
+  max-height: 60%;
+  max-width: 100%;
 }
 
 #div-banner.start-animation {
@@ -342,10 +363,11 @@ export default defineComponent({
 #banner {
   max-width: 90%;
   max-height: 100%;
+  height: 100%;
 }
 
 #footer {
-  min-height: 4rem;
+  min-height: 20%;
 }
 
 #footer.start-animation {
@@ -432,7 +454,7 @@ export default defineComponent({
 .footer-align-flex {
   display: flex;
   justify-content: center;
-  align-items: flex-end;
+  align-items: center;
   flex-wrap: wrap;
 }
 
@@ -442,7 +464,7 @@ export default defineComponent({
 
 #wish-label > img {
   width: 3rem;
-  margin-right: 3rem;
+  margin-right: 20%;
 }
 
 .space-between {
@@ -461,15 +483,31 @@ export default defineComponent({
   margin-bottom: auto;
 }
 
-.wish-container + .wish-container {
-  padding-left: 1rem;
-  padding-right: 1rem;
-}
-
 #wish-label {
   color: #f6f2ee;
   text-shadow: 1px 1px rgba(2, 2, 2, 0.3);
   user-select: none;
   font-size: 16pt;
+}
+
+@media screen and (max-width: 850px) and (orientation: portrait),
+  (orientation: landscape) and (max-height: 850px) {
+  .menu-button {
+    transform: scale(75%);
+    margin: 0;
+  }
+
+  .footer-align-flex {
+    flex-wrap: nowrap;
+    align-items: flex-start;
+  }
+
+  #wish-buttons {
+    transform: translateY(-1.75rem);
+  }
+
+  #shop-buttons {
+    width: 45%;
+  }
 }
 </style>

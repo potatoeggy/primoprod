@@ -90,4 +90,18 @@ p {
 .red {
   color: red;
 }
+
+@media screen and (max-width: 850px) and (orientation: portrait),
+  (orientation: landscape) and (max-height: 850px) {
+  p {
+    font-size: 1rem;
+  }
+  .fate-image {
+    width: 1.75rem;
+  }
+
+  .wish-button {
+    width: 15rem;
+  }
+}
 </style>
