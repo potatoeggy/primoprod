@@ -67,23 +67,15 @@
 </template>
 
 <script lang="ts">
-import Inventory from "@/banners/Inventory";
+import Inventory from "@/state/Inventory";
 import { defineComponent } from "vue";
 import GemCounter from "./GemCounter.vue";
 import CloseButton from "./CloseButton.vue";
 import ItemPurchaseOverlay from "./ItemPurchaseOverlay.vue";
 import ItemDescriptionOverlay from "./ItemDescriptionOverlay.vue";
-import { ItemDatabase } from "@/banners/Gacha";
-import { Item, ItemStringQuantity } from "@/types";
-import RootShopItemList from "@/banners/shop.json";
-
-// import a shop json that shows shop quantities
-
-export interface ShopItem {
-  id: string;
-  quantity: number;
-  cost: ItemStringQuantity[];
-}
+import { ItemDatabase } from "@/state/Gacha";
+import { Item, ShopItem } from "@/types";
+import RootShopItemList from "@/data/shop.json";
 
 export default defineComponent({
   components: {

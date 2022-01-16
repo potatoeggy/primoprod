@@ -78,13 +78,9 @@ import ItemAllRevealScreen from "@/components/ItemAllRevealScreen.vue";
 import ItemObtainOverlay from "@/components/ItemObtainOverlay.vue";
 import QuestScreen from "@/components/QuestScreen.vue";
 import ShopScreen from "@/components/ShopScreen.vue";
-
-// gacha
-import Gacha from "@/banners/Gacha";
+import Gacha from "@/state/Gacha";
 import { Banner, Item, ItemStringQuantity } from "@/types";
-
-// inventory
-import Inventory from "@/banners/Inventory";
+import Inventory from "@/state/Inventory";
 
 const BANNERS = [
   "the-transcendent-one-returns",
@@ -109,7 +105,9 @@ export default defineComponent({
     return {
       // storage vars
       inv: new Inventory(),
-      gachas: BANNERS.map((id) => new Gacha(require(`@/banners/${id}.json`))),
+      gachas: BANNERS.map(
+        (id) => new Gacha(require(`@/custom/banners/${id}.json`))
+      ),
       // state vars
       checkPullDialog: false,
       pullNumber: 1,
@@ -118,7 +116,9 @@ export default defineComponent({
       screen: "wish-banner",
       lastRoll: [] as Item[],
       lastRollSorted: [] as Item[],
-      banners: BANNERS.map((id) => require(`@/banners/${id}.json`)) as Banner[],
+      banners: BANNERS.map((id) =>
+        require(`@/custom/banners/${id}.json`)
+      ) as Banner[],
       currentBannerIndex: 0,
       overlay: "",
       pullExtraRewards: [] as ItemStringQuantity[],

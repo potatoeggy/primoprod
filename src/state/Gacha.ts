@@ -1,5 +1,5 @@
 import { Banner, Item, State, StylisedElement } from "@/types";
-import ItemDB from "./ItemDatabase.json";
+import ItemDB from "@/data/ItemDatabase.json";
 
 export const ItemDatabase: { [name: string]: Item } = ItemDB.items;
 export const ElementDatabase: { [name: string]: StylisedElement } =

@@ -113,15 +113,14 @@
 </template>
 
 <script lang="ts">
-import { ItemDatabase } from "@/banners/Gacha";
-import { Item, ItemStringQuantity } from "@/types";
+import { ItemDatabase } from "@/state/Gacha";
+import { Item, ItemStringQuantity, ShopItem } from "@/types";
 import { defineComponent } from "vue";
 import CancelConfirmButton from "./CancelConfirmButton.vue";
 import ItemDescriptionOverlay from "./ItemDescriptionOverlay.vue";
 import ItemObtainOverlay from "./ItemObtainOverlay.vue";
 import GemCounter from "./GemCounter.vue";
-import { ShopItem } from "./ShopScreen.vue";
-import Inventory from "@/banners/Inventory";
+import Inventory from "@/state/Inventory";
 
 export default defineComponent({
   components: {

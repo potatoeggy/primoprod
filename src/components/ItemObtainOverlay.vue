@@ -62,7 +62,7 @@
 
 <script lang="ts">
 import { Item, ItemQuantity, ItemStringQuantity } from "@/types";
-import { ItemDatabase } from "@/banners/Gacha";
+import { ItemDatabase } from "@/state/Gacha";
 import { defineComponent } from "vue";
 import ItemDescriptionOverlay from "./ItemDescriptionOverlay.vue";
 

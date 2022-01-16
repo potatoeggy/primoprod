@@ -1,3 +1,8 @@
+export interface ShopItem {
+  id: string;
+  quantity: number;
+  cost: ItemStringQuantity[];
+}
 export interface Quest {
   name: string;
   id: string;

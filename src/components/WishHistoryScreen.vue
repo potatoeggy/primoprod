@@ -79,8 +79,8 @@
 </template>
 
 <script lang="ts">
-import { ItemDatabase } from "@/banners/Gacha";
-import Inventory from "@/banners/Inventory";
+import { ItemDatabase } from "@/state/Gacha";
+import Inventory from "@/state/Inventory";
 import { defineComponent } from "vue";
 import dayjs from "dayjs";
 import { Item, Pull } from "@/types";

@@ -1,7 +1,7 @@
 <template><div class="win"></div></template>
 
 <script lang="ts">
-import Inventory from "@/banners/Inventory";
+import Inventory from "@/state/Inventory";
 import { Item } from "@/types";
 import { defineComponent } from "vue";
 export default defineComponent({

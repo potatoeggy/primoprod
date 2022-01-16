@@ -33,7 +33,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { Banner, Item } from "@/types";
-import { ItemDatabase } from "@/banners/Gacha";
+import { ItemDatabase } from "@/state/Gacha";
 
 export default defineComponent({
   props: {
