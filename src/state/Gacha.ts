@@ -1,4 +1,4 @@
-import { Banner, Item, State, StylisedElement } from "@/types";
+import { Banner, Item, GachaState, StylisedElement } from "@/types";
 import ItemDB from "@/data/ItemDatabase.json";
 
 export const ItemDatabase: { [name: string]: Item } = ItemDB.items;
@@ -28,7 +28,7 @@ export default class Gacha {
   ];
 
   // state vars
-  state: State = {
+  state: GachaState = {
     guaranteedFeatured4Star: false,
     guaranteedFeatured5Star: false,
     pullAttempts: 0,
@@ -36,7 +36,7 @@ export default class Gacha {
     pityCounter5: 0,
   };
 
-  constructor(banner: Banner, state?: State) {
+  constructor(banner: Banner, state?: GachaState) {
     this.name = banner.name;
     this.storage = "gacha-" + banner.storage;
 

@@ -1,6 +1,6 @@
 <template>
   <!-- audio -->
-  <audio ref="audioBgm" preload="true" autoplay loop>
+  <audio ref="audioBgm" preload="true" autoplay loop v-if="screen !== 'game'">
     <source src="./assets/audio/bgm-wish.mp3" />
   </audio>
   <audio ref="audioExitDialog" id="audioExitDialogDEPRECATED" preload="true">
@@ -67,6 +67,7 @@
     v-if="screen === 'shop'"
     :inventory="inv"
   ></shop-screen>
+  <game-menu v-if="screen === 'game'"></game-menu>
 </template>
 
 <script lang="ts">
@@ -81,6 +82,7 @@ import ShopScreen from "@/components/ShopScreen.vue";
 import Gacha from "@/state/Gacha";
 import { Banner, Item, ItemStringQuantity } from "@/types";
 import Inventory from "@/state/Inventory";
+import GameMenu from "@/components/game/GameMenu.vue";
 
 const BANNERS = [
   "gentry-of-hermitage-3",
@@ -100,11 +102,11 @@ export default defineComponent({
     ItemObtainOverlay,
     QuestScreen,
     ShopScreen,
+    GameMenu,
   },
   data() {
     return {
       // storage vars
-      inv: new Inventory(),
       gachas: BANNERS.map(
         (id) => new Gacha(require(`@/custom/banners/${id}.json`)) // eslint-disable-line
       ),
@@ -239,6 +241,9 @@ export default defineComponent({
         this.pullNumber -
         (this.useStandardFates ? this.inv.standardFates : this.inv.fates)
       );
+    },
+    inv(): Inventory {
+      return this.$store.state.inventory;
     },
   },
   mounted() {

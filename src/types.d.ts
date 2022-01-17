@@ -41,7 +41,7 @@ export interface Banner {
   description: string;
 }
 
-export interface State {
+export interface GachaState {
   pullAttempts: number;
   pityCounter4: number;
   pityCounter5: number;

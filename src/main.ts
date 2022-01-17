@@ -2,6 +2,7 @@ import { createApp } from "vue";
 import { Pull } from "@/types";
 import { dragscrollNext } from "vue-dragscroll";
 import App from "./App.vue";
+import store from "./store";
 
 // version upgrade handler
 switch (localStorage.version) {
@@ -22,6 +23,6 @@ switch (localStorage.version) {
 localStorage.version = 1;
 // end version upgrade
 
-const app = createApp(App);
+const app = createApp(App).use(store);
 app.directive("dragscroll", dragscrollNext);
 app.mount("#app");
