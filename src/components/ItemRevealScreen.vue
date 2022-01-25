@@ -183,7 +183,9 @@ export default defineComponent({
         // only play sound when assets have loaded
         return;
       }
-      const audioRef = this.$refs.audioItemReveal as HTMLAudioElement;
+      const audioRef = (
+        this.$refs.audioItemReveal as Array<HTMLAudioElement>
+      )[0];
       audioRef.pause();
       audioRef.currentTime = 0;
       audioRef.play();
