@@ -21,7 +21,7 @@
   </audio>
   <div class="banner-container">
     <div class="mobile-header" v-if="isMobile">
-      <img src="../assets/images/ui-wish-edited.png" />
+      <img src="@/assets/images/ui-wish-edited.png" />
       <template v-for="(ban, index) of banners" :key="index">
         <img
           :src="getBannerHeaderImage(ban, true)"
@@ -52,7 +52,7 @@
         @animationend="exitEmit"
       >
         <div id="wish-label" class="space-between center">
-          <img v-if="!isMobile" src="../assets/images/ui-wish-edited.png" />
+          <img v-if="!isMobile" src="@/assets/images/ui-wish-edited.png" />
           <p id="wish-label">Wish</p>
         </div>
         <div class="banner-header" v-if="!isMobile">
@@ -184,15 +184,15 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import WishButton from "./WishButton.vue";
-import TextButton from "./TextButton.vue";
-import GemCounter from "./GemCounter.vue";
-import BannerDetailsScreen from "./BannerDetailsScreen.vue";
+import TextButton from "@/components/shared/TextButton.vue";
+import GemCounter from "@/components/shared/GemCounter.vue";
+import BannerDetailsScreen from "@/components/ScreenBannerDetails/BannerDetailsScreen.vue";
 import { ItemDatabase } from "@/state/Gacha";
 import { Banner, Item } from "@/types";
 import Inventory from "@/state/Inventory";
-import WishHistoryScreen from "./WishHistoryScreen.vue";
-import ItemDescriptionOverlay from "./ItemDescriptionOverlay.vue";
-import CloseButton from "./CloseButton.vue";
+import WishHistoryScreen from "@/components/ScreenWishHistory/WishHistoryScreen.vue";
+import ItemDescriptionOverlay from "@/components/overlays/ItemDescriptionOverlay.vue";
+import CloseButton from "@/components/shared/CloseButton.vue";
 
 export default defineComponent({
   components: {
@@ -234,7 +234,7 @@ export default defineComponent({
     },
     getBannerImage(): string {
       const images = require.context(
-        "../assets/images/banners/",
+        "@/assets/images/banners/",
         false,
         /\.png$/
       );
@@ -260,7 +260,7 @@ export default defineComponent({
   methods: {
     getBannerHeaderImage(banner: Banner, selected = false): string {
       const images = require.context(
-        "../assets/images/banner-headers/",
+        "@/assets/images/banner-headers/",
         false,
         /\.png$/
       );

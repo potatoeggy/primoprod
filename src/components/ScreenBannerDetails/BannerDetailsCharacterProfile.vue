@@ -29,7 +29,7 @@ export default defineComponent({
   data() {
     return {
       elementBgs: require.context(
-        "../assets/images/details-bg/",
+        "@/assets/images/details-bg/",
         false,
         /\.png$/
       ),
@@ -37,7 +37,7 @@ export default defineComponent({
   },
   methods: {
     icons(path: string) {
-      const i = require.context("../assets/images/icons/", false, /\.png$/);
+      const i = require.context("@/assets/images/icons/", false, /\.png$/);
       try {
         return i(path);
       } catch (err) {

@@ -72,13 +72,13 @@
 
 <script lang="ts">
 import { defineAsyncComponent, defineComponent } from "vue";
-import WishBanners from "@/components/WishBanners.vue";
-import FatePurchaseDialog from "@/components/FatePurchaseDialog.vue";
-import ItemRevealScreen from "@/components/ItemRevealScreen.vue";
-import ItemAllRevealScreen from "@/components/ItemAllRevealScreen.vue";
-import ItemObtainOverlay from "@/components/ItemObtainOverlay.vue";
-import QuestScreen from "@/components/QuestScreen.vue";
-import ShopScreen from "@/components/ShopScreen.vue";
+import WishBanners from "@/components/WishBanners/WishBanners.vue";
+import FatePurchaseDialog from "@/components/overlays/FatePurchaseDialog.vue";
+import ItemRevealScreen from "@/components/ScreenItemReveal/ItemRevealScreen.vue";
+import ItemAllRevealScreen from "@/components/ScreenItemReveal/ItemAllRevealScreen.vue";
+import ItemObtainOverlay from "@/components/overlays/ItemObtainOverlay.vue";
+import QuestScreen from "@/components/ScreenQuest/QuestScreen.vue";
+import ShopScreen from "@/components/ScreenShop/ShopScreen.vue";
 import Gacha from "@/state/Gacha";
 import { Banner, Item, ItemStringQuantity } from "@/types";
 import Inventory from "@/state/Inventory";
@@ -95,7 +95,7 @@ export default defineComponent({
     WishBanners,
     FatePurchaseDialog,
     VideoPlayer: defineAsyncComponent(
-      () => import("@/components/VideoPlayer.vue")
+      () => import("@/components/ScreenVideo/VideoPlayer.vue")
     ),
     ItemRevealScreen,
     ItemAllRevealScreen,

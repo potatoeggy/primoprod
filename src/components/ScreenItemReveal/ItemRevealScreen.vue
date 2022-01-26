@@ -196,11 +196,7 @@ export default defineComponent({
       return this.lastRoll[this.currentIndex];
     },
     currentItemImage(): string {
-      const images = require.context(
-        "../assets/images/drops/",
-        false,
-        /\.png$/
-      );
+      const images = require.context("@/assets/images/drops/", false, /\.png$/);
       try {
         return images(`./${this.currentItem.id}.png`);
       } catch (error) {
@@ -255,7 +251,7 @@ export default defineComponent({
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: url("../assets/images/wish-reveal-background.jpg") center/cover
+  background: url("../../assets/images/wish-reveal-background.jpg") center/cover
       no-repeat fixed,
     white;
   height: 100%;

@@ -69,10 +69,10 @@
 <script lang="ts">
 import Inventory from "@/state/Inventory";
 import { defineComponent } from "vue";
-import GemCounter from "./GemCounter.vue";
-import CloseButton from "./CloseButton.vue";
-import ItemPurchaseOverlay from "./ItemPurchaseOverlay.vue";
-import ItemDescriptionOverlay from "./ItemDescriptionOverlay.vue";
+import GemCounter from "../shared/GemCounter.vue";
+import CloseButton from "../shared/CloseButton.vue";
+import ItemPurchaseOverlay from "@/components/overlays/ItemPurchaseOverlay.vue";
+import ItemDescriptionOverlay from "@/components/overlays/ItemDescriptionOverlay.vue";
 import { ItemDatabase } from "@/state/Gacha";
 import { Item, ShopItem } from "@/types";
 import RootShopItemList from "@/data/shop.json";

@@ -132,13 +132,13 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import CloseButton from "./CloseButton.vue";
+import CloseButton from "../shared/CloseButton.vue";
 import Quests from "@/state/Quests";
 import { ItemDatabase } from "@/state/Gacha";
 import { Item, ItemStringQuantity, Quest } from "@/types";
-import ItemDescriptionOverlay from "./ItemDescriptionOverlay.vue";
-import ItemObtainOverlay from "./ItemObtainOverlay.vue";
-import CancelConfirmButton from "./CancelConfirmButton.vue";
+import ItemDescriptionOverlay from "../overlays/ItemDescriptionOverlay.vue";
+import ItemObtainOverlay from "../overlays/ItemObtainOverlay.vue";
+import CancelConfirmButton from "../shared/CancelConfirmButton.vue";
 import Inventory from "@/state/Inventory";
 
 export default defineComponent({

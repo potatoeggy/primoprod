@@ -38,7 +38,7 @@ export default defineComponent({
       return `video-${this.stars}star-${this.pulls}`;
     },
     videoSrc(): string {
-      const videos = require.context("../assets/video/", false, /\.mp4$/);
+      const videos = require.context("@/assets/video/", false, /\.mp4$/);
       try {
         return videos(`./${this.stars}starwish-${this.pulls}.mp4`);
       } catch (error) {
