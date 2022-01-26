@@ -83,8 +83,8 @@ import { Banner, Item, ItemStringQuantity } from "@/types";
 import Inventory from "@/state/Inventory";
 
 const BANNERS = [
-  "the-transcendent-one-returns",
-  "invitation-to-mundane-life-2",
+  "gentry-of-hermitage-3",
+  "adrift-in-the-harbor-2",
   "wanderlust-invocation",
 ];
 
@@ -106,7 +106,7 @@ export default defineComponent({
       // storage vars
       inv: new Inventory(),
       gachas: BANNERS.map(
-        (id) => new Gacha(require(`@/custom/banners/${id}.json`))
+        (id) => new Gacha(require(`@/custom/banners/${id}.json`)) // eslint-disable-line
       ),
       // state vars
       checkPullDialog: false,
