@@ -55,7 +55,10 @@
         </tr>
       </template>
     </table>
-    <div class="footer-buttons">
+    <div
+      class="footer-buttons"
+      v-if="!$store.state.settings.unlimitedHistoryScroll"
+    >
       <!-- I know that buttons exist but they come
            with so much extra stuff I don't want to
            deal with -->
@@ -101,7 +104,9 @@ export default defineComponent({
       currentPage: 0,
       dayjs: dayjs,
       selectedWishType: "",
-      MAX_PULLS_PER_PAGE: 6,
+      MAX_PULLS_PER_PAGE: this.$store.state.settings.unlimitedHistoryScroll
+        ? 1000000000
+        : 6,
     };
   },
   computed: {

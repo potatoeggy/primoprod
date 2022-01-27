@@ -313,7 +313,7 @@ export default defineComponent({
     },
     getCharacterElementStyle(character: Item) {
       return {
-        color: ElementDatabase[character.element].color,
+        color: ElementDatabase[character.element]?.color,
       };
     },
   },

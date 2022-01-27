@@ -15,6 +15,10 @@
     :inventory="inventory"
     @exit="exitHistoryScreen"
   ></wish-history-screen>
+  <settings-screen
+    v-if="showSettings"
+    @exit="exitSettingsScreen"
+  ></settings-screen>
 
   <audio id="audio-banner-switch" preload="true">
     <source src="@/assets/audio/banner-switch.mp3" />
@@ -57,17 +61,24 @@
         </div>
         <div class="banner-header" v-if="!isMobile">
           <template v-for="(ban, index) of banners" :key="index">
-            <img
-              :src="getBannerHeaderImage(ban, true)"
-              v-if="currentBannerIndex === index"
-              class="header-resizable"
-            />
-            <img
-              :src="getBannerHeaderImage(ban)"
-              v-else
-              @click="changeBanner(index)"
-              class="header-resizable"
-            />
+            <template
+              v-if="
+                !(ban.id === 'everything') ||
+                $store.state.settings.everythingBanner
+              "
+            >
+              <img
+                :src="getBannerHeaderImage(ban, true)"
+                v-if="currentBannerIndex === index"
+                class="header-resizable"
+              />
+              <img
+                :src="getBannerHeaderImage(ban)"
+                v-else
+                @click="changeBanner(index)"
+                class="header-resizable"
+              />
+            </template>
           </template>
         </div>
         <div id="gems">
@@ -85,19 +96,19 @@
           ></gem-counter>
           <gem-counter
             icon="primogem.png"
-            :text="inventory.primos"
+            :text="settings.infinitePrimos ? '∞' : inventory.primos"
             @image-clicked="activeItemId = 'primogem'"
             plusSign
           ></gem-counter>
           <gem-counter
             icon="acquaint-fate.png"
-            :text="inventory.standardFates"
+            :text="settings.infinitePrimos ? '∞' : inventory.standardFates"
             @image-clicked="activeItemId = 'acquaint-fate'"
             v-if="banner.storage === 'standard'"
           ></gem-counter>
           <gem-counter
             icon="intertwined-fate.png"
-            :text="inventory.fates"
+            :text="settings.infinitePrimos ? '∞' : inventory.fates"
             @image-clicked="activeItemId = 'intertwined-fate'"
             v-else
           ></gem-counter>
@@ -111,6 +122,9 @@
         :class="stateExiting ? 'exit-animation' : 'start-animation'"
         :key="currentBannerIndex"
       >
+        <p v-if="banner.id === 'everything'" class="everyone">
+          Everyone is here!
+        </p>
         <img id="banner" :src="getBannerImage" />
       </div>
       <div
@@ -152,6 +166,10 @@
               text="History"
               @clicked="showHistory = true"
             ></text-button>
+            <text-button
+              text="Settings"
+              @clicked="showSettings = true"
+            ></text-button>
           </div>
         </div>
         <div id="wish-buttons" class="footer-align-flex">
@@ -188,11 +206,12 @@ import TextButton from "@/components/shared/TextButton.vue";
 import GemCounter from "@/components/shared/GemCounter.vue";
 import BannerDetailsScreen from "@/components/ScreenBannerDetails/BannerDetailsScreen.vue";
 import { ItemDatabase } from "@/state/Gacha";
-import { Banner, Item } from "@/types";
+import { Banner, Item, Settings } from "@/types";
 import Inventory from "@/state/Inventory";
 import WishHistoryScreen from "@/components/ScreenWishHistory/WishHistoryScreen.vue";
 import ItemDescriptionOverlay from "@/components/overlays/ItemDescriptionOverlay.vue";
 import CloseButton from "@/components/shared/CloseButton.vue";
+import SettingsScreen from "../ScreenSettings/SettingsScreen.vue";
 
 export default defineComponent({
   components: {
@@ -203,6 +222,7 @@ export default defineComponent({
     WishHistoryScreen,
     ItemDescriptionOverlay,
     CloseButton,
+    SettingsScreen,
   },
   props: {
     banners: {
@@ -222,6 +242,7 @@ export default defineComponent({
     return {
       showDetails: false,
       showHistory: false,
+      showSettings: false,
       activeItemId: "",
       targetExitEmit: "" as "wish" | "go-quests" | "go-shop" | "",
       windowHeight: window.innerHeight,
@@ -255,6 +276,9 @@ export default defineComponent({
         (this.windowHeight > this.windowWidth && this.windowWidth < 850) ||
         this.windowHeight < 700
       );
+    },
+    settings(): Settings {
+      return this.$store.state.settings;
     },
   },
   methods: {
@@ -292,6 +316,20 @@ export default defineComponent({
       ).play();
       this.showHistory = false;
     },
+    exitSettingsScreen(): void {
+      // AAAAAAAAAAA
+      // imagine adding new features instead of cleaning up legacy cruft
+      (
+        document.getElementById("audioExitDialogDEPRECATED") as HTMLAudioElement
+      ).play();
+      if (
+        !this.$store.state.settings.everythingBanner &&
+        this.banner.id === "everything"
+      ) {
+        this.$emit("change-banner", 0);
+      }
+      this.showSettings = false;
+    },
     exitEmit(): void {
       if (!this.targetExitEmit) {
         // i would use this.stateExiting but typescript needs
@@ -319,6 +357,16 @@ export default defineComponent({
 </script>
 
 <style scoped>
+.everyone {
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  top: 85%;
+  font-size: 3rem;
+  color: white;
+  text-shadow: black 0.2rem 0.2rem;
+  z-index: 2;
+}
 .banner {
   display: flex;
   flex-direction: column;
@@ -418,7 +466,6 @@ export default defineComponent({
   align-items: center;
   justify-content: center;
   max-height: 60%;
-  max-width: 100%;
 }
 
 #div-banner.start-animation {

@@ -32,7 +32,7 @@ export default defineComponent({
   components: { PlusButton },
   props: {
     text: {
-      type: Number,
+      type: [Number, String],
       required: false,
       default: 0,
     },

@@ -26,15 +26,6 @@ export default defineComponent({
       required: true,
     },
   },
-  data() {
-    return {
-      elementBgs: require.context(
-        "@/assets/images/details-bg/",
-        false,
-        /\.png$/
-      ),
-    };
-  },
   methods: {
     icons(path: string) {
       const i = require.context("@/assets/images/icons/", false, /\.png$/);
@@ -42,6 +33,14 @@ export default defineComponent({
         return i(path);
       } catch (err) {
         return path;
+      }
+    },
+    elementBgs(path: string) {
+      const i = require.context("@/assets/images/details-bg/", false, /\.png$/);
+      try {
+        return i(path);
+      } catch (err) {
+        return i("./bg-Anemo.png"); // fallback
       }
     },
   },

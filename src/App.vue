@@ -88,6 +88,7 @@ const BANNERS = [
   "gentry-of-hermitage-3",
   "adrift-in-the-harbor-2",
   "wanderlust-invocation",
+  "everything",
 ];
 
 export default defineComponent({
@@ -108,7 +109,12 @@ export default defineComponent({
     return {
       // storage vars
       gachas: BANNERS.map(
-        (id) => new Gacha(require(`@/custom/banners/${id}.json`)) // eslint-disable-line
+        (id) =>
+          new Gacha(
+            require(`@/custom/banners/${id}.json`), // eslint-disable-line
+            undefined,
+            this.$store.state.settings
+          )
       ),
       // state vars
       checkPullDialog: false,
@@ -134,8 +140,9 @@ export default defineComponent({
       this.useStandardFates = useStandardFates;
       this.pullNumber = pulls;
       if (
+        this.$store.state.settings.infinitePrimos ||
         pulls <=
-        (this.useStandardFates ? this.inv.standardFates : this.inv.fates)
+          (this.useStandardFates ? this.inv.standardFates : this.inv.fates)
       ) {
         this.goWish();
       } else {
@@ -146,18 +153,20 @@ export default defineComponent({
     goWish(): void {
       // TODO: seriously consider moving wish and video logic
       // to WishBanners so that gachas are linked together
-      if (this.useStandardFates) {
-        this.inv.standardFates -= this.pullNumber;
-      } else {
-        this.inv.fates -= this.pullNumber;
+      if (!this.$store.state.settings.infinitePrimos) {
+        if (this.useStandardFates) {
+          this.inv.standardFates -= this.pullNumber;
+        } else {
+          this.inv.fates -= this.pullNumber;
+        }
       }
       this.checkPullDialog = false;
       this.screen = "video-player";
 
       this.lastRoll =
         this.pullNumber === 1
-          ? [this.standardGacha.rollOne()]
-          : this.standardGacha.rollTen();
+          ? [this.standardGacha.rollOne(this.$store.state.settings.rollOnly)]
+          : this.standardGacha.rollTen(this.$store.state.settings.rollOnly);
       this.lastRollSorted = [...this.lastRoll];
       this.lastRollSorted.sort((a, b) => b.rarity - a.rarity); // highest rarity to lowest
 

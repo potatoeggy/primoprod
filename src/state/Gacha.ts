@@ -1,4 +1,4 @@
-import { Banner, Item, GachaState, StylisedElement } from "@/types";
+import { Banner, Item, GachaState, StylisedElement, Settings } from "@/types";
 import ItemDB from "@/data/ItemDatabase.json";
 
 export const ItemDatabase: { [name: string]: Item } = ItemDB.items;
@@ -36,7 +36,9 @@ export default class Gacha {
     pityCounter5: 0,
   };
 
-  constructor(banner: Banner, state?: GachaState) {
+  settings: Settings | undefined;
+
+  constructor(banner: Banner, state?: GachaState, settings?: Settings) {
     this.name = banner.name;
     this.storage = "gacha-" + banner.storage;
 
@@ -61,6 +63,8 @@ export default class Gacha {
         localStorage.getItem(this.storage) || JSON.stringify(this.state)
       );
     console.log(this.state);
+
+    this.settings = settings;
   }
 
   rng(max: number): number {
@@ -85,19 +89,19 @@ export default class Gacha {
     return -1;
   }
 
-  rollTen(): Item[] {
+  rollTen(forceRarity: number | null = null): Item[] {
     const result = [];
     for (let i = 0; i < 10; i++) {
-      result.push(this.rollOne());
+      result.push(this.rollOne(forceRarity));
     }
     return result;
   }
 
-  rollOne(): Item {
-    return this.roll();
+  rollOne(forceRarity: number | null = null): Item {
+    return this.roll(forceRarity);
   }
 
-  roll(): Item {
+  roll(forceRarity: number | null = null): Item {
     console.assert(this.state.pityCounter5 <= 90);
     const probabilityRange =
       this.state.pityCounter5 >= this.SOFT_PITY_5_START
@@ -105,8 +109,8 @@ export default class Gacha {
         : this.STANDARD_ODDS;
     this.state.pullAttempts += 1;
 
-    const rolledRarity = this.rollRandomRarityWithPity(probabilityRange);
-    console.assert(rolledRarity >= 3 && rolledRarity <= 5);
+    const rolledRarity =
+      forceRarity ?? this.rollRandomRarityWithPity(probabilityRange);
 
     if (rolledRarity === 5) {
       return this.get5StarItem();
@@ -135,6 +139,13 @@ export default class Gacha {
     localStorage.setItem(this.storage, JSON.stringify(this.state));
   }
 
+  checkWin5050(): boolean {
+    if (this.settings) {
+      return this.settings.winGuarantee ?? !!this.rng(2);
+    }
+    return !!this.rng(2);
+  }
+
   get3StarItem(): Item {
     this.state.pityCounter4 += 1;
     this.state.pityCounter5 += 1;
@@ -148,7 +159,7 @@ export default class Gacha {
 
     // initialise in case things bork
     let drop = this.drops[4][this.rng(this.drops[4].length)];
-    if (this.rng(2) || this.state.guaranteedFeatured4Star) {
+    if (this.checkWin5050() || this.state.guaranteedFeatured4Star) {
       // TODO: refactor to have less duplicated code
       this.state.guaranteedFeatured4Star = false;
       const filtered = this.drops[4].filter((drop) => drop.featured);
@@ -172,7 +183,7 @@ export default class Gacha {
     this.state.pityCounter5 = 0;
 
     let drop = this.drops[5][this.rng(this.drops[5].length)];
-    if (this.rng(2) || this.state.guaranteedFeatured5Star) {
+    if (this.checkWin5050() || this.state.guaranteedFeatured5Star) {
       this.state.guaranteedFeatured5Star = false;
       const filtered = this.drops[5].filter((drop) => drop.featured);
       if (filtered.length > 0) {

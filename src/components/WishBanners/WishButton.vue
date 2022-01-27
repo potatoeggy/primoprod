@@ -8,7 +8,7 @@
       <p>Wish ×{{ wishes }}</p>
       <p
         :class="{
-          red: fates < wishes,
+          red: fates < wishes && !$store.state.settings.infinitePrimos,
         }"
       >
         <img
