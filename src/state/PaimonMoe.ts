@@ -4,14 +4,14 @@
  * is assumed only validated Genshin data will be fed here.
  */
 
-import { Pull, State } from "@/types";
+import { Pull, GachaState } from "@/types";
 import dayjs from "dayjs";
 import { ItemDatabase } from "./Gacha";
 
 const STANDARD_BANNER_STORAGE = "gacha-wanderlust-invocation";
 const CHARACTER_BANNER_STORAGE = "gacha-event";
 const PULL_HISTORY = "pullHistory";
-const EMPTY_GACHA: State = {
+const EMPTY_GACHA: GachaState = {
   pullAttempts: 0,
   pityCounter4: 0,
   pityCounter5: 0,
@@ -24,10 +24,10 @@ const REPLACE_EXCEPTIONS: { [key: string]: string } = {
 
 export default class Paimon {
   static export(): string {
-    const gacha_standard: State =
+    const gacha_standard: GachaState =
       JSON.parse(localStorage.getItem(STANDARD_BANNER_STORAGE) ?? "0") ||
       EMPTY_GACHA;
-    const gacha_character: State =
+    const gacha_character: GachaState =
       JSON.parse(localStorage.getItem(CHARACTER_BANNER_STORAGE) ?? "0") ||
       EMPTY_GACHA;
 
