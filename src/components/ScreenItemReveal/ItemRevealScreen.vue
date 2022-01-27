@@ -183,7 +183,9 @@ export default defineComponent({
         // only play sound when assets have loaded
         return;
       }
-      const audioRef = this.$refs.audioItemReveal as HTMLAudioElement;
+      const audioRef = (
+        this.$refs.audioItemReveal as Array<HTMLAudioElement>
+      )[0];
       audioRef.pause();
       audioRef.currentTime = 0;
       audioRef.play();
@@ -194,11 +196,7 @@ export default defineComponent({
       return this.lastRoll[this.currentIndex];
     },
     currentItemImage(): string {
-      const images = require.context(
-        "../assets/images/drops/",
-        false,
-        /\.png$/
-      );
+      const images = require.context("@/assets/images/drops/", false, /\.png$/);
       try {
         return images(`./${this.currentItem.id}.png`);
       } catch (error) {
@@ -253,7 +251,7 @@ export default defineComponent({
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: url("../assets/images/wish-reveal-background.jpg") center/cover
+  background: url("../../assets/images/wish-reveal-background.jpg") center/cover
       no-repeat fixed,
     white;
   height: 100%;

@@ -26,7 +26,7 @@ export default defineComponent({
 <style scoped>
 .win {
   display: flex;
-  background: url("../assets/images/wish-reveal-background.jpg") center/cover
+  background: url("../../assets/images/wish-reveal-background.jpg") center/cover
       no-repeat fixed,
     white;
   height: 100%;

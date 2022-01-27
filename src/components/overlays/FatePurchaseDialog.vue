@@ -34,7 +34,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import CancelConfirmButton from "./CancelConfirmButton.vue";
+import CancelConfirmButton from "@/components/shared/CancelConfirmButton.vue";
 
 export default defineComponent({
   components: {

@@ -116,10 +116,10 @@
 import { ItemDatabase } from "@/state/Gacha";
 import { Item, ItemStringQuantity, ShopItem } from "@/types";
 import { defineComponent } from "vue";
-import CancelConfirmButton from "./CancelConfirmButton.vue";
+import CancelConfirmButton from "@/components/shared/CancelConfirmButton.vue";
 import ItemDescriptionOverlay from "./ItemDescriptionOverlay.vue";
 import ItemObtainOverlay from "./ItemObtainOverlay.vue";
-import GemCounter from "./GemCounter.vue";
+import GemCounter from "@/components/shared/GemCounter.vue";
 import Inventory from "@/state/Inventory";
 
 export default defineComponent({
