@@ -20,6 +20,12 @@ const EMPTY_GACHA: GachaState = {
 };
 const REPLACE_EXCEPTIONS: { [key: string]: string } = {
   "primordial-jade-winged-spear": "primordial_jade_winged-spear",
+  ayaka: "kamisato_ayaka",
+  sara: "kujou_sara",
+  raiden: "raiden_shogun",
+  itto: "arataki_itto",
+  kokomi: "sangonomiya_kokomi",
+  kazuha: "kaedehara_kazuha",
 };
 
 export default class Paimon {
