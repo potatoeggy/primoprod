@@ -28,17 +28,23 @@
     <div class="mobile-header" v-if="isMobile">
       <img src="@/assets/images/ui-wish-edited.png" />
       <template v-for="(ban, index) of banners" :key="index">
-        <img
-          :src="getBannerHeaderImage(ban, true)"
-          v-if="currentBannerIndex === index"
-          class="header-resizable"
-        />
-        <img
-          :src="getBannerHeaderImage(ban)"
-          v-else
-          @click="changeBanner(index)"
-          class="header-resizable"
-        />
+        <template
+          v-if="
+            ban.id !== 'everything' || $store.state.settings.everythingBanner
+          "
+        >
+          <img
+            :src="getBannerHeaderImage(ban, true)"
+            v-if="currentBannerIndex === index"
+            class="header-resizable"
+          />
+          <img
+            :src="getBannerHeaderImage(ban)"
+            v-else
+            @click="changeBanner(index)"
+            class="header-resizable"
+          />
+        </template>
       </template>
     </div>
     <div
