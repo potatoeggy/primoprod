@@ -98,6 +98,11 @@ export default defineComponent({
       type: Inventory,
       required: true,
     },
+    activeBannerStorage: {
+      type: String,
+      required: false,
+      default: "standard",
+    },
   },
   data() {
     return {
@@ -151,7 +156,7 @@ export default defineComponent({
   },
   emits: ["exit"],
   created() {
-    this.selectedWishType = this.pulls[0]?.bannerStorage;
+    this.selectedWishType = this.activeBannerStorage;
   },
 });
 </script>

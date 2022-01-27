@@ -13,6 +13,7 @@
   <wish-history-screen
     v-if="showHistory"
     :inventory="inventory"
+    :activeBannerStorage="banner.storage"
     @exit="exitHistoryScreen"
   ></wish-history-screen>
   <settings-screen
