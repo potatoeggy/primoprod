@@ -22,7 +22,7 @@ All code is licensed under the AGPL in LICENSE.md.
 
 This project is for practice and for fun and is **not** intended for monetary gain. Most assets are owned by MiHoYo, Co., Ltd.
 
-Some implementation details were inspired by https://genshin.thekima.com and https://github.com/uzair-ashraf/genshin-impact-wish-simulator.
+Some implementation details were inspired by https://genshin.thekima.com, https://github.com/uzair-ashraf/genshin-impact-wish-simulator, and https://github.com/AguzzTN54/Genshin-Impact-Wish-Simulator.
 
 ## Project setup
 
