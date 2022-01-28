@@ -370,10 +370,13 @@ export default defineComponent({
   from {
     transform: scale(300%);
     opacity: 1;
+    /* target #fffcdc */
+    filter: brightness(300%);
   }
   to {
     transform: scale(100%);
     opacity: 1;
+    filter: none;
   }
 }
 
