@@ -42,10 +42,13 @@
         transparent: animationIndex < 0,
       }"
       @animationstart="playSfx"
-      @animationend="nextAnimation"
+      @animationend="if (animationIndex < 2) nextAnimation();"
       @load="nextAnimation"
       :alt="currentItemImage"
     />
+    <!-- the reason why the double check is needed is
+    that the two animations for the drop shadow count
+    as two animations and trigger animationend twice -->
   </div>
   <div class="item" @click="nextItem">
     <div
