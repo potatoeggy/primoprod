@@ -61,6 +61,9 @@
       id="item-reveal-description-box"
     >
       <div class="element-img-box">
+        <div
+          :class="{ transparent: animationIndex < 0, 'element-glow-box': true }"
+        ></div>
         <img
           :src="
             require(`@/assets/images/icons/icon-element-${currentItem.element}.png`)
@@ -237,6 +240,19 @@ export default defineComponent({
 </script>
 
 <style scoped>
+.element-glow-box {
+  position: absolute;
+  left: 75%;
+  top: 45%;
+  width: 0px;
+  height: 0px;
+  border-radius: 50%;
+  /* currently no way to recolour the image as a gradient
+   * and it looks awkward if the top is gray w/ a gradient
+   * behind it
+   * this div does not do anything at the moment
+   */
+}
 .glow-box {
   position: absolute;
   margin-left: auto;
