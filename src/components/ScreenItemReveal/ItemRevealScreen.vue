@@ -263,29 +263,29 @@ export default defineComponent({
 }
 
 .glow-box.blue {
-  --glow-color: rgba(4, 89, 248, 0.5);
+  --glow-color: rgba(4, 89, 248, 0.75);
 }
 
 .glow-box.purple {
-  --glow-color: rgba(118, 4, 248, 0.5);
+  --glow-color: rgba(118, 4, 248, 0.75);
 }
 
 .glow-box.gold {
-  --glow-color: rgba(248, 142, 4, 0.5);
+  --glow-color: rgba(248, 142, 4, 0.75);
 }
 
 .glow-animated {
-  animation: glow-box-glow 0.25s forwards 0.1s;
+  animation: glow-box-glow 2s forwards 0.1s;
 }
 
 @keyframes glow-box-glow {
   from {
   }
-  80% {
+  10% {
     box-shadow: 0 0 15rem 15rem var(--glow-color);
   }
   to {
-    box-shadow: 0 0 15rem 15rem var(--glow-color);
+    box-shadow: 0 0 15rem 15rem transparent;
   }
 }
 .element-img-box {
