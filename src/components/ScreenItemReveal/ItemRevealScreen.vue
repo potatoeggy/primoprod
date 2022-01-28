@@ -416,7 +416,7 @@ export default defineComponent({
 
 .appear-slide-left {
   animation-name: fade-in-slide-left;
-  animation-duration: 1s;
+  animation-duration: 1.25s;
   animation-iteration-count: initial;
   opacity: 0;
 }
@@ -469,7 +469,7 @@ export default defineComponent({
 
 .animate-image {
   animation-name: fade-in-slide-right;
-  animation-duration: 1s;
+  animation-duration: 1.25s;
   animation-iteration-count: initial;
   filter: brightness(0%);
   transform: translateX(0%);
@@ -489,7 +489,7 @@ export default defineComponent({
     transform: translateX(0%);
   }
   75% {
-    filter: brightness(110%);
+    filter: brightness(120%);
   }
   to {
     filter: brightness(100%);
@@ -505,7 +505,7 @@ export default defineComponent({
     filter: brightness(0%);
   }
   75% {
-    filter: brightness(110%);
+    filter: brightness(120%);
   }
   to {
     filter: brightness(100%) drop-shadow(0.75rem 0.5rem 0 black);
