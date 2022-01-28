@@ -26,7 +26,9 @@
   <div class="item-picture" @click="nextItem">
     <div
       :class="{
+        transparent: animationIndex < 0,
         'glow-box': true,
+        'glow-animated': animationIndex >= 0,
         blue: currentItem.rarity === 3,
         purple: currentItem.rarity === 4,
         gold: currentItem.rarity === 5,
@@ -245,15 +247,27 @@ export default defineComponent({
 }
 
 .glow-box.blue {
-  box-shadow: 0 0 15rem 15rem rgba(4, 89, 248, 0.5);
+  --glow-color: rgba(4, 89, 248, 0.5);
 }
 
 .glow-box.purple {
-  box-shadow: 0 0 15rem 15rem rgba(118, 4, 248, 0.5);
+  --glow-color: rgba(118, 4, 248, 0.5);
 }
 
 .glow-box.gold {
-  box-shadow: 0 0 15rem 15rem rgba(248, 142, 4, 0.5);
+  --glow-color: rgba(248, 142, 4, 0.5);
+}
+
+.glow-animated {
+  animation: glow-box-glow 0.25s forwards 0.1s;
+}
+
+@keyframes glow-box-glow {
+  from {
+  }
+  to {
+    box-shadow: 0 0 15rem 15rem var(--glow-color);
+  }
 }
 .element-img-box {
   width: 4.5rem;
@@ -314,7 +328,7 @@ export default defineComponent({
 
 .active-img {
   max-height: 100%;
-  transform: translateX(1rem);
+  transform: translateX(1.5rem);
 }
 
 .active-img-weapon {
@@ -436,7 +450,7 @@ export default defineComponent({
   }
   to {
     filter: brightness(100%);
-    transform: translateX(1rem);
+    transform: translateX(1.5rem);
   }
 }
 
