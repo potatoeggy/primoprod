@@ -1,3 +1,8 @@
+export interface ItemTransform {
+  x: number;
+  y: number;
+}
+
 export interface Settings {
   infinitePrimos: boolean;
   rollOnly: null | 3 | 4 | 5;

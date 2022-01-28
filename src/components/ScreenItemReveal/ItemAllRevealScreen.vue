@@ -1,5 +1,5 @@
 <template>
-  <div class="win">
+  <div class="win" @click="exit">
     <svg viewBox="0 0 302.22 1333.94" height="0" width="0">
       <clipPath
         id="wishframe"
@@ -11,13 +11,26 @@
         />
       </clipPath>
     </svg>
+    <!-- bounding box to create the shape of the div -->
+    <div class="align-wishes">
+      <div class="asset-box" v-for="item in sortedLastRoll" :key="item.id">
+        <img
+          :class="['drop-img', { weapon: item.type === 'Weapon' }]"
+          :src="require(`@/assets/images/drops/${item.id}.png`)"
+        />
+      </div>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import Inventory from "@/state/Inventory";
-import { Item } from "@/types";
+import { Item, ItemTransform } from "@/types";
 import { defineComponent } from "vue";
+import ItemTF from "@/data/ItemTransforms.json";
+
+const ItemTransforms: { [key: string]: ItemTransform } = ItemTF;
+
 export default defineComponent({
   props: {
     lastRoll: {
@@ -29,15 +42,67 @@ export default defineComponent({
       required: true,
     },
   },
+  computed: {
+    sortedLastRoll(): Item[] {
+      return this.lastRoll
+        .map((e) => e)
+        .sort((a, b) =>
+          a.rarity - b.rarity || b.type === a.type
+            ? a.id.localeCompare(b.id)
+            : a.type.localeCompare(b.type)
+        );
+    },
+  },
+  methods: {
+    exit(): void {
+      this.$emit("exit");
+    },
+  },
   mounted() {
     // we don't have the assets required to make this screen yet
-    this.$emit("exit");
   },
   emits: ["exit"],
 });
 </script>
 
 <style scoped>
+.drop-img {
+  position: absolute;
+  top: -9999px;
+  bottom: -9999px;
+  left: -9999px;
+  right: -9999px;
+  margin: auto;
+  height: 150%;
+  object-fit: cover;
+  transform: translate(0, 5%);
+}
+
+.drop-img.weapon {
+  height: 100%;
+  transform: none;
+}
+.asset-box {
+  background-image: linear-gradient(
+    to bottom,
+    rgb(82, 107, 129),
+    rgb(187, 197, 172),
+    rgb(82, 107, 129)
+  );
+  width: 10%;
+  aspect-ratio: 2 / 9;
+  clip-path: url(#wishframe);
+  overflow: hidden;
+  position: relative;
+}
+
+.align-wishes {
+  height: 100%;
+  width: 85%;
+  display: flex;
+  align-items: center;
+  gap: 0.1rem;
+}
 .win {
   display: flex;
   background: url("../../assets/images/wish-reveal-background.jpg") center/cover
@@ -45,5 +110,7 @@ export default defineComponent({
     white;
   height: 100%;
   width: 100%;
+  justify-content: center;
+  align-items: center;
 }
 </style>
