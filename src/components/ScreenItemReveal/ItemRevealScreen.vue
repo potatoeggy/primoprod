@@ -364,7 +364,7 @@ export default defineComponent({
 }
 
 .active-img {
-  max-height: 100%;
+  height: 100%;
   transform: translateX(1.5rem);
 }
 
