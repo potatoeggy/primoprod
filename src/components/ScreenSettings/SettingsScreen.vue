@@ -55,10 +55,15 @@
         v-model="settings.showBannerPity"
       />
     </div>
+    <div class="setting">
+      <p>Export <a href="https://paimon.moe">paimon.moe</a> wish data</p>
+      <a :href="paimonExportJson" download="paimon.json">Download</a>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
+import Paimon from "@/state/PaimonMoe";
 import { defineComponent } from "vue";
 export default defineComponent({
   data() {
@@ -72,7 +77,15 @@ export default defineComponent({
         showBannerPity: this.$store.state.settings.showBannerPity,
         everythingBanner: this.$store.state.settings.everythingBanner,
       },
+      paimon: Paimon.export(),
     };
+  },
+  computed: {
+    paimonExportJson(): string {
+      return `data:application/json;charset=utf-8,${encodeURIComponent(
+        this.paimon
+      )}`;
+    },
   },
   methods: {
     exit(): void {
