@@ -1,4 +1,5 @@
 <template>
+  <explosion-overlay></explosion-overlay>
   <template v-for="i in [3, 4, 5]" :key="i">
     <audio
       ref="audioItemReveal"
@@ -144,8 +145,10 @@
 import Inventory from "@/state/Inventory";
 import { Item } from "@/types";
 import { defineComponent } from "vue";
+import ExplosionOverlay from "../overlays/ExplosionOverlay.vue";
 
 export default defineComponent({
+  components: { ExplosionOverlay },
   props: {
     lastRoll: {
       type: Object as () => Item[],
