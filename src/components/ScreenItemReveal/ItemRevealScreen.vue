@@ -88,18 +88,18 @@
           {{ currentItem.name }}
         </p>
         <div class="stars name-left-align">
-          <img
-            src="@/assets/images/star.svg"
-            v-for="n in currentItem.rarity"
-            v-bind:key="n"
-            :class="{
-              transparent: animationIndex < n + 1,
-              delayed: n === 1 && animationIndex === n + 1,
-              'star-pop-in': animationIndex === n + 1,
-            }"
-            @animationend="nextAnimation"
-            alt="star"
-          />
+          <span v-for="n in currentItem.rarity" v-bind:key="n">
+            <img
+              src="@/assets/images/star.svg"
+              :class="{
+                transparent: animationIndex < n + 1,
+                delayed: n === 1 && animationIndex === n + 1,
+                'star-pop-in': animationIndex === n + 1,
+              }"
+              @animationend="nextAnimation"
+              alt="star"
+            />
+          </span>
         </div>
       </div>
     </div>
@@ -329,7 +329,7 @@ export default defineComponent({
   z-index: 1;
 }
 
-.stars > img {
+.stars > span > img {
   width: 1.25rem;
   padding-right: 0.3rem;
 }
