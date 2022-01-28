@@ -28,9 +28,9 @@
     <!-- inner circle glow -->
     <div
       :class="{
-        transparent: animationIndex < 1,
+        transparent: animationIndex < 0,
         'glow-box': true,
-        'glow-animated': animationIndex >= 1,
+        'glow-animated': animationIndex >= 0,
         blue: currentItem.rarity === 3,
         purple: currentItem.rarity === 4,
         gold: currentItem.rarity === 5,
@@ -298,13 +298,16 @@ export default defineComponent({
 }
 
 .glow-animated {
-  animation: glow-box-glow 2s forwards 0.1s;
+  animation: glow-box-glow 2s forwards 0.15s;
 }
 
 @keyframes glow-box-glow {
   from {
   }
   10% {
+    box-shadow: 0 0 15rem 15rem var(--glow-color);
+  }
+  20% {
     box-shadow: 0 0 15rem 15rem var(--glow-color);
   }
   to {
