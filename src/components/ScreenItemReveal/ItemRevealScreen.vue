@@ -1,5 +1,5 @@
 <template>
-  <explosion-overlay></explosion-overlay>
+  <explosion-overlay v-if="false"></explosion-overlay>
   <template v-for="i in [3, 4, 5]" :key="i">
     <audio
       ref="audioItemReveal"
@@ -257,6 +257,7 @@ export default defineComponent({
 
 <style scoped>
 .element-glow-box {
+  display: none;
   position: absolute;
   left: 75%;
   top: 45%;
@@ -279,6 +280,7 @@ export default defineComponent({
 }
 
 .glow-box-big {
+  display: none;
   width: 30%;
   height: 50%;
 }
