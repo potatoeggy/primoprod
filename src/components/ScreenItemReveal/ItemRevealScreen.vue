@@ -422,18 +422,6 @@ export default defineComponent({
   animation-name: fade-in-slide-right, dropshadowslidein;
 }
 
-@keyframes dropshadowslidein {
-  from {
-    filter: none;
-  }
-  80% {
-    filter: none;
-  }
-  to {
-    filter: drop-shadow(0.75rem 0.5rem 0 black);
-  }
-}
-
 @keyframes fade-in-slide-right {
   from {
     filter: brightness(0%);
@@ -446,6 +434,18 @@ export default defineComponent({
   to {
     filter: brightness(100%);
     transform: translateX(1rem);
+  }
+}
+
+@keyframes dropshadowslidein {
+  from {
+    filter: brightness(0%);
+  }
+  80% {
+    filter: brightness(0%);
+  }
+  to {
+    filter: brightness(100%) drop-shadow(0.75rem 0.5rem 0 black);
   }
 }
 
