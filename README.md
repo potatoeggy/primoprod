@@ -12,7 +12,7 @@ A Genshin Impact-inspired wish simulator written with Vue and Typescript to push
 
 ## Usage
 
-Visit https://primoprod.eggworld.tk for a live demo!
+Visit https://primoprod.vercel.app for a live demo!
 
 Alternatively, to use primoprod offline or with a slow internet connection or while the demo is down, download the latest desktop or Android version in the [Releases](https://github.com/potatoeggy/primoprod/releases/latest) tab.
 
