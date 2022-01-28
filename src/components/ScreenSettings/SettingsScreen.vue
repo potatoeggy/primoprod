@@ -48,12 +48,11 @@
       />
     </div>
     <div class="setting">
-      <p style="color: gray">Show banner pity</p>
+      <p>Show banner pity in history</p>
       <input
         type="checkbox"
         class="checkbox"
         v-model="settings.showBannerPity"
-        disabled
       />
     </div>
   </div>

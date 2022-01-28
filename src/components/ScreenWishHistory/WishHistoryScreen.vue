@@ -18,6 +18,30 @@
       after the wish is made. If there is no record yet, please check again
       later. The times displayed below are according to local time.
     </p>
+    <div
+      style="display: flex; align-items: center; margin-bottom: 1rem; gap: 1rem"
+      v-if="$store.state.settings.showBannerPity"
+    >
+      <h2>Pity:</h2>
+      <div
+        :class="{
+          'pity-box': true,
+          guaranteed: gachaStates[selectedWishType].guaranteedFeatured4Star,
+        }"
+        style="--color: #a153e1"
+      >
+        {{ gachaStates[selectedWishType].pityCounter4 }}
+      </div>
+      <div
+        :class="{
+          'pity-box': true,
+          guaranteed: gachaStates[selectedWishType].guaranteedFeatured5Star,
+        }"
+        style="--color: #bd6029"
+      >
+        {{ gachaStates[selectedWishType].pityCounter5 }}
+      </div>
+    </div>
     <!-- largely from BannerDetailsDropTable -->
     <table>
       <tr>
@@ -86,7 +110,7 @@ import { ItemDatabase } from "@/state/Gacha";
 import Inventory from "@/state/Inventory";
 import { defineComponent } from "vue";
 import dayjs from "dayjs";
-import { Item, Pull } from "@/types";
+import { GachaState, Item, Pull } from "@/types";
 
 interface DetailedPull extends Omit<Pull, "item"> {
   item: Item;
@@ -143,6 +167,14 @@ export default defineComponent({
         ),
       ];
     },
+    gachaStates(): { [key: string]: GachaState } {
+      let ob: { [key: string]: GachaState } = {};
+      for (const id of this.wishTypes) {
+        console.log(id);
+        ob[id] = JSON.parse(localStorage.getItem(`gacha-${id}`) ?? "{}");
+      }
+      return ob;
+    },
   },
   watch: {
     selectedWishType: function () {
@@ -162,6 +194,20 @@ export default defineComponent({
 </script>
 
 <style scoped>
+.pity-box {
+  height: 3rem;
+  width: 3rem;
+  border-radius: 0.25rem;
+  font-size: 1.5rem;
+  color: white;
+  background-color: var(--color);
+  display: grid;
+  place-items: center;
+}
+
+.pity-box.guaranteed {
+  box-shadow: 0 0 0.4rem 0.4rem yellow;
+}
 .page-button-box {
   --box-size: 3rem;
   width: var(--box-size);
