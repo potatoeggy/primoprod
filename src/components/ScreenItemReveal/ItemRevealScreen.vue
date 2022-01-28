@@ -265,8 +265,8 @@ export default defineComponent({
 @keyframes glow-box-glow {
   from {
   }
-  25% {
-    box-shadow: none;
+  80% {
+    box-shadow: 0 0 15rem 15rem var(--glow-color);
   }
   to {
     box-shadow: 0 0 15rem 15rem var(--glow-color);
