@@ -24,10 +24,23 @@
     </audio>
   </template>
   <div class="item-picture" @click="nextItem">
+    <!-- inner circle glow -->
+    <div
+      :class="{
+        transparent: animationIndex < 1,
+        'glow-box': true,
+        'glow-animated': animationIndex >= 1,
+        blue: currentItem.rarity === 3,
+        purple: currentItem.rarity === 4,
+        gold: currentItem.rarity === 5,
+      }"
+    ></div>
+    <!-- outer circle glow -->
     <div
       :class="{
         transparent: animationIndex < 0,
         'glow-box': true,
+        'glow-box-big': true,
         'glow-animated': animationIndex >= 0,
         blue: currentItem.rarity === 3,
         purple: currentItem.rarity === 4,
@@ -262,6 +275,11 @@ export default defineComponent({
   border-radius: 50%;
 }
 
+.glow-box-big {
+  width: 30%;
+  height: 50%;
+}
+
 .glow-box.blue {
   --glow-color: rgba(4, 89, 248, 0.75);
 }
@@ -466,9 +484,12 @@ export default defineComponent({
     filter: brightness(0%);
     transform: translateX(0%);
   }
-  80% {
+  70% {
     filter: brightness(0%);
     transform: translateX(0%);
+  }
+  75% {
+    filter: brightness(110%);
   }
   to {
     filter: brightness(100%);
@@ -480,8 +501,11 @@ export default defineComponent({
   from {
     filter: brightness(0%);
   }
-  80% {
+  70% {
     filter: brightness(0%);
+  }
+  75% {
+    filter: brightness(110%);
   }
   to {
     filter: brightness(100%) drop-shadow(0.75rem 0.5rem 0 black);
