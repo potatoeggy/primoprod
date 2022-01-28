@@ -24,6 +24,14 @@
     </audio>
   </template>
   <div class="item-picture" @click="nextItem">
+    <div
+      :class="{
+        'glow-box': true,
+        blue: currentItem.rarity === 3,
+        purple: currentItem.rarity === 4,
+        gold: currentItem.rarity === 5,
+      }"
+    ></div>
     <img
       :src="currentItemImage"
       :class="{
@@ -224,6 +232,26 @@ export default defineComponent({
 </script>
 
 <style scoped>
+.glow-box {
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  width: 0px;
+  height: 0px;
+  border-radius: 50%;
+}
+
+.glow-box.blue {
+  box-shadow: 0 0 15rem 15rem rgba(4, 89, 248, 0.5);
+}
+
+.glow-box.purple {
+  box-shadow: 0 0 15rem 15rem rgba(118, 4, 248, 0.5);
+}
+
+.glow-box.gold {
+  box-shadow: 0 0 15rem 15rem rgba(248, 142, 4, 0.5);
+}
 .element-img-box {
   width: 4.5rem;
   z-index: -1;
@@ -289,6 +317,7 @@ export default defineComponent({
 .active-img-weapon {
   max-height: 60%;
   max-width: 60%;
+  filter: drop-shadow(0.75rem 0.5rem 0 black);
 }
 
 .starglitter-slide-in {
@@ -387,6 +416,22 @@ export default defineComponent({
   animation-iteration-count: initial;
   filter: brightness(0%);
   transform: translateX(0%);
+}
+
+.animate-image.active-img-weapon {
+  animation-name: fade-in-slide-right, dropshadowslidein;
+}
+
+@keyframes dropshadowslidein {
+  from {
+    filter: none;
+  }
+  80% {
+    filter: none;
+  }
+  to {
+    filter: drop-shadow(0.75rem 0.5rem 0 black);
+  }
 }
 
 @keyframes fade-in-slide-right {
