@@ -1,5 +1,5 @@
 <template>
-  <div class="win" @click="exit">
+  <div class="win">
     <svg viewBox="0 0 302.22 1333.94" height="0" width="0">
       <clipPath
         id="wishframe"
@@ -12,6 +12,17 @@
       </clipPath>
     </svg>
     <!-- bounding box to create the shape of the div -->
+    <div
+      style="
+        display: flex;
+        justify-content: flex-end;
+        padding: 1rem;
+        width: 100%;
+        z-index: 2;
+      "
+    >
+      <close-button @clicked="exit"></close-button>
+    </div>
     <div class="align-wishes">
       <div class="asset-box" v-for="item of sortedLastRoll" :key="item.id">
         <div class="detail-box">
@@ -52,10 +63,12 @@ import Inventory from "@/state/Inventory";
 import { Item, ItemStringQuantity, ItemTransform } from "@/types";
 import { defineComponent } from "vue";
 import ItemTF from "@/data/ItemTransforms.json";
+import CloseButton from "../shared/CloseButton.vue";
 
 const ItemTransforms: { [key: string]: ItemTransform } = ItemTF;
 
 export default defineComponent({
+  components: { CloseButton },
   props: {
     lastRoll: {
       type: Object as () => Item[],
@@ -173,11 +186,14 @@ export default defineComponent({
 }
 
 .align-wishes {
+  position: absolute;
   height: 100%;
-  width: 80%;
+  width: 100%;
+  padding: 5%;
   display: flex;
   align-items: center;
   gap: 0.25rem;
+  box-sizing: border-box;
 }
 .win {
   display: flex;
@@ -186,7 +202,5 @@ export default defineComponent({
     white;
   height: 100%;
   width: 100%;
-  justify-content: center;
-  align-items: center;
 }
 </style>
