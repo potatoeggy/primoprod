@@ -17,6 +17,12 @@
         <img
           :class="['drop-img', { weapon: item.type === 'Weapon' }]"
           :src="require(`@/assets/images/drops/${item.id}.png`)"
+          :style="{
+            //@ts-ignore
+            '--x': `${ItemTransforms[item.id]?.x ?? 0}%`,
+            '--y': `${ItemTransforms[item.id]?.y ?? 0}%`,
+            '--scale': `${ItemTransforms[item.id]?.scale ?? 100}%`,
+          }"
         />
       </div>
     </div>
@@ -42,12 +48,17 @@ export default defineComponent({
       required: true,
     },
   },
+  data() {
+    return {
+      ItemTransforms: ItemTransforms,
+    };
+  },
   computed: {
     sortedLastRoll(): Item[] {
       return this.lastRoll
         .map((e) => e)
         .sort((a, b) =>
-          a.rarity - b.rarity || b.type === a.type
+          b.rarity - a.rarity || b.type === a.type
             ? a.id.localeCompare(b.id)
             : a.type.localeCompare(b.type)
         );
@@ -57,9 +68,6 @@ export default defineComponent({
     exit(): void {
       this.$emit("exit");
     },
-  },
-  mounted() {
-    // we don't have the assets required to make this screen yet
   },
   emits: ["exit"],
 });
@@ -73,13 +81,14 @@ export default defineComponent({
   left: -9999px;
   right: -9999px;
   margin: auto;
-  height: 150%;
+  height: 180%;
   object-fit: cover;
-  transform: translate(0, 5%);
+  transform: scale(var(--scale)) translate(calc(var(--x)), calc(12% + var(--y)));
 }
 
 .drop-img.weapon {
-  height: 100%;
+  width: auto;
+  height: 70%;
   transform: none;
 }
 .asset-box {
@@ -98,7 +107,7 @@ export default defineComponent({
 
 .align-wishes {
   height: 100%;
-  width: 85%;
+  width: 90%;
   display: flex;
   align-items: center;
   gap: 0.1rem;

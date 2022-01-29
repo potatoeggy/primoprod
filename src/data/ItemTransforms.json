@@ -1,6 +1,22 @@
 {
-  "albedo": {
-    "x": 10,
-    "y": 10
-  }
+  "albedo": { "x": 10, "y": 10 },
+  "xiao": { "x": 0.5, "y": -15 },
+  "amber": { "x": 1.5, "y": -5 },
+  "beidou": { "x": -0.5, "y": 5, "scale": 110 },
+  "bennett": { "x": -5, "y": -8 },
+  "chongyun": { "x": -1 },
+  "diona": { "x": 2, "y": -14 },
+  "fischl": { "x": -0.5 },
+  "kaeya": { "x": -2, "y": 6 },
+  "lisa": { "y": 4 },
+  "ningguang": { "y": 5, "scale": 110 },
+  "razor": { "x": -4, "y": -2 },
+  "rosaria": { "x": 0.5, "y": 4, "scale": 110 },
+  "sara": { "x": -0.5, "y": 6, "scale": 120 },
+  "sayu": { "x": -5, "y": -6 },
+  "sucrose": { "y": 2 },
+  "thoma": { "x": 3 },
+  "xiangling": { "x": 5 },
+  "xingqiu": { "x": -1, "y": 4, "scale": 110 },
+  "yanfei": { "x": 7 }
 }
