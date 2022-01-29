@@ -1,7 +1,7 @@
 export interface ItemTransform {
   x?: number;
   y?: number;
-  scale: number;
+  scale?: number;
 }
 
 export interface Settings {

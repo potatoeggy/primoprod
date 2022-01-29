@@ -13,7 +13,25 @@
     </svg>
     <!-- bounding box to create the shape of the div -->
     <div class="align-wishes">
-      <div class="asset-box" v-for="item in sortedLastRoll" :key="item.id">
+      <div class="asset-box" v-for="item of sortedLastRoll" :key="item.id">
+        <div class="detail-box">
+          <div></div>
+          <div class="metadata-box">
+            <img
+              :src="
+                require(`@/assets/images/icons/icon-element-${item.element}.png`)
+              "
+              :class="{ weapon: item.type === 'Weapon' }"
+            />
+            <div class="star-box">
+              <img
+                v-for="n in item.rarity"
+                :key="n"
+                src="@/assets/images/star.svg"
+              />
+            </div>
+          </div>
+        </div>
         <img
           :class="['drop-img', { weapon: item.type === 'Weapon' }]"
           :src="require(`@/assets/images/drops/${item.id}.png`)"
@@ -31,7 +49,7 @@
 
 <script lang="ts">
 import Inventory from "@/state/Inventory";
-import { Item, ItemTransform } from "@/types";
+import { Item, ItemStringQuantity, ItemTransform } from "@/types";
 import { defineComponent } from "vue";
 import ItemTF from "@/data/ItemTransforms.json";
 
@@ -47,6 +65,12 @@ export default defineComponent({
       type: Object as () => Inventory,
       required: true,
     },
+    extraRewards: {
+      // TODO: combine this information into lastRoll
+      // along with if things are new
+      type: Object as () => ItemStringQuantity[],
+      required: true,
+    },
   },
   data() {
     return {
@@ -55,13 +79,22 @@ export default defineComponent({
   },
   computed: {
     sortedLastRoll(): Item[] {
-      return this.lastRoll
-        .map((e) => e)
-        .sort((a, b) =>
-          b.rarity - a.rarity || b.type === a.type
-            ? a.id.localeCompare(b.id)
-            : a.type.localeCompare(b.type)
-        );
+      const item = (star: number) =>
+        this.lastRoll
+          .filter(({ rarity }) => rarity === star)
+          .sort(
+            (a, b) =>
+              // whichever one is newer goes first
+              // (if there's only one in inv)
+              // TODO: add support for dedicated isNew flag
+              // because there's no way you can practically
+              // check it
+              +(this.inventory.inventory[a.id] === 1) -
+              +(this.inventory.inventory[b.id] === 1)
+          )
+          .sort((a, b) => a.type.localeCompare(b.type))
+          .sort((a, b) => a.name.localeCompare(b.name));
+      return [...item(5), ...item(4), ...item(3)];
     },
   },
   methods: {
@@ -74,6 +107,40 @@ export default defineComponent({
 </script>
 
 <style scoped>
+.detail-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+  padding-top: 30%;
+  padding-bottom: 40%;
+  box-sizing: border-box;
+}
+
+.metadata-box > img {
+  width: 80%;
+}
+
+.metadata-box > img.weapon {
+  filter: brightness(200%);
+}
+
+.metadata-box {
+  width: 100%;
+  z-index: 1;
+}
+
+.star-box {
+  width: 100%;
+}
+
+.star-box > img {
+  width: 15%;
+  padding: 0.05rem;
+}
+
 .drop-img {
   position: absolute;
   top: -9999px;
@@ -107,10 +174,10 @@ export default defineComponent({
 
 .align-wishes {
   height: 100%;
-  width: 90%;
+  width: 80%;
   display: flex;
   align-items: center;
-  gap: 0.1rem;
+  gap: 0.25rem;
 }
 .win {
   display: flex;
