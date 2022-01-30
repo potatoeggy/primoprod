@@ -52,6 +52,7 @@
   <item-all-reveal-screen
     :lastRoll="lastRoll"
     :inventory="inv"
+    :extraRewards="detailedPullExtraRewards"
     @exit="screen = 'wish-banner'"
     v-if="screen === 'item-all-reveal'"
   ></item-all-reveal-screen>
@@ -130,6 +131,7 @@ export default defineComponent({
       currentBannerIndex: 0,
       overlay: "",
       pullExtraRewards: [] as ItemStringQuantity[],
+      detailedPullExtraRewards: [] as ItemStringQuantity[],
     };
   },
   methods: {
@@ -207,6 +209,7 @@ export default defineComponent({
             ).quantity,
         },
       ];
+      this.detailedPullExtraRewards = extraRewards;
     },
 
     cancelWish(): void {
