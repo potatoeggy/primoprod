@@ -8,7 +8,8 @@
       <span class="caret right"></span>
     </button>
     <video :id="videoId" @ended="ended">
-      <source :src="videoSrc" />
+      <source :src="videoSrcWebm" type="video/webm" />
+      <source :src="videoSrc" type="video/mp4" />
     </video>
   </div>
 </template>
@@ -44,6 +45,15 @@ export default defineComponent({
       } catch (error) {
         console.error(error);
         return `${this.stars}starwish-${this.pulls}.mp4`;
+      }
+    },
+    videoSrcWebm(): string {
+      const videos = require.context("@/assets/video/", false, /\.webm$/);
+      try {
+        return videos(`./${this.stars}starwish-${this.pulls}.webm`);
+      } catch (error) {
+        console.error(error);
+        return `${this.stars}starwish-${this.pulls}.webm`;
       }
     },
   },
