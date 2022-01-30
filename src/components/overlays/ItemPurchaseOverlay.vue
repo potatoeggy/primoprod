@@ -82,6 +82,7 @@
               v-model.number="quantityToPurchase"
               min="1"
               :max="numPurchasable"
+              :style="{ '--quantity': `${quantityToPurchase}rem` }"
             />
             <p>{{ numPurchasable }}</p>
             <div
@@ -303,6 +304,54 @@ export default defineComponent({
 
 input[type="range"] {
   width: 50%;
+  background: transparent;
+}
+
+input[type="range"],
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  background: linear-gradient(#4a5265, #4a5265) 0 / var(--quantity) 100%
+    no-repeat #ccc;
+  border-radius: 0.2rem;
+  width: 100%;
+  height: 0.4rem;
+}
+
+input[type="range"]::-moz-range-progress {
+  height: 0.4rem;
+  border-radius: 0.2rem;
+  background: #4a5265;
+}
+
+input[type="range"]::-moz-range-track {
+  box-sizing: border-box;
+  border-radius: 0.2rem;
+  height: 0.4rem;
+  background: #ccc;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  height: 1rem;
+  width: 1rem;
+  background: #4a5265;
+  margin-top: -0.25rem;
+  transform: rotate(45deg);
+  border: 0.2rem solid #ece6de;
+  outline: 0.2rem solid #4a5265;
+}
+
+input[type="range"]::-moz-range-thumb {
+  height: 0.6rem;
+  width: 0.6rem;
+  border-radius: 0;
+  background: #4a5265;
+  margin-top: -0.25rem;
+  transform: rotate(45deg);
+  border: 0.2rem solid #ece6de;
+  outline: 0.2rem solid #4a5265;
 }
 
 .plus-minus {
