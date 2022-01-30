@@ -424,7 +424,7 @@ export default defineComponent({
 
 .appear-slide-left {
   animation-name: fade-in-slide-left;
-  animation-duration: 1.25s;
+  animation-duration: 1.1s;
   animation-iteration-count: initial;
   opacity: 0;
 }
@@ -477,7 +477,7 @@ export default defineComponent({
 
 .animate-image {
   animation-name: fade-in-slide-right;
-  animation-duration: 1.25s;
+  animation-duration: 1.1s;
   animation-iteration-count: initial;
   filter: brightness(0%);
   transform: translateX(0%);
