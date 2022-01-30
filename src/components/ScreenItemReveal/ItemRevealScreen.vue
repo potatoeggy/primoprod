@@ -1,4 +1,5 @@
 <template>
+  <explosion-overlay v-if="false"></explosion-overlay>
   <template v-for="i in [3, 4, 5]" :key="i">
     <audio
       ref="audioItemReveal"
@@ -24,6 +25,29 @@
     </audio>
   </template>
   <div class="item-picture" @click="nextItem">
+    <!-- inner circle glow -->
+    <div
+      :class="{
+        transparent: animationIndex < 0,
+        'glow-box': true,
+        'glow-animated': animationIndex >= 0,
+        blue: currentItem.rarity === 3,
+        purple: currentItem.rarity === 4,
+        gold: currentItem.rarity === 5,
+      }"
+    ></div>
+    <!-- outer circle glow -->
+    <div
+      :class="{
+        transparent: animationIndex < 0,
+        'glow-box': true,
+        'glow-box-big': true,
+        'glow-animated': animationIndex >= 0,
+        blue: currentItem.rarity === 3,
+        purple: currentItem.rarity === 4,
+        gold: currentItem.rarity === 5,
+      }"
+    ></div>
     <img
       :src="currentItemImage"
       :class="{
@@ -34,10 +58,13 @@
         transparent: animationIndex < 0,
       }"
       @animationstart="playSfx"
-      @animationend="nextAnimation"
+      @animationend="if (animationIndex < 2) nextAnimation();"
       @load="nextAnimation"
       :alt="currentItemImage"
     />
+    <!-- the reason why the double check is needed is
+    that the two animations for the drop shadow count
+    as two animations and trigger animationend twice -->
   </div>
   <div class="item" @click="nextItem">
     <div
@@ -48,6 +75,9 @@
       id="item-reveal-description-box"
     >
       <div class="element-img-box">
+        <div
+          :class="{ transparent: animationIndex < 0, 'element-glow-box': true }"
+        ></div>
         <img
           :src="
             require(`@/assets/images/icons/icon-element-${currentItem.element}.png`)
@@ -72,18 +102,18 @@
           {{ currentItem.name }}
         </p>
         <div class="stars name-left-align">
-          <img
-            src="@/assets/images/star.svg"
-            v-for="n in currentItem.rarity"
-            v-bind:key="n"
-            :class="{
-              transparent: animationIndex < n + 1,
-              delayed: n === 1 && animationIndex === n + 1,
-              'star-pop-in': animationIndex === n + 1,
-            }"
-            @animationend="nextAnimation"
-            alt="star"
-          />
+          <span v-for="n in currentItem.rarity" v-bind:key="n">
+            <img
+              src="@/assets/images/star.svg"
+              :class="{
+                transparent: animationIndex < n + 1,
+                delayed: n === 1 && animationIndex === n + 1,
+                'star-pop-in': animationIndex === n + 1,
+              }"
+              @animationend="nextAnimation"
+              alt="star"
+            />
+          </span>
         </div>
       </div>
     </div>
@@ -115,8 +145,10 @@
 import Inventory from "@/state/Inventory";
 import { Item } from "@/types";
 import { defineComponent } from "vue";
+import ExplosionOverlay from "../overlays/ExplosionOverlay.vue";
 
 export default defineComponent({
+  components: { ExplosionOverlay },
   props: {
     lastRoll: {
       type: Object as () => Item[],
@@ -224,6 +256,64 @@ export default defineComponent({
 </script>
 
 <style scoped>
+.element-glow-box {
+  display: none;
+  position: absolute;
+  left: 75%;
+  top: 45%;
+  width: 0px;
+  height: 0px;
+  border-radius: 50%;
+  /* currently no way to recolour the image as a gradient
+   * and it looks awkward if the top is gray w/ a gradient
+   * behind it
+   * this div does not do anything at the moment
+   */
+}
+.glow-box {
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  width: 0px;
+  height: 0px;
+  border-radius: 50%;
+}
+
+.glow-box-big {
+  display: none;
+  width: 30%;
+  height: 50%;
+}
+
+.glow-box.blue {
+  --glow-color: rgba(4, 89, 248, 0.75);
+}
+
+.glow-box.purple {
+  --glow-color: rgba(118, 4, 248, 0.75);
+}
+
+.glow-box.gold {
+  --glow-color: rgba(248, 142, 4, 0.75);
+}
+
+.glow-animated {
+  animation: glow-box-glow 2s forwards 0.15s;
+}
+
+@keyframes glow-box-glow {
+  from {
+  }
+  10% {
+    box-shadow: 0 0 15rem 15rem var(--glow-color);
+  }
+  20% {
+    box-shadow: 0 0 15rem 15rem var(--glow-color);
+  }
+  to {
+    box-shadow: 0 0 15rem 15rem transparent;
+  }
+}
 .element-img-box {
   width: 4.5rem;
   z-index: -1;
@@ -265,7 +355,7 @@ export default defineComponent({
   z-index: 1;
 }
 
-.stars > img {
+.stars > span > img {
   width: 1.25rem;
   padding-right: 0.3rem;
 }
@@ -282,13 +372,14 @@ export default defineComponent({
 }
 
 .active-img {
-  max-height: 100%;
-  transform: translateX(1rem);
+  height: 100%;
+  transform: translateX(1.5rem);
 }
 
 .active-img-weapon {
   max-height: 60%;
   max-width: 60%;
+  filter: drop-shadow(0.75rem 0.5rem 0 black);
 }
 
 .starglitter-slide-in {
@@ -321,16 +412,19 @@ export default defineComponent({
   from {
     transform: scale(300%);
     opacity: 1;
+    /* target #fffcdc */
+    filter: brightness(300%);
   }
   to {
     transform: scale(100%);
     opacity: 1;
+    filter: none;
   }
 }
 
 .appear-slide-left {
   animation-name: fade-in-slide-left;
-  animation-duration: 1s;
+  animation-duration: 1.1s;
   animation-iteration-count: initial;
   opacity: 0;
 }
@@ -383,10 +477,14 @@ export default defineComponent({
 
 .animate-image {
   animation-name: fade-in-slide-right;
-  animation-duration: 1s;
+  animation-duration: 1.1s;
   animation-iteration-count: initial;
   filter: brightness(0%);
   transform: translateX(0%);
+}
+
+.animate-image.active-img-weapon {
+  animation-name: fade-in-slide-right, dropshadowslidein;
 }
 
 @keyframes fade-in-slide-right {
@@ -394,13 +492,31 @@ export default defineComponent({
     filter: brightness(0%);
     transform: translateX(0%);
   }
-  80% {
+  70% {
     filter: brightness(0%);
     transform: translateX(0%);
   }
+  75% {
+    filter: brightness(120%);
+  }
   to {
     filter: brightness(100%);
-    transform: translateX(1rem);
+    transform: translateX(1.5rem);
+  }
+}
+
+@keyframes dropshadowslidein {
+  from {
+    filter: brightness(0%);
+  }
+  70% {
+    filter: brightness(0%);
+  }
+  75% {
+    filter: brightness(120%);
+  }
+  to {
+    filter: brightness(100%) drop-shadow(0.75rem 0.5rem 0 black);
   }
 }
 
