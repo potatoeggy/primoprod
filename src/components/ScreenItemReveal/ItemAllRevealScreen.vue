@@ -25,39 +25,47 @@
     </div>
     <div class="align-wishes">
       <div
-        class="asset-box"
+        class="asset-box-holder"
         v-for="(item, index) of sortedLastRoll"
         :key="index"
-        :style="{ '--ani-delay': `${index * 0.1}s` }"
+        :style="{
+          '--ani-delay': `${index * 0.1}s`,
+          '--border-color': glowStyles[item.rarity].outline,
+          '--glow-color': glowStyles[item.rarity].glow,
+        }"
       >
-        <div class="detail-box">
-          <div></div>
-          <div class="metadata-box">
-            <img
-              :src="
-                require(`@/assets/images/icons/icon-element-${item.element}.png`)
-              "
-              :class="{ weapon: item.type === 'Weapon' }"
-            />
-            <div class="star-box">
-              <img
-                v-for="n in item.rarity"
-                :key="n"
-                src="@/assets/images/star.svg"
-              />
+        <div class="asset-box-border">
+          <div class="asset-box">
+            <div class="detail-box">
+              <div></div>
+              <div class="metadata-box">
+                <img
+                  :src="
+                    require(`@/assets/images/icons/icon-element-${item.element}.png`)
+                  "
+                  :class="{ weapon: item.type === 'Weapon', element: true }"
+                />
+                <div class="star-box">
+                  <img
+                    v-for="n in item.rarity"
+                    :key="n"
+                    src="@/assets/images/star.svg"
+                  />
+                </div>
+              </div>
             </div>
+            <img
+              :class="['drop-img', { weapon: item.type === 'Weapon' }]"
+              :src="require(`@/assets/images/drops/${item.id}.png`)"
+              :style="{
+                //@ts-ignore
+                '--x': `${ItemTransforms[item.id]?.x ?? 0}%`,
+                '--y': `${ItemTransforms[item.id]?.y ?? 0}%`,
+                '--scale': `${ItemTransforms[item.id]?.scale ?? 100}%`,
+              }"
+            />
           </div>
         </div>
-        <img
-          :class="['drop-img', { weapon: item.type === 'Weapon' }]"
-          :src="require(`@/assets/images/drops/${item.id}.png`)"
-          :style="{
-            //@ts-ignore
-            '--x': `${ItemTransforms[item.id]?.x ?? 0}%`,
-            '--y': `${ItemTransforms[item.id]?.y ?? 0}%`,
-            '--scale': `${ItemTransforms[item.id]?.scale ?? 100}%`,
-          }"
-        />
       </div>
     </div>
   </div>
@@ -93,6 +101,13 @@ export default defineComponent({
   data() {
     return {
       ItemTransforms: ItemTransforms,
+      glowStyles: {
+        3: { outline: "#a2cdf5", glow: "royalblue", intensity: "" },
+        4: { outline: "white", glow: "#8275ff", intensity: "" },
+        5: { outline: "white", glow: "#ffd479", intensity: "" },
+      } as {
+        [key: number]: { glow: string; outline: string; intensity: string };
+      },
     };
   },
   computed: {
@@ -178,6 +193,11 @@ export default defineComponent({
   height: 70%;
   transform: none;
 }
+
+img.element {
+  width: 50%;
+  margin-bottom: 0.5rem;
+}
 .asset-box {
   background-image: linear-gradient(
     to bottom,
@@ -185,12 +205,39 @@ export default defineComponent({
     rgb(187, 197, 172),
     rgb(82, 107, 129)
   );
-  width: 10%;
-  aspect-ratio: 2 / 9;
+  width: 97%;
+  height: 99%;
   clip-path: url(#wishframe);
   overflow: hidden;
   position: relative;
+}
+
+.asset-box-holder {
+  height: 100%;
+  width: 100%;
+  display: grid;
+  place-items: center;
+  animation: all-glow 0.2s ease-in-out calc(0.3s + var(--ani-delay)) forwards;
+}
+
+@keyframes all-glow {
+  from {
+  }
+  to {
+    filter: drop-shadow(0 0 1rem var(--glow-color));
+  }
+}
+
+.asset-box-border {
+  height: calc(min-content + 5%);
+  width: 100%;
+  aspect-ratio: 2 / 9;
+  background-color: var(--border-color);
+  clip-path: url(#wishframe);
+  display: grid;
+  place-items: center;
   opacity: 0;
+  color: rgb(136, 98, 238);
   animation: all-slide-left 0.5s ease-out var(--ani-delay) forwards;
 }
 
@@ -211,8 +258,8 @@ export default defineComponent({
   padding: 10%;
   display: flex;
   align-items: center;
-  gap: 0.25rem;
   box-sizing: border-box;
+  gap: 0.25rem;
 }
 .win {
   display: flex;
