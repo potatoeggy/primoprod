@@ -23,7 +23,7 @@
         <div class="item-icon">
           <img
             class="item-icon-img"
-            :src="require(`@/assets/images/${item.id}.png`)"
+            :src="require(`@/assets/images/${item.id}.webp`)"
           />
         </div>
         <div class="star-box margin-left">

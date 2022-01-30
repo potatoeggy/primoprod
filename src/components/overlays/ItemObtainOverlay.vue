@@ -40,7 +40,7 @@
                 ]"
               >
                 <img
-                  :src="require(`@/assets/images/${i.item.id}.png`)"
+                  :src="require(`@/assets/images/${i.item.id}.webp`)"
                   class="icon-img"
                 />
               </div>

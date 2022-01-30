@@ -104,7 +104,7 @@
               @click="itemDescriptionId = i.id"
             >
               <img
-                :src="require(`@/assets/images/${i.id}.png`)"
+                :src="require(`@/assets/images/${i.id}.webp`)"
                 class="icon-img"
               />
               <div class="quantity-text">{{ i.quantity }}</div>

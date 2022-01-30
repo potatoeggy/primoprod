@@ -26,7 +26,7 @@
   </audio>
   <div class="banner-container">
     <div class="mobile-header" v-if="isMobile">
-      <img src="@/assets/images/ui-wish-edited.png" />
+      <img src="@/assets/images/ui-wish-edited.webp" />
       <template v-for="(ban, index) of banners" :key="index">
         <template
           v-if="
@@ -63,7 +63,7 @@
         @animationend="exitEmit"
       >
         <div id="wish-label" class="space-between center">
-          <img v-if="!isMobile" src="@/assets/images/ui-wish-edited.png" />
+          <img v-if="!isMobile" src="@/assets/images/ui-wish-edited.webp" />
           <p id="wish-label">Wish</p>
         </div>
         <div class="banner-header" v-if="!isMobile">
@@ -90,31 +90,31 @@
         </div>
         <div id="gems">
           <gem-counter
-            icon="starglitter.png"
+            icon="starglitter.webp"
             :text="inventory.starglitter"
             @image-clicked="activeItemId = 'starglitter'"
             v-if="isMobile"
           ></gem-counter>
           <gem-counter
-            icon="stardust.png"
+            icon="stardust.webp"
             :text="inventory.stardust"
             @image-clicked="activeItemId = 'stardust'"
             v-if="isMobile"
           ></gem-counter>
           <gem-counter
-            icon="primogem.png"
+            icon="primogem.webp"
             :text="settings.infinitePrimos ? '∞' : inventory.primos"
             @image-clicked="activeItemId = 'primogem'"
             plusSign
           ></gem-counter>
           <gem-counter
-            icon="acquaint-fate.png"
+            icon="acquaint-fate.webp"
             :text="settings.infinitePrimos ? '∞' : inventory.standardFates"
             @image-clicked="activeItemId = 'acquaint-fate'"
             v-if="banner.storage === 'standard'"
           ></gem-counter>
           <gem-counter
-            icon="intertwined-fate.png"
+            icon="intertwined-fate.webp"
             :text="settings.infinitePrimos ? '∞' : inventory.fates"
             @image-clicked="activeItemId = 'intertwined-fate'"
             v-else
@@ -148,13 +148,13 @@
             class="footer-align-flex left-align-flex"
           >
             <gem-counter
-              icon="starglitter.png"
+              icon="starglitter.webp"
               :text="inventory.starglitter"
               @image-clicked="activeItemId = 'starglitter'"
               nobackground
             ></gem-counter>
             <gem-counter
-              icon="stardust.png"
+              icon="stardust.webp"
               :text="inventory.stardust"
               @image-clicked="activeItemId = 'stardust'"
               nobackground
@@ -264,12 +264,12 @@ export default defineComponent({
       const images = require.context(
         "@/assets/images/banners/",
         false,
-        /\.png$/
+        /\.webp$/
       );
       try {
-        return images(`./${this.banner.id}.png`);
+        return images(`./${this.banner.id}.webp`);
       } catch (error) {
-        return `./${this.banner.id}.png`;
+        return `./${this.banner.id}.webp`;
       }
     },
     activeItem(): Item {
@@ -293,12 +293,12 @@ export default defineComponent({
       const images = require.context(
         "@/assets/images/banner-headers/",
         false,
-        /\.png$/
+        /\.webp$/
       );
       try {
-        return images(`./${selected ? "selected-" : ""}${banner.id}.png`);
+        return images(`./${selected ? "selected-" : ""}${banner.id}.webp`);
       } catch (error) {
-        return `./${selected ? "selected-" : ""}${banner.id}.png`;
+        return `./${selected ? "selected-" : ""}${banner.id}.webp`;
       }
     },
     wish(number: number): void {

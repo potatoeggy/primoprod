@@ -16,7 +16,7 @@
       <close-button @clicked="exit"></close-button>
       <div style="margin-right: 3rem">
         <gem-counter
-          icon="primogem.png"
+          icon="primogem.webp"
           :text="inventory.primos"
           plusSign
           outline
@@ -26,7 +26,7 @@
         </gem-counter>
       </div>
       <gem-counter
-        icon="starglitter.png"
+        icon="starglitter.webp"
         :text="inventory.starglitter"
         outline
         nobackground
@@ -34,7 +34,7 @@
       >
       </gem-counter>
       <gem-counter
-        icon="stardust.png"
+        icon="stardust.webp"
         :text="inventory.stardust"
         outline
         nobackground
@@ -49,14 +49,14 @@
           @click="activePurchase = item"
         >
           <img
-            :src="require(`@/assets/images/${item.id}.png`)"
+            :src="require(`@/assets/images/${item.id}.webp`)"
             class="item-img"
           />
           <p class="item-label">{{ ItemDatabase[item.id].name }}</p>
           <div class="item-price-holder">
             <img
               class="cost-item-img"
-              :src="require(`@/assets/images/${item.cost[0].id}.png`)"
+              :src="require(`@/assets/images/${item.cost[0].id}.webp`)"
             />
             <p class="item-price-text">{{ item.cost[0].quantity }}</p>
           </div>

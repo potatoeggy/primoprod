@@ -1,7 +1,7 @@
 <template>
   <div class="close-button-box">
     <img
-      src="@/assets/images/close-button.png"
+      src="@/assets/images/close-button.webp"
       class="close-button"
       @click="clicked"
     />

@@ -80,7 +80,7 @@
         ></div>
         <img
           :src="
-            require(`@/assets/images/icons/icon-element-${currentItem.element}.png`)
+            require(`@/assets/images/icons/icon-element-${currentItem.element}.webp`)
           "
           :class="{
             'element-img': true,
@@ -228,11 +228,15 @@ export default defineComponent({
       return this.lastRoll[this.currentIndex];
     },
     currentItemImage(): string {
-      const images = require.context("@/assets/images/drops/", false, /\.png$/);
+      const images = require.context(
+        "@/assets/images/drops/",
+        false,
+        /\.webp$/
+      );
       try {
-        return images(`./${this.currentItem.id}.png`);
+        return images(`./${this.currentItem.id}.webp`);
       } catch (error) {
-        return `${this.currentItem.id}.png`;
+        return `${this.currentItem.id}.webp`;
       }
     },
     currentItemAudio(): string {

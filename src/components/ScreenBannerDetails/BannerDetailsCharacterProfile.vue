@@ -2,12 +2,12 @@
   <div class="profile">
     <img
       class="element-bg"
-      :src="elementBgs(`./bg-${character.element}.png`)"
+      :src="elementBgs(`./bg-${character.element}.webp`)"
     />
     <div class="card-info">
       <img
         class="char-icon"
-        :src="icons(`./icon-${character.id}.png`)"
+        :src="icons(`./icon-${character.id}.webp`)"
         :alt="`icon-${character.id}`"
       />
       <p>{{ character.name }}</p>
@@ -28,7 +28,7 @@ export default defineComponent({
   },
   methods: {
     icons(path: string) {
-      const i = require.context("@/assets/images/icons/", false, /\.png$/);
+      const i = require.context("@/assets/images/icons/", false, /\.webp$/);
       try {
         return i(path);
       } catch (err) {

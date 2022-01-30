@@ -16,7 +16,7 @@
           :src="
             require(`@/assets/images/${
               standard ? 'acquaint' : 'intertwined'
-            }-fate.png`)
+            }-fate.webp`)
           "
           alt="fate"
         />

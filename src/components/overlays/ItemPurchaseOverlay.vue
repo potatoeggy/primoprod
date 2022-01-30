@@ -32,7 +32,7 @@
         >
           <img
             class="item-img"
-            :src="require(`@/assets/images/${item.id}.png`)"
+            :src="require(`@/assets/images/${item.id}.webp`)"
             @click.self="activeItemId = item.id"
           />
           <div
@@ -46,7 +46,7 @@
               <p @click="activeItemId = item.id">{{ item.name }}</p>
               <gem-counter
                 :text="shopItem.cost[0].quantity"
-                :icon="`${shopItem.cost[0].id}.png`"
+                :icon="`${shopItem.cost[0].id}.webp`"
                 :small="true"
                 :red="insufficientFunds"
                 @image-clicked="activeItemId = shopItem.cost[0].id"

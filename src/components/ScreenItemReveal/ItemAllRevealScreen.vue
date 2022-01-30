@@ -44,7 +44,7 @@
               <div class="metadata-box">
                 <img
                   :src="
-                    require(`@/assets/images/icons/icon-element-${item.element}.png`)
+                    require(`@/assets/images/icons/icon-element-${item.element}.webp`)
                   "
                   :class="{ weapon: item.type === 'Weapon', element: true }"
                 />
@@ -59,7 +59,7 @@
             </div>
             <img
               :class="['drop-img', { weapon: item.type === 'Weapon' }]"
-              :src="require(`@/assets/images/drops/${item.id}.png`)"
+              :src="require(`@/assets/images/drops/${item.id}.webp`)"
               :style="{
                 //@ts-ignore
                 '--x': `${ItemTransforms[item.id]?.x ?? 0}%`,
