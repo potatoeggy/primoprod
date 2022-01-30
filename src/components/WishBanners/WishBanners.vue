@@ -22,7 +22,8 @@
   ></settings-screen>
 
   <audio id="audio-banner-switch" preload="true">
-    <source src="@/assets/audio/banner-switch.mp3" />
+    <source src="@/assets/audio/banner-switch.ogg" type="audio/ogg" />
+    <source src="@/assets/audio/banner-switch.mp3" type="audio/mp3" />
   </audio>
   <div class="banner-container">
     <div class="mobile-header" v-if="isMobile">

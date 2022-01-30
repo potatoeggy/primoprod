@@ -8,6 +8,10 @@
       v-if="currentIndex === 0 && currentItem.rarity === i"
     >
       <source
+        :src="require(`@/assets/audio/${i}-star-wish-reveal-first.ogg`)"
+        type="audio/ogg"
+      />
+      <source
         :src="require(`@/assets/audio/${i}-star-wish-reveal-first.mp3`)"
         type="audio/mpeg"
       />
@@ -18,6 +22,10 @@
       @canplaythrough="if (animationIndex < 0) nextAnimation();"
       v-else-if="currentItem.rarity === i"
     >
+      <source
+        :src="require(`@/assets/audio/${i}-star-wish-reveal.ogg`)"
+        type="audio/ogg"
+      />
       <source
         :src="require(`@/assets/audio/${i}-star-wish-reveal.mp3`)"
         type="audio/mpeg"

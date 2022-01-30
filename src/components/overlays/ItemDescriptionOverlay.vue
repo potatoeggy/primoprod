@@ -1,9 +1,11 @@
 <template>
   <audio ref="audioDescriptionOverlayExit" preload="true">
-    <source src="@/assets/audio/description-exit.mp3" />
+    <source src="@/assets/audio/description-exit.ogg" type="audio/ogg" />
+    <source src="@/assets/audio/description-exit.mp3" type="audio/mp3" />
   </audio>
   <audio preload="true" autoplay>
-    <source src="@/assets/audio/description-enter.mp3" />
+    <source src="@/assets/audio/description-enter.ogg" type="audio/ogg" />
+    <source src="@/assets/audio/description-enter.mp3" type="audio/mp3" />
   </audio>
   <div
     :class="{ bg: true, 'zoom-fade-in': active, 'zoom-fade-out': !active }"

@@ -1,9 +1,12 @@
 <template>
   <audio preload="true" autoplay>
-    <source src="@/assets/audio/item-obtain.mp3" />
+    <source src="@/assets/audio/item-obtain.ogg" type="audio/ogg" />
+    <source src="@/assets/audio/item-obtain.mp3" type="audio/mp3" />
   </audio>
   <audio ref="audioExitOverlay" preload="true">
-    <source src="@/assets/audio/close-overlay.mp3" />
+    ]
+    <source src="@/assets/audio/close-overlay.ogg" type="audio/ogg" />
+    <source src="@/assets/audio/close-overlay.mp3" type="audio/mp3" />
   </audio>
   <item-description-overlay
     :item="activeItem"
