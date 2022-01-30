@@ -24,7 +24,12 @@
       <close-button @clicked="exit"></close-button>
     </div>
     <div class="align-wishes">
-      <div class="asset-box" v-for="item of sortedLastRoll" :key="item.id">
+      <div
+        class="asset-box"
+        v-for="(item, index) of sortedLastRoll"
+        :key="index"
+        :style="{ '--ani-delay': `${index * 0.1}s` }"
+      >
         <div class="detail-box">
           <div></div>
           <div class="metadata-box">
@@ -102,6 +107,8 @@ export default defineComponent({
               // TODO: add support for dedicated isNew flag
               // because there's no way you can practically
               // check it
+              // TODO: sort by first occurence and then
+              // group names instead of sorting by name
               +(this.inventory.inventory[a.id] === 1) -
               +(this.inventory.inventory[b.id] === 1)
           )
@@ -150,7 +157,7 @@ export default defineComponent({
 }
 
 .star-box > img {
-  width: 15%;
+  width: 12.5%;
   padding: 0.05rem;
 }
 
@@ -183,13 +190,25 @@ export default defineComponent({
   clip-path: url(#wishframe);
   overflow: hidden;
   position: relative;
+  opacity: 0;
+  animation: all-slide-left 0.5s ease-out var(--ani-delay) forwards;
+}
+
+@keyframes all-slide-left {
+  from {
+    opacity: 0;
+    transform: translateX(200%);
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .align-wishes {
   position: absolute;
   height: 100%;
   width: 100%;
-  padding: 5%;
+  padding: 10%;
   display: flex;
   align-items: center;
   gap: 0.25rem;
