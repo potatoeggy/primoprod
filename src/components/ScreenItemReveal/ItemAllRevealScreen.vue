@@ -1,4 +1,7 @@
 <template>
+  <audio autoplay preload="true">
+    <source src="@/assets/audio/result-list.ogg" />
+  </audio>
   <div class="win">
     <svg viewBox="0 0 302.22 1333.94" height="0" width="0">
       <clipPath
@@ -229,7 +232,6 @@ img.element {
 }
 
 .asset-box-border {
-  height: calc(min-content + 5%);
   width: 100%;
   aspect-ratio: 2 / 9;
   background-color: var(--border-color);
