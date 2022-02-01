@@ -63,6 +63,7 @@
     v-on:video-ended="showResults"
     v-on:video-skipped="showResultsEnd"
   ></video-player>
+  <video-player :pulls="1" :stars="1" :preloader="true" />
   <shop-screen
     @exit="screen = 'wish-banner'"
     v-if="screen === 'shop'"
