@@ -36,7 +36,11 @@ export default defineComponent({
       }
     },
     elementBgs(path: string) {
-      const i = require.context("@/assets/images/details-bg/", false, /\.png$/);
+      const i = require.context(
+        "@/assets/images/details-bg/",
+        false,
+        /\.webp$/
+      );
       try {
         return i(path);
       } catch (err) {

@@ -84,7 +84,9 @@
               v-model.number="quantityToPurchase"
               min="1"
               :max="numPurchasable"
-              :style="{ '--quantity': `${quantityToPurchase}rem` }"
+              :style="{
+                '--quantity': `${(quantityToPurchase / numPurchasable) * 100}%`,
+              }"
             />
             <p>{{ numPurchasable }}</p>
             <div

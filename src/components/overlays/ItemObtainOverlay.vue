@@ -265,8 +265,8 @@ export default defineComponent({
 
 .main::before {
   content: "";
-  background: url("../../assets/images/wish-reveal-background.jpg") center/cover
-      no-repeat fixed,
+  background: url("../../assets/images/wish-reveal-background.webp")
+      center/cover no-repeat fixed,
     #4a4a52;
   top: 0;
   right: 0;
