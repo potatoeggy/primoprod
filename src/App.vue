@@ -275,8 +275,7 @@ export default defineComponent({
   -webkit-font-smoothing: antialiased;
   text-align: center;
   color: #2c3e50;
-  background: url("./assets/images/wish-background.webp") center/cover no-repeat
-      fixed,
+  background: url("./assets/images/wish-background.webp") center/cover no-repeat,
     #8ac2eb;
 }
 

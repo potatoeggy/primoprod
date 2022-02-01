@@ -354,7 +354,7 @@ export default defineComponent({
   align-items: center;
   justify-content: space-between;
   background: url("../../assets/images/wish-reveal-background.webp")
-      center/cover no-repeat fixed,
+      center/cover no-repeat,
     white;
   height: 100%;
   width: 100%;

@@ -266,7 +266,7 @@ img.element {
 .win {
   display: flex;
   background: url("../../assets/images/wish-reveal-background.webp")
-      center/cover no-repeat fixed,
+      center/cover no-repeat,
     white;
   height: 100%;
   width: 100%;
