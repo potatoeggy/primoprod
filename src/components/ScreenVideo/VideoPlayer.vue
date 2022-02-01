@@ -1,5 +1,5 @@
 <template>
-  <div class="video-preloader" v-if="preloader" style="display: none">
+  <div v-if="preloader" style="display: none">
     <video v-for="(v, index) in allVideo" :key="index">
       <source
         :src="require(`@/assets/video/${v}`)"
@@ -19,10 +19,28 @@
     <video :id="videoId" @ended="ended">
       <source :src="videoSrcWebm" type="video/webm" />
     </video>
+    <!-- prefetch drops ahead of time here -->
+    <!-- also prefetch obtain overlay background -->
+    <div style="display: none">
+      <img src="@/assets/images/wish-reveal-background.webp" ref="prefetch" />
+      <img
+        :src="require(`@/assets/images/drops/${i.id}.webp`)"
+        v-for="(i, index) in preloadDrops"
+        :key="index"
+        ref="prefetch"
+      />
+      <img
+        :src="require(`@/assets/images/icons/icon-element-${i.element}.webp`)"
+        v-for="(i, index) in preloadDrops"
+        :key="index"
+        ref="prefetch"
+      />
+    </div>
   </div>
 </template>
 
 <script lang="ts">
+import { Item } from "@/types";
 import { defineComponent } from "vue";
 export default defineComponent({
   props: {
@@ -38,6 +56,11 @@ export default defineComponent({
       type: Boolean,
       required: false,
       default: false,
+    },
+    preloadDrops: {
+      type: Array as () => Item[],
+      required: false,
+      default: () => [] as Item[],
     },
   },
   data() {

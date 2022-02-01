@@ -36,14 +36,20 @@
         >
           <img
             :src="getBannerHeaderImage(ban, true)"
-            v-if="currentBannerIndex === index"
-            class="header-resizable"
+            :class="[
+              'header-resizable',
+              { invisible: currentBannerIndex !== index },
+            ]"
+            ref="prefetch"
           />
           <img
             :src="getBannerHeaderImage(ban)"
-            v-else
             @click="changeBanner(index)"
-            class="header-resizable"
+            :class="[
+              'header-resizable',
+              { invisible: currentBannerIndex === index },
+            ]"
+            ref="prefetch"
           />
         </template>
       </template>
@@ -77,14 +83,20 @@
             >
               <img
                 :src="getBannerHeaderImage(ban, true)"
-                v-if="currentBannerIndex === index"
-                class="header-resizable"
+                :class="[
+                  'header-resizable',
+                  { invisible: currentBannerIndex !== index },
+                ]"
+                ref="prefetch"
               />
               <img
                 :src="getBannerHeaderImage(ban)"
-                v-else
                 @click="changeBanner(index)"
-                class="header-resizable"
+                :class="[
+                  'header-resizable',
+                  { invisible: currentBannerIndex === index },
+                ]"
+                ref="prefetch"
               />
             </template>
           </template>
@@ -133,7 +145,13 @@
         <p v-if="banner.id === 'everything'" class="everyone">
           Everyone is here!
         </p>
-        <img id="banner" :src="getBannerImage" />
+        <img
+          id="banner"
+          :src="require(`@/assets/images/banners/${banner.id}.webp`)"
+          v-for="(b, index) in banners"
+          :key="index"
+          :class="{ invisible: b.id !== banner.id }"
+        />
       </div>
       <div
         id="footer"
@@ -260,18 +278,6 @@ export default defineComponent({
   computed: {
     banner(): Banner {
       return this.banners[this.currentBannerIndex];
-    },
-    getBannerImage(): string {
-      const images = require.context(
-        "@/assets/images/banners/",
-        false,
-        /\.webp$/
-      );
-      try {
-        return images(`./${this.banner.id}.webp`);
-      } catch (error) {
-        return `./${this.banner.id}.webp`;
-      }
     },
     activeItem(): Item {
       return ItemDatabase[this.activeItemId];
