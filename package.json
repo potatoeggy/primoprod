@@ -3,13 +3,13 @@
   "version": "1.2.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "serve": "vue-cli-service serve --modern",
+    "build": "vue-cli-service build --modern",
     "lint": "vue-cli-service lint",
     "cap:build": "cap sync android",
     "cap:init": "cap add android",
-    "electron:build": "vue-cli-service electron:build",
-    "electron:serve": "vue-cli-service electron:serve",
+    "electron:build": "vue-cli-service electron:build --modern",
+    "electron:serve": "vue-cli-service electron:serve --modern",
     "postinstall": "electron-builder install-app-deps",
     "postuninstall": "electron-builder install-app-deps"
   },
