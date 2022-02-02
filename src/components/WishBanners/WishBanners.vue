@@ -147,7 +147,7 @@
         </p>
         <img
           id="banner"
-          :src="require(`@/assets/images/banners/${banner.id}.webp`)"
+          :src="require(`@/assets/images/banners/${b.id}.webp`)"
           v-for="(b, index) in banners"
           :key="index"
           :class="{ invisible: b.id !== banner.id }"
