@@ -1,9 +1,9 @@
 <template>
-  <audio ref="audioDescriptionOverlayExit" preload="true">
+  <audio ref="audioDescriptionOverlayExit" preload="auto">
     <source src="@/assets/audio/description-exit.ogg" type="audio/ogg" />
     <source src="@/assets/audio/description-exit.mp3" type="audio/mp3" />
   </audio>
-  <audio preload="true" autoplay>
+  <audio preload="auto" autoplay>
     <source src="@/assets/audio/description-enter.ogg" type="audio/ogg" />
     <source src="@/assets/audio/description-enter.mp3" type="audio/mp3" />
   </audio>

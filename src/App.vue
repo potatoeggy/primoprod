@@ -60,9 +60,11 @@
     v-if="screen === 'video-player'"
     :pulls="pullNumber"
     :stars="pullRarity"
-    v-on:video-ended="showResults"
-    v-on:video-skipped="showResultsEnd"
+    :preloadDrops="lastRoll"
+    @video-ended="showResults"
+    @video-skipped="showResultsEnd"
   ></video-player>
+  <video-player :pulls="1" :stars="1" :preloader="true" />
   <shop-screen
     @exit="screen = 'wish-banner'"
     v-if="screen === 'shop'"

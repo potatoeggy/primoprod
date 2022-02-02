@@ -1,5 +1,5 @@
 <template>
-  <audio autoplay preload="true">
+  <audio autoplay>
     <source src="@/assets/audio/result-list.ogg" />
   </audio>
   <div class="win">

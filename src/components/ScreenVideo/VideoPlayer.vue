@@ -1,5 +1,14 @@
 <template>
-  <div id="wish-videos">
+  <div v-if="preloader" style="display: none">
+    <video v-for="(v, index) in allVideo" :key="index">
+      <source
+        :src="require(`@/assets/video/${v}`)"
+        type="video/webm"
+        rel="prefetch"
+      />
+    </video>
+  </div>
+  <div id="wish-videos" v-else>
     <!-- TODO: fix up skip button by referencing actual game
     and ensure it's aligned with the text, also ensure that
     the text is the correct size -->
@@ -9,12 +18,29 @@
     </button>
     <video :id="videoId" @ended="ended">
       <source :src="videoSrcWebm" type="video/webm" />
-      <source :src="videoSrc" type="video/mp4" />
     </video>
+    <!-- prefetch drops ahead of time here -->
+    <!-- also prefetch obtain overlay background -->
+    <div style="display: none">
+      <img src="@/assets/images/wish-reveal-background.webp" ref="prefetch" />
+      <img
+        :src="require(`@/assets/images/drops/${i.id}.webp`)"
+        v-for="(i, index) in preloadDrops"
+        :key="index"
+        ref="prefetch"
+      />
+      <img
+        :src="require(`@/assets/images/icons/icon-element-${i.element}.webp`)"
+        v-for="(i, index) in preloadDrops"
+        :key="index"
+        ref="prefetch"
+      />
+    </div>
   </div>
 </template>
 
 <script lang="ts">
+import { Item } from "@/types";
 import { defineComponent } from "vue";
 export default defineComponent({
   props: {
@@ -26,26 +52,39 @@ export default defineComponent({
       type: Number,
       required: true,
     },
+    preloader: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
+    preloadDrops: {
+      type: Array as () => Item[],
+      required: false,
+      default: () => [] as Item[],
+    },
+  },
+  data() {
+    return {
+      allVideo: [
+        "3starwish-1.webm",
+        "4starwish-1.webm",
+        "4starwish-10.webm",
+        "5starwish-1.webm",
+        "5starwish-10.webm",
+      ],
+    };
   },
   mounted() {
-    (
-      document.getElementById(
-        `video-${this.stars}star-${this.pulls}`
-      ) as HTMLAudioElement
-    ).play();
+    if (!this.preloader)
+      (
+        document.getElementById(
+          `video-${this.stars}star-${this.pulls}`
+        ) as HTMLAudioElement
+      ).play();
   },
   computed: {
     videoId(): string {
       return `video-${this.stars}star-${this.pulls}`;
-    },
-    videoSrc(): string {
-      const videos = require.context("@/assets/video/", false, /\.mp4$/);
-      try {
-        return videos(`./${this.stars}starwish-${this.pulls}.mp4`);
-      } catch (error) {
-        console.error(error);
-        return `${this.stars}starwish-${this.pulls}.mp4`;
-      }
     },
     videoSrcWebm(): string {
       const videos = require.context("@/assets/video/", false, /\.webm$/);
