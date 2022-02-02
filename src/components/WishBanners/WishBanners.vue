@@ -21,7 +21,7 @@
     @exit="exitSettingsScreen"
   ></settings-screen>
 
-  <audio id="audio-banner-switch" preload="true">
+  <audio id="audio-banner-switch" preload="auto">
     <source src="@/assets/audio/banner-switch.ogg" type="audio/ogg" />
     <source src="@/assets/audio/banner-switch.mp3" type="audio/mp3" />
   </audio>
@@ -151,6 +151,7 @@
           v-for="(b, index) in banners"
           :key="index"
           :class="{ invisible: b.id !== banner.id }"
+          rel="prefetch"
         />
       </div>
       <div

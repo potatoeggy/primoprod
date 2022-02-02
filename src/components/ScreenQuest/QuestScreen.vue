@@ -11,11 +11,11 @@
     @exit="obtainScreenRewards = []"
   ></item-obtain-overlay>
 
-  <audio ref="audioCancelConfirm" preload="true">
+  <audio ref="audioCancelConfirm" preload="auto">
     <source src="@/assets/audio/text-click.ogg" type="audio/ogg" />
     <source src="@/assets/audio/text-click.mp3" type="audio/mp3" />
   </audio>
-  <audio ref="audioQuestClick" preload="true">
+  <audio ref="audioQuestClick" preload="auto">
     <source src="@/assets/audio/quest-click.ogg" type="audio/ogg" />
     <source src="@/assets/audio/quest-click.mp3" type="audio/mp3" />
   </audio>

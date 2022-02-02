@@ -1,5 +1,5 @@
 <template>
-  <audio ref="textClickAudio" preload="true">
+  <audio ref="textClickAudio" preload="auto">
     <source src="@/assets/audio/text-click.ogg" type="audio/ogg" />
     <source src="@/assets/audio/text-click.mp3" type="audio/mpeg" />
   </audio>
