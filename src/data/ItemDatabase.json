@@ -175,6 +175,14 @@
       "description": "Vigilant Yaksha",
       "rarity": 5
     },
+    "yae-miko": {
+      "name": "Yae Miko",
+      "id": "yae-miko",
+      "type": "Character",
+      "element": "Electro",
+      "description": "Astute Amusement",
+      "rarity": 5
+    },
     "yoimiya": {
       "name": "Yoimiya",
       "id": "yoimiya",
