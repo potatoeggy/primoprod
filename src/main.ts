@@ -17,8 +17,8 @@ switch (localStorage.version) {
           return pull;
         })
       );
+      console.log("Updated from pre-1.0.1 to 1.0.1");
     }
-    console.log("Updated from pre-1.0.1 to 1.0.1");
 }
 localStorage.version = 1;
 // end version upgrade

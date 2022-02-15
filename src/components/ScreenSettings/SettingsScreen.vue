@@ -97,8 +97,6 @@ export default defineComponent({
         showBannerPity: this.settings.showBannerPity,
         everythingBanner: this.settings.everythingBanner,
       };
-      console.log(this.settings);
-      console.log(settings);
       this.$store.commit("updateSettings", settings);
       this.$emit("exit");
     },

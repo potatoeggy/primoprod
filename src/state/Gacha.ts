@@ -62,7 +62,6 @@ export default class Gacha {
       JSON.parse(
         localStorage.getItem(this.storage) || JSON.stringify(this.state)
       );
-    console.log(this.state);
 
     this.settings = settings;
   }
