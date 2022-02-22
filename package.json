@@ -3,8 +3,8 @@
   "version": "1.2.2",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve --modern",
-    "build": "vue-cli-service build --modern",
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "cap:build": "cap sync android",
     "cap:init": "cap add android",
@@ -72,6 +72,7 @@
   "browserslist": [
     "> 1%",
     "last 2 versions",
-    "not dead"
+    "not dead",
+    "not IE 11"
   ]
 }
