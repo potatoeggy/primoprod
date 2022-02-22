@@ -265,6 +265,17 @@ export default defineComponent({
     const bgm: HTMLAudioElement = this.$refs.audioBgm as HTMLAudioElement;
     bgm.volume = 0.1;
   },
+  created() {
+    const endpoint = this.$store.state.API_ENDPOINT;
+    if (endpoint) {
+      fetch(`${endpoint}/banners`)
+        .then(
+          (res) => res.json(),
+          (err) => console.log(err)
+        )
+        .then((data) => (this.banners = data));
+    }
+  },
 });
 </script>
 

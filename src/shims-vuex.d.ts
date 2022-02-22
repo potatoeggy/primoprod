@@ -7,6 +7,7 @@ declare module "@vue/runtime-core" {
   interface State {
     inventory: Inventory;
     settings: Settings;
+    API_ENDPOINT: string | null;
   }
 
   // provide typings for `this.$store`
