@@ -156,9 +156,41 @@ export default defineComponent({
       return this.$store.state.inventory;
     },
   },
+  computed: {
+    standardGacha(): Gacha {
+      return this.gachas[this.currentBannerIndex];
+    },
+    currentBanner(): Banner {
+      return this.banners[this.currentBannerIndex];
+    },
+    fatesToPurchase(): number {
+      return (
+        this.pullNumber -
+        (this.useStandardFates ? this.inv.standardFates : this.inv.fates)
+      );
+    },
+    inv(): Inventory {
+      return this.$store.state.inventory;
+    },
+  },
   mounted() {
     const bgm: HTMLAudioElement = this.$refs.audioBgm as HTMLAudioElement;
     bgm.volume = 0.1;
+  },
+  mounted() {
+    const bgm: HTMLAudioElement = this.$refs.audioBgm as HTMLAudioElement;
+    bgm.volume = 0.1;
+  },
+  created() {
+    const endpoint = this.$store.state.API_ENDPOINT;
+    if (endpoint) {
+      fetch(`${endpoint}/banners`)
+        .then(
+          (res) => res.json(),
+          (err) => console.log(err)
+        )
+        .then((data) => (this.banners = data));
+    }
   },
   methods: {
     changeBannerIndex(index: number): void {
