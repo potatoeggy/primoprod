@@ -1,5 +1,4 @@
 import { Item, ItemStringQuantity, Pull } from "@/types";
-import Paimon from "./PaimonMoe";
 
 export default class Inventory {
   currency = {
@@ -22,7 +21,6 @@ export default class Inventory {
       localStorage.getItem("pullHistory") || JSON.stringify(this.pullHistory)
     );
     this.migrationCheck();
-    console.log(Paimon.export());
   }
 
   migrationCheck(): void {
