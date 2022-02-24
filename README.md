@@ -71,6 +71,8 @@ yarn electron:build
 Capacitor (output folder `/android` as an Android Studio project):
 
 ```
+cap add android
+yarn build
 yarn cap:build
 ```
 
