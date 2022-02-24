@@ -87,9 +87,10 @@ import { Banner, Item, ItemStringQuantity } from "@/types";
 import Inventory from "@/state/Inventory";
 import GameMenu from "@/components/game/GameMenu.vue";
 
+// empty comment below is to maintain multi-line array
+// to keep prettier happy (do not remove)
 const BANNERS = [
-  "gentry-of-hermitage-3",
-  "adrift-in-the-harbor-2",
+  "everbloom-violet", //
   "wanderlust-invocation",
   "everything",
 ];

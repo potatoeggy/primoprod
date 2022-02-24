@@ -2,9 +2,10 @@
   "name": "Everbloom Violet",
   "styles": [
     {
-      "color": "#8878c8",
-      "text": "Everbloom Violet"
-    }
+      "color": "#6957c2",
+      "text": "Everbloom"
+    },
+    { "text": " Violet" }
   ],
   "id": "everbloom-violet",
   "storage": "event",
