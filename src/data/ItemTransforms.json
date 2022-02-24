@@ -18,6 +18,7 @@
   "tartaglia": { "x": 1, "scale": 120 },
   "venti": { "x": 2, "y": -1 },
   "xiao": { "x": 0.5, "y": -12 },
+  "yae-miko": { "x": -2, "y": 5.5, "scale": 110 },
   "zhongli": { "x": 2.5, "y": 7, "scale": 130 },
   "amber": { "x": 1.5, "y": -5 },
   "beidou": { "x": -0.5, "y": 5, "scale": 110 },
