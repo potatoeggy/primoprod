@@ -49,20 +49,20 @@ with open(quests_path, encoding="utf-8") as file:
 
 
 @app.get(f"/v{API_VERSION}/banners/")
-def api_banners():
+def api_banners() -> list:
     return banners
 
 
 @app.get(f"v{API_VERSION}/items")
-def api_items():
+def api_items() -> dict:
     return items
 
 
 @app.get(f"v{API_VERSION}/shop")
-def api_shop():
+def api_shop() -> list:
     return shop
 
 
 @app.get(f"v{API_VERSION}/quests")
-def api_quests():
+def api_quests() -> dict:
     return quests
