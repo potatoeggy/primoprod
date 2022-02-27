@@ -25,6 +25,7 @@
     :obtained-items="pullExtraRewards"
     @exit="pullExtraRewards = []"
   ></item-obtain-overlay>
+  <server-error-overlay v-if="!$store.state.isServerAccessible" />
   <quest-screen
     v-if="overlay === 'quests'"
     :inventory="inv"
@@ -86,6 +87,7 @@ import Gacha from "@/state/Gacha";
 import { Banner, Item, ItemStringQuantity } from "@/types";
 import Inventory from "@/state/Inventory";
 import GameMenu from "@/components/game/GameMenu.vue";
+<<<<<<< HEAD
 
 // empty comment below is to maintain multi-line array
 // to keep prettier happy (do not remove)
@@ -96,6 +98,9 @@ const BANNERS = [
   "wanderlust-invocation",
   "everything",
 ];
+=======
+import ServerErrorOverlay from "./components/overlays/ServerErrorOverlay.vue";
+>>>>>>> 2db976f (server: Add error screen, move banner handling to Vuex)
 
 export default defineComponent({
   components: {
@@ -110,18 +115,10 @@ export default defineComponent({
     QuestScreen,
     ShopScreen,
     GameMenu,
+    ServerErrorOverlay,
   },
   data() {
     return {
-      // storage vars
-      gachas: BANNERS.map(
-        (id) =>
-          new Gacha(
-            require(`@/custom/banners/${id}.json`), // eslint-disable-line
-            undefined,
-            this.$store.state.settings
-          )
-      ),
       // state vars
       checkPullDialog: false,
       pullNumber: 1,
@@ -130,9 +127,6 @@ export default defineComponent({
       screen: "wish-banner",
       lastRoll: [] as Item[],
       lastRollSorted: [] as Item[],
-      banners: BANNERS.map((id) =>
-        require(`@/custom/banners/${id}.json`)
-      ) as Banner[],
       currentBannerIndex: 0,
       overlay: "",
       pullExtraRewards: [] as ItemStringQuantity[],
@@ -298,6 +292,38 @@ export default defineComponent({
       // TODO: yikes you have to check if it's 10 or not since i
       // think they have different uis
     },
+  },
+  computed: {
+    banners(): Banner[] {
+      return this.$store.state.banners;
+    },
+    gachas(): Gacha[] {
+      return this.$store.state.banners.map(
+        (ban) => new Gacha(ban, undefined, this.$store.state.settings)
+      );
+    },
+    standardGacha(): Gacha {
+      return this.gachas[this.currentBannerIndex];
+    },
+    currentBanner(): Banner {
+      return this.banners[this.currentBannerIndex];
+    },
+    fatesToPurchase(): number {
+      return (
+        this.pullNumber -
+        (this.useStandardFates ? this.inv.standardFates : this.inv.fates)
+      );
+    },
+    inv(): Inventory {
+      return this.$store.state.inventory;
+    },
+  },
+  mounted() {
+    const bgm: HTMLAudioElement = this.$refs.audioBgm as HTMLAudioElement;
+    bgm.volume = 0.1;
+  },
+  created() {
+    this.$store.dispatch("fetchBanners");
   },
 });
 </script>

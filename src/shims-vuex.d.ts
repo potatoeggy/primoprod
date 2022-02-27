@@ -8,6 +8,9 @@ declare module "@vue/runtime-core" {
     inventory: Inventory;
     settings: Settings;
     API_ENDPOINT: string | null;
+    serverMode: boolean;
+    isServerAccessible: boolean;
+    banners: Banner[];
   }
 
   // provide typings for `this.$store`
