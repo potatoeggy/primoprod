@@ -13,14 +13,14 @@ API_VERSION = 1
 
 class EnvVars(str, Enum):
     # global
-    banner_paths = "BANNERS_FOLDER"
-    item_db = "ITEMS_FILE"
-    shop_db = "SHOP_FILE"
-    quest_db = "GLOBAL_QUESTS_FILE"
+    BANNER_PATHS = "BANNERS_FOLDER"
+    ITEM_DB = "ITEMS_FILE"
+    SHOP_DB = "SHOP_FILE"
+    QUEST_DB = "GLOBAL_QUESTS_FILE"
 
     # user-specific
-    inventory_db = "INVENTORY_FILE"
-    history_db = "HISTORY_FILE"
+    INVENTORY_DB = "INVENTORY_FILE"
+    HISTORY_DB = "HISTORY_FILE"
 
 
 load_dotenv()
@@ -28,22 +28,22 @@ load_dotenv()
 app = FastAPI()
 
 # config parsing
-banner_paths = Path(os.getenv(EnvVars.banner_paths.value) or "banners")
+banner_paths = Path(os.getenv(EnvVars.BANNER_PATHS.value) or "banners")
 banners: list[dict] = []
 for json_banner in banner_paths.iterdir():
     if json_banner.suffix == ".json":
         with open(json_banner, encoding="utf-8") as file:
             banners.append(json.load(file))
 
-items_path = Path(os.getenv(EnvVars.item_db.value) or "items.json")
+items_path = Path(os.getenv(EnvVars.ITEM_DB.value) or "items.json")
 with open(items_path, encoding="utf-8") as file:
     items = json.load(file)
 
-shop_path = Path(os.getenv(EnvVars.shop_db.value) or "shop.json")
+shop_path = Path(os.getenv(EnvVars.SHOP_DB.value) or "shop.json")
 with open(shop_path, encoding="utf-8") as file:
     shop = json.load(file)
 
-quests_path = Path(os.getenv(EnvVars.quest_db.value) or "quests.json")
+quests_path = Path(os.getenv(EnvVars.QUEST_DB.value) or "quests.json")
 with open(quests_path, encoding="utf-8") as file:
     quests = json.load(file)
 
