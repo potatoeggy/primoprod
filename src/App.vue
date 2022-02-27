@@ -25,6 +25,7 @@
     v-if="pullExtraRewards.length > 0 && screen === 'wish-banner'"
     @exit="pullExtraRewards = []"
   ></item-obtain-overlay>
+  <server-error-overlay v-if="!$store.state.isServerAccessible" />
   <quest-screen
     @exit="overlay = ''"
     v-if="overlay === 'quests'"
@@ -86,14 +87,7 @@ import Gacha from "@/state/Gacha";
 import { Banner, Item, ItemStringQuantity } from "@/types";
 import Inventory from "@/state/Inventory";
 import GameMenu from "@/components/game/GameMenu.vue";
-
-// empty comment below is to maintain multi-line array
-// to keep prettier happy (do not remove)
-const BANNERS = [
-  "everbloom-violet", //
-  "wanderlust-invocation",
-  "everything",
-];
+import ServerErrorOverlay from "./components/overlays/ServerErrorOverlay.vue";
 
 export default defineComponent({
   components: {
@@ -108,18 +102,10 @@ export default defineComponent({
     QuestScreen,
     ShopScreen,
     GameMenu,
+    ServerErrorOverlay,
   },
   data() {
     return {
-      // storage vars
-      gachas: BANNERS.map(
-        (id) =>
-          new Gacha(
-            require(`@/custom/banners/${id}.json`), // eslint-disable-line
-            undefined,
-            this.$store.state.settings
-          )
-      ),
       // state vars
       checkPullDialog: false,
       pullNumber: 1,
@@ -128,9 +114,6 @@ export default defineComponent({
       screen: "wish-banner",
       lastRoll: [] as Item[],
       lastRollSorted: [] as Item[],
-      banners: BANNERS.map((id) =>
-        require(`@/custom/banners/${id}.json`)
-      ) as Banner[],
       currentBannerIndex: 0,
       overlay: "",
       pullExtraRewards: [] as ItemStringQuantity[],
@@ -245,6 +228,14 @@ export default defineComponent({
     },
   },
   computed: {
+    banners(): Banner[] {
+      return this.$store.state.banners;
+    },
+    gachas(): Gacha[] {
+      return this.$store.state.banners.map(
+        (ban) => new Gacha(ban, undefined, this.$store.state.settings)
+      );
+    },
     standardGacha(): Gacha {
       return this.gachas[this.currentBannerIndex];
     },
@@ -266,15 +257,7 @@ export default defineComponent({
     bgm.volume = 0.1;
   },
   created() {
-    const endpoint = this.$store.state.API_ENDPOINT;
-    if (endpoint) {
-      fetch(`${endpoint}/banners`)
-        .then(
-          (res) => res.json(),
-          (err) => console.log(err)
-        )
-        .then((data) => (this.banners = data));
-    }
+    this.$store.dispatch("fetchBanners");
   },
 });
 </script>

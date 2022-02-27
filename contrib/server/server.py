@@ -16,7 +16,7 @@ class EnvVars(str, Enum):
     banner_paths = "BANNERS_FOLDER"
     item_db = "ITEMS_FILE"
     shop_db = "SHOP_FILE"
-    quest_db = "GLOBAL_QUEST_FILE"
+    quest_db = "GLOBAL_QUESTS_FILE"
 
     # user-specific
     inventory_db = "INVENTORY_FILE"
