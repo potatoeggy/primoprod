@@ -1,5 +1,5 @@
 <template>
-  <div class="box">
+  <div class="box" :style="centerImageStyle">
     <div class="detail-box">
       <div class="banner-text">Character Event Wish</div>
       <h1 class="title-text">Everbloom Violet</h1>
@@ -24,16 +24,57 @@
         </p>
       </div>
     </div>
+    <div class="image-holder">
+      <img src="@/assets/images/drops/diona.webp" />
+      <img src="@/assets/images/drops/fischl.webp" />
+      <img src="@/assets/images/drops/thoma.webp" />
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import { Item } from "@/types";
+import { ItemDatabase } from "@/state/Gacha";
 
-export default defineComponent({});
+export default defineComponent({
+  props: {
+    centerItemId: {
+      type: String,
+      required: true,
+    },
+    sideItemIds: {
+      type: Object as () => string[],
+      required: true,
+    },
+    accentColor: {
+      type: String,
+      required: true,
+    },
+  },
+  data() {
+    return {};
+  },
+  computed: {
+    centerImageStyle(): { [key: string]: string } {
+      return {
+        "--center-img-src": `url(../../assets/images/drops/${this.centerItem.id}.webp)`,
+      };
+    },
+    centerItem(): Item {
+      return ItemDatabase[this.centerItemId];
+    },
+    sideItems(): Item[] {
+      return this.sideItemIds.map((i) => ItemDatabase[i]);
+    },
+  },
+});
 </script>
 
 <style scoped>
+.image-holder img {
+  width: 40rem;
+}
 * {
   --accent-color: #7f64d1;
   --accent-color-trans: #7f64d1bb;
@@ -143,7 +184,7 @@ export default defineComponent({});
   aspect-ratio: 680 / 350;
   border-radius: 0.5em;
   display: flex;
-  background: url("../../assets/images/drops/yae-miko.webp") no-repeat,
+  background: --center-img-src no-repeat,
     linear-gradient(to bottom, var(--bg-color), var(--bg-color-bottom));
   background-size: 175%;
   background-position: left calc(50% + 10%) top calc(50% + -17%);

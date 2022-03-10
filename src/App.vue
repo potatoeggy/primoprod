@@ -8,7 +8,11 @@
   </audio>
 
   <!-- overlay -->
-  <banner-splash />
+  <banner-splash
+    :centerItemId="'yae-miko'"
+    :sideItemIds="[]"
+    :accentColor="'blah'"
+  />
   <fate-purchase-dialog
     v-if="
       pullNumber > (useStandardFates ? inv.standardFates : inv.fates) &&
