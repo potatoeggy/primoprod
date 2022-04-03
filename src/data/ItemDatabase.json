@@ -39,6 +39,14 @@
       "description": "Frostflake Heron",
       "rarity": 5
     },
+    "ayato": {
+      "name": "Kamisato Ayato",
+      "id": "ayato",
+      "type": "Character",
+      "element": "Hydro",
+      "description": "Pillar of Fortitude",
+      "rarity": 5
+    },
     "diluc": {
       "name": "Diluc",
       "id": "diluc",
