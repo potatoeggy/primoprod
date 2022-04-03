@@ -90,8 +90,8 @@ import GameMenu from "@/components/game/GameMenu.vue";
 // empty comment below is to maintain multi-line array
 // to keep prettier happy (do not remove)
 const BANNERS = [
-  "reign-of-serenity-2", //
-  "drifting-luminescence-2",
+  "azure-excursion", //
+  "ballad-in-goblets-3",
   "wanderlust-invocation",
   "everything",
 ];
