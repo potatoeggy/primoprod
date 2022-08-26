@@ -1,13 +1,13 @@
 <template>
   <!-- overlay -->
   <item-description-overlay
-    :item="itemDescription"
     v-if="itemDescriptionId"
+    :item="itemDescription"
     @exit="itemDescriptionId = ''"
   ></item-description-overlay>
   <item-obtain-overlay
-    :obtainedItems="obtainScreenRewards"
     v-if="obtainScreenRewards.length > 0"
+    :obtained-items="obtainScreenRewards"
     @exit="obtainScreenRewards = []"
   ></item-obtain-overlay>
 
@@ -32,21 +32,21 @@
         <div class="quest-selector-list">
           <template v-for="(category, _) of formattedQuests" :key="_">
             <p
-              class="quest-header"
               v-if="currentTab === 'All Quests' && category.quests.length > 0"
+              class="quest-header"
             >
               {{ category.name }}
             </p>
             <template v-for="quest of category.quests" :key="quest.id">
               <div
+                v-if="
+                  currentTab === 'All Quests' || currentTab === category.name
+                "
                 :class="{
                   'quest-box': true,
                   'quest-box-active': currentQuest.id === quest.id,
                   'quest-box-faded': quest.complete,
                 }"
-                v-if="
-                  currentTab === 'All Quests' || currentTab === category.name
-                "
                 @click="setCurrentQuest(quest)"
               >
                 <div>{{ quest.name }}</div>
@@ -56,37 +56,37 @@
         </div>
         <div>
           <cancel-confirm-button
+            v-if="!editMode"
             text="New"
             invert
             @pressed="newQuest"
-            v-if="!editMode"
           ></cancel-confirm-button>
         </div>
       </div>
       <div class="quest-details">
         <div class="flex-row">
-          <p class="quest-desc-name" v-if="!editMode">
+          <p v-if="!editMode" class="quest-desc-name">
             {{ currentQuest.name }}
           </p>
           <input
+            v-else
             v-model="currentQuest.name"
             type="text"
             class="quest-desc-name"
-            v-else
           />
           <img
+            v-if="!currentQuest.uneditable"
             class="ui-icon"
             src="@/assets/images/edit.svg"
-            v-if="!currentQuest.uneditable"
             @click="editMode = !editMode"
           />
         </div>
         <div class="quest-description">
           <p v-if="!editMode">{{ currentQuest.description }}</p>
           <textarea
-            class="quest-description"
-            v-model="currentQuest.description"
             v-else
+            v-model="currentQuest.description"
+            class="quest-description"
           ></textarea>
         </div>
         <div class="quest-rewards">
@@ -95,14 +95,14 @@
           </p>
           <div class="quest-reward-icons">
             <div
+              v-for="(i, index) in currentQuest.rewards"
+              :key="index"
               :class="[
                 'reward-icon-graphics',
                 [0, 'gray', 'green', 'blue', 'purple', 'orange'][
                   idToItem(i.id).rarity
                 ],
               ]"
-              v-for="(i, index) in currentQuest.rewards"
-              :key="index"
               @click="itemDescriptionId = i.id"
             >
               <img
@@ -115,16 +115,16 @@
         </div>
         <div class="flex-end save-buttons">
           <cancel-confirm-button
+            v-if="editMode || !currentQuest.complete"
             :text="editMode ? 'Save' : 'Claim'"
             invert
             @pressed="processClaim"
-            v-if="editMode || !currentQuest.complete"
           ></cancel-confirm-button>
           <cancel-confirm-button
+            v-if="currentQuest.id && !currentQuest.id.startsWith('root-')"
             text="Delete"
             invert
             @pressed="deleteCurrentQuest"
-            v-if="currentQuest.id && !currentQuest.id.startsWith('root-')"
           ></cancel-confirm-button>
         </div>
       </div>
@@ -156,6 +156,7 @@ export default defineComponent({
       required: true,
     },
   },
+  emits: ["exit"],
   data() {
     return {
       active: true,
@@ -190,6 +191,9 @@ export default defineComponent({
         },
       ];
     },
+  },
+  mounted() {
+    this.resetCurrentQuest();
   },
   methods: {
     idToItem(id: string): Item {
@@ -267,10 +271,6 @@ export default defineComponent({
       this.currentQuest = this.quests.events[this.quests.events.length - 1];
     },
   },
-  mounted() {
-    this.resetCurrentQuest();
-  },
-  emits: ["exit"],
 });
 </script>
 

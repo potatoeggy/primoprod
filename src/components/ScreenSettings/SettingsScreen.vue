@@ -10,14 +10,14 @@
     <div class="setting">
       <p>Infinite Fates</p>
       <input
+        v-model="settings.infinitePrimos"
         type="checkbox"
         class="checkbox"
-        v-model="settings.infinitePrimos"
       />
     </div>
     <div class="setting">
       <p>Roll</p>
-      <select class="combobox" v-model="settings.rollOnly">
+      <select v-model="settings.rollOnly" class="combobox">
         <option value="">Normally</option>
         <option value="5">Only 5-star items</option>
         <option value="4">Only 4- and 5-star items</option>
@@ -25,7 +25,7 @@
     </div>
     <div class="setting">
       <p>Win 50/50</p>
-      <select class="combobox" v-model="settings.winGuarantee">
+      <select v-model="settings.winGuarantee" class="combobox">
         <option value="">Normally</option>
         <option value="1">Always</option>
         <option value="0">Never</option>
@@ -34,25 +34,25 @@
     <div class="setting">
       <p>Unlimited history scrolling</p>
       <input
+        v-model="settings.unlimitedHistoryScroll"
         type="checkbox"
         class="checkbox"
-        v-model="settings.unlimitedHistoryScroll"
       />
     </div>
     <div class="setting">
       <p>Everyone is here?</p>
       <input
+        v-model="settings.everythingBanner"
         type="checkbox"
         class="checkbox"
-        v-model="settings.everythingBanner"
       />
     </div>
     <div class="setting">
       <p>Show banner pity in history</p>
       <input
+        v-model="settings.showBannerPity"
         type="checkbox"
         class="checkbox"
-        v-model="settings.showBannerPity"
       />
     </div>
     <div class="setting">
@@ -66,6 +66,7 @@
 import Paimon from "@/state/PaimonMoe";
 import { defineComponent } from "vue";
 export default defineComponent({
+  emits: ["exit"],
   data() {
     return {
       settings: {
@@ -101,7 +102,6 @@ export default defineComponent({
       this.$emit("exit");
     },
   },
-  emits: ["exit"],
 });
 </script>
 

@@ -8,8 +8,8 @@
     <source src="@/assets/audio/description-enter.mp3" type="audio/mp3" />
   </audio>
   <div
-    :class="{ bg: true, 'zoom-fade-in': active, 'zoom-fade-out': !active }"
     id="item-description-overlay-bg"
+    :class="{ bg: true, 'zoom-fade-in': active, 'zoom-fade-out': !active }"
     @click="exitOutsideCheck"
     @animationend="exit"
   >
@@ -30,10 +30,10 @@
         </div>
         <div class="star-box margin-left">
           <img
-            class="star"
-            src="@/assets/images/star.svg"
             v-for="i in item.rarity"
             :key="i"
+            class="star"
+            src="@/assets/images/star.svg"
           />
         </div>
       </div>
@@ -53,6 +53,7 @@ export default defineComponent({
       required: true,
     },
   },
+  emits: ["exit"],
   data() {
     return {
       active: true,
@@ -97,7 +98,6 @@ export default defineComponent({
       }
     },
   },
-  emits: ["exit"],
 });
 </script>
 

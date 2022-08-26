@@ -2,10 +2,10 @@
   <explosion-overlay v-if="false"></explosion-overlay>
   <template v-for="i in [3, 4, 5]" :key="i">
     <audio
+      v-if="currentIndex === 0 && currentItem.rarity === i"
       ref="audioItemReveal"
       preload="auto"
       @canplaythrough="if (animationIndex < 0) nextAnimation();"
-      v-if="currentIndex === 0 && currentItem.rarity === i"
     >
       <source
         :src="require(`@/assets/audio/${i}-star-wish-reveal-first.ogg`)"
@@ -17,10 +17,10 @@
       />
     </audio>
     <audio
+      v-else-if="currentItem.rarity === i"
       ref="audioItemReveal"
       preload="auto"
       @canplaythrough="if (animationIndex < 0) nextAnimation();"
-      v-else-if="currentItem.rarity === i"
     >
       <source
         :src="require(`@/assets/audio/${i}-star-wish-reveal.ogg`)"
@@ -65,10 +65,10 @@
         'active-img-weapon': currentItem.type === 'Weapon',
         transparent: animationIndex < 0,
       }"
+      :alt="currentItemImage"
       @animationstart="playSfx"
       @animationend="if (animationIndex < 2) nextAnimation();"
       @load="nextAnimation"
-      :alt="currentItemImage"
     />
     <!-- the reason why the double check is needed is
     that the two animations for the drop shadow count
@@ -76,11 +76,11 @@
   </div>
   <div class="item" @click="nextItem">
     <div
+      id="item-reveal-description-box"
       :class="{
         'name-rarity': true,
         'name-rarity-left-push': currentItem.type === 'Character',
       }"
-      id="item-reveal-description-box"
     >
       <div class="element-img-box">
         <div
@@ -110,7 +110,7 @@
           {{ currentItem.name }}
         </p>
         <div class="stars name-left-align">
-          <span v-for="n in currentItem.rarity" v-bind:key="n">
+          <span v-for="n in currentItem.rarity" :key="n">
             <img
               src="@/assets/images/star.svg"
               :class="{
@@ -118,8 +118,8 @@
                 delayed: n === 1 && animationIndex === n + 1,
                 'star-pop-in': animationIndex === n + 1,
               }"
-              @animationend="nextAnimation"
               alt="star"
+              @animationend="nextAnimation"
             />
           </span>
         </div>
@@ -137,11 +137,11 @@
       ]"
     >
       <p>Extra</p>
-      <div class="extra-text flex-start" v-if="currentItem.rarity === 3">
+      <div v-if="currentItem.rarity === 3" class="extra-text flex-start">
         <p>Masterless Stardust</p>
         <p>x15</p>
       </div>
-      <div class="extra-text flex-start starglitter" v-else>
+      <div v-else class="extra-text flex-start starglitter">
         <p>Masterless Starglitter</p>
         <p>x{{ currentItem.rarity === 4 ? 2 : 10 }}</p>
       </div>
@@ -167,11 +167,44 @@ export default defineComponent({
       required: true,
     },
   },
+  emits: ["exit", "reveal-all"],
   data() {
     return {
       currentIndex: 0,
       animationIndex: -2,
     };
+  },
+  computed: {
+    currentItem(): Item {
+      return this.lastRoll[this.currentIndex];
+    },
+    currentItemImage(): string {
+      const images = require.context(
+        "@/assets/images/drops/",
+        false,
+        /\.webp$/
+      );
+      try {
+        return images(`./${this.currentItem.id}.webp`);
+      } catch (error) {
+        return `${this.currentItem.id}.webp`;
+      }
+    },
+    currentItemAudio(): string {
+      const name = `${this.currentItem.rarity}-star-wish-reveal${
+        this.currentIndex === 0 ? "-first" : ""
+      }`;
+      try {
+        return require.context(
+          "@/assets/audio",
+          false,
+          /\.mp3$/
+        )(`./${name}.mp3`);
+      } catch (error) {
+        console.error(`Could not find ${name}.mp3.`);
+        return "";
+      }
+    },
   },
   methods: {
     nextItem() {
@@ -231,39 +264,6 @@ export default defineComponent({
       audioRef.play();
     },
   },
-  computed: {
-    currentItem(): Item {
-      return this.lastRoll[this.currentIndex];
-    },
-    currentItemImage(): string {
-      const images = require.context(
-        "@/assets/images/drops/",
-        false,
-        /\.webp$/
-      );
-      try {
-        return images(`./${this.currentItem.id}.webp`);
-      } catch (error) {
-        return `${this.currentItem.id}.webp`;
-      }
-    },
-    currentItemAudio(): string {
-      const name = `${this.currentItem.rarity}-star-wish-reveal${
-        this.currentIndex === 0 ? "-first" : ""
-      }`;
-      try {
-        return require.context(
-          "@/assets/audio",
-          false,
-          /\.mp3$/
-        )(`./${name}.mp3`);
-      } catch (error) {
-        console.error(`Could not find ${name}.mp3.`);
-        return "";
-      }
-    },
-  },
-  emits: ["exit", "reveal-all"],
 });
 </script>
 

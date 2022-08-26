@@ -1,29 +1,20 @@
+<script setup lang="ts">
+import { Banner } from "@/types";
+
+const props = defineProps<{ banner: Banner; quotes?: boolean }>();
+</script>
+
 <template>
   <span v-if="banner?.styles">
-    <span
+    {{ quotes ? '"' : null
+    }}<span
       v-for="(style, index) in banner?.styles"
       :key="index"
       :style="{ color: style.color || 'unset' }"
-      >{{ style.text }}
-    </span>
+      >{{ style.text }} </span
+    >{{ quotes ? '"' : null }}
   </span>
   <span v-else>
     {{ banner?.name }}
   </span>
 </template>
-
-<script lang="ts">
-import { defineComponent } from "vue";
-import { Banner } from "@/types";
-export default defineComponent({
-  props: {
-    banner: Object as () => Banner,
-  },
-});
-</script>
-
-<style scoped>
-span {
-  font-family: Arial, sans-serif;
-}
-</style>

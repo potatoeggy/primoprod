@@ -1,74 +1,74 @@
 <template>
   <!-- audio -->
-  <audio ref="audioBgm" preload="true" autoplay loop v-if="screen !== 'game'">
+  <audio v-if="screen !== 'game'" ref="audioBgm" preload="true" autoplay loop>
     <source src="./assets/audio/bgm-wish.mp3" />
   </audio>
-  <audio ref="audioExitDialog" id="audioExitDialogDEPRECATED" preload="true">
+  <audio id="audioExitDialogDEPRECATED" ref="audioExitDialog" preload="true">
     <source src="./assets/audio/exit-dialog.mp3" />
   </audio>
 
   <!-- overlay -->
   <fate-purchase-dialog
-    :fatesToPurchase="fatesToPurchase"
-    :useStandardFates="useStandardFates"
-    :primoBalance="inv.primos"
     v-if="
       pullNumber > (useStandardFates ? inv.standardFates : inv.fates) &&
       checkPullDialog
     "
+    :fates-to-purchase="fatesToPurchase"
+    :use-standard-fates="useStandardFates"
+    :primo-balance="inv.primos"
     @cancel-wish="exitConfirmCancelDialog(cancelWish)"
     @wish="exitConfirmCancelDialog(goWish, $event)"
   ></fate-purchase-dialog>
   <item-obtain-overlay
-    description="Extra"
-    :obtainedItems="pullExtraRewards"
     v-if="pullExtraRewards.length > 0 && screen === 'wish-banner'"
+    description="Extra"
+    :obtained-items="pullExtraRewards"
     @exit="pullExtraRewards = []"
   ></item-obtain-overlay>
   <quest-screen
-    @exit="overlay = ''"
     v-if="overlay === 'quests'"
     :inventory="inv"
+    @exit="overlay = ''"
   ></quest-screen>
 
   <!-- main -->
   <wish-banners
+    v-if="screen === 'wish-banner'"
     :inventory="inv"
     :banners="banners"
-    :currentBannerIndex="currentBannerIndex"
+    :current-banner-index="currentBannerIndex"
     @wish="wish"
     @go-quests="overlay = 'quests'"
     @go-shop="screen = 'shop'"
     @change-banner="changeBannerIndex"
-    v-if="screen === 'wish-banner'"
   ></wish-banners>
   <item-reveal-screen
-    :lastRoll="lastRoll"
-    :inventory="inv"
     v-if="screen === 'item-reveal'"
+    :last-roll="lastRoll"
+    :inventory="inv"
     @exit="screen = 'wish-banner'"
     @reveal-all="screen = 'item-all-reveal'"
   ></item-reveal-screen>
   <item-all-reveal-screen
-    :lastRoll="lastRoll"
-    :inventory="inv"
-    :extraRewards="detailedPullExtraRewards"
-    @exit="screen = 'wish-banner'"
     v-if="screen === 'item-all-reveal'"
+    :last-roll="lastRoll"
+    :inventory="inv"
+    :extra-rewards="detailedPullExtraRewards"
+    @exit="screen = 'wish-banner'"
   ></item-all-reveal-screen>
   <video-player
     v-if="screen === 'video-player'"
     :pulls="pullNumber"
     :stars="pullRarity"
-    :preloadDrops="lastRoll"
+    :preload-drops="lastRoll"
     @video-ended="showResults"
     @video-skipped="showResultsEnd"
   ></video-player>
   <video-player :pulls="1" :stars="1" :preloader="true" />
   <shop-screen
-    @exit="screen = 'wish-banner'"
     v-if="screen === 'shop'"
     :inventory="inv"
+    @exit="screen = 'wish-banner'"
   ></shop-screen>
   <game-menu v-if="screen === 'game'"></game-menu>
 </template>
@@ -90,7 +90,9 @@ import GameMenu from "@/components/game/GameMenu.vue";
 // empty comment below is to maintain multi-line array
 // to keep prettier happy (do not remove)
 const BANNERS = [
-  "the-herons-court-2", //
+  "moment-of-bloom-2", //
+  "drifting-luminescence-2",
+  "the-transcendent-one-returns",
   "wanderlust-invocation",
   "everything",
 ];
@@ -136,6 +138,27 @@ export default defineComponent({
       pullExtraRewards: [] as ItemStringQuantity[],
       detailedPullExtraRewards: [] as ItemStringQuantity[],
     };
+  },
+  computed: {
+    standardGacha(): Gacha {
+      return this.gachas[this.currentBannerIndex];
+    },
+    currentBanner(): Banner {
+      return this.banners[this.currentBannerIndex];
+    },
+    fatesToPurchase(): number {
+      return (
+        this.pullNumber -
+        (this.useStandardFates ? this.inv.standardFates : this.inv.fates)
+      );
+    },
+    inv(): Inventory {
+      return this.$store.state.inventory;
+    },
+  },
+  mounted() {
+    const bgm: HTMLAudioElement = this.$refs.audioBgm as HTMLAudioElement;
+    bgm.volume = 0.1;
   },
   methods: {
     changeBannerIndex(index: number): void {
@@ -243,27 +266,6 @@ export default defineComponent({
       // TODO: yikes you have to check if it's 10 or not since i
       // think they have different uis
     },
-  },
-  computed: {
-    standardGacha(): Gacha {
-      return this.gachas[this.currentBannerIndex];
-    },
-    currentBanner(): Banner {
-      return this.banners[this.currentBannerIndex];
-    },
-    fatesToPurchase(): number {
-      return (
-        this.pullNumber -
-        (this.useStandardFates ? this.inv.standardFates : this.inv.fates)
-      );
-    },
-    inv(): Inventory {
-      return this.$store.state.inventory;
-    },
-  },
-  mounted() {
-    const bgm: HTMLAudioElement = this.$refs.audioBgm as HTMLAudioElement;
-    bgm.volume = 0.1;
   },
 });
 </script>

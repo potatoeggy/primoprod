@@ -9,29 +9,29 @@
     <source src="@/assets/audio/close-overlay.mp3" type="audio/mp3" />
   </audio>
   <item-description-overlay
-    :item="activeItem"
     v-if="activeItem"
+    :item="activeItem"
     @exit="activeItemId = ''"
   ></item-description-overlay>
   <transition name="zoom-fade" @after-leave="exit">
     <div
+      v-if="active"
       id="item-obtain-overlay-bg"
       class="main"
       @click="exitOutsideCheck"
-      v-if="active"
     >
       <p class="obtained">Obtained</p>
       <div id="item-obtain-overlay-center-box" class="center-box">
         <p class="description">{{ description }}</p>
         <div
           id="item-obtain-overlay-items-box"
-          class="items-box"
           v-dragscroll.x
+          class="items-box"
         >
           <div
-            class="box-for-one-item"
             v-for="(i, index) in items"
             :key="index"
+            class="box-for-one-item"
           >
             <div class="item-box-graphics" @click="activeItemId = i.item.id">
               <div
@@ -81,6 +81,7 @@ export default defineComponent({
       required: false,
     },
   },
+  emits: ["exit"],
   data() {
     return {
       activeItemId: "",
@@ -115,7 +116,6 @@ export default defineComponent({
       }
     },
   },
-  emits: ["exit"],
 });
 </script>
 

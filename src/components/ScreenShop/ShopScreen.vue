@@ -1,13 +1,13 @@
 <template>
   <item-purchase-overlay
-    :shopItem="activePurchase"
-    :inventory="inventory"
     v-if="activePurchase"
+    :shop-item="activePurchase"
+    :inventory="inventory"
     @exit="activePurchase = null"
   ></item-purchase-overlay>
   <item-description-overlay
-    :item="descriptionItem"
     v-if="descriptionItem"
+    :item="descriptionItem"
     @exit="descriptionItemId = ''"
   ></item-description-overlay>
 
@@ -18,7 +18,7 @@
         <gem-counter
           icon="primogem.webp"
           :text="inventory.primos"
-          plusSign
+          plus-sign
           outline
           nobackground
           @click="descriptionItemId = 'primogem'"
@@ -90,6 +90,7 @@ export default defineComponent({
       required: true,
     },
   },
+  emits: ["exit"],
   data() {
     return {
       activePurchase: null as ShopItem | null,
@@ -125,7 +126,6 @@ export default defineComponent({
       };
     },
   },
-  emits: ["exit"],
 });
 </script>
 
