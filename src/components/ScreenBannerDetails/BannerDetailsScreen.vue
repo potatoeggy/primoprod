@@ -11,18 +11,25 @@ import BannerDetailsItemList from "./BannerDetailsItemList.vue";
 const props = defineProps<{ banner: Banner }>();
 const emit = defineEmits<{ (e: "exit"): void }>();
 
-const navSelected: Ref<"items" | "details" | "drops"> = ref("items");
+const isStandardBanner = props.banner.featuredDrops.length === 0;
+const navSelected: Ref<"items" | "details" | "drops"> = ref(
+  isStandardBanner ? "details" : "items"
+);
 </script>
 
 <template>
   <BookOverlay @exit="emit('exit')">
     <div class="content">
       <header class="header">
-        <img class="logo" src="@/assets/images/ui-wish.png" />Event Wish
+        <img class="logo" src="@/assets/images/ui-wish.png" />{{
+          isStandardBanner ? "Standard" : "Event"
+        }}
+        Wish
         <BannerStylisedText :banner="banner" :quotes="true" />
       </header>
       <div class="navbar">
         <div
+          v-if="!isStandardBanner"
           :class="[{ selected: navSelected === 'items' }]"
           @click="navSelected = 'items'"
         >

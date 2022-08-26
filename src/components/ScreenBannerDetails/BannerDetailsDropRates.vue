@@ -182,6 +182,9 @@ img.profile {
   padding: 1em;
   padding-left: 2em;
   font-size: 0.8em;
+  flex-wrap: wrap;
+  display: flex;
+  flex-direction: column;
 }
 
 .character-profile > div:nth-child(1) > p {
@@ -192,5 +195,7 @@ img.profile {
   /* the avatars */
   flex-grow: 1;
   padding: 1em;
+  flex-wrap: wrap;
+  display: flex;
 }
 </style>

@@ -70,107 +70,106 @@ const getCharacterElementStyle = (character: Item) => {
         ※ Of the above characters, the event-exclusive character will not be
         available in the standard wish "Wanderlust Invocation."
       </p>
-      <br />
+    </div>
+    <br />
+    <p class="text-reg">
+      ※In most cases, the base probability of all characters and weapons is
+      evenly distributed. If there is a boost or guarantee in effect, please
+      refer to the corresponding rules.
+    </p>
+    <br />
+    <p class="text-reg">〓Rules〓</p>
+    <p v-if="!isFeaturedBanner" class="text-reg">
+      Base probability of winning 5-star item =
+      <span class="red">0.600%</span>; base probability of winning 5-star
+      character = <span class="red">0.300%</span>, and base probability of
+      winning winning 5-star weapon = <span class="red">0.300%</span>;
+      consolidated probability (incl. guarantee) of winning 5-star item =
+      <span class="red">1.600%</span>; guaranteed to win 5-star item at least
+      once per <span class="red">90</span> attempts. Base probability of winning
+      4-star item = <span class="red">5.100%</span>; base probability of winning
+      4-star character = <span class="red">2.550%</span>, and base probability
+      of winning 4-star weapon = <span class="red">2.550%</span>; consolidated
+      probability (incl. guarantee) of winning 4-star item =
+      <span class="red">13.000%</span>; guaranteed to win 4-star or above item
+      at least once per <span class="red">10</span> attempts; probability of
+      winning 4-star item through the guarantee =
+      <span class="red">99.400%</span>, and probability of winning 5-star item
+      through the guarantee = <span class="red">0.600%</span>.
+    </p>
+    <div v-else class="text-reg">
+      <p>5-Star Items</p>
       <p>
-        ※In most cases, the base probability of all characters and weapons is
-        evenly distributed. If there is a boost or guarantee in effect, please
-        refer to the corresponding rules.
+        For Event Wish "<banner-stylised-text :banner="banner">
+        </banner-stylised-text
+        >": Base probability of winning 5-star character =
+        <span class="red">0.600%</span>; consolidated probability (incl.
+        guarantee) = <span class="red">1.600%</span>; guaranteed to win 5-star
+        character at least once per <span class="red">90</span> attempts.
       </p>
-      <br />
-      <p>〓Rules〓</p>
-      <p v-if="!isFeaturedBanner">
-        Base probability of winning 5-star item =
-        <span class="red">0.600%</span>; base probability of winning 5-star
-        character = <span class="red">0.300%</span>, and base probability of
-        winning winning 5-star weapon = <span class="red">0.300%</span>;
-        consolidated probability (incl. guarantee) of winning 5-star item =
-        <span class="red">1.600%</span>; guaranteed to win 5-star item at least
-        once per <span class="red">90</span> attempts. Base probability of
-        winning 4-star item = <span class="red">5.100%</span>; base probability
-        of winning 4-star character = <span class="red">2.550%</span>, and base
-        probability of winning 4-star weapon = <span class="red">2.550%</span>;
-        consolidated probability (incl. guarantee) of winning 4-star item =
+      <p>
+        The first time you win a 5-star item in this event wish, there is a
+        <span class="red">50.000%</span> chance it will be the promotional
+        character
+        <span :style="getCharacterElementStyle(featured5Star[0])">
+          {{
+            featured5Star[0].description
+              ? `"${featured5Star[0].description}"`
+              : null
+          }}
+          {{ featured5Star[0].name }} ({{ featured5Star[0].element }})</span
+        >. If the first 5-star character you win in this event wish is not the
+        promotional character, then the next 5-star character you win is
+        <span class="red">guaranteed</span> to be the promotional character.
+      </p>
+      <p>4-Star Items</p>
+      <p>
+        For Event Wish "<banner-stylised-text :banner="banner">
+        </banner-stylised-text
+        >": Base probability of winning 4-star item =
+        <span class="red">5.100%</span>; base probability of winning 4-star
+        character = <span class="red">2.550%</span>, and base probability of
+        winning 4-star weapon = <span class="red">2.500%</span>; consolidated
+        probability (incl. guarantee) of winning 4-star item =
         <span class="red">13.000%</span>; guaranteed to win 4-star or above item
         at least once per <span class="red">10</span> attempts; probability of
         winning 4-star item through the guarantee =
         <span class="red">99.400%</span>, and probability of winning 5-star item
         through the guarantee = <span class="red">0.600%</span>.
       </p>
-      <div v-else>
-        <p>5-Star Items</p>
-        <p>
-          For Event Wish "<banner-stylised-text :banner="banner">
-          </banner-stylised-text
-          >": Base probability of winning 5-star character =
-          <span class="red">0.600%</span>; consolidated probability (incl.
-          guarantee) = <span class="red">1.600%</span>; guaranteed to win 5-star
-          character at least once per <span class="red">90</span> attempts.
-        </p>
-        <p>
-          The first time you win a 5-star item in this event wish, there is a
-          <span class="red">50.000%</span> chance it will be the promotional
-          character
-          <span :style="getCharacterElementStyle(featured5Star[0])">
-            {{
-              featured5Star[0].description
-                ? `"${featured5Star[0].description}"`
-                : null
-            }}
-            {{ featured5Star[0].name }} ({{ featured5Star[0].element }})</span
-          >. If the first 5-star character you win in this event wish is not the
-          promotional character, then the next 5-star character you win is
-          <span class="red">guaranteed</span> to be the promotional character.
-        </p>
-        <p>4-Star Items</p>
-        <p>
-          For Event Wish "<banner-stylised-text :banner="banner">
-          </banner-stylised-text
-          >": Base probability of winning 4-star item =
-          <span class="red">5.100%</span>; base probability of winning 4-star
-          character = <span class="red">2.550%</span>, and base probability of
-          winning 4-star weapon = <span class="red">2.500%</span>; consolidated
-          probability (incl. guarantee) of winning 4-star item =
-          <span class="red">13.000%</span>; guaranteed to win 4-star or above
-          item at least once per <span class="red">10</span> attempts;
-          probability of winning 4-star item through the guarantee =
-          <span class="red">99.400%</span>, and probability of winning 5-star
-          item through the guarantee = <span class="red">0.600%</span>.
-        </p>
-        <p>
-          The first time you win a 4-star item in this event wish, there is a
-          <span class="red">50.000%</span> chance it will be one of the featured
-          characters
-          <span
-            v-for="(char, index) in featured4Stars"
-            :key="index"
-            :style="getCharacterElementStyle(char)"
-            ><span
-              v-if="index === featured4Stars.length - 1"
-              style="color: black"
-              >and </span
-            >{{ char.description ? `"${char.description}"` : null }}
-            {{ char.name }} ({{ char.element }})<span
-              v-if="index !== featured4Stars.length - 1"
-              style="color: black"
-              >,
-            </span></span
-          >. If the first 4-star item you win in this event wish is not one of
-          the featured characters, then the next 4-star item you win is
-          <span class="red">guaranteed</span> to be a featured character.
-        </p>
-        <br />
-      </div>
       <p>
-        <span v-if="!isFeaturedBanner"
-          >5-star weapons won in this wish come with
-          <span class="gold">Masterless Starglitter</span> ×10; </span
-        >4-star weapons
-        <span v-if="isFeaturedBanner">won in this wish </span>come with
-        <span class="gold">Masterless Starglitter</span> ×2; 3-star weapons
-        <span v-if="isFeaturedBanner">won in this wish </span>come with
-        <span class="purple">Masterless Stardust</span> ×15.
+        The first time you win a 4-star item in this event wish, there is a
+        <span class="red">50.000%</span> chance it will be one of the featured
+        characters
+        <span
+          v-for="(char, index) in featured4Stars"
+          :key="index"
+          :style="getCharacterElementStyle(char)"
+          ><span v-if="index === featured4Stars.length - 1" style="color: black"
+            >and </span
+          >{{ char.description ? `"${char.description}"` : null }}
+          {{ char.name }} ({{ char.element }})<span
+            v-if="index !== featured4Stars.length - 1"
+            style="color: black"
+            >,
+          </span></span
+        >. If the first 4-star item you win in this event wish is not one of the
+        featured characters, then the next 4-star item you win is
+        <span class="red">guaranteed</span> to be a featured character.
       </p>
       <br />
+    </div>
+    <p class="text-reg">
+      <span v-if="!isFeaturedBanner"
+        >5-star weapons won in this wish come with
+        <span class="gold">Masterless Starglitter</span> ×10; </span
+      >4-star weapons <span v-if="isFeaturedBanner">won in this wish </span>come
+      with <span class="gold">Masterless Starglitter</span> ×2; 3-star weapons
+      <span v-if="isFeaturedBanner">won in this wish </span>come with
+      <span class="purple">Masterless Stardust</span> ×15.
+    </p>
+    <br />
+    <div class="text-reg">
       <p>〓Duplicate Characters〓</p>
       <p>
         On obtaining a 5-star character that you already own (whether obtained
