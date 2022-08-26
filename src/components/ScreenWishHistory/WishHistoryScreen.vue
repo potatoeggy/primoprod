@@ -192,6 +192,7 @@ header {
   color: white;
   display: grid;
   place-items: center;
+  background-color: var(--color);
 }
 
 .pity-box.guaranteed {
