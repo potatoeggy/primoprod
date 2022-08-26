@@ -1,19 +1,19 @@
 <template>
   <!-- overlay use json? -->
   <item-description-overlay
-    :item="activeItem"
     v-if="activeItem"
+    :item="activeItem"
     @exit="activeItemId = ''"
   ></item-description-overlay>
   <banner-details-screen
-    :banner="banner"
     v-if="showDetails"
+    :banner="banner"
     @exit="exitDetailsScreen"
   ></banner-details-screen>
   <wish-history-screen
     v-if="showHistory"
     :inventory="inventory"
-    :activeBannerStorage="banner.storage"
+    :active-banner-storage="banner.storage"
     @exit="exitHistoryScreen"
   ></wish-history-screen>
   <settings-screen
@@ -26,7 +26,7 @@
     <source src="@/assets/audio/banner-switch.mp3" type="audio/mp3" />
   </audio>
   <div class="banner-container">
-    <div class="mobile-header" v-if="isMobile">
+    <div v-if="isMobile" class="mobile-header">
       <img src="@/assets/images/ui-wish-edited.webp" />
       <template v-for="(ban, index) of banners" :key="index">
         <template
@@ -35,21 +35,21 @@
           "
         >
           <img
+            ref="prefetch"
             :src="getBannerHeaderImage(ban, true)"
             :class="[
               'header-resizable',
               { invisible: currentBannerIndex !== index },
             ]"
-            ref="prefetch"
           />
           <img
+            ref="prefetch"
             :src="getBannerHeaderImage(ban)"
-            @click="changeBanner(index)"
             :class="[
               'header-resizable',
               { invisible: currentBannerIndex === index },
             ]"
-            ref="prefetch"
+            @click="changeBanner(index)"
           />
         </template>
       </template>
@@ -73,7 +73,7 @@
           <img v-if="!isMobile" src="@/assets/images/ui-wish-edited.webp" />
           <p id="wish-label">Wish</p>
         </div>
-        <div class="banner-header" v-if="!isMobile">
+        <div v-if="!isMobile" class="banner-header">
           <template v-for="(ban, index) of banners" :key="index">
             <template
               v-if="
@@ -82,55 +82,55 @@
               "
             >
               <img
+                ref="prefetch"
                 :src="getBannerHeaderImage(ban, true)"
                 :class="[
                   'header-resizable',
                   { invisible: currentBannerIndex !== index },
                 ]"
-                ref="prefetch"
               />
               <img
+                ref="prefetch"
                 :src="getBannerHeaderImage(ban)"
-                @click="changeBanner(index)"
                 :class="[
                   'header-resizable',
                   { invisible: currentBannerIndex === index },
                 ]"
-                ref="prefetch"
+                @click="changeBanner(index)"
               />
             </template>
           </template>
         </div>
         <div id="gems">
           <gem-counter
+            v-if="isMobile"
             icon="starglitter.webp"
             :text="inventory.starglitter"
             @image-clicked="activeItemId = 'starglitter'"
-            v-if="isMobile"
           ></gem-counter>
           <gem-counter
+            v-if="isMobile"
             icon="stardust.webp"
             :text="inventory.stardust"
             @image-clicked="activeItemId = 'stardust'"
-            v-if="isMobile"
           ></gem-counter>
           <gem-counter
             icon="primogem.webp"
             :text="settings.infinitePrimos ? '∞' : inventory.primos"
+            plus-sign
             @image-clicked="activeItemId = 'primogem'"
-            plusSign
           ></gem-counter>
           <gem-counter
+            v-if="banner.storage === 'standard'"
             icon="acquaint-fate.webp"
             :text="settings.infinitePrimos ? '∞' : inventory.standardFates"
             @image-clicked="activeItemId = 'acquaint-fate'"
-            v-if="banner.storage === 'standard'"
           ></gem-counter>
           <gem-counter
+            v-else
             icon="intertwined-fate.webp"
             :text="settings.infinitePrimos ? '∞' : inventory.fates"
             @image-clicked="activeItemId = 'intertwined-fate'"
-            v-else
           ></gem-counter>
           <div class="close-box">
             <close-button @clicked="exit"></close-button>
@@ -139,17 +139,17 @@
       </div>
       <div
         id="div-banner"
-        :class="stateExiting ? 'exit-animation' : 'start-animation'"
         :key="currentBannerIndex"
+        :class="stateExiting ? 'exit-animation' : 'start-animation'"
       >
         <p v-if="banner.id === 'everything'" class="everyone">
           Everyone is here!
         </p>
         <img
-          id="banner"
-          :src="require(`@/assets/images/banners/${b.id}.webp`)"
           v-for="(b, index) in banners"
+          id="banner"
           :key="index"
+          :src="require(`@/assets/images/banners/${b.id}.webp`)"
           :class="{ invisible: b.id !== banner.id }"
           rel="prefetch"
         />
@@ -170,14 +170,14 @@
             <gem-counter
               icon="starglitter.webp"
               :text="inventory.starglitter"
-              @image-clicked="activeItemId = 'starglitter'"
               nobackground
+              @image-clicked="activeItemId = 'starglitter'"
             ></gem-counter>
             <gem-counter
               icon="stardust.webp"
               :text="inventory.stardust"
-              @image-clicked="activeItemId = 'stardust'"
               nobackground
+              @image-clicked="activeItemId = 'stardust'"
             ></gem-counter>
           </div>
           <div id="shop-buttons" class="footer-align-flex">
@@ -265,6 +265,7 @@ export default defineComponent({
       required: true,
     },
   },
+  emits: ["wish", "go-quests", "go-shop", "change-banner"],
   data() {
     return {
       showDetails: false,
@@ -295,6 +296,12 @@ export default defineComponent({
     settings(): Settings {
       return this.$store.state.settings;
     },
+  },
+  created() {
+    this.$nextTick(() => window.addEventListener("resize", this.onResize));
+  },
+  beforeUnmount() {
+    window.removeEventListener("resize", this.onResize);
   },
   methods: {
     getBannerHeaderImage(banner: Banner, selected = false): string {
@@ -361,13 +368,6 @@ export default defineComponent({
       this.windowWidth = window.innerWidth;
     },
   },
-  created() {
-    this.$nextTick(() => window.addEventListener("resize", this.onResize));
-  },
-  beforeUnmount() {
-    window.removeEventListener("resize", this.onResize);
-  },
-  emits: ["wish", "go-quests", "go-shop", "change-banner"],
 });
 </script>
 

@@ -1,6 +1,6 @@
 <template>
   <button
-    v-bind:class="{
+    :class="{
       'gem-counter': true,
       'gem-counter-background': !nobackground,
       'gem-counter-outline': outline,
@@ -71,12 +71,12 @@ export default defineComponent({
       default: false,
     },
   },
+  emits: ["image-clicked"],
   methods: {
     imageClicked(): void {
       this.$emit("image-clicked");
     },
   },
-  emits: ["image-clicked"],
 });
 </script>
 

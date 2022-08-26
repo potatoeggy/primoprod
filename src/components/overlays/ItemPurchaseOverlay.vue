@@ -19,8 +19,8 @@
   ></item-obtain-overlay>
 
   <div
-    :class="{ bg: true, 'zoom-fade-in': active, 'zoom-fade-out': !active }"
     id="item-purchase-overlay-bg"
+    :class="{ bg: true, 'zoom-fade-in': active, 'zoom-fade-out': !active }"
     @click="exitOutsideCheck"
     @animationend="exit"
   >
@@ -56,18 +56,18 @@
             </div>
             <div class="flex star-box" @click="activeItemId = item.id">
               <img
-                class="star-img"
-                src="@/assets/images/star.svg"
                 v-for="i in item.rarity"
                 :key="i"
+                class="star-img"
+                src="@/assets/images/star.svg"
               />
             </div>
             <p @click="activeItemId = item.id">{{ item.description }}</p>
           </div>
         </div>
         <div
-          class="quantity-adjuster-box flex-column"
           v-if="!insufficientFunds"
+          class="quantity-adjuster-box flex-column"
         >
           <p>Qty.</p>
           <p style="font-size: 1.75rem">{{ quantityToPurchase }}</p>
@@ -80,8 +80,8 @@
             </div>
             <p>1</p>
             <input
-              type="range"
               v-model.number="quantityToPurchase"
+              type="range"
               min="1"
               :max="numPurchasable"
               :style="{
@@ -109,8 +109,8 @@
         ></cancel-confirm-button>
         <cancel-confirm-button
           text="Exchange"
-          @pressed="purchase"
           :disabled="insufficientFunds"
+          @pressed="purchase"
         ></cancel-confirm-button>
       </div>
     </div>
@@ -144,6 +144,7 @@ export default defineComponent({
       required: true,
     },
   },
+  emits: ["exit"],
   data() {
     return {
       active: true,
@@ -230,7 +231,6 @@ export default defineComponent({
       }
     },
   },
-  emits: ["exit"],
 });
 </script>
 

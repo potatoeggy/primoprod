@@ -23,9 +23,9 @@
           @pressed="$emit('cancel-wish')"
         ></cancel-confirm-button>
         <cancel-confirm-button
+          v-if="primoBalance >= primogemsNeeded"
           text="Confirm"
           @pressed="$emit('wish', fatesToPurchase)"
-          v-if="primoBalance >= primogemsNeeded"
         ></cancel-confirm-button>
       </div>
     </div>
@@ -55,6 +55,7 @@ export default defineComponent({
       default: false,
     },
   },
+  emits: ["cancel-wish", "wish"],
   computed: {
     primogemsNeeded(): number {
       return this.fatesToPurchase * 160;
@@ -67,7 +68,6 @@ export default defineComponent({
       }
     },
   },
-  emits: ["cancel-wish", "wish"],
 });
 </script>
 

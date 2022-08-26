@@ -8,7 +8,7 @@
       />
     </video>
   </div>
-  <div id="wish-videos" v-else>
+  <div v-else id="wish-videos">
     <!-- TODO: fix up skip button by referencing actual game
     and ensure it's aligned with the text, also ensure that
     the text is the correct size -->
@@ -22,18 +22,18 @@
     <!-- prefetch drops ahead of time here -->
     <!-- also prefetch obtain overlay background -->
     <div style="display: none">
-      <img src="@/assets/images/wish-reveal-background.webp" ref="prefetch" />
+      <img ref="prefetch" src="@/assets/images/wish-reveal-background.webp" />
       <img
-        :src="require(`@/assets/images/drops/${i.id}.webp`)"
         v-for="(i, index) in preloadDrops"
         :key="index"
         ref="prefetch"
+        :src="require(`@/assets/images/drops/${i.id}.webp`)"
       />
       <img
-        :src="require(`@/assets/images/icons/icon-element-${i.element}.webp`)"
         v-for="(i, index) in preloadDrops"
         :key="index"
         ref="prefetch"
+        :src="require(`@/assets/images/icons/icon-element-${i.element}.webp`)"
       />
     </div>
   </div>
@@ -63,6 +63,7 @@ export default defineComponent({
       default: () => [] as Item[],
     },
   },
+  emits: ["video-ended", "video-skipped"],
   data() {
     return {
       allVideo: [
@@ -73,14 +74,6 @@ export default defineComponent({
         "5starwish-10.webm",
       ],
     };
-  },
-  mounted() {
-    if (!this.preloader)
-      (
-        document.getElementById(
-          `video-${this.stars}star-${this.pulls}`
-        ) as HTMLAudioElement
-      ).play();
   },
   computed: {
     videoId(): string {
@@ -96,6 +89,14 @@ export default defineComponent({
       }
     },
   },
+  mounted() {
+    if (!this.preloader)
+      (
+        document.getElementById(
+          `video-${this.stars}star-${this.pulls}`
+        ) as HTMLAudioElement
+      ).play();
+  },
   methods: {
     ended(): void {
       this.$emit("video-ended");
@@ -104,7 +105,6 @@ export default defineComponent({
       this.$emit("video-skipped");
     },
   },
-  emits: ["video-ended", "video-skipped"],
 });
 </script>
 

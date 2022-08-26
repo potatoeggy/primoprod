@@ -13,9 +13,9 @@
           }"
         >
           <img
+            v-if="text === 'Delete'"
             class="icon_delete"
             src="@/assets/images/delete.svg"
-            v-if="text === 'Delete'"
           />
           <div></div>
           <div></div>
@@ -45,6 +45,7 @@ export default defineComponent({
       default: false,
     },
   },
+  emits: ["pressed"],
   computed: {
     styles(this) {
       return {
@@ -65,7 +66,6 @@ export default defineComponent({
       if (!this.disabled) this.$emit("pressed");
     },
   },
-  emits: ["pressed"],
 });
 </script>
 

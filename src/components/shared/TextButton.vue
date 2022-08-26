@@ -3,7 +3,7 @@
     <source src="@/assets/audio/text-click.ogg" type="audio/ogg" />
     <source src="@/assets/audio/text-click.mp3" type="audio/mpeg" />
   </audio>
-  <button class="menu-button" @click="play" type="button">
+  <button class="menu-button" type="button" @click="play">
     {{ text }}
   </button>
 </template>
@@ -18,13 +18,13 @@ export default defineComponent({
       required: true,
     },
   },
+  emits: ["clicked"],
   methods: {
     play() {
       (this.$refs.textClickAudio as HTMLAudioElement).play();
       this.$emit("clicked");
     },
   },
-  emits: ["clicked"],
 });
 </script>
 

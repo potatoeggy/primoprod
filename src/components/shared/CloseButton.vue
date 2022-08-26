@@ -11,6 +11,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 export default defineComponent({
+  emits: ["clicked"],
   methods: {
     clicked() {
       // TODO: WARN: stupid and hacky temporary solution that will
@@ -24,7 +25,6 @@ export default defineComponent({
       this.$emit("clicked");
     },
   },
-  emits: ["clicked"],
 });
 </script>
 

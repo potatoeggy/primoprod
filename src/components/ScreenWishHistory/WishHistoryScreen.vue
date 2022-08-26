@@ -1,15 +1,11 @@
 <script setup lang="ts">
 import { ItemDatabase } from "@/state/Gacha";
 import Inventory from "@/state/Inventory";
-import { GachaState, Item, Pull } from "@/types";
+import { GachaState } from "@/types";
 import { computed, ref, watch } from "vue";
 import { useStore } from "vuex";
 import BookOverlay from "../overlays/BookOverlay.vue";
 import dayjs from "dayjs";
-
-interface DetailedPull extends Omit<Pull, "item"> {
-  item: Item;
-}
 
 const store = useStore();
 const props =
@@ -19,7 +15,7 @@ const emit = defineEmits(["exit"]);
 const currentPage = ref(0);
 const selectedWishType = ref(props.activeBannerStorage);
 const MAX_PULLS_PER_PAGE = store.state.settings.unlimitedHistoryScroll
-  ? 1_000_000_000
+  ? 1000000000
   : 5;
 
 const pulls = computed(() =>

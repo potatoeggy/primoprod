@@ -4,7 +4,6 @@ import { Ref, ref } from "vue";
 import BookOverlay from "../overlays/BookOverlay.vue";
 import BannerStylisedText from "./BannerStylisedText.vue";
 import BannerDetailsDropRates from "./BannerDetailsDropRates.vue";
-import BannerDetailsDropTable from "./BannerDetailsDropTable.vue";
 import BannerDetailsText from "./BannerDetailsText.vue";
 import BannerDetailsItemList from "./BannerDetailsItemList.vue";
 

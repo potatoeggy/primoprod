@@ -46,13 +46,13 @@ export default defineComponent({
       default: false,
     },
   },
+  emits: ["try-wish"],
   methods: {
     play() {
       (this.$refs.textClickAudio as HTMLAudioElement).play();
       this.$emit(`try-wish`, this.wishes);
     },
   },
-  emits: ["try-wish"],
 });
 </script>
 

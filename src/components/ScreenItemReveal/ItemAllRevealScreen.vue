@@ -28,9 +28,9 @@
     </div>
     <div class="align-wishes">
       <div
-        class="asset-box-holder"
         v-for="(item, index) of sortedLastRoll"
         :key="index"
+        class="asset-box-holder"
         :style="{
           '--ani-delay': `${index * 0.1}s`,
           '--border-color': glowStyles[item.rarity].outline,
@@ -101,6 +101,7 @@ export default defineComponent({
       required: true,
     },
   },
+  emits: ["exit"],
   data() {
     return {
       ItemTransforms: ItemTransforms,
@@ -140,7 +141,6 @@ export default defineComponent({
       this.$emit("exit");
     },
   },
-  emits: ["exit"],
 });
 </script>
 
