@@ -1,3 +1,20 @@
+<script setup lang="ts">
+import { computed } from "vue";
+import { ItemDatabase } from "@/state/Gacha";
+
+const props = defineProps<{
+  centerItemId: string;
+  sideItemIds: string[];
+  accentColor: string;
+}>();
+
+const centerItem = computed(() => ItemDatabase[props.centerItemId]);
+const centerImageStyle = computed(
+  () => `url(../../assets/images/drops/${centerItem.value.id}.webp)`
+);
+const sideItems = computed(() => props.sideItemIds.map((i) => ItemDatabase[i]));
+</script>
+
 <template>
   <div class="box" :style="centerImageStyle">
     <div class="detail-box">
@@ -31,45 +48,6 @@
     </div>
   </div>
 </template>
-
-<script lang="ts">
-import { defineComponent } from "vue";
-import { Item } from "@/types";
-import { ItemDatabase } from "@/state/Gacha";
-
-export default defineComponent({
-  props: {
-    centerItemId: {
-      type: String,
-      required: true,
-    },
-    sideItemIds: {
-      type: Object as () => string[],
-      required: true,
-    },
-    accentColor: {
-      type: String,
-      required: true,
-    },
-  },
-  data() {
-    return {};
-  },
-  computed: {
-    centerImageStyle(): { [key: string]: string } {
-      return {
-        "--center-img-src": `url(../../assets/images/drops/${this.centerItem.id}.webp)`,
-      };
-    },
-    centerItem(): Item {
-      return ItemDatabase[this.centerItemId];
-    },
-    sideItems(): Item[] {
-      return this.sideItemIds.map((i) => ItemDatabase[i]);
-    },
-  },
-});
-</script>
 
 <style scoped>
 .image-holder img {
@@ -184,7 +162,7 @@ export default defineComponent({
   aspect-ratio: 680 / 350;
   border-radius: 0.5em;
   display: flex;
-  background: --center-img-src no-repeat,
+  background: v-bind(centerImageStyle) no-repeat,
     linear-gradient(to bottom, var(--bg-color), var(--bg-color-bottom));
   background-size: 175%;
   background-position: left calc(50% + 10%) top calc(50% + -17%);
