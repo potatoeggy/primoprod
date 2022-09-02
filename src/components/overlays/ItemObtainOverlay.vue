@@ -1,3 +1,42 @@
+<script setup lang="ts">
+import { ItemStringQuantity } from "@/types";
+import { ItemDatabase } from "@/state/Gacha";
+import { computed, ref, Ref } from "vue";
+import ItemDescriptionOverlay from "./ItemDescriptionOverlay.vue";
+
+const props =
+  defineProps<{ obtainedItems: ItemStringQuantity[]; description?: string }>();
+const emit = defineEmits(["exit"]);
+const activeItemId = ref("");
+const active = ref(true);
+const audioExitOverlay: Ref<HTMLAudioElement | null> = ref(null);
+
+const items = computed(() =>
+  props.obtainedItems
+    .map((i) => {
+      return {
+        item: ItemDatabase[i.id],
+        quantity: i.quantity,
+      };
+    })
+    .filter((i) => i.quantity > 0)
+);
+const activeItem = computed(() => ItemDatabase[activeItemId.value]);
+
+const exitOutsideCheck = (e: Event) => {
+  if (
+    e.target === document.getElementById("item-obtain-overlay-bg") ||
+    e.target === document.getElementById("item-obtain-overlay-center-box")
+  ) {
+    active.value = false;
+    audioExitOverlay.value?.play();
+  }
+};
+const exit = () => {
+  if (!active.value) emit("exit");
+};
+</script>
+
 <template>
   <audio autoplay>
     <source src="@/assets/audio/item-obtain.ogg" type="audio/ogg" />
@@ -48,7 +87,7 @@
                 />
               </div>
               <div class="star-box">
-                <template v-for="i in i.item.rarity" :key="i">
+                <template v-for="ind in i.item.rarity" :key="ind">
                   <img class="star-img" src="@/assets/images/star.svg" />
                 </template>
               </div>
@@ -62,62 +101,6 @@
     </div>
   </transition>
 </template>
-
-<script lang="ts">
-import { Item, ItemQuantity, ItemStringQuantity } from "@/types";
-import { ItemDatabase } from "@/state/Gacha";
-import { defineComponent } from "vue";
-import ItemDescriptionOverlay from "./ItemDescriptionOverlay.vue";
-
-export default defineComponent({
-  components: { ItemDescriptionOverlay },
-  props: {
-    obtainedItems: {
-      type: Object as () => Array<ItemStringQuantity>,
-      required: true,
-    },
-    description: {
-      type: String,
-      required: false,
-    },
-  },
-  emits: ["exit"],
-  data() {
-    return {
-      activeItemId: "",
-      active: true,
-    };
-  },
-  computed: {
-    items(): Array<ItemQuantity> {
-      return this.obtainedItems
-        .map((i) => {
-          return { item: ItemDatabase[i.id], quantity: i.quantity };
-        })
-        .filter((i) => i.quantity > 0);
-    },
-    activeItem(): Item {
-      return ItemDatabase[this.activeItemId];
-    },
-  },
-  methods: {
-    exitOutsideCheck(e: Event) {
-      if (
-        e.target === document.getElementById("item-obtain-overlay-bg") ||
-        e.target === document.getElementById("item-obtain-overlay-center-box")
-      ) {
-        this.active = false;
-        (this.$refs.audioExitOverlay as HTMLAudioElement).play();
-      }
-    },
-    exit() {
-      if (!this.active) {
-        this.$emit("exit");
-      }
-    },
-  },
-});
-</script>
 
 <style scoped>
 #item-obtain-overlay-bg {

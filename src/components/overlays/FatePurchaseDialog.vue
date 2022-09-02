@@ -1,3 +1,22 @@
+<script setup lang="ts">
+import CancelConfirmButton from "@/components/shared/CancelConfirmButton.vue";
+import { computed } from "vue";
+
+const props = defineProps<{
+  fatesToPurchase: number;
+  primoBalance: number;
+  useStandardFates?: boolean;
+}>();
+const emit = defineEmits(["cancel-wish", "wish"]);
+
+const primogemsNeeded = computed(() => props.fatesToPurchase * 160);
+const clickOutside = (e: Event) => {
+  if (e.target === document.getElementById("overlay-fate-purchase")) {
+    emit("cancel-wish");
+  }
+};
+</script>
+
 <template>
   <div id="overlay-fate-purchase" @click="clickOutside">
     <div id="dialog-fate-purchase">
@@ -31,45 +50,6 @@
     </div>
   </div>
 </template>
-
-<script lang="ts">
-import { defineComponent } from "vue";
-import CancelConfirmButton from "@/components/shared/CancelConfirmButton.vue";
-
-export default defineComponent({
-  components: {
-    CancelConfirmButton,
-  },
-  props: {
-    fatesToPurchase: {
-      type: Number,
-      required: true,
-    },
-    primoBalance: {
-      type: Number,
-      required: true,
-    },
-    useStandardFates: {
-      type: Boolean,
-      required: false,
-      default: false,
-    },
-  },
-  emits: ["cancel-wish", "wish"],
-  computed: {
-    primogemsNeeded(): number {
-      return this.fatesToPurchase * 160;
-    },
-  },
-  methods: {
-    clickOutside(e: Event): void {
-      if (e.target === document.getElementById("overlay-fate-purchase")) {
-        this.$emit("cancel-wish");
-      }
-    },
-  },
-});
-</script>
 
 <style scoped>
 #overlay-fate-purchase {

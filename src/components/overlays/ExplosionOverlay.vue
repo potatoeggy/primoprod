@@ -2,11 +2,6 @@
   <div class="explosion-overlay"></div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
-export default defineComponent({});
-</script>
-
 <style scoped>
 .explosion-overlay {
   position: fixed;
