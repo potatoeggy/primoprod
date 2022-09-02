@@ -38,7 +38,7 @@ const emit = defineEmits(["exit"]);
 
 .detail-box {
   aspect-ratio: 1.9/1; /* from measurements */
-  background-image: url(../../assets/images/details-book.png);
+  background-image: url(../../assets/images/details-book.webp);
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
