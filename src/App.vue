@@ -9,9 +9,9 @@
 
   <!-- overlay -->
   <banner-splash
-    :centerItemId="'yae-miko'"
-    :sideItemIds="[]"
-    :accentColor="'blah'"
+    :center-item-id="'yae-miko'"
+    :side-item-ids="[]"
+    :accent-color="'blah'"
   />
   <fate-purchase-dialog
     v-if="
