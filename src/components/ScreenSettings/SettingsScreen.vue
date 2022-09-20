@@ -1,3 +1,39 @@
+<script setup lang="ts">
+import Paimon from "@/state/PaimonMoe";
+import { computed, ref } from "vue";
+import { useStore } from "vuex";
+
+const $store = useStore();
+
+const emit = defineEmits(["exit"]);
+const settings = ref({
+  infinitePrimos: $store.state.settings.infinitePrimos,
+  rollOnly: "" + ($store.state.settings.rollOnly ?? ""),
+  winGuarantee: "" + ($store.state.settings.winGuarantee ?? ""),
+  unlimitedHistoryScroll: $store.state.settings.unlimitedHistoryScroll,
+  showBannerPity: $store.state.settings.showBannerPity,
+  everythingBanner: $store.state.settings.everythingBanner,
+});
+const paimon = Paimon.export();
+
+const paimonExportJson = computed(
+  () => `data:application/json;charset=utf-8,${encodeURIComponent(paimon)}`
+);
+
+function exit() {
+  const newSettings = {
+    infinitePrimos: settings.value.infinitePrimos,
+    rollOnly: parseInt(settings.value.rollOnly || "0") || null,
+    winGuarantee: !!(settings.value.winGuarantee || false) || null,
+    unlimitedHistoryScroll: settings.value.unlimitedHistoryScroll,
+    showBannerPity: settings.value.showBannerPity,
+    everythingBanner: settings.value.everythingBanner,
+  };
+  $store.commit("updateSettings", newSettings);
+  emit("exit");
+}
+</script>
+
 <template>
   <div class="header" @keyup.esc="exit">
     <img
@@ -61,49 +97,6 @@
     </div>
   </div>
 </template>
-
-<script lang="ts">
-import Paimon from "@/state/PaimonMoe";
-import { defineComponent } from "vue";
-export default defineComponent({
-  emits: ["exit"],
-  data() {
-    return {
-      settings: {
-        infinitePrimos: this.$store.state.settings.infinitePrimos,
-        rollOnly: "" + (this.$store.state.settings.rollOnly ?? ""),
-        winGuarantee: "" + (this.$store.state.settings.winGuarantee ?? ""),
-        unlimitedHistoryScroll:
-          this.$store.state.settings.unlimitedHistoryScroll,
-        showBannerPity: this.$store.state.settings.showBannerPity,
-        everythingBanner: this.$store.state.settings.everythingBanner,
-      },
-      paimon: Paimon.export(),
-    };
-  },
-  computed: {
-    paimonExportJson(): string {
-      return `data:application/json;charset=utf-8,${encodeURIComponent(
-        this.paimon
-      )}`;
-    },
-  },
-  methods: {
-    exit(): void {
-      const settings = {
-        infinitePrimos: this.settings.infinitePrimos,
-        rollOnly: parseInt(this.settings.rollOnly || "0") || null,
-        winGuarantee: !!(this.settings.winGuarantee || false) || null,
-        unlimitedHistoryScroll: this.settings.unlimitedHistoryScroll,
-        showBannerPity: this.settings.showBannerPity,
-        everythingBanner: this.settings.everythingBanner,
-      };
-      this.$store.commit("updateSettings", settings);
-      this.$emit("exit");
-    },
-  },
-});
-</script>
 
 <style scoped>
 .combobox {
