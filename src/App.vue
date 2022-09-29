@@ -262,9 +262,11 @@ export default defineComponent({
     },
 
     showResultsEnd(): void {
-      this.screen = "item-reveal";
-      // TODO: yikes you have to check if it's 10 or not since i
-      // think they have different uis
+      if (this.pullNumber === 1) {
+        this.screen = "item-reveal";
+      } else {
+        this.screen = "item-all-reveal";
+      }
     },
   },
 });
