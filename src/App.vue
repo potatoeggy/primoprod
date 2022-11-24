@@ -8,6 +8,11 @@
   </audio>
 
   <!-- overlay -->
+  <banner-splash
+    :center-item-id="'yae-miko'"
+    :side-item-ids="[]"
+    :accent-color="'blah'"
+  />
   <fate-purchase-dialog
     v-if="
       pullNumber > (useStandardFates ? inv.standardFates : inv.fates) &&
@@ -86,6 +91,7 @@ import Gacha from "@/state/Gacha";
 import { Banner, Item, ItemStringQuantity } from "@/types";
 import Inventory from "@/state/Inventory";
 import GameMenu from "@/components/game/GameMenu.vue";
+import BannerSplash from "@/components/shared/BannerSplash.vue";
 
 // empty comment below is to maintain multi-line array
 // to keep prettier happy (do not remove)
@@ -110,6 +116,7 @@ export default defineComponent({
     QuestScreen,
     ShopScreen,
     GameMenu,
+    BannerSplash,
   },
   data() {
     return {
