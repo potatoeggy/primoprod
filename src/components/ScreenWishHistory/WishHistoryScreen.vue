@@ -8,8 +8,10 @@ import BookOverlay from "../overlays/BookOverlay.vue";
 import dayjs from "dayjs";
 
 const store = useStore();
-const props =
-  defineProps<{ inventory: Inventory; activeBannerStorage: string }>();
+const props = defineProps<{
+  inventory: Inventory;
+  activeBannerStorage: string;
+}>();
 const emit = defineEmits(["exit"]);
 
 const currentPage = ref(0);

@@ -9,7 +9,7 @@ import { Item, ShopItem } from "@/types";
 import RootShopItemList from "@/data/shop.json";
 import { computed, Ref, ref } from "vue";
 
-const props = defineProps<{ inventory: Inventory }>();
+defineProps<{ inventory: Inventory }>();
 const emit = defineEmits(["exit"]);
 
 const activePurchase: Ref<ShopItem | null> = ref(null);

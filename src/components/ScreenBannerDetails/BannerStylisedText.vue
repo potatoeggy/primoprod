@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Banner } from "@/types";
 
-const props = defineProps<{ banner: Banner; quotes?: boolean }>();
+defineProps<{ banner: Banner; quotes?: boolean }>();
 </script>
 
 <template>

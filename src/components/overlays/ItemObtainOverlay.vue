@@ -4,8 +4,10 @@ import { ItemDatabase } from "@/state/Gacha";
 import { computed, ref, Ref } from "vue";
 import ItemDescriptionOverlay from "./ItemDescriptionOverlay.vue";
 
-const props =
-  defineProps<{ obtainedItems: ItemStringQuantity[]; description?: string }>();
+const props = defineProps<{
+  obtainedItems: ItemStringQuantity[];
+  description?: string;
+}>();
 const emit = defineEmits(["exit"]);
 const activeItemId = ref("");
 const active = ref(true);

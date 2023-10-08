@@ -2,7 +2,7 @@
 import { Banner } from "@/types";
 import BannerDetailsDropTable from "./BannerDetailsDropTable.vue";
 
-const props = defineProps<{ banner: Banner }>();
+defineProps<{ banner: Banner }>();
 </script>
 
 <template>
