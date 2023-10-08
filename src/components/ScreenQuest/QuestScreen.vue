@@ -1,3 +1,126 @@
+<script setup lang="ts">
+import CloseButton from "../shared/CloseButton.vue";
+import Quests from "@/state/Quests";
+import { ItemDatabase } from "@/state/Gacha";
+import { Item, ItemStringQuantity, Quest } from "@/types";
+import ItemDescriptionOverlay from "../overlays/ItemDescriptionOverlay.vue";
+import ItemObtainOverlay from "../overlays/ItemObtainOverlay.vue";
+import CancelConfirmButton from "../shared/CancelConfirmButton.vue";
+import Inventory from "@/state/Inventory";
+import { computed, onMounted, Ref, ref } from "vue";
+
+const props = defineProps<{ inventory: Inventory }>();
+const emit = defineEmits(["exit"]);
+const active = ref(true);
+const currentTab = ref("All Quests");
+const quests = ref(new Quests());
+const currentQuest = ref({} as Quest);
+const itemDescriptionId = ref("");
+const editMode = ref(false);
+const obtainScreenRewards = ref([] as ItemStringQuantity[]);
+const audioCancelConfirm: Ref<HTMLAudioElement | null> = ref(null);
+const audioQuestClick: Ref<HTMLAudioElement | null> = ref(null);
+
+const itemDescription = computed(() => ItemDatabase[itemDescriptionId.value]);
+const formattedQuests = computed(() => [
+  {
+    name: "Daily Commissions",
+    quests: quests.value.commissions.filter((i) => !i.complete),
+  },
+  {
+    name: "Event Quests",
+    quests: quests.value.events.filter((i) => !i.complete),
+  },
+  {
+    name: "Completed Quests",
+    quests: [
+      ...quests.value.commissions.filter((i) => i.complete),
+      ...quests.value.events.filter((i) => i.complete),
+    ],
+  },
+]);
+
+function idToItem(id: string): Item {
+  return ItemDatabase[id];
+}
+
+function exitAnimation() {
+  active.value = false;
+}
+function exit() {
+  if (!active.value) {
+    emit("exit");
+  }
+}
+function processClaim() {
+  audioCancelConfirm.value?.play();
+  if (editMode.value) {
+    editMode.value = false;
+    quests.value.saveState();
+  } else {
+    if (!currentQuest.value.complete) {
+      if (currentQuest.value.rewards) {
+        props.inventory.addItems(currentQuest.value.rewards);
+      }
+      // mark the current quest as done and save it
+      obtainScreenRewards.value = currentQuest.value.rewards || [];
+      currentQuest.value.complete = true;
+      currentQuest.value.claimed = new Date();
+      quests.value.refresh();
+
+      // TODO: fix all of the divs bouncing around everywhere
+      // by adding padding?
+      // TODO: shrink the description buttons on click instead
+      // of filtering brightness to emulate original behaviour
+    }
+  }
+}
+function deleteCurrentQuest() {
+  audioCancelConfirm.value?.play();
+
+  // commissions can't be deleted and ids should be unique
+  quests.value.events.splice(
+    quests.value.events.findIndex((i) => i.id === currentQuest.value.id),
+    1
+  );
+  resetCurrentQuest();
+  quests.value.saveState();
+}
+function setCurrentQuest(quest: Quest) {
+  const audio = audioQuestClick;
+  if (audio.value && !audio.value.paused) {
+    audio.value.currentTime = 0;
+  }
+  audio.value?.play();
+  currentQuest.value = quest;
+  editMode.value = false;
+}
+function resetCurrentQuest() {
+  editMode.value = false;
+  currentQuest.value =
+    formattedQuests.value.find((i) => i.quests.length > 0)?.quests[0] ||
+    quests.value.commissions[0];
+}
+function newQuest() {
+  const audio = audioQuestClick;
+  if (audio.value && !audio.value.paused) {
+    audio.value.currentTime = 0;
+  }
+  audio.value?.play();
+  quests.value.events.push({
+    name: "New Quest",
+    id: `custom-event-${+new Date()}`,
+    description: "Add an interesting description here!",
+    rewards: [{ id: "primogem", quantity: 900 }],
+  });
+  currentQuest.value = quests.value.events[quests.value.events.length - 1];
+}
+
+onMounted(() => {
+  resetCurrentQuest();
+});
+</script>
+
 <template>
   <!-- overlay -->
   <item-description-overlay
@@ -131,148 +254,6 @@
     </div>
   </div>
 </template>
-
-<script lang="ts">
-import { defineComponent } from "vue";
-import CloseButton from "../shared/CloseButton.vue";
-import Quests from "@/state/Quests";
-import { ItemDatabase } from "@/state/Gacha";
-import { Item, ItemStringQuantity, Quest } from "@/types";
-import ItemDescriptionOverlay from "../overlays/ItemDescriptionOverlay.vue";
-import ItemObtainOverlay from "../overlays/ItemObtainOverlay.vue";
-import CancelConfirmButton from "../shared/CancelConfirmButton.vue";
-import Inventory from "@/state/Inventory";
-
-export default defineComponent({
-  components: {
-    CloseButton,
-    ItemDescriptionOverlay,
-    CancelConfirmButton,
-    ItemObtainOverlay,
-  },
-  props: {
-    inventory: {
-      type: Object as () => Inventory,
-      required: true,
-    },
-  },
-  emits: ["exit"],
-  data() {
-    return {
-      active: true,
-      currentTab: "All Quests",
-      quests: new Quests(),
-      currentQuest: {} as Quest,
-      itemDescriptionId: "",
-      editMode: false,
-      obtainScreenRewards: [] as ItemStringQuantity[],
-    };
-  },
-  computed: {
-    itemDescription(): Item {
-      return ItemDatabase[this.itemDescriptionId];
-    },
-    formattedQuests(): { name: string; quests: Quest[] }[] {
-      return [
-        {
-          name: "Daily Commissions",
-          quests: this.quests.commissions.filter((i) => !i.complete),
-        },
-        {
-          name: "Event Quests",
-          quests: this.quests.events.filter((i) => !i.complete),
-        },
-        {
-          name: "Completed Quests",
-          quests: [
-            ...this.quests.commissions.filter((i) => i.complete),
-            ...this.quests.events.filter((i) => i.complete),
-          ],
-        },
-      ];
-    },
-  },
-  mounted() {
-    this.resetCurrentQuest();
-  },
-  methods: {
-    idToItem(id: string): Item {
-      return ItemDatabase[id];
-    },
-    exitAnimation() {
-      this.active = false;
-    },
-    exit() {
-      if (!this.active) {
-        this.$emit("exit");
-      }
-    },
-    processClaim() {
-      (this.$refs.audioCancelConfirm as HTMLAudioElement).play();
-      if (this.editMode) {
-        this.editMode = false;
-        this.quests.saveState();
-      } else {
-        if (!this.currentQuest.complete) {
-          if (this.currentQuest.rewards) {
-            this.inventory.addItems(this.currentQuest.rewards);
-          }
-          // mark the current quest as done and save it
-          this.obtainScreenRewards = this.currentQuest.rewards || [];
-          this.currentQuest.complete = true;
-          this.currentQuest.claimed = new Date();
-          this.quests.refresh();
-
-          // TODO: fix all of the divs bouncing around everywhere
-          // by adding padding?
-          // TODO: shrink the description buttons on click instead
-          // of filtering brightness to emulate original behaviour
-        }
-      }
-    },
-    deleteCurrentQuest() {
-      (this.$refs.audioCancelConfirm as HTMLAudioElement).play();
-
-      // commissions can't be deleted and ids should be unique
-      this.quests.events.splice(
-        this.quests.events.findIndex((i) => i.id === this.currentQuest.id),
-        1
-      );
-      this.resetCurrentQuest();
-      this.quests.saveState();
-    },
-    setCurrentQuest(quest: Quest) {
-      const audio = this.$refs.audioQuestClick as HTMLAudioElement;
-      if (!audio.paused) {
-        audio.currentTime = 0;
-      }
-      audio.play();
-      this.currentQuest = quest;
-      this.editMode = false;
-    },
-    resetCurrentQuest() {
-      this.editMode = false;
-      this.currentQuest =
-        this.formattedQuests.find((i) => i.quests.length > 0)?.quests[0] ||
-        this.quests.commissions[0];
-    },
-    newQuest() {
-      const audio = this.$refs.audioQuestClick as HTMLAudioElement;
-      if (!audio.paused) {
-        audio.currentTime = 0;
-      }
-      audio.play();
-      this.quests.events.push({
-        name: "New Quest",
-        id: `custom-event-${+new Date()}`,
-        description: "Add an interesting description here!",
-        rewards: [{ id: "primogem", quantity: 900 }],
-      });
-      this.currentQuest = this.quests.events[this.quests.events.length - 1];
-    },
-  },
-});
-</script>
 
 <style scoped>
 .main {

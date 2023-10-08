@@ -1,3 +1,44 @@
+<script setup lang="ts">
+import Inventory from "@/state/Inventory";
+import GemCounter from "../shared/GemCounter.vue";
+import CloseButton from "../shared/CloseButton.vue";
+import ItemPurchaseOverlay from "@/components/overlays/ItemPurchaseOverlay.vue";
+import ItemDescriptionOverlay from "@/components/overlays/ItemDescriptionOverlay.vue";
+import { ItemDatabase } from "@/state/Gacha";
+import { Item, ShopItem } from "@/types";
+import RootShopItemList from "@/data/shop.json";
+import { computed, Ref, ref } from "vue";
+
+const props = defineProps<{ inventory: Inventory }>();
+const emit = defineEmits(["exit"]);
+
+const activePurchase: Ref<ShopItem | null> = ref(null);
+const descriptionItemId = ref("");
+const shopList: ShopItem[] = RootShopItemList;
+const bodyBoxBgColours = [
+  // copied from ItemDescriptionOverlay
+  [],
+  ["#505865", "#545a66", "#828e99"],
+  ["#46565c", "#485d60", "#659973"],
+  ["#525376", "#4e5d7c", "#489fb3"],
+  ["#595482", "#716196", "#b684c8"],
+  ["#695352", "#99694e", "#e3ad52"],
+];
+
+const descriptionItem = computed(() => ItemDatabase[descriptionItemId.value]);
+function exit() {
+  emit("exit");
+}
+
+function cssColours(item: Item): { [key: string]: string } {
+  return {
+    "--body-bg-gradient-start": bodyBoxBgColours[item.rarity][0],
+    "--body-bg-gradient-middle": bodyBoxBgColours[item.rarity][1],
+    "--body-bg-gradient-end": bodyBoxBgColours[item.rarity][2],
+  };
+}
+</script>
+
 <template>
   <item-purchase-overlay
     v-if="activePurchase"
@@ -65,69 +106,6 @@
     </div>
   </div>
 </template>
-
-<script lang="ts">
-import Inventory from "@/state/Inventory";
-import { defineComponent } from "vue";
-import GemCounter from "../shared/GemCounter.vue";
-import CloseButton from "../shared/CloseButton.vue";
-import ItemPurchaseOverlay from "@/components/overlays/ItemPurchaseOverlay.vue";
-import ItemDescriptionOverlay from "@/components/overlays/ItemDescriptionOverlay.vue";
-import { ItemDatabase } from "@/state/Gacha";
-import { Item, ShopItem } from "@/types";
-import RootShopItemList from "@/data/shop.json";
-
-export default defineComponent({
-  components: {
-    GemCounter,
-    CloseButton,
-    ItemPurchaseOverlay,
-    ItemDescriptionOverlay,
-  },
-  props: {
-    inventory: {
-      type: Inventory,
-      required: true,
-    },
-  },
-  emits: ["exit"],
-  data() {
-    return {
-      activePurchase: null as ShopItem | null,
-      descriptionItemId: "",
-      shopList: RootShopItemList as ShopItem[],
-      ItemDatabase: ItemDatabase,
-      bodyBoxBgColours: [
-        // copied from ItemDescriptionOverlay
-        [],
-        ["#505865", "#545a66", "#828e99"],
-        ["#46565c", "#485d60", "#659973"],
-        ["#525376", "#4e5d7c", "#489fb3"],
-        ["#595482", "#716196", "#b684c8"],
-        ["#695352", "#99694e", "#e3ad52"],
-      ],
-    };
-  },
-  computed: {
-    descriptionItem(): Item {
-      return ItemDatabase[this.descriptionItemId];
-    },
-  },
-  methods: {
-    exit() {
-      // TODO: exit animation
-      this.$emit("exit");
-    },
-    cssColours(item: Item): { [name: string]: string } {
-      return {
-        "--body-bg-gradient-start": this.bodyBoxBgColours[item.rarity][0],
-        "--body-bg-gradient-middle": this.bodyBoxBgColours[item.rarity][1],
-        "--body-bg-gradient-end": this.bodyBoxBgColours[item.rarity][2],
-      };
-    },
-  },
-});
-</script>
 
 <style scoped>
 .header {

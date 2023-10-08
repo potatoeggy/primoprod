@@ -1,3 +1,55 @@
+<script setup lang="ts">
+import { Item } from "@/types";
+import { computed, onMounted } from "vue";
+
+const props = withDefaults(
+  defineProps<{
+    pulls: number;
+    stars: number;
+    preloader?: boolean;
+    preloadDrops: Item[];
+  }>(),
+  { preloadDrops: () => [] }
+);
+const emit = defineEmits(["video-ended", "video-skipped"]);
+
+const videoId = computed(() => `video-${props.stars}star-${props.pulls}`);
+const videoSrcWebm = computed(() => {
+  const videos = require.context("@/assets/video/", false, /\.webm$/);
+  try {
+    return videos(`./${props.stars}starwish-${props.pulls}.webm`);
+  } catch (error) {
+    console.error(error);
+    return `${props.stars}starwish-${props.pulls}.webm`;
+  }
+});
+
+const allVideo = [
+  "3starwish-1.webm",
+  "4starwish-1.webm",
+  "4starwish-10.webm",
+  "5starwish-1.webm",
+  "5starwish-10.webm",
+];
+
+function ended() {
+  emit("video-ended");
+}
+
+function skipped() {
+  emit("video-skipped");
+}
+
+onMounted(() => {
+  if (!props.preloader)
+    (
+      document.getElementById(
+        `video-${props.stars}star-${props.pulls}`
+      ) as HTMLAudioElement
+    ).play();
+});
+</script>
+
 <template>
   <div v-if="preloader" style="display: none">
     <video v-for="(v, index) in allVideo" :key="index">
@@ -38,75 +90,6 @@
     </div>
   </div>
 </template>
-
-<script lang="ts">
-import { Item } from "@/types";
-import { defineComponent } from "vue";
-export default defineComponent({
-  props: {
-    pulls: {
-      type: Number,
-      required: true,
-    },
-    stars: {
-      type: Number,
-      required: true,
-    },
-    preloader: {
-      type: Boolean,
-      required: false,
-      default: false,
-    },
-    preloadDrops: {
-      type: Array as () => Item[],
-      required: false,
-      default: () => [] as Item[],
-    },
-  },
-  emits: ["video-ended", "video-skipped"],
-  data() {
-    return {
-      allVideo: [
-        "3starwish-1.webm",
-        "4starwish-1.webm",
-        "4starwish-10.webm",
-        "5starwish-1.webm",
-        "5starwish-10.webm",
-      ],
-    };
-  },
-  computed: {
-    videoId(): string {
-      return `video-${this.stars}star-${this.pulls}`;
-    },
-    videoSrcWebm(): string {
-      const videos = require.context("@/assets/video/", false, /\.webm$/);
-      try {
-        return videos(`./${this.stars}starwish-${this.pulls}.webm`);
-      } catch (error) {
-        console.error(error);
-        return `${this.stars}starwish-${this.pulls}.webm`;
-      }
-    },
-  },
-  mounted() {
-    if (!this.preloader)
-      (
-        document.getElementById(
-          `video-${this.stars}star-${this.pulls}`
-        ) as HTMLAudioElement
-      ).play();
-  },
-  methods: {
-    ended(): void {
-      this.$emit("video-ended");
-    },
-    skipped(): void {
-      this.$emit("video-skipped");
-    },
-  },
-});
-</script>
 
 <style scoped>
 #wish-videos {
