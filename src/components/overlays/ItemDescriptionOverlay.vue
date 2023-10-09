@@ -114,7 +114,7 @@ export default defineComponent({
 }
 
 .main-box {
-  --description-box-width: 22rem;
+  --description-box-width: 26rem;
   --description-box-height: calc(1.1 * var(--description-box-width));
   color: #6b6c6e;
   background-color: #ebe5d9;
@@ -137,23 +137,24 @@ export default defineComponent({
 
 .item-name {
   color: white;
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   padding-top: 0.5rem;
-  padding-bottom: 0.25rem;
-  padding-left: 0.9rem; /* margin + padding should equal 1rem */
-  padding-right: 0.9rem;
-  margin-left: 0.1rem;
-  margin-right: 0.1rem;
+  padding-bottom: 0.3rem;
+  padding-left: 1.1rem; /* margin + padding should equal 1rem */
+  padding-right: 1.1rem;
+  margin-left: 0.12rem;
+  margin-right: 0.12rem;
   text-align: left;
   width: 100%;
-  border: 0.15rem solid #64646464;
-  letter-spacing: -0.05rem;
+  border: 0.17rem solid #64646464;
+  letter-spacing: -0.1rem;
 }
 
 .item-type {
-  font-size: 0.9rem;
+  font-size: 1.1rem;
   margin-bottom: 0;
   border: none;
+  letter-spacing: -0.02rem;
 }
 
 .graphic-box {
@@ -187,23 +188,23 @@ export default defineComponent({
 }
 
 .star {
-  width: 1.25rem;
-  padding-right: 0.3rem;
+  width: 1.5rem;
+  padding-right: 0.35rem;
 }
 
 .margin-left {
-  margin-left: 1rem;
-  margin-right: 1rem;
+  margin-left: 1.2rem;
+  margin-right: 1.2rem;
 }
 
 .description {
   height: 40%;
-  margin-top: 1rem;
+  margin-top: 2rem;
   margin-bottom: 1rem;
   text-align: left;
-  font-size: 1rem;
+  font-size: 1.2rem;
   vertical-align: middle;
-  letter-spacing: -0.05rem;
+  letter-spacing: -0.03rem;
 }
 
 .zoom-fade-in {

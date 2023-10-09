@@ -134,6 +134,10 @@
           ></gem-counter>
           <div class="close-box">
             <close-button @clicked="exit"></close-button>
+            <close-button
+              icon-src="ui-settings"
+              @clicked="showSettings = true"
+            />
           </div>
         </div>
       </div>
@@ -192,10 +196,6 @@
             <text-button
               text="History"
               @clicked="showHistory = true"
-            ></text-button>
-            <text-button
-              text="Settings"
-              @clicked="showSettings = true"
             ></text-button>
           </div>
         </div>
@@ -421,7 +421,7 @@ export default defineComponent({
 .mobile-header > img:not(.header-resizable) {
   width: 80%;
   padding-bottom: 1rem;
-  padding-top: 1rem;
+  padding-top: 0;
 }
 
 .banner-header {
@@ -445,6 +445,8 @@ export default defineComponent({
 
 .close-box {
   margin-left: 1rem;
+  display: flex;
+  gap: 0.25rem;
 }
 
 #wish-banners > div {
@@ -456,6 +458,8 @@ export default defineComponent({
   animation: fadein 0.75s forwards, slide-from-top 0.75s forwards ease-out;
   margin-bottom: 0;
   max-height: min-content;
+  padding-left: 2rem;
+  padding-right: 2rem;
 }
 
 #header.exit-animation {
@@ -499,7 +503,11 @@ export default defineComponent({
 }
 
 #footer {
-  max-height: min-content;
+  display: flex;
+  align-items: flex-end;
+  padding-bottom: 1rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
 }
 
 #footer.start-animation {
@@ -601,9 +609,6 @@ export default defineComponent({
 
 .space-between {
   display: flex;
-  margin: 1rem;
-  margin-right: 2rem;
-  margin-left: 2rem;
   justify-content: space-between;
   /* the below aligns the text buttons above the wish buttons */
   /* flex-wrap: wrap; */
@@ -637,7 +642,7 @@ export default defineComponent({
   }
 
   #wish-buttons {
-    transform: translateY(-1.75rem);
+    /* transform: translateY(-1.75rem); */
     width: 55%;
   }
 
@@ -647,11 +652,6 @@ export default defineComponent({
 
   #shop-button-holder-sometimes {
     width: 45%;
-  }
-
-  #header {
-    width: 100%;
-    margin: 0;
   }
 
   p#wish-label {
@@ -667,8 +667,37 @@ export default defineComponent({
   }
 
   #header {
+    width: 100%;
+    margin: 0;
     padding-right: 5rem;
+    padding-top: 1rem;
     box-sizing: border-box;
+  }
+}
+
+@media screen and (max-width: 600px) and (orientation: portrait),
+  screen and (max-height: 500px) and (orientation: landscape) {
+  .menu-button {
+    transform: scale(60%);
+    margin: 0;
+  }
+
+  .footer-align-flex {
+    flex-wrap: nowrap;
+    align-items: flex-start;
+  }
+
+  #wish-buttons {
+    transform: translateY(-1.75rem);
+  }
+
+  #footer {
+    padding-top: 0.25rem;
+    align-items: flex-start;
+  }
+
+  #header {
+    padding-top: 0.5rem;
   }
 }
 </style>

@@ -72,10 +72,18 @@ export default defineComponent({
   }
 }
 
-@media screen and (max-width: 850px) and (orientation: portrait),
+/* @media screen and (max-width: 850px) and (orientation: portrait),
   screen and (max-height: 700px) and (orientation: landscape) {
   .menu-button {
-    transform: scale(75%);
+    transform: scale(90%);
+    margin: 0;
+  }
+} */
+
+@media screen and (max-width: 600px) and (orientation: portrait),
+  screen and (max-height: 500px) and (orientation: landscape) {
+  .menu-button {
+    transform: scale(80%);
     margin: 0;
   }
 }
