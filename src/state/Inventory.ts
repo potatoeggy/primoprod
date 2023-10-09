@@ -1,41 +1,17 @@
 import { Item, ItemStringQuantity, Pull } from "@/types";
 
 export default class Inventory {
-  currency = {
-    primos: 0,
-    fates: 0,
-    standardFates: 0,
-    starglitter: 0,
-    stardust: 0,
-  };
-
-  inventory: { [name: string]: number } = {};
+  inventory: Record<string, number> = {};
   pullHistory: Pull[] = [];
 
   constructor() {
     this.inventory = JSON.parse(localStorage.getItem("inventory") || "[]");
-    this.currency = JSON.parse(
-      localStorage.getItem("currency") || JSON.stringify(this.currency)
-    );
     this.pullHistory = JSON.parse(
       localStorage.getItem("pullHistory") || JSON.stringify(this.pullHistory)
     );
-    this.migrationCheck();
-  }
-
-  migrationCheck(): void {
-    // any inventory incompatibilities will be resolved here if due to major updates
-    // 1.0-beta7: Acquaint Fates were moved from the inventory to be a currency
-    if (this.inventory["acquaint-fate"]) {
-      this.standardFates =
-        (this.standardFates || 0) + this.inventory["acquaint-fate"];
-      delete this.inventory["acquaint-fate"];
-    }
-    this.saveState();
   }
 
   saveState(): void {
-    localStorage.currency = JSON.stringify(this.currency);
     localStorage.inventory = JSON.stringify(Object.assign({}, this.inventory)); // typescript why
     localStorage.pullHistory = JSON.stringify(this.pullHistory);
   }
@@ -45,16 +21,6 @@ export default class Inventory {
     for (const item of items) {
       if (this.inventory[item.id]) {
         this.inventory[item.id] += item.quantity;
-      } else if (item.id === "primogem") {
-        this.currency.primos += item.quantity;
-      } else if (item.id === "starglitter") {
-        this.currency.starglitter += item.quantity;
-      } else if (item.id === "stardust") {
-        this.currency.stardust += item.quantity;
-      } else if (item.id === "intertwined-fate") {
-        this.currency.fates += item.quantity;
-      } else if (item.id === "acquaint-fate") {
-        this.currency.standardFates += item.quantity;
       } else {
         this.inventory[item.id] = item.quantity;
       }
@@ -83,12 +49,12 @@ export default class Inventory {
     const extraRewards: ItemStringQuantity[] = [];
     const pushStardust = (quantity: number) => {
       extraRewards.push({ id: "stardust", quantity: quantity });
-      this.currency.stardust += quantity;
+      this.stardust += quantity;
     };
 
     const pushStarglitter = (quantity: number) => {
       extraRewards.push({ id: "starglitter", quantity: quantity });
-      this.currency.starglitter += quantity;
+      this.starglitter += quantity;
     };
 
     for (const item of items) {
@@ -148,17 +114,7 @@ export default class Inventory {
   removeItems(items: ItemStringQuantity[]): void {
     // use a dict/object instead with a json db
     for (const item of items) {
-      if (item.id === "primogem") {
-        this.currency.primos -= item.quantity;
-      } else if (item.id === "starglitter") {
-        this.currency.starglitter -= item.quantity;
-      } else if (item.id === "stardust") {
-        this.currency.stardust -= item.quantity;
-      } else if (item.id === "intertwined-fate") {
-        this.currency.fates -= item.quantity;
-      } else if (item.id === "acquaint-fate") {
-        this.currency.standardFates -= item.quantity;
-      } else if (this.inventory[item.id]) {
+      if (this.inventory[item.id]) {
         this.inventory[item.id] -= 1;
         if (this.inventory[item.id] <= 0) {
           delete this.inventory[item.id];
@@ -175,59 +131,48 @@ export default class Inventory {
     this.saveState();
   }
 
-  resetCurrency(): void {
-    this.currency = {
-      primos: 0,
-      fates: 0,
-      standardFates: 0,
-      starglitter: 0,
-      stardust: 0,
-    };
-    this.saveState();
-  }
-
   public get primos(): number {
-    return this.currency.primos;
+    return this.inventory.primogem ?? 0;
   }
 
   public set primos(num: number) {
-    this.currency.primos = num;
+    this.inventory.primogem = num;
     this.saveState();
   }
 
   public get fates(): number {
-    return this.currency.fates;
+    return this.inventory["intertwined-fate"] ?? 0;
   }
 
   public set fates(num: number) {
-    this.currency.fates = num;
+    this.inventory["intertwined-fate"] = num;
     this.saveState();
   }
 
   public get standardFates(): number {
-    return this.currency.standardFates;
+    return this.inventory["acquaint-fate"] ?? 0;
   }
 
   public set standardFates(num: number) {
-    this.currency.standardFates = num;
+    this.inventory["acquaint-fate"] = num;
     this.saveState();
   }
 
   public get starglitter(): number {
-    return this.currency.starglitter;
+    return this.inventory.starglitter ?? 0;
   }
 
   public set starglitter(num: number) {
-    this.currency.starglitter = num;
+    this.inventory.starglitter = num;
     this.saveState();
   }
 
   public get stardust(): number {
-    return this.currency.stardust;
+    return this.inventory.stardust ?? 0;
   }
 
   public set stardust(num: number) {
-    this.currency.stardust = num;
+    this.inventory.stardust = num;
     this.saveState();
   }
 }
