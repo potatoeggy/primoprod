@@ -24,8 +24,9 @@ const audioQuestClick: Ref<HTMLAudioElement | null> = ref(null);
 const itemDescription = computed(() => ItemDatabase[itemDescriptionId.value]);
 const formattedQuests = computed(() => [
   {
-    name: "Daily Commissions",
+    name: "Commission Quests",
     quests: quests.value.commissions.filter((i) => !i.complete),
+    icon: "./ui-commissions.png",
   },
   {
     name: "Event Quests",
@@ -116,6 +117,16 @@ function newQuest() {
   currentQuest.value = quests.value.events[quests.value.events.length - 1];
 }
 
+const icons = (path: string) => {
+  const i = require.context("@/assets/images/", false);
+  try {
+    return i(path);
+  } catch (err) {
+    console.log(`Could not find ${path}.`);
+    return path;
+  }
+};
+
 onMounted(() => {
   resetCurrentQuest();
 });
@@ -172,7 +183,10 @@ onMounted(() => {
                 }"
                 @click="setCurrentQuest(quest)"
               >
-                <div>{{ quest.name }}</div>
+                <div class="justify-between">
+                  {{ quest.name }}
+                  <img v-if="category.icon" :src="icons(category.icon)" />
+                </div>
               </div>
             </template>
           </template>
@@ -361,6 +375,11 @@ onMounted(() => {
 
 .quest-header-white {
   color: white;
+}
+
+.justify-between {
+  display: flex;
+  justify-content: space-between;
 }
 
 input.quest-desc-name {
