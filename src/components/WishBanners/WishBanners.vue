@@ -133,7 +133,7 @@
             @image-clicked="activeItemId = 'intertwined-fate'"
           ></gem-counter>
           <div class="close-box">
-            <close-button @clicked="exit"></close-button>
+            <close-button icon-src="ui-quest" @clicked="exit" />
             <close-button
               icon-src="ui-settings"
               @clicked="showSettings = true"
