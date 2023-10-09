@@ -15,7 +15,7 @@ const emit = defineEmits(["video-ended", "video-skipped"]);
 
 const videoId = computed(() => `video-${props.stars}star-${props.pulls}`);
 const videoSrcWebm = computed(() => {
-  const videos = require.context("@/assets/video/", false, /\.webm$/);
+  const videos = require.context("@/assets/video/", false);
   try {
     return videos(`./${props.stars}starwish-${props.pulls}.webm`);
   } catch (error) {
@@ -23,6 +23,18 @@ const videoSrcWebm = computed(() => {
     return `${props.stars}starwish-${props.pulls}.webm`;
   }
 });
+
+const videoSrcMp4 = computed(() => {
+  const videos = require.context("@/assets/video/", false);
+  try {
+    return videos(`./${props.stars}starwish-${props.pulls}.mp4`);
+  } catch (error) {
+    console.error(error);
+    return `${props.stars}starwish-${props.pulls}.mp4`;
+  }
+});
+
+const videoPathToMp4 = (path: string) => path.replace(".webm", ".mp4");
 
 const allVideo = [
   "3starwish-1.webm",
@@ -58,6 +70,11 @@ onMounted(() => {
         type="video/webm"
         rel="prefetch"
       />
+      <source
+        :src="require(`@/assets/video/${videoPathToMp4(v)}`)"
+        type="video/mp4"
+        rel="prefetch"
+      />
     </video>
   </div>
   <div v-else id="wish-videos">
@@ -68,8 +85,9 @@ onMounted(() => {
       Skip
       <span class="caret right"></span>
     </button>
-    <video :id="videoId" @ended="ended">
+    <video :id="videoId" playsinline autoplay @ended="ended">
       <source :src="videoSrcWebm" type="video/webm" />
+      <source :src="videoSrcMp4" type="video/mp4" />
     </video>
     <!-- prefetch drops ahead of time here -->
     <!-- also prefetch obtain overlay background -->
@@ -133,5 +151,12 @@ video {
 
 .caret.right {
   border-left-color: white;
+}
+
+@media screen and (max-width: 600px) and (orientation: portrait),
+  screen and (max-height: 500px) and (orientation: landscape) {
+  video {
+    width: 100%;
+  }
 }
 </style>

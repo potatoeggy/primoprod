@@ -70,9 +70,6 @@ export default defineComponent({
   box-shadow: rgba(160, 175, 190, 0.8) 0px 0px 7px 5px;
 }
 
-.format-box {
-}
-
 .button-box-box {
   display: flex;
   justify-content: center;
