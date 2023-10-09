@@ -3,6 +3,7 @@ import { Pull } from "@/types";
 import { dragscrollNext } from "vue-dragscroll";
 import App from "./App.vue";
 import store from "./store";
+import "./capacitor";
 
 const currencyInventoryMap: Record<string, string | undefined> = {
   primos: "primogem",

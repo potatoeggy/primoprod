@@ -24,6 +24,7 @@
     "vuex": "^4.0.0-0"
   },
   "devDependencies": {
+    "@capacitor/status-bar": "^5.0.6",
     "@types/electron-devtools-installer": "^2.2.0",
     "@typescript-eslint/eslint-plugin": "^5.4.0",
     "@typescript-eslint/parser": "^5.4.0",
