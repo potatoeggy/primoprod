@@ -25,6 +25,9 @@ const store: Store<State> = createStore({
       state.settings = newSettings;
       localStorage.settings = JSON.stringify(state.settings);
     },
+    resetData() {
+      localStorage.clear();
+    },
   },
 });
 
