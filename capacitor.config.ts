@@ -5,6 +5,7 @@ const config: CapacitorConfig = {
   appName: "primoprod",
   webDir: "dist",
   npmClient: "yarn",
+  bundledWebRuntime: false,
 };
 
 export default config;
