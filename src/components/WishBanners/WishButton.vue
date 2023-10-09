@@ -94,13 +94,19 @@ p {
 
 @media screen and (max-width: 850px) and (orientation: portrait),
   screen and (max-height: 700px) and (orientation: landscape) {
+  .wish-button {
+    width: 22rem;
+  }
+}
+
+@media screen and (max-width: 600px) and (orientation: portrait),
+  screen and (max-height: 500px) and (orientation: landscape) {
   p {
     font-size: 1rem;
   }
   .fate-image {
     width: 1.75rem;
   }
-
   .wish-button {
     width: 15rem;
   }
