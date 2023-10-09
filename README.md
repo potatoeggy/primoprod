@@ -1,6 +1,6 @@
 # primoprod
 
-<a href="https://github.com/potatoeggy/primoprod/actions?query=branch%3Amaster"><img src="https://img.shields.io/github/workflow/status/potatoeggy/primoprod/build.yml" /></a>
+<a href="https://github.com/potatoeggy/primoprod/actions?query=branch%3Amaster"><img src="https://img.shields.io/github/actions/workflow/status/potatoeggy/primoprod/build.yml" /></a>
 <a href="https://github.com/potatoeggy/primoprod/releases/latest"><img src="https://img.shields.io/github/v/release/potatoeggy/primoprod?display_name=tag" /></a>
 <a href="/LICENSE.md"><img src="https://img.shields.io/github/license/potatoeggy/primoprod" /></a>
 
