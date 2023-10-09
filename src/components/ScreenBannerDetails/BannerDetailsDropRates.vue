@@ -50,7 +50,7 @@ const icons = (path: string) => {
         </div>
         <div class="img-holder">
           <div v-for="(c, i) in featured5Stars" :key="i" class="item-pic-box">
-            <img class="profile" :src="icons(`./icon-${c.id}.webp`)" />
+            <img class="profile" :src="icons(`./${c.id}.webp`)" />
             <p style="text-align: center">Lv. 1</p>
           </div>
         </div>
@@ -74,7 +74,7 @@ const icons = (path: string) => {
         </div>
         <div class="img-holder">
           <div v-for="(c, i) in featured4Stars" :key="i" class="item-pic-box">
-            <img class="profile" :src="icons(`./icon-${c.id}.webp`)" />
+            <img class="profile" :src="icons(`./${c.id}.webp`)" />
             <p style="text-align: center">Lv. 1</p>
           </div>
         </div>

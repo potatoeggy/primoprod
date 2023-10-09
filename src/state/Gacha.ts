@@ -1,9 +1,21 @@
-import { Banner, Item, GachaState, StylisedElement, Settings } from "@/types";
+import type {
+  Banner,
+  Item,
+  ItemTransform,
+  GachaState,
+  StylisedElement,
+  Settings,
+} from "@/types";
 import ItemDB from "@/data/ItemDatabase.json";
+import ItemTF from "@/data/ItemTransforms.json";
+import HeaderTF from "@/data/HeaderTransforms.json";
 
 export const ItemDatabase: { [name: string]: Item } = ItemDB.items;
 export const ElementDatabase: { [name: string]: StylisedElement } =
   ItemDB.elements;
+export const ItemTransforms: { [key: string]: ItemTransform } = ItemTF;
+export const HeaderTransforms: Record<string, ItemTransform | undefined> =
+  HeaderTF;
 
 export default class Gacha {
   // TODO: since weapons are being added now their pity is actually slightly different I believe

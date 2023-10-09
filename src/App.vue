@@ -273,6 +273,8 @@ export default defineComponent({
 </script>
 
 <style>
+@import url(./assets/css/icons.css);
+
 @font-face {
   font-family: "Genshin";
   src: local("Genshin"), url(./assets/fonts/Genshin.ttf) format("truetype");

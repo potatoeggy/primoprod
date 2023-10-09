@@ -27,32 +27,22 @@
   </audio>
   <div class="banner-container">
     <div v-if="isMobile" class="mobile-header">
-      <img src="@/assets/images/ui-wish-edited.webp" />
-      <template v-for="(ban, index) of banners" :key="index">
-        <template
-          v-if="
-            ban.id !== 'everything' || $store.state.settings.everythingBanner
-          "
-        >
-          <img
-            ref="prefetch"
-            :src="getBannerHeaderImage(ban, true)"
-            :class="[
-              'header-resizable',
-              { invisible: currentBannerIndex !== index },
-            ]"
-          />
-          <img
-            ref="prefetch"
-            :src="getBannerHeaderImage(ban)"
-            :class="[
-              'header-resizable',
-              { invisible: currentBannerIndex === index },
-            ]"
-            @click="changeBanner(index)"
-          />
+      <img src="@/assets/images/ui-wish.png" />
+      <div class="mobile-header-holder">
+        <template v-for="(ban, index) of banners" :key="index">
+          <template
+            v-if="
+              ban.id !== 'everything' || $store.state.settings.everythingBanner
+            "
+          >
+            <banner-header
+              :banner="ban"
+              :is-selected="currentBannerIndex === index"
+              @click="changeBanner(index)"
+            />
+          </template>
         </template>
-      </template>
+      </div>
     </div>
     <div
       :class="{
@@ -70,7 +60,7 @@
         @animationend="exitEmit"
       >
         <div id="wish-label" class="space-between center">
-          <img v-if="!isMobile" src="@/assets/images/ui-wish-edited.webp" />
+          <img v-if="!isMobile" src="@/assets/images/ui-wish.png" />
           <p id="wish-label">Wish</p>
         </div>
         <div v-if="!isMobile" class="banner-header">
@@ -81,21 +71,9 @@
                 $store.state.settings.everythingBanner
               "
             >
-              <img
-                ref="prefetch"
-                :src="getBannerHeaderImage(ban, true)"
-                :class="[
-                  'header-resizable',
-                  { invisible: currentBannerIndex !== index },
-                ]"
-              />
-              <img
-                ref="prefetch"
-                :src="getBannerHeaderImage(ban)"
-                :class="[
-                  'header-resizable',
-                  { invisible: currentBannerIndex === index },
-                ]"
+              <banner-header
+                :banner="ban"
+                :is-selected="currentBannerIndex === index"
                 @click="changeBanner(index)"
               />
             </template>
@@ -239,6 +217,7 @@ import WishHistoryScreen from "@/components/ScreenWishHistory/WishHistoryScreen.
 import ItemDescriptionOverlay from "@/components/overlays/ItemDescriptionOverlay.vue";
 import CloseButton from "@/components/shared/CloseButton.vue";
 import SettingsScreen from "../ScreenSettings/SettingsScreen.vue";
+import BannerHeader from "./BannerHeader.vue";
 
 export default defineComponent({
   components: {
@@ -250,6 +229,7 @@ export default defineComponent({
     ItemDescriptionOverlay,
     CloseButton,
     SettingsScreen,
+    BannerHeader,
   },
   props: {
     banners: {
@@ -304,18 +284,6 @@ export default defineComponent({
     window.removeEventListener("resize", this.onResize);
   },
   methods: {
-    getBannerHeaderImage(banner: Banner, selected = false): string {
-      const images = require.context(
-        "@/assets/images/banner-headers/",
-        false,
-        /\.webp$/
-      );
-      try {
-        return images(`./${selected ? "selected-" : ""}${banner.id}.webp`);
-      } catch (error) {
-        return `./${selected ? "selected-" : ""}${banner.id}.webp`;
-      }
-    },
     wish(number: number): void {
       this.$emit("wish", number, this.banner.storage === "standard");
     },
@@ -372,6 +340,11 @@ export default defineComponent({
 </script>
 
 <style scoped>
+.mobile-header-holder {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
 .everyone {
   position: absolute;
   margin-left: auto;
@@ -412,6 +385,7 @@ export default defineComponent({
   transform: translateX(1rem);
   border-left: 0.1rem solid #978b72;
   border-right: 0.1rem solid #978b72;
+  z-index: 1;
 }
 
 .mobile-header > .header-resizable {
@@ -428,7 +402,7 @@ export default defineComponent({
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 1rem;
+  gap: 2rem;
 }
 
 .header-resizable {
@@ -460,6 +434,7 @@ export default defineComponent({
   max-height: min-content;
   padding-left: 2rem;
   padding-right: 2rem;
+  padding-top: 2rem;
 }
 
 #header.exit-animation {

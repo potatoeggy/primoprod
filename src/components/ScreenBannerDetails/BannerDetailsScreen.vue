@@ -125,7 +125,7 @@ div.content {
 }
 
 .navbar > div.selected {
-  background: url("../../assets/images/ui-book-selector.png");
+  background: url("../../assets/images/ui-book-selector.webp");
   background-position: center;
   background-repeat: no-repeat;
   background-size: 100% 100%;
