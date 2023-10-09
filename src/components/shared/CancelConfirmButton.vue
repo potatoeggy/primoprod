@@ -8,12 +8,12 @@
       <span class="icon">
         <span
           :class="{
-            icon_x: text === 'Cancel',
-            icon_o: text !== 'Cancel' && text !== 'Delete',
+            icon_x: mode === 'x',
+            icon_o: mode === 'o',
           }"
         >
           <img
-            v-if="text === 'Delete'"
+            v-if="mode === 'delete'"
             class="icon_delete"
             src="@/assets/images/delete.svg"
           />
@@ -59,6 +59,17 @@ export default defineComponent({
             : "rgb(228, 226, 220)",
         "--length": this.invert ? "13rem" : "18rem",
       };
+    },
+    mode(this): "o" | "x" | "delete" {
+      switch (this.text) {
+        case "Cancel":
+          return "x";
+        case "Delete":
+        case "Reset all data":
+          return "delete";
+        default:
+          return "o";
+      }
     },
   },
   methods: {

@@ -2,6 +2,7 @@
 import Paimon from "@/state/PaimonMoe";
 import { computed, ref } from "vue";
 import { useStore } from "vuex";
+import CancelConfirmButton from "../shared/CancelConfirmButton.vue";
 
 const $store = useStore();
 
@@ -105,29 +106,22 @@ function resetAndRefresh() {
       <p>Export <a href="https://paimon.moe">paimon.moe</a> wish data</p>
       <a :href="paimonExportJson" download="paimon.json">Download</a>
     </div>
-    <div class="setting">
-      <p>Reset data</p>
-      <button @click="resetAndRefresh">
-        {{ showConfirmReset ? "Confirm reset" : "Reset" }}
-      </button>
+    <div class="center">
+      <CancelConfirmButton
+        :text="showConfirmReset ? 'Confirm reset' : 'Reset all data'"
+        @pressed="resetAndRefresh"
+      />
     </div>
   </div>
 </template>
 
 <style scoped lang="scss">
-.setting > button {
-  font-size: 1rem;
-  padding: 0.5rem;
-  border-radius: 0.5rem;
-  background-color: darkred; /* a reddish danger color */
-  color: white;
-  border: none;
-  transition: filter 0.1s;
-
-  &:hover {
-    filter: brightness(0.5);
-  }
+.center {
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }
+
 .combobox {
   font-size: 1.3rem;
 }
