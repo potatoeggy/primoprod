@@ -85,7 +85,7 @@ onMounted(() => {
       Skip
       <span class="caret right"></span>
     </button>
-    <video :id="videoId" @ended="ended">
+    <video :id="videoId" playsinline autoplay @ended="ended">
       <source :src="videoSrcWebm" type="video/webm" />
       <source :src="videoSrcMp4" type="video/mp4" />
     </video>
