@@ -134,4 +134,11 @@ video {
 .caret.right {
   border-left-color: white;
 }
+
+@media screen and (max-width: 600px) and (orientation: portrait),
+  screen and (max-height: 500px) and (orientation: landscape) {
+  video {
+    width: 100%;
+  }
+}
 </style>
