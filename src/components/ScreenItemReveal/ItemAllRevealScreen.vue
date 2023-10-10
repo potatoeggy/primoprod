@@ -2,7 +2,7 @@
   <audio autoplay>
     <source src="@/assets/audio/result-list.ogg" />
   </audio>
-  <div class="win">
+  <div class="win" @click.self="exit">
     <svg viewBox="0 0 302.22 1333.94" height="0" width="0">
       <clipPath
         id="wishframe"
@@ -23,6 +23,7 @@
         width: 100%;
         z-index: 2;
       "
+      @click.self="exit"
     >
       <close-button @clicked="exit"></close-button>
     </div>
