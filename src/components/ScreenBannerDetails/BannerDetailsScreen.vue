@@ -119,7 +119,6 @@ div.content {
 
 .navbar > div:hover,
 .navbar > div:active {
-  cursor: pointer;
   color: white;
 }
 

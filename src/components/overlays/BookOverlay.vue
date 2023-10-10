@@ -63,7 +63,6 @@ const emit = defineEmits(["exit"]);
   width: 4%;
   aspect-ratio: 1/1;
   right: 3%;
-  cursor: pointer;
 }
 
 * {
