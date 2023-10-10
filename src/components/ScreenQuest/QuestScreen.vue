@@ -184,7 +184,7 @@ onMounted(() => {
                 @click="setCurrentQuest(quest)"
               >
                 <div class="justify-between">
-                  {{ quest.name }}
+                  <span class="cap-text">{{ quest.name }}</span>
                   <img v-if="category.icon" :src="icons(category.icon)" />
                 </div>
               </div>
@@ -210,6 +210,7 @@ onMounted(() => {
             v-model="currentQuest.name"
             type="text"
             class="quest-desc-name"
+            maxlength="25"
           />
           <img
             v-if="!currentQuest.uneditable"
@@ -270,6 +271,11 @@ onMounted(() => {
 </template>
 
 <style scoped>
+.cap-text {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  text-wrap: nowrap;
+}
 .main {
   position: fixed;
   top: 0;
@@ -371,6 +377,8 @@ onMounted(() => {
   margin-bottom: 0.5rem;
   text-shadow: 1px 2px rgba(2, 2, 2, 0.2);
   letter-spacing: -0.05rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .quest-header-white {
