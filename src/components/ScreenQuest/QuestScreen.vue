@@ -210,7 +210,7 @@ onMounted(() => {
             v-model="currentQuest.name"
             type="text"
             class="quest-desc-name"
-            maxlength="25"
+            maxlength="40"
           />
           <img
             v-if="!currentQuest.uneditable"
@@ -329,7 +329,7 @@ onMounted(() => {
   width: 90%;
   background-color: #2c3848cc;
   color: #e4ddd4;
-  height: 4rem;
+  height: 4.5rem;
   font-size: 1.25rem;
   text-align: left;
   letter-spacing: -0.05rem;
@@ -358,7 +358,7 @@ onMounted(() => {
 .quest-box > div {
   margin: 0.25rem;
   width: 100%;
-  height: 2.4rem;
+  height: 2.9rem;
   padding-left: 2rem;
   padding: 0.5rem;
   overflow: hidden;
@@ -472,6 +472,10 @@ textarea.quest-description {
 .icon-img {
   height: 3.75rem;
   margin: auto;
+}
+
+.justify-between > img {
+  height: 100%;
 }
 
 .body {
