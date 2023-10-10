@@ -131,8 +131,8 @@ export default defineComponent({
               +(this.inventory.inventory[a.id] === 1) -
               +(this.inventory.inventory[b.id] === 1)
           )
-          .sort((a, b) => a.type.localeCompare(b.type))
-          .sort((a, b) => a.name.localeCompare(b.name));
+          .sort((a, b) => a.name.localeCompare(b.name))
+          .sort((a, b) => a.type.localeCompare(b.type));
       return [...item(5), ...item(4), ...item(3)];
     },
   },
@@ -202,12 +202,9 @@ img.element {
   margin-bottom: 0.5rem;
 }
 .asset-box {
-  background-image: linear-gradient(
-    to bottom,
-    rgb(82, 107, 129),
-    rgb(187, 197, 172),
-    rgb(82, 107, 129)
-  );
+  background-image: url("@/assets/images/resultcard-bg.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
   width: 97%;
   height: 99%;
   clip-path: url(#wishframe);
@@ -241,6 +238,7 @@ img.element {
   opacity: 0;
   color: rgb(136, 98, 238);
   animation: all-slide-left 0.5s ease-out var(--ani-delay) forwards;
+  overflow: hidden;
 }
 
 @keyframes all-slide-left {
