@@ -90,9 +90,8 @@ import GameMenu from "@/components/game/GameMenu.vue";
 // empty comment below is to maintain multi-line array
 // to keep prettier happy (do not remove)
 const BANNERS = [
-  "moment-of-bloom-2", //
-  "drifting-luminescence-2",
-  "the-transcendent-one-returns",
+  "moment-of-bloom-4", //
+  "decree-of-the-deeps",
   "wanderlust-invocation",
   "everything",
 ];
