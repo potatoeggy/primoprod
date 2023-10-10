@@ -78,7 +78,6 @@ div.content {
   color: #595252;
   padding-left: 1rem;
   padding-right: 1rem;
-  letter-spacing: -0.05rem;
   height: 100%;
   display: flex;
   flex-direction: column;

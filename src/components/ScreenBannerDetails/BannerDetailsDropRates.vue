@@ -1,16 +1,22 @@
 <script setup lang="ts">
 import { ElementDatabase, ItemDatabase } from "@/state/Gacha";
 import { Banner, Item } from "@/types";
+import CharacterProfile from "./CharacterProfile.vue";
+import { computed } from "vue";
 
 const props = defineProps<{ banner: Banner }>();
 
-const featured5Stars = props.banner.featuredDrops
-  .filter((c) => ItemDatabase[c].rarity === 5)
-  .map((c) => ItemDatabase[c]);
+const featured5Stars = computed(() =>
+  props.banner.featuredDrops
+    .filter((c) => ItemDatabase[c].rarity === 5)
+    .map((c) => ItemDatabase[c])
+);
 
-const featured4Stars = props.banner.featuredDrops
-  .filter((c) => ItemDatabase[c].rarity === 4)
-  .map((c) => ItemDatabase[c]);
+const featured4Stars = computed(() =>
+  props.banner.featuredDrops
+    .filter((c) => ItemDatabase[c].rarity === 4)
+    .map((c) => ItemDatabase[c])
+);
 
 const getCharacterElementStyle = (character: Item) => {
   return {
@@ -31,51 +37,57 @@ const icons = (path: string) => {
 <template>
   <div class="container">
     <p>Increased Drop Rates!</p>
-    <div>
-      <p class="five-star star-text">
-        <span class="star-holder"
-          ><span v-for="index in 5" :key="index" class="star-img"></span
-        ></span>
-        Percentage of 5-Star Item Drops: 50.000%
-      </p>
-      <div class="character-profile">
-        <div>
-          <p
-            v-for="(c, i) in featured5Stars"
-            :key="i"
-            :style="getCharacterElementStyle(c)"
-          >
-            {{ c.name }}
-          </p>
-        </div>
-        <div class="img-holder">
-          <div v-for="(c, i) in featured5Stars" :key="i" class="item-pic-box">
-            <img class="profile" :src="icons(`./${c.id}.webp`)" />
-            <p style="text-align: center">Lv. 1</p>
+    <div class="flex">
+      <div class="grow">
+        <p class="five-star star-text">
+          <span class="star-holder"
+            ><span v-for="index in 5" :key="index" class="star-img"></span
+          ></span>
+          Percentage of 5-Star Item Drops: 50.000%
+        </p>
+        <div class="character-profile">
+          <div>
+            <p
+              v-for="(c, i) in featured5Stars"
+              :key="i"
+              :style="getCharacterElementStyle(c)"
+            >
+              {{ c.name }}
+            </p>
+          </div>
+          <div>
+            <CharacterProfile
+              v-for="(c, i) in featured5Stars"
+              :key="i"
+              :character="c"
+            />
           </div>
         </div>
       </div>
 
-      <p class="four-star star-text">
-        <span class="star-holder"
-          ><span v-for="index in 4" :key="index" class="star-img"></span
-        ></span>
-        Percentage of 4-Star Item Drops: 50.000%
-      </p>
-      <div class="character-profile">
-        <div>
-          <p
-            v-for="(c, i) in featured4Stars"
-            :key="i"
-            :style="getCharacterElementStyle(c)"
-          >
-            {{ c.name }}
-          </p>
-        </div>
-        <div class="img-holder">
-          <div v-for="(c, i) in featured4Stars" :key="i" class="item-pic-box">
-            <img class="profile" :src="icons(`./${c.id}.webp`)" />
-            <p style="text-align: center">Lv. 1</p>
+      <div class="grow">
+        <p class="four-star star-text">
+          <span class="star-holder"
+            ><span v-for="index in 4" :key="index" class="star-img"></span
+          ></span>
+          Percentage of 4-Star Item Drops: 50.000%
+        </p>
+        <div class="character-profile">
+          <div>
+            <p
+              v-for="(c, i) in featured4Stars"
+              :key="i"
+              :style="getCharacterElementStyle(c)"
+            >
+              {{ c.name }}
+            </p>
+          </div>
+          <div>
+            <CharacterProfile
+              v-for="(c, i) in featured4Stars"
+              :key="i"
+              :character="c"
+            />
           </div>
         </div>
       </div>
@@ -84,20 +96,19 @@ const icons = (path: string) => {
 </template>
 
 <style scoped>
+.flex {
+  display: flex;
+  flex-direction: column;
+}
+
+.grow {
+  height: 50%;
+}
+
 .img-holder {
   display: flex;
   align-items: center;
   gap: 0.5em;
-}
-
-.item-pic-box {
-  background: white;
-  border: 0.15em solid rgba(128, 128, 128, 0.2);
-  border-radius: 0.25em;
-  aspect-ratio: 9/11;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
 }
 
 .item-pic-box > p {
@@ -169,33 +180,33 @@ img.profile {
 }
 .character-profile {
   display: flex;
-  width: 100%;
   background: #fbf6ee;
   border: 1px solid rgba(128, 128, 128, 0.2);
-  min-height: 0;
   flex-grow: 1;
+  max-height: 80%;
+  padding: 1em;
+  padding-left: 2em;
+  gap: 1em;
+  box-sizing: border-box;
 }
 
 .character-profile > div:nth-child(1) {
   /* the text names */
-  width: 28%;
-  padding: 1em;
-  padding-left: 2em;
-  font-size: 0.8em;
   flex-wrap: wrap;
   display: flex;
   flex-direction: column;
-}
-
-.character-profile > div:nth-child(1) > p {
-  margin-bottom: 0.2em;
+  width: 28%;
+  flex-grow: 1;
+  gap: 0.3rem;
 }
 
 .character-profile > div:nth-child(2) {
   /* the avatars */
-  flex-grow: 1;
-  padding: 1em;
+  flex-grow: 4;
   flex-wrap: wrap;
   display: flex;
+  align-items: flex-start;
+  gap: 2%;
+  width: 72%;
 }
 </style>

@@ -99,6 +99,7 @@ $default-bg: #4d6d95;
     --default-border: #eee3c7;
     transform: scale(1.1);
   }
+
   & > .img-container {
     width: 100%;
     height: 150%;
