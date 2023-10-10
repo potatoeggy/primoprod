@@ -121,8 +121,8 @@ export default defineComponent({
 
 img {
   vertical-align: middle;
-  height: 2rem;
-  margin-left: 0.3rem;
+  height: 2.2rem;
+  margin-left: 0.1rem;
   filter: drop-shadow(0px 1px 1px #222);
 }
 
