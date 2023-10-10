@@ -51,6 +51,7 @@ export interface Banner {
   id: string;
   storage: string;
   drops: string[];
+  headerCharacter?: string;
   featuredDrops: string[];
   styles: StylisedText[];
   description: string;

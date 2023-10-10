@@ -14,7 +14,10 @@ const props = withDefaults(
 );
 
 // take first featured char
-const iconChar = props.banner.featuredDrops[0] ?? DEFAULT_BANNER_ICON_CHAR;
+const iconChar =
+  props.banner.headerCharacter ??
+  props.banner.featuredDrops[0] ??
+  DEFAULT_BANNER_ICON_CHAR;
 
 const transforms = HeaderTransforms[iconChar];
 const x = `${transforms?.x ?? 0}%`;

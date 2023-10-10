@@ -1,4 +1,5 @@
 {
+  "ganyu": { "y": 11, "scale": 130 },
   "hu-tao": { "x": -10 },
   "kokomi": { "x": 5, "scale": 93 },
   "neuvillette": { "x": 3, "y": -30, "scale": 60 },

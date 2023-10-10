@@ -3,6 +3,7 @@
   "id": "everything",
   "storage": "everything",
   "description": "Everyone Wish",
+  "headerCharacter": "ganyu",
   "featuredDrops": [],
   "drops": [
     "albedo",
