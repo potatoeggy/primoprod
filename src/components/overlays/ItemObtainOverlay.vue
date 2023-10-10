@@ -145,7 +145,7 @@ const exit = () => {
 }
 
 .item-box-graphics:hover {
-  border: 0.175rem solid white;
+  outline: 0.175rem solid white;
   transform: scale(1.05);
   transition-duration: 0.05s;
 }

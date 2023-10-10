@@ -339,7 +339,7 @@ onMounted(() => {
 
 .quest-box:hover:not(.quest-box-active) {
   transform: scale(102%);
-  border: 0.15rem solid #c7b696;
+  outline: 0.15rem solid #c7b696;
 }
 
 .quest-box-active,
@@ -360,7 +360,7 @@ onMounted(() => {
 
 .quest-box-active > div,
 .quest-box:active > div {
-  border: 0.2rem solid #00000033;
+  outline: 0.2rem solid #00000033;
 }
 
 .quest-header,
@@ -426,6 +426,7 @@ textarea.quest-description {
   flex-direction: row;
   align-items: flex-start;
   height: 6rem;
+  padding: 0.2rem;
 }
 
 .reward-icon-graphics {
@@ -435,11 +436,13 @@ textarea.quest-description {
   width: 4rem;
   height: 4rem;
   border-radius: 0.5rem;
-  transition: border 0.1s;
+  transition: outline 0.1s;
+  position: relative;
 }
 
 .reward-icon-graphics:hover {
-  border: 0.2rem solid white;
+  /* border: 0.2rem solid white; */
+  outline: 0.2rem solid white;
 }
 
 .reward-icon-graphics:active {
@@ -449,7 +452,7 @@ textarea.quest-description {
 .quantity-text {
   position: absolute;
   color: white;
-  width: 4rem;
+  width: 100%;
   height: 1rem;
   background-color: #00000055;
   border-bottom-right-radius: 0.5rem;
@@ -471,6 +474,7 @@ textarea.quest-description {
   flex-direction: row;
   height: 85%;
   width: 85%;
+  overflow-x: visible;
 }
 
 .quest-selector {
@@ -478,12 +482,12 @@ textarea.quest-description {
   width: 40%;
   display: flex;
   flex-direction: column;
-  padding-left: 0.5rem;
+  overflow-x: visible;
 }
 
 .quest-selector-list {
-  overflow-x: visible;
-  overflow-y: auto;
+  padding-left: 0.5rem;
+  overflow-y: scroll;
   max-height: 80%;
   margin-bottom: 0;
 }
