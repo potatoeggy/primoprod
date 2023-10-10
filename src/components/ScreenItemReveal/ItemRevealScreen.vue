@@ -458,7 +458,7 @@ export default defineComponent({
 }
 
 .active-img-weapon {
-  max-height: 45%;
+  max-height: 80%;
   /* max-width: 10%; */
   filter: drop-shadow(0.75rem 0.5rem 0 black);
 }

@@ -198,8 +198,7 @@ export default defineComponent({
 }
 
 img.element {
-  width: 50%;
-  margin-bottom: 0.5rem;
+  width: 65%;
 }
 .asset-box {
   background-image: url("@/assets/images/resultcard-bg.svg");
