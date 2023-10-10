@@ -402,6 +402,7 @@ export default defineComponent({
   display: flex;
   justify-content: center;
   align-items: center;
+  padding-top: 1rem;
   gap: 2rem;
 }
 
@@ -434,7 +435,7 @@ export default defineComponent({
   max-height: min-content;
   padding-left: 2rem;
   padding-right: 2rem;
-  padding-top: 2rem;
+  padding-top: 1rem;
 }
 
 #header.exit-animation {

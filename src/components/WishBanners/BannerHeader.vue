@@ -79,9 +79,9 @@ $default-bg: #4d6d95;
 }
 
 .button {
-  aspect-ratio: 175/75;
+  aspect-ratio: 175/63;
   background: $default-bg;
-  min-width: 8rem;
+  min-width: 10.5rem;
   max-width: calc(100% / 3);
   outline: none;
   border: none;
@@ -116,14 +116,14 @@ $default-bg: #4d6d95;
       min-height: 100%;
       min-width: 150%;
       transform: scale(calc(0% + v-bind(scale)))
-        translate(calc(v-bind(x)), calc(18% + v-bind(y)));
+        translate(calc(v-bind(x)), calc(5% + v-bind(y)));
       object-fit: cover;
       transition: transform 0.2s ease-in-out;
     }
   }
   &.selected img {
     transform: scale(calc(0% + v-bind(scale)))
-      translate(calc(v-bind(x)), calc(10% + v-bind(y)));
+      translate(calc(v-bind(x)), calc(-1% + v-bind(y)));
   }
 }
 
@@ -157,6 +157,12 @@ i.gi-companion {
   .selected &,
   &:hover {
     --highlight: #f0eacd;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .button {
+    min-width: 10rem;
   }
 }
 </style>
