@@ -28,9 +28,9 @@ Some implementation details were inspired by https://genshin.thekima.com, https:
 yarn install
 ```
 
-For Electron (desktop) builds, **Node 14+** and **Electron 11+** is required.
+For Electron (desktop) builds, **Node 16+** and **Electron 13+** is required.
 
-For Capacitor (Android) builds, **Node 14+**, **Java 8-16**, and the **Android SDK with platform API 21-31** is required.
+For Capacitor (Android) builds, **Node 16+**, **Java 11+**, and the **Android SDK with platform API 21-31** is required.
 
 ### Compiles and hot-reloads for development
 

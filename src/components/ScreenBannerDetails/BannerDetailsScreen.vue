@@ -78,7 +78,6 @@ div.content {
   color: #595252;
   padding-left: 1rem;
   padding-right: 1rem;
-  letter-spacing: -0.05rem;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -125,7 +124,7 @@ div.content {
 }
 
 .navbar > div.selected {
-  background: url("../../assets/images/ui-book-selector.png");
+  background: url("../../assets/images/ui-book-selector.webp");
   background-position: center;
   background-repeat: no-repeat;
   background-size: 100% 100%;

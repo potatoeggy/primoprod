@@ -31,6 +31,14 @@
       "description": "Kreideprinz",
       "rarity": 5
     },
+    "alhaitham": {
+      "name": "Alhaitham",
+      "id": "alhaitham",
+      "type": "Character",
+      "element": "Dendro",
+      "description": "Admonishing Instruction",
+      "rarity": 5
+    },
     "ayaka": {
       "name": "Kamisato Ayaka",
       "id": "ayaka",
@@ -45,6 +53,30 @@
       "type": "Character",
       "element": "Hydro",
       "description": "Pillar of Fortitude",
+      "rarity": 5
+    },
+    "baizhu": {
+      "name": "Baizhu",
+      "id": "baizhu",
+      "type": "Character",
+      "element": "Hydro",
+      "description": "Beyond Mortality",
+      "rarity": 5
+    },
+    "cyno": {
+      "name": "Cyno",
+      "id": "cyno",
+      "type": "Character",
+      "element": "Electro",
+      "description": "Judicator of Secrets",
+      "rarity": 5
+    },
+    "dehya": {
+      "name": "Dehya",
+      "id": "dehya",
+      "type": "Character",
+      "element": "Pyro",
+      "description": "Flame-Mane",
       "rarity": 5
     },
     "diluc": {
@@ -127,12 +159,44 @@
       "description": "Pearl of Wisdom",
       "rarity": 5
     },
+    "lyney": {
+      "name": "Lyney",
+      "id": "lyney",
+      "type": "Character",
+      "element": "Pyro",
+      "description": "Spectacle of Phantasmagoria",
+      "rarity": 5
+    },
     "mona": {
       "name": "Mona",
       "id": "mona",
       "type": "Character",
       "element": "Hydro",
       "description": "Astral Reflection",
+      "rarity": 5
+    },
+    "nahida": {
+      "name": "Nahida",
+      "id": "nahida",
+      "type": "Character",
+      "element": "Dendro",
+      "description": "Physic of Purity",
+      "rarity": 5
+    },
+    "neuvillette": {
+      "name": "Neuvillette",
+      "id": "neuvillette",
+      "type": "Character",
+      "element": "Hydro",
+      "description": "Ordainer of Inexorable Judgment",
+      "rarity": 5
+    },
+    "nilou": {
+      "name": "Nilou",
+      "id": "nilou",
+      "type": "Character",
+      "element": "Hydro",
+      "description": "Dance of Lotuslight",
       "rarity": 5
     },
     "qiqi": {
@@ -167,12 +231,28 @@
       "description": "Childe",
       "rarity": 5
     },
+    "tighnari": {
+      "name": "Tighnari",
+      "id": "tighnari",
+      "type": "Character",
+      "element": "Dendro",
+      "description": "Verdant Strider",
+      "rarity": 5
+    },
     "venti": {
       "name": "Venti",
       "id": "venti",
       "type": "Character",
       "element": "Anemo",
       "description": "Windborne Bard",
+      "rarity": 5
+    },
+    "wanderer": {
+      "name": "Wanderer",
+      "id": "wanderer",
+      "type": "Character",
+      "element": "Anemo",
+      "description": "Eons Adrift",
       "rarity": 5
     },
     "xiao": {
@@ -189,6 +269,14 @@
       "type": "Character",
       "element": "Electro",
       "description": "Astute Amusement",
+      "rarity": 5
+    },
+    "yelan": {
+      "name": "Yelan",
+      "id": "yelan",
+      "type": "Character",
+      "element": "Hydro",
+      "description": "Valley Orchid",
       "rarity": 5
     },
     "yoimiya": {
@@ -239,12 +327,28 @@
       "description": "Trial by Fire",
       "rarity": 4
     },
+    "candace": {
+      "name": "Candace",
+      "id": "candace",
+      "type": "Character",
+      "element": "Hydro",
+      "description": "Golden Vow",
+      "rarity": 4
+    },
     "chongyun": {
       "name": "Chongyun",
       "id": "chongyun",
       "type": "Character",
       "element": "Cryo",
       "description": "Frozen Ardor",
+      "rarity": 4
+    },
+    "collei": {
+      "name": "Collei",
+      "id": "collei",
+      "type": "Character",
+      "element": "Dendro",
+      "description": "Sprout of Rebirth",
       "rarity": 4
     },
     "diona": {
@@ -255,12 +359,36 @@
       "description": "Kätzlein Cocktail",
       "rarity": 4
     },
+    "dori": {
+      "name": "Dori",
+      "id": "dori",
+      "type": "Character",
+      "element": "Electro",
+      "description": "Treasure of Dream Garden",
+      "rarity": 4
+    },
+    "faruzan": {
+      "name": "Faruzan",
+      "id": "faruzan",
+      "type": "Character",
+      "element": "Anemo",
+      "description": "Enigmatic Machinist",
+      "rarity": 4
+    },
     "fischl": {
       "name": "Fischl",
       "id": "fischl",
       "type": "Character",
       "element": "Electro",
       "description": "Prinzessin der Verurteilung",
+      "rarity": 4
+    },
+    "freminet": {
+      "name": "Freminet",
+      "id": "freminet",
+      "type": "Character",
+      "element": "Cryo",
+      "description": "Yearning for Unseen Depths",
       "rarity": 4
     },
     "gorou": {
@@ -279,12 +407,60 @@
       "description": "Frostwind Swordsman",
       "rarity": 4
     },
+    "kaveh": {
+      "name": "Kaveh",
+      "id": "kaveh",
+      "type": "Character",
+      "element": "Dendro",
+      "description": "Empyrean Reflection",
+      "rarity": 4
+    },
+    "kirara": {
+      "name": "Kirara",
+      "id": "kirara",
+      "type": "Character",
+      "element": "Dendro",
+      "description": "Cat Upon the Eaves",
+      "rarity": 4
+    },
+    "kuki-shinobu": {
+      "name": "Kuki Shinobu",
+      "id": "kuki-shinobu",
+      "type": "Character",
+      "element": "Electro",
+      "description": "Mender of Tribulations",
+      "rarity": 4
+    },
+    "layla": {
+      "name": "Layla",
+      "id": "layla",
+      "type": "Character",
+      "element": "Cryo",
+      "description": "Fantastical Evening Star",
+      "rarity": 4
+    },
     "lisa": {
       "name": "Lisa",
       "id": "lisa",
       "type": "Character",
       "element": "Electro",
       "description": "Witch of Purple Rose",
+      "rarity": 4
+    },
+    "lynette": {
+      "name": "Lynette",
+      "id": "lynette",
+      "type": "Character",
+      "element": "Anemo",
+      "description": "Elegance in the Shadows",
+      "rarity": 4
+    },
+    "mika": {
+      "name": "Mika",
+      "id": "mika",
+      "type": "Character",
+      "element": "Cryo",
+      "description": "Coordinates of Clear Frost",
       "rarity": 4
     },
     "ningguang": {
@@ -335,6 +511,14 @@
       "description": "Mujina Ninja",
       "rarity": 4
     },
+    "shikanoin-heizou": {
+      "name": "Shikanoin Heizou",
+      "id": "shikanoin-heizou",
+      "type": "Character",
+      "element": "Anemo",
+      "description": "Analytical Harmony",
+      "rarity": 4
+    },
     "sucrose": {
       "name": "Sucrose",
       "id": "sucrose",
@@ -381,6 +565,14 @@
       "type": "Character",
       "element": "Pyro",
       "description": "Wise Innocence",
+      "rarity": 4
+    },
+    "yaoyao": {
+      "name": "Yaoyao",
+      "id": "yaoyao",
+      "type": "Character",
+      "element": "Dendro",
+      "description": "Burgeoning Grace",
       "rarity": 4
     },
     "yun-jin": {

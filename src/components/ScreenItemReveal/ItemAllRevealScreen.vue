@@ -76,12 +76,11 @@
 
 <script lang="ts">
 import Inventory from "@/state/Inventory";
-import { Item, ItemStringQuantity, ItemTransform } from "@/types";
+import { ItemTransforms } from "@/state/Gacha";
+import { Item, ItemStringQuantity } from "@/types";
 import { defineComponent } from "vue";
-import ItemTF from "@/data/ItemTransforms.json";
-import CloseButton from "../shared/CloseButton.vue";
 
-const ItemTransforms: { [key: string]: ItemTransform } = ItemTF;
+import CloseButton from "../shared/CloseButton.vue";
 
 export default defineComponent({
   components: { CloseButton },

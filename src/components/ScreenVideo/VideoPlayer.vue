@@ -7,7 +7,7 @@ const props = withDefaults(
     pulls: number;
     stars: number;
     preloader?: boolean;
-    preloadDrops: Item[];
+    preloadDrops?: Item[];
   }>(),
   { preloadDrops: () => [] }
 );
