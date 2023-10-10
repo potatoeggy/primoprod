@@ -279,7 +279,7 @@ onMounted(() => {
   display: flex;
   flex-direction: column;
   align-items: center;
-  z-index: 1;
+  z-index: 2;
   animation: main-entry 0.1s ease-in 0s forwards;
 }
 
