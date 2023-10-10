@@ -279,6 +279,11 @@ export default defineComponent({
   src: local("Genshin"), url(./assets/fonts/Genshin.ttf) format("truetype");
 }
 
+/* for dev to silence webpack errors */
+iframe {
+  display: none;
+}
+
 #app {
   -webkit-font-smoothing: antialiased;
   text-align: center;

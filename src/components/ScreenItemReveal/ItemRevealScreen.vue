@@ -32,6 +32,10 @@
       />
     </audio>
   </template>
+  <button class="skip-button" type="button" @click="skip">
+    Skip
+    <span class="caret right"></span>
+  </button>
   <div class="item-picture" @click="nextItem">
     <!-- inner circle glow -->
     <div
@@ -287,11 +291,41 @@ export default defineComponent({
         return `${name}.webp`;
       }
     },
+    skip() {
+      if (this.lastRoll.length === 1) {
+        this.$emit("exit");
+      } else {
+        this.$emit("reveal-all");
+      }
+    },
   },
 });
 </script>
 
 <style scoped>
+.skip-button {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  color: white;
+  font-size: 2rem;
+  z-index: 3;
+  border: none;
+  background-color: transparent;
+  letter-spacing: -2px;
+}
+
+.caret {
+  width: 0;
+  height: 0;
+  display: inline-block;
+  border: 0.75rem solid transparent;
+}
+
+.caret.right {
+  border-left-color: white;
+}
+
 .display-none {
   display: none;
 }
