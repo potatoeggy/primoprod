@@ -3,7 +3,8 @@
   "id": "everything",
   "storage": "everything",
   "description": "Everyone Wish",
-  "featuredDrops": [
+  "featuredDrops": [],
+  "drops": [
     "albedo",
     "alhaitham",
     "amber",
@@ -115,6 +116,5 @@
     "yoimiya",
     "yun-jin",
     "zhongli"
-  ],
-  "drops": []
+  ]
 }
