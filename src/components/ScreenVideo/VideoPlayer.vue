@@ -94,6 +94,12 @@ onMounted(() => {
     <div style="display: none">
       <img ref="prefetch" src="@/assets/images/wish-reveal-background.webp" />
       <img
+        v-for="(bg, i) in ['claymore', 'bow', 'sword', 'polearm', 'catalyst']"
+        :key="i"
+        ref="prefetch"
+        :src="require(`@/assets/images/icon-bgs/bg-${bg}.webp`)"
+      />
+      <img
         v-for="(i, index) in preloadDrops"
         :key="index"
         ref="prefetch"

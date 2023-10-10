@@ -57,6 +57,20 @@
       }"
     ></div>
     <img
+      v-for="weapon in ['Bow', 'Catalyst', 'Claymore', 'Polearm', 'Sword']"
+      :key="weapon"
+      :src="getWeaponBgImage(weapon)"
+      :class="[
+        {
+          'active-bg-img': true,
+          nofilter: true,
+          'display-none': currentItem.element !== weapon || animationIndex < 0,
+          transparent: animationIndex <= 0,
+          'animate-weapon-bg': animationIndex === 1,
+        },
+      ]"
+    />
+    <img
       :src="currentItemImage"
       :class="{
         'animate-image': animationIndex === 1,
@@ -190,6 +204,7 @@ export default defineComponent({
         return `${this.currentItem.id}.webp`;
       }
     },
+
     currentItemAudio(): string {
       const name = `${this.currentItem.rarity}-star-wish-reveal${
         this.currentIndex === 0 ? "-first" : ""
@@ -263,11 +278,31 @@ export default defineComponent({
       audioRef.currentTime = 0;
       audioRef.play();
     },
+    getWeaponBgImage(weapon: string): string {
+      const name = `bg-${weapon.toLowerCase()}`;
+      const images = require.context("@/assets/images/icon-bgs/", false);
+      try {
+        return images(`./${name}.webp`);
+      } catch (error) {
+        return `${name}.webp`;
+      }
+    },
   },
 });
 </script>
 
 <style scoped>
+.display-none {
+  display: none;
+}
+
+.active-bg-img {
+  position: absolute;
+  height: 110%;
+  transition: opacity 0.3s;
+  transition-delay: 0.7s;
+  transform: translateX(1.5rem);
+}
 .element-glow-box {
   display: none;
   position: absolute;
@@ -389,8 +424,8 @@ export default defineComponent({
 }
 
 .active-img-weapon {
-  max-height: 60%;
-  max-width: 60%;
+  max-height: 45%;
+  /* max-width: 10%; */
   filter: drop-shadow(0.75rem 0.5rem 0 black);
 }
 
@@ -495,6 +530,13 @@ export default defineComponent({
   transform: translateX(0%);
 }
 
+.animate-weapon-bg {
+  animation-name: slide-right;
+  animation-duration: 1.1s;
+  animation-iteration-count: initial;
+  transform: translateX(0%);
+}
+
 .animate-image.active-img-weapon {
   animation-name: fade-in-slide-right, dropshadowslidein;
 }
@@ -513,6 +555,21 @@ export default defineComponent({
   }
   to {
     filter: brightness(100%);
+    transform: translateX(1.5rem);
+  }
+}
+.nofilter {
+  filter: none;
+}
+
+@keyframes slide-right {
+  from {
+    transform: translateX(0%);
+  }
+  70% {
+    transform: translateX(0%);
+  }
+  to {
     transform: translateX(1.5rem);
   }
 }
