@@ -13,7 +13,6 @@
     "postinstall": "electron-builder install-app-deps",
     "postuninstall": "electron-builder install-app-deps"
   },
-  "main": "background.js",
   "dependencies": {
     "@capacitor/android": "^5.4.2",
     "@capacitor/cli": "^5.4.2",
