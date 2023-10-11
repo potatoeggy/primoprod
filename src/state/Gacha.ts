@@ -100,50 +100,70 @@ export default class Gacha {
     return -1;
   }
 
-  rollTen(forceRarity: number | null = null): Item[] {
+  rollTen(forceMinRarity: number | null = null): Item[] {
     const result = [];
     for (let i = 0; i < 10; i++) {
-      result.push(this.rollOne(forceRarity));
+      result.push(this.rollOne(forceMinRarity));
     }
     return result;
   }
 
-  rollOne(forceRarity: number | null = null): Item {
-    return this.roll(forceRarity);
+  rollOne(forceMinRarity: number | null = null): Item {
+    return this.roll(forceMinRarity);
   }
 
-  roll(forceRarity: number | null = null): Item {
-    console.assert(this.state.pityCounter5 <= 90);
+  roll(forceMinRarity: number | null = null): Item {
     const probabilityRange =
       this.state.pityCounter5 >= this.SOFT_PITY_5_START
         ? this.SOFT_PITY_ODDS
         : this.STANDARD_ODDS;
     this.state.pullAttempts += 1;
 
-    const rolledRarity =
-      forceRarity ?? this.rollRandomRarityWithPity(probabilityRange);
+    const rolledRarity = this.rollRandomRarityWithPity(probabilityRange);
 
-    if (rolledRarity === 5) {
-      return this.get5StarItem();
-    }
-
-    // guarantees and specials
-    if (this.state.pityCounter5 >= this.HARD_PITY_5) {
-      return this.get5StarItem();
-    }
-
-    if (rolledRarity === 4) {
-      return this.get4StarItem();
-    }
-
-    if (this.state.pityCounter4 >= this.HARD_PITY_4) {
-      if (this.rollRandomRarityWithPity(probabilityRange) === 5) {
-        return this.get5StarItem();
+    const getCorrectRarityFromRoll = (): 3 | 4 | 5 => {
+      if (rolledRarity === 5) {
+        return 5;
       }
-      return this.get4StarItem();
+
+      if (this.state.pityCounter5 >= this.HARD_PITY_5) {
+        return 5;
+      }
+
+      if (rolledRarity === 4) {
+        return 4;
+      }
+
+      if (this.state.pityCounter4 >= this.HARD_PITY_4) {
+        return 4;
+      }
+
+      return 3;
+    };
+
+    let correctRarity: 5 | 4 | 3 = getCorrectRarityFromRoll();
+    if (forceMinRarity === 4) {
+      // we want to give rolling a 4 star 3 star odds and rolling a 5 star 4 star odds
+      correctRarity = Math.min(correctRarity + 1, 5) as 4 | 5;
+    } else if (forceMinRarity === 5) {
+      correctRarity = 5;
     }
 
-    return this.get3StarItem();
+    const oldFourStarPity = this.state.pityCounter4;
+
+    const item = this[`get${correctRarity}StarItem`]();
+
+    // SPECIAL CASE FOR FORCING PITY
+    // since you get a 5 star item when you hit 4 star pity,
+    // we want to reset 4 star pity instead of 5 star pity
+    if (forceMinRarity === 4) {
+      if (correctRarity === 5) {
+        this.state.pityCounter4 = 0;
+      } else {
+        this.state.pityCounter4 = oldFourStarPity + 1;
+      }
+    }
+    return item;
   }
 
   saveState(): void {
