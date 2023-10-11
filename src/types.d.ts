@@ -10,7 +10,6 @@ export interface Settings {
   winGuarantee: null | boolean;
   unlimitedHistoryScroll: boolean;
   showBannerPity: boolean;
-  everythingBanner: boolean;
 }
 
 export interface ShopItem {

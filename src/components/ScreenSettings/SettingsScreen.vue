@@ -3,6 +3,16 @@ import Paimon from "@/state/PaimonMoe";
 import { computed, ref } from "vue";
 import { useStore } from "vuex";
 import CancelConfirmButton from "../shared/CancelConfirmButton.vue";
+import MultiSelect from "@/components/shared/MultiSelect.vue";
+import { banners } from "@/state/Banners";
+import { ItemDatabase } from "@/state/Gacha";
+
+const bannerOptions = Object.values(banners).map((banner) => ({
+  id: banner.id,
+  label: `${banner.id} (${
+    ItemDatabase[banner.featuredDrops[0]]?.name ?? "no featured"
+  })`,
+}));
 
 const $store = useStore();
 
@@ -13,7 +23,6 @@ const settings = ref({
   winGuarantee: "" + ($store.state.settings.winGuarantee ?? ""),
   unlimitedHistoryScroll: $store.state.settings.unlimitedHistoryScroll,
   showBannerPity: $store.state.settings.showBannerPity,
-  everythingBanner: $store.state.settings.everythingBanner,
 });
 const showConfirmReset = ref(false);
 const paimon = Paimon.export();
@@ -29,7 +38,6 @@ function exit() {
     winGuarantee: !!(settings.value.winGuarantee || false) || null,
     unlimitedHistoryScroll: settings.value.unlimitedHistoryScroll,
     showBannerPity: settings.value.showBannerPity,
-    everythingBanner: settings.value.everythingBanner,
   };
   $store.commit("updateSettings", newSettings);
   emit("exit");
@@ -42,6 +50,11 @@ function resetAndRefresh() {
   }
   $store.commit("resetData");
   window.location.reload();
+}
+
+function updateActiveBanners(selected: string[]) {
+  console.log("NEW BANNERS", selected);
+  $store.commit("updateActiveBanners", selected);
 }
 </script>
 
@@ -87,14 +100,6 @@ function resetAndRefresh() {
       />
     </div>
     <div class="setting">
-      <p>Everyone is here?</p>
-      <input
-        v-model="settings.everythingBanner"
-        type="checkbox"
-        class="checkbox"
-      />
-    </div>
-    <div class="setting">
       <p>Show banner pity in history</p>
       <input
         v-model="settings.showBannerPity"
@@ -105,6 +110,14 @@ function resetAndRefresh() {
     <div class="setting">
       <p>Export <a href="https://paimon.moe">paimon.moe</a> wish data</p>
       <a :href="paimonExportJson" download="paimon.json">Download</a>
+    </div>
+    <div class="setting vertical">
+      <p>Active banners</p>
+      <MultiSelect
+        :options="bannerOptions"
+        :selected="$store.state.activeBanners"
+        @update-selected="updateActiveBanners"
+      />
     </div>
     <div class="center">
       <CancelConfirmButton
@@ -136,6 +149,12 @@ function resetAndRefresh() {
   align-items: center;
   justify-content: space-between;
   font-size: 1.5rem;
+}
+
+.setting.vertical {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
 }
 
 /* TODO: this is all copied straight from BannerDetails

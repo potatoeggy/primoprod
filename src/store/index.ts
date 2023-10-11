@@ -15,9 +15,14 @@ const store: Store<State> = createStore({
             winGuarantee: null,
             unlimitedHistoryScroll: false,
             showBannerPity: false,
-            everythingBanner: false,
           })
       ),
+      activeBanners: [
+        "decree-of-the-deeps",
+        "moment-of-bloom-4",
+        "wanderlust-invocation",
+        "everything",
+      ],
     };
   },
   mutations: {
@@ -27,6 +32,9 @@ const store: Store<State> = createStore({
     },
     resetData() {
       localStorage.clear();
+    },
+    updateActiveBanners(state, newBanners) {
+      state.activeBanners = newBanners;
     },
   },
 });

@@ -87,15 +87,6 @@ import { Banner, Item, ItemStringQuantity } from "@/types";
 import Inventory from "@/state/Inventory";
 import GameMenu from "@/components/game/GameMenu.vue";
 
-// empty comment below is to maintain multi-line array
-// to keep prettier happy (do not remove)
-const BANNERS = [
-  "moment-of-bloom-4", //
-  "decree-of-the-deeps",
-  "wanderlust-invocation",
-  "everything",
-];
-
 export default defineComponent({
   components: {
     WishBanners,
@@ -113,14 +104,6 @@ export default defineComponent({
   data() {
     return {
       // storage vars
-      gachas: BANNERS.map(
-        (id) =>
-          new Gacha(
-            require(`@/custom/banners/${id}.json`), // eslint-disable-line
-            undefined,
-            this.$store.state.settings
-          )
-      ),
       // state vars
       checkPullDialog: false,
       pullNumber: 1,
@@ -129,9 +112,6 @@ export default defineComponent({
       screen: "wish-banner",
       lastRoll: [] as Item[],
       lastRollSorted: [] as Item[],
-      banners: BANNERS.map((id) =>
-        require(`@/custom/banners/${id}.json`)
-      ) as Banner[],
       currentBannerIndex: 0,
       overlay: "",
       pullExtraRewards: [] as ItemStringQuantity[],
@@ -139,6 +119,21 @@ export default defineComponent({
     };
   },
   computed: {
+    gachas() {
+      return this.$store.state.activeBanners.map(
+        (id) =>
+          new Gacha(
+            require(`@/custom/banners/${id}.json`), // eslint-disable-line
+            undefined,
+            this.$store.state.settings
+          )
+      );
+    },
+    banners() {
+      return this.$store.state.activeBanners.map((id) =>
+        require(`@/custom/banners/${id}.json`)
+      ) as Banner[];
+    },
     standardGacha(): Gacha {
       return this.gachas[this.currentBannerIndex];
     },

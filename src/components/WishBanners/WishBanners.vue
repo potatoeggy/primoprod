@@ -29,18 +29,12 @@
     <div v-if="isMobile" class="mobile-header">
       <img src="@/assets/images/ui-wish.png" />
       <div class="mobile-header-holder">
-        <template v-for="(ban, index) of banners" :key="index">
-          <template
-            v-if="
-              ban.id !== 'everything' || $store.state.settings.everythingBanner
-            "
-          >
-            <banner-header
-              :banner="ban"
-              :is-selected="currentBannerIndex === index"
-              @click="changeBanner(index)"
-            />
-          </template>
+        <template v-for="(ban, index) of banners" :key="ban.id">
+          <banner-header
+            :banner="ban"
+            :is-selected="currentBannerIndex === index"
+            @click="changeBanner(index)"
+          />
         </template>
       </div>
     </div>
@@ -65,18 +59,11 @@
         </div>
         <div v-if="!isMobile" class="banner-header">
           <template v-for="(ban, index) of banners" :key="index">
-            <template
-              v-if="
-                !(ban.id === 'everything') ||
-                $store.state.settings.everythingBanner
-              "
-            >
-              <banner-header
-                :banner="ban"
-                :is-selected="currentBannerIndex === index"
-                @click="changeBanner(index)"
-              />
-            </template>
+            <banner-header
+              :banner="ban"
+              :is-selected="currentBannerIndex === index"
+              @click="changeBanner(index)"
+            />
           </template>
         </div>
         <div id="gems">
@@ -312,12 +299,6 @@ export default defineComponent({
       (
         document.getElementById("audioExitDialogDEPRECATED") as HTMLAudioElement
       ).play();
-      if (
-        !this.$store.state.settings.everythingBanner &&
-        this.banner.id === "everything"
-      ) {
-        this.$emit("change-banner", 0);
-      }
       this.showSettings = false;
     },
     exitEmit(): void {

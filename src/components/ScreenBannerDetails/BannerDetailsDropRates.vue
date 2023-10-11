@@ -23,15 +23,6 @@ const getCharacterElementStyle = (character: Item) => {
     color: ElementDatabase[character.element]?.color,
   };
 };
-
-const icons = (path: string) => {
-  const i = require.context("@/assets/images/icons/", false, /\.webp$/);
-  try {
-    return i(path);
-  } catch (err) {
-    return path;
-  }
-};
 </script>
 
 <template>
