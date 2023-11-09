@@ -71,6 +71,7 @@
     @exit="screen = 'wish-banner'"
   ></shop-screen>
   <game-menu v-if="screen === 'game'"></game-menu>
+  <FakeUid uid="606764237" />
 </template>
 
 <script lang="ts">
@@ -86,6 +87,7 @@ import Gacha from "@/state/Gacha";
 import { Banner, Item, ItemStringQuantity } from "@/types";
 import Inventory from "@/state/Inventory";
 import GameMenu from "@/components/game/GameMenu.vue";
+import FakeUid from "./components/overlays/FakeUid.vue";
 
 export default defineComponent({
   components: {
@@ -100,6 +102,7 @@ export default defineComponent({
     QuestScreen,
     ShopScreen,
     GameMenu,
+    FakeUid,
   },
   data() {
     return {
